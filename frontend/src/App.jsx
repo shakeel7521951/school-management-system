@@ -7,6 +7,8 @@ import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Complaints from "./pages/Complaints";
+import ComplaintForm from "./components/complaints/ComplaintForm";
 
 const MainFunction = () => {
   return (
@@ -24,6 +26,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/about", element: <AboutUs /> },
+      { path: "/complain", element: <Complaints /> },
       { path: "/contact-us", element: <ContactUs /> },
       { path: "/complainform", element: <ComplaintForm /> },
     ],
