@@ -9,6 +9,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Complaints from "./pages/Complaints";
 import ComplaintForm from "./components/complaints/ComplaintForm";
+import ComplaintStatus from "./components/complaints/ComplaintStatus";
+import ComplaintPage from "./components/complaints/ComplaintPage";
 
 const MainFunction = () => {
   return (
@@ -29,6 +31,7 @@ const router = createBrowserRouter([
       { path: "/complain", element: <Complaints /> },
       { path: "/contact-us", element: <ContactUs /> },
       { path: "/complainform", element: <ComplaintForm /> },
+      { path: "/complainstatus", element: <ComplaintForm /> },
     ],
   },
   { path: "/login", element: <Login /> },
