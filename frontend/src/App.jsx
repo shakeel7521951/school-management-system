@@ -3,14 +3,11 @@ import Footer from "./components/common/Footer";
 import Navbar from "./components/common/Navbar";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
-import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Complaints from "./pages/Complaints";
 import ComplaintForm from "./components/complaints/ComplaintForm";
-import ComplaintStatus from "./components/complaints/ComplaintStatus";
-import ComplaintPage from "./components/complaints/ComplaintPage";
 
 const MainFunction = () => {
   return (
@@ -38,6 +35,7 @@ const router = createBrowserRouter([
   { path: "/signup", element: <Signup /> },
 ]);
 function App() {
+ 
   return <RouterProvider router={router} />;
 }
 
