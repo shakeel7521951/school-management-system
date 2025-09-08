@@ -8,6 +8,8 @@ import ContactUs from "./pages/ContactUs";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
+
+
 const MainFunction = () => {
   return (
     <div>
@@ -31,6 +33,7 @@ const router = createBrowserRouter([
   { path: "/signup", element: <Signup /> },
 ]);
 function App() {
+ 
   return <RouterProvider router={router} />;
 }
 
