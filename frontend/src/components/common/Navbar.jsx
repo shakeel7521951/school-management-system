@@ -38,8 +38,8 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-10">
-              {['Home', 'About', 'Complaints', 'Features', 'Contact'].map((item) => (
+            <div className="hidden md:flex items-center space-x-15">
+              {['Home', 'About', 'Events', 'Contact'].map((item) => (
                 <a
                   key={item}
                   href="#"
@@ -89,7 +89,7 @@ const Navbar = () => {
           {isMenuOpen && (
             <div className="relative mt-4 md:hidden animate-slide-down">
               <div className="px-2 pt-2 pb-3 space-y-1 bg-indigo-900/50 backdrop-blur-sm rounded-lg border border-indigo-500/10">
-                {['Home', 'About', 'Complaints', 'Features', 'Contact'].map(
+                {['Home', 'About', 'Events','Contact'].map(
                   (item) => (
                     <a
                       key={item}

@@ -7,6 +7,7 @@ import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Event from "./pages/Event";
 
 const MainFunction = () => {
   return (
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/about", element: <AboutUs /> },
+      { path: "/event", element: <Event /> },
       { path: "/contact-us", element: <ContactUs /> },
     ],
   },
