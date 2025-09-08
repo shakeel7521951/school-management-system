@@ -27,7 +27,7 @@ export default function Footer() {
     },
   ];
 
-  const quickLinks = ["Home", "About", "Complaints", "Features","Contact"];
+  const quickLinks = ["Home", "About","Events","Contact"];
   const legalLinks = ["Privacy Policy", "Terms of Service", "Cookies"];
 
   useEffect(() => {
@@ -69,7 +69,7 @@ export default function Footer() {
               </h2>
             </div>
             <p className="text-indigo-100 mb-6 leading-relaxed">
-              Crafting exceptional digital experiences with innovative solutions and clean code.
+              Inspiring young minds through knowledge, creativity, discipline, and lifelong learning.
             </p>
 
             {/* Social Links */}
