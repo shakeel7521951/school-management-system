@@ -9,9 +9,9 @@ import KeyModules from '../components/about/KeyModules'
 import CoreFeatures from '../components/about/CoreFeatures'
 import Deliverables from '../components/about/Deliverables'
 import { motion } from 'framer-motion'
-import Link from "react-router-dom"
+import { Link } from 'react-router-dom'
 
-const About = () => {
+const AboutUs = () => {
   useEffect(() => {
     AOS.init({ duration: 1000, once: true })
   }, [])
@@ -20,24 +20,24 @@ const About = () => {
     <div className='w-[100%] overflow-hidden bg-gray-50 text-gray-800 font-inter'>
       {/* Hero Section */}
       <HeroSection />
-     <div className='text-center my-12'>
-  <Link to="/event">
-    <motion.button
-      whileHover={{
-        boxShadow: '0 12px 24px rgba(26, 68, 128, 0.5)'
-      }}
-      whileTap={{ scale: 0.95 }}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ type: 'spring', stiffness: 120, damping: 12 }}
-      className='relative inline-block bg-gradient-to-r from-[#1a4480] to-[#153567]
+      <div className='text-center my-12'>
+        <Link to='/event'>
+          <motion.button
+            whileHover={{
+              boxShadow: '0 12px 24px rgba(26, 68, 128, 0.5)'
+            }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: 'spring', stiffness: 120, damping: 12 }}
+            className='relative inline-block bg-gradient-to-r from-[#1a4480] to-[#153567]
                text-[#facc15] font-semibold px-12 py-4 rounded-full shadow-lg
                text-lg tracking-wide overflow-hidden transition-all duration-300 animate-bounce'
-    >
-      Upcoming Events
-    </motion.button>
-  </Link>
-</div>
+          >
+            Upcoming Events
+          </motion.button>
+        </Link>
+      </div>
 
       {/* Who We Are */}
       <WhoWeAre />
@@ -53,4 +53,4 @@ const About = () => {
   )
 }
 
-export default About
+export default AboutUs
