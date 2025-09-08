@@ -1,13 +1,21 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { FaGithub, FaYoutube, FaFacebookF, FaArrowRight, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 
 export default function Footer() {
+    const quickLinks = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Events", path: "/event" },
+    { name: "Contact", path: "/contact-us" },
+  ];
+
   const contacts = [
     {
       label: "Email",
       value: "john.doe@example.com",
-      href: "john.doe@example.com",
+      href: "mailto:john.doe@example.com", // 🔹 better: add "mailto:"
       icon: <FaEnvelope className="text-indigo-300" />,
       gradient: "from-indigo-400 to-purple-400",
     },
@@ -27,7 +35,6 @@ export default function Footer() {
     },
   ];
 
-  const quickLinks = ["Home", "About","Events","Contact"];
   const legalLinks = ["Privacy Policy", "Terms of Service", "Cookies"];
 
   useEffect(() => {
@@ -95,26 +102,26 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-6 relative inline-block text-white">
-              Quick Links
-              <span className="absolute -bottom-2 left-0 w-10 h-1 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full"></span>
-            </h3>
-            <ul className="space-y-3">
-              {quickLinks.map((link, i) => (
-                <li key={i}>
-                  <a
-                    href="#"
-                    className="flex items-center text-indigo-200 hover:text-white transition-all duration-300 group"
-                  >
-                    <FaArrowRight className="mr-2 text-xs text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <span className="relative group-hover:translate-x-2 transition-transform duration-300">
-                      {link}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+  <h3 className="text-lg font-semibold mb-6 relative inline-block text-white">
+    Quick Links
+    <span className="absolute -bottom-2 left-0 w-10 h-1 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full"></span>
+  </h3>
+  <ul className="space-y-3">
+    {quickLinks.map((link, i) => (
+      <li key={i}>
+        <Link
+          to={link.path}
+          className="flex items-center text-indigo-200 hover:text-white transition-all duration-300 group"
+        >
+          <FaArrowRight className="mr-2 text-xs text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <span className="relative group-hover:translate-x-2 transition-transform duration-300">
+            {link.name}
+          </span>
+        </Link>
+      </li>
+    ))}
+  </ul>
+</div>
 
           {/* Contact Information */}
           <div>
