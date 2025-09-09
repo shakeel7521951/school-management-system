@@ -20,6 +20,9 @@ const AboutUs = () => {
     <div className='w-[100%] overflow-hidden bg-gray-50 text-gray-800 font-inter'>
       {/* Hero Section */}
       <HeroSection />
+
+      
+    {/* upcoming events */}
       <div className='text-center my-12'>
         <Link to='/event'>
           <motion.button

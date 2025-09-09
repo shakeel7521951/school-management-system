@@ -53,19 +53,9 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
         >
-          {/* Primary Button */}
-          <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-            className='flex items-center gap-2 px-6 py-3 
-            bg-white text-[#1a4480] font-semibold rounded-full 
-            shadow-lg transition duration-300 
-            hover:bg-[#1a4480] hover:text-white hover:shadow-2xl'
-          >
-            <FaRocket /> Get Started
-          </motion.button>
+        
 
-          {/* Secondary Button */}
+          {/* Button */}
           <Link to='/contact-us'>
             <motion.button
               whileHover={{ scale: 1.08 }}
