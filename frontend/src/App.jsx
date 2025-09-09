@@ -14,6 +14,7 @@ import AdminComplain from "./pages/dashboard/AdminComplain";
 import AboutUs from "./pages/AboutUs";
 import Complaints from "./pages/Complaints";
 import ComplaintForm from "./components/complaints/ComplaintForm";
+import Users  from "./pages/dashboard/Users";
 
 const MainFunction = () => {
   return (
