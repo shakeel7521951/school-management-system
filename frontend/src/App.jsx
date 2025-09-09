@@ -7,6 +7,9 @@ import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Sidebaar from "./components/dashboard/common/Sidebaar";
+import Navbarr from "./components/dashboard/common/Navbar";
+import Overview from "./pages/dashboard/Overview";
 
 const MainFunction = () => {
   return (
@@ -14,6 +17,16 @@ const MainFunction = () => {
       <Navbar />
       <Outlet />
       <Footer />
+    </div>
+  );
+};
+
+const AdminRoute = () => {
+  return (
+    <div>
+      <Navbarr />
+      <Sidebaar />
+      <Outlet />
     </div>
   );
 };
@@ -29,6 +42,10 @@ const router = createBrowserRouter([
   },
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
+  {
+    element: <AdminRoute />,
+    children: [{ path: "/overview", element: <Overview /> }],
+  },
 ]);
 function App() {
   return <RouterProvider router={router} />;
