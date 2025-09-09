@@ -53,20 +53,19 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
         >
-        
-
           {/* Button */}
           <Link to='/contact-us'>
-            <motion.button
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.95 }}
+            <button
+              data-aos='zoom-in'
+              data-aos-delay='400'
+              data-aos-duration='800'
               className='flex items-center gap-2 px-6 py-3 
-            border border-white text-white font-semibold rounded-full 
-            shadow-lg transition duration-300 
-            hover:bg-white hover:text-[#1a4480] hover:shadow-2xl'
+    border border-white text-white font-semibold rounded-full 
+    shadow-md transition-all duration-300 
+    hover:bg-white hover:text-[#1a4480] hover:shadow-lg'
             >
-              <FaPhoneAlt /> Contact Us
-            </motion.button>
+              <FaPhoneAlt className='text-lg' /> Contact Us
+            </button>
           </Link>
         </motion.div>
       </motion.div>
