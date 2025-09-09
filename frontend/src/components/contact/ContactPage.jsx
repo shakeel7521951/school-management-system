@@ -39,9 +39,9 @@ const ContactPage = () => {
         className="text-center relative py-20 sm:py-32 md:py-40 text-white bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('https://allonehealth.com/wp-content/uploads/2022/07/iStock-1358014313-scaled-1.jpg')" }}
       >
-        <div className="absolute inset-0 bg-black/30"></div>
+        <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative z-10 px-4">
-          <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-[#04295e] mb-4 sm:mb-6" data-aos="fade-down">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl pt-14  font-extrabold text-white mb-4 sm:mb-6" data-aos="fade-down">
             Get In Touch
           </h1>
           <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto text-white font-semibold" data-aos="fade-up">
