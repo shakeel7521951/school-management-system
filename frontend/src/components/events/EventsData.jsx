@@ -27,7 +27,7 @@ const EventsData = () => {
       description: "Annual sports competition between different houses. All parents are invited.",
       fullDescription: "Our Annual Sports Day is a celebration of athleticism, teamwork, and school spirit. Students from all grades will compete in various track and field events. The day will begin with an opening ceremony featuring our marching band and the traditional torch lighting. Medals will be awarded to winners in each category, and the house with the most points will receive the Championship Trophy. Food and refreshment stalls will be available throughout the day.",
       category: "sports",
-      image: "https://images.unsplash.com/photo-1544984243-ec57ea16fe25?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+      image: "./events/1.avif",
       participants: "All students from grades 3-12",
       organizers: "Physical Education Department",
       importantNotes: "Please wear appropriate sports attire and house colors. Bring water bottles and sunscreen."
@@ -41,7 +41,7 @@ const EventsData = () => {
       description: "Students will showcase their science projects and experiments.",
       fullDescription: "The Science Fair Exhibition showcases innovative projects from our talented students. This year's theme is 'Sustainable Solutions for Tomorrow'. Projects range from renewable energy models to ecological conservation experiments. A panel of judges including faculty and local scientists will evaluate projects based on creativity, scientific method, and presentation. Parents and community members are encouraged to attend and appreciate the scientific curiosity of our students.",
       category: "academic",
-      image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+      image: "./events/2.avif",
       participants: "Science club members and selected students",
       organizers: "Science Department",
       importantNotes: "Project setup begins at 8:00 AM. Participants must be present at their stations."
@@ -55,7 +55,7 @@ const EventsData = () => {
       description: "Quarterly parent-teacher meeting to discuss student progress.",
       fullDescription: "The Parent-Teacher Meeting provides an opportunity for parents to discuss their child's academic progress, strengths, and areas for improvement with teachers. Appointments are scheduled in 15-minute intervals to ensure each parent receives adequate attention. Please bring any questions or concerns you may have about your child's education. Progress reports will be distributed during the meeting.",
       category: "academic",
-      image: "https://images.unsplash.com/photo-1584697964358-3e14ca57658b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+      image: "./events/3.avif",
       participants: "Parents and guardians",
       organizers: "School Administration",
       importantNotes: "Please sign up for time slots in advance through the school portal."
@@ -69,7 +69,7 @@ const EventsData = () => {
       description: "Annual music concert featuring performances by school bands and choirs.",
       fullDescription: "Our annual music concert showcases the musical talents of our students. The event will feature performances by the school orchestra, jazz band, choir, and several small ensembles. This year's program includes classical pieces, contemporary arrangements, and original compositions by our students. The concert is directed by our music faculty and promises to be an evening of delightful entertainment for the whole family.",
       category: "arts",
-      image: "https://images.unsplash.com/photo-1501618669935-18b6ecb13d6d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+      image: "./events/4.avif",
       participants: "Music students and performers",
       organizers: "Music Department",
       importantNotes: "Doors open at 5:30 PM. Reserved seating for parents of performers."
@@ -83,7 +83,7 @@ const EventsData = () => {
       description: "Inter-school mathematics competition hosted at our campus.",
       fullDescription: "The Math Olympiad brings together talented mathematics students from schools across the region to compete in individual and team challenges. Events include speed calculation, problem-solving, and mathematical puzzles. Our school has a proud tradition of performing well in this competition. Spectators are welcome to observe the final rounds and awards ceremony. This event helps foster a love for mathematics and recognizes academic excellence.",
       category: "academic",
-      image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+      image: "./events/5.avif",
       participants: "Selected math club members",
       organizers: "Mathematics Department",
       importantNotes: "Participants should bring their own calculators and writing materials."
@@ -97,7 +97,7 @@ const EventsData = () => {
       description: "Display of student artwork from the semester.",
       fullDescription: "The Art Exhibition celebrates the creativity and artistic development of our students. The exhibit features works in various media including painting, sculpture, digital art, and photography. Pieces were created as part of classroom assignments and independent projects. Local artists will serve as guest judges and provide feedback on the technical skill and creativity demonstrated. Several pieces will be selected for display in the district office throughout the next semester.",
       category: "arts",
-      image: "https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+      image: "./events/6.avif",
       participants: "Art students",
       organizers: "Art Department",
       importantNotes: "Artwork may be purchased with proceeds supporting the art program."

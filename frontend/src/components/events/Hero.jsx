@@ -12,7 +12,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="relative bg-gradient-to-r from-indigo-900 via-indigo-800 to-purple-900 text-white overflow-hidden">
+    <div className="relative bg-gradient-to-r from-indigo-900 via-indigo-800 to-purple-900 text-white overflow-hidden pt-3">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-opacity-20 bg-pattern"></div>
       
@@ -75,7 +75,7 @@ const Hero = () => {
         
         {/* Stats Section */}
         <div 
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-8 border-t border-indigo-300 border-opacity-20"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pb-5 sm:pb-1 pt-8 border-t border-indigo-300 border-opacity-20"
           data-aos="fade-up"
           data-aos-delay="700"
         >
