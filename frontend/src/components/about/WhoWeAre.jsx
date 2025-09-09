@@ -4,7 +4,7 @@ import { Award, ShieldCheck, Users, Building } from 'lucide-react'
 
 const WhoWeAre = () => {
   return (
-    <section className='relative bg-gradient-to-br from-blue-50 via-white to-blue-100 py-20 px-6 overflow-hidden'>
+    <section className='relative bg-gradient-to-br from-blue-50 via-white to-blue-100 py-9 px-6 overflow-hidden'>
       {/* Decorative background */}
       <div className='absolute inset-0 bg-gradient-to-tr from-yellow-100/30 via-transparent to-yellow-200/40 opacity-40 pointer-events-none'></div>
 

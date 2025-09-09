@@ -1,5 +1,3 @@
-import React from "react";
-
 const ContactMethodSection = ({ formData, handleChange }) => {
   return (
     <section className="bg-white p-6 rounded-lg shadow-md">
@@ -10,13 +8,16 @@ const ContactMethodSection = ({ formData, handleChange }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Contact Method */}
         <div>
-          <label htmlFor="contactMethod" className="block text-sm font-medium mb-1">
-            Preferred Contact Method *
+          <label
+            htmlFor="contactMethod"
+            className="block text-sm font-medium mb-1"
+          >
+            Preferred Contact Method <span className="text-red-500">*</span>
           </label>
           <select
             id="contactMethod"
             name="contactMethod"
-            value={formData.contactMethod}
+            value={formData.contactMethod || ""}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500"
@@ -30,13 +31,16 @@ const ContactMethodSection = ({ formData, handleChange }) => {
 
         {/* Contact Time */}
         <div>
-          <label htmlFor="contactTime" className="block text-sm font-medium mb-1">
+          <label
+            htmlFor="contactTime"
+            className="block text-sm font-medium mb-1"
+          >
             Preferred Time
           </label>
           <select
             id="contactTime"
             name="contactTime"
-            value={formData.contactTime}
+            value={formData.contactTime || ""}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500"
           >
