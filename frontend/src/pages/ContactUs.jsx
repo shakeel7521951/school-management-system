@@ -10,7 +10,7 @@ const ContactUs = () => {
     AOS.init({ duration: 1000, once: false })
   }, [])
   return (
-    <div>
+    <div className='overflow-hidden'>
       <ContactPage />
       <OfficeHours />
       <ContactMap />

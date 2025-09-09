@@ -13,7 +13,7 @@ const ContactPage = () => {
     message: "",
   });
 
-  
+
 
   const form = useRef();
   const sendEmail = (e) => {
@@ -36,21 +36,24 @@ const ContactPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-pink-50">
       {/* Hero Section */}
       <div
-        className="text-center py-20 text-white bg-cover bg-center bg-no-repeat relative"
+        className="text-center relative py-20 sm:py-32 md:py-40 text-white bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('https://allonehealth.com/wp-content/uploads/2022/07/iStock-1358014313-scaled-1.jpg')" }}
       >
-        <div className="bg-white opacity-50 absolute inset-0"></div>
-        <div className="relative z-10">
-          <h1 className="text-4xl md:text-6xl font-bold text-blue-950 mb-4" data-aos="fade-down">Get In Touch</h1>
-          <p className="text-lg md:text-xl max-w-2xl text-blue-950 mx-auto px-4 font-bold" data-aos="fade-up">
+        <div className="absolute inset-0 bg-black/30"></div>
+        <div className="relative z-10 px-4">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-[#04295e] mb-4 sm:mb-6" data-aos="fade-down">
+            Get In Touch
+          </h1>
+          <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto text-white font-semibold" data-aos="fade-up">
             Have a question, complaint, feedback, or suggestion? Our Qatar school team is ready to assist you.
           </p>
         </div>
       </div>
 
+
       {/* Secondary Heading */}
       <div className="text-center my-12 px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#1A4480]" data-aos="fade-down">Contact Us</h2>
+        <h2 className="text-3xl md:text-5xl font-extrabold text-[#1A4480]" data-aos="fade-down">Contact Us</h2>
         <p className="text-gray-700 mt-2 text-base md:text-lg" data-aos="fade-up">
           Fill out the form below or use the contact information to reach us.
         </p>
@@ -160,7 +163,8 @@ const ContactPage = () => {
 
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-[#1A4480] via-blue-700 to-[#1A4480]  text-white py-2.5 md:py-3 rounded-xl md:rounded-2xl font-semibold text-base md:text-lg hover:from-blue-700 hover:to-blue-500 transition-all"
+              className="w-full bg-gradient-to-r from-[#1a4480] to-[#153567]
+               text-[#facc15] py-2.5 md:py-3 rounded-xl md:rounded-2xl font-semibold text-base md:text-lg hover:from-blue-900 hover:via-blue-800 hover:to-blue-900 hover:scale-105 transition-all"
             >
               Submit Message
             </button>
