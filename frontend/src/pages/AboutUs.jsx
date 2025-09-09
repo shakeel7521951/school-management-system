@@ -17,9 +17,12 @@ const AboutUs = () => {
   }, [])
 
   return (
-    <div className='w-[100%] overflow-hidden bg-gray-50 text-gray-800 font-inter'>
+    <div className='w-[100%] overflow-hidden bg-gray-50 text-gray-800 font-inter md:mt-8'>
       {/* Hero Section */}
       <HeroSection />
+
+      
+    {/* upcoming events */}
       <div className='text-center my-12'>
         <Link to='/event'>
           <motion.button
