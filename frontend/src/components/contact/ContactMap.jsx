@@ -3,7 +3,7 @@ import React from 'react';
 const ContactMap = () => {
     return (
         <div className="py-16 px-4 sm:px-6 md:px-12 bg-gradient-to-r from-blue-50 via-white to-pink-50">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl hover:scale-105 transition-transform duration-300">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl hover:scale-105 transition-transform duration-300" data-aos="fade-up">
                 {/* Background Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-200 to-pink-200 opacity-30"></div>
 
