@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import heroComplain from '../../assets/herocomplain.webp'
 import { Link } from "react-router-dom";
 // ✅ Counter component
 const Counter = ({ value, suffix = "" }) => {
@@ -41,9 +42,9 @@ const HeroComplaints = () => {
   return (
     <section
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-cover bg-center"
-      style={{
-        backgroundImage: `url('https://www.nordangliaeducation.com/cis-doha/-/media/cis-doha/news-events/image_compass-madinat-khalifa_2022_00-2_newsdetailpage_3.jpg?h=499&iar=0&w=887&rev=4f44d23d8d4f4ad496e294abbbb76526&hash=DC8A8183C88FC66BB7DECC3BB9F96C36')`,
-      }}
+       style={{
+    backgroundImage: `url(${heroComplain})`,
+  }}
       role="region"
       aria-label="Customer Feedback Hero Section"
     >
@@ -114,12 +115,14 @@ const HeroComplaints = () => {
           </button>
          </Link>
 
+         <Link to="/complainstatus">
           <button
             aria-label="View complaint status"
             className="px-8 py-4 rounded-xl border border-white/20 text-white font-medium hover:bg-white/10 hover:opacity-90 hover:scale-105 transition-all duration-300 backdrop-blur-sm"
           >
             View Status
           </button>
+         </Link>
         </motion.div>
 
         {/* Stats with counters (fade + scale) */}

@@ -7,11 +7,12 @@ import Event from "./pages/Event";
 import ContactUs from "./pages/ContactUs";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Sidebaar from "./components/dashboard/common/Sidebaar";
+import Navbarr from "./components/dashboard/common/Navbar";
+import Overview from "./pages/dashboard/Overview";
+import AboutUs from "./pages/AboutUs";
 import Complaints from "./pages/Complaints";
 import ComplaintForm from "./components/complaints/ComplaintForm";
-import AboutUs from "./pages/AboutUs";
-
-
 
 const MainFunction = () => {
   return (
@@ -19,6 +20,16 @@ const MainFunction = () => {
       <Navbar />
       <Outlet />
       <Footer />
+    </div>
+  );
+};
+
+const AdminRoute = () => {
+  return (
+    <div>
+      <Navbarr />
+      <Sidebaar />
+      <Outlet />
     </div>
   );
 };
@@ -33,10 +44,15 @@ const router = createBrowserRouter([
       { path: "/complain", element: <Complaints /> },
       { path: "/contact-us", element: <ContactUs /> },
       { path: "/complainform", element: <ComplaintForm /> },
+      { path: "/complainstatus", element: <ComplaintForm /> },
     ],
   },
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
+  {
+    element: <AdminRoute />,
+    children: [{ path: "/overview", element: <Overview /> }],
+  },
 ]);
 function App() {
  
