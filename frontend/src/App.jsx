@@ -3,10 +3,15 @@ import Footer from "./components/common/Footer";
 import Navbar from "./components/common/Navbar";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
-import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Sidebaar from "./components/dashboard/common/Sidebaar";
+import Navbarr from "./components/dashboard/common/Navbar";
+import Overview from "./pages/dashboard/Overview";
+import AboutUs from "./pages/AboutUs";
+import Complaints from "./pages/Complaints";
+import ComplaintForm from "./components/complaints/ComplaintForm";
 
 const MainFunction = () => {
   return (
@@ -18,19 +23,37 @@ const MainFunction = () => {
   );
 };
 
+const AdminRoute = () => {
+  return (
+    <div>
+      <Navbarr />
+      <Sidebaar />
+      <Outlet />
+    </div>
+  );
+};
+
 const router = createBrowserRouter([
   {
     element: <MainFunction />,
     children: [
       { path: "/", element: <Home /> },
       { path: "/about", element: <AboutUs /> },
+      { path: "/complain", element: <Complaints /> },
       { path: "/contact-us", element: <ContactUs /> },
+      { path: "/complainform", element: <ComplaintForm /> },
+      { path: "/complainstatus", element: <ComplaintForm /> },
     ],
   },
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
+  {
+    element: <AdminRoute />,
+    children: [{ path: "/overview", element: <Overview /> }],
+  },
 ]);
 function App() {
+ 
   return <RouterProvider router={router} />;
 }
 

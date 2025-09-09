@@ -5,6 +5,13 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Events', path: '/event' },
+    { name: 'Contact', path: '/contact-us' },
+  ];
+
   return (
     <div className="flex items-center justify-center p-1">
       <nav className="relative overflow-hidden border border-indigo-500/20 p-1 w-full max-w-7xl rounded-xl">
@@ -38,19 +45,19 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-10">
-              {['Home', 'About', 'Complaints', 'Features', 'Contact'].map((item) => (
-                <a
-                  key={item}
-                  href="#"
+            <div className="hidden md:flex items-center space-x-15">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
                   className="relative group overflow-hidden"
                 >
                   <span className="text-indigo-100 transition-all duration-300 group-hover:text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-purple-300 to-indigo-300 bg-[length:200%_auto] group-hover:animate-gradient-x">
-                    {item}
+                    {link.name}
                   </span>
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-400 group-hover:w-full transition-all duration-500 rounded-full" />
                   <span className="absolute inset-0 group-hover:translate-y-[-2px] group-hover:scale-105 transition-all duration-300 ease-out" />
-                </a>
+                </Link>
               ))}
             </div>
 
@@ -89,17 +96,16 @@ const Navbar = () => {
           {isMenuOpen && (
             <div className="relative mt-4 md:hidden animate-slide-down">
               <div className="px-2 pt-2 pb-3 space-y-1 bg-indigo-900/50 backdrop-blur-sm rounded-lg border border-indigo-500/10">
-                {['Home', 'About', 'Complaints', 'Features', 'Contact'].map(
-                  (item) => (
-                    <a
-                      key={item}
-                      href="#"
-                      className="block px-3 py-2 rounded-md text-center text-base font-medium text-indigo-100 hover:text-white hover:bg-indigo-800/50 transition-all duration-200"
-                    >
-                      {item}
-                    </a>
-                  )
-                )}
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    className="block px-3 py-2 rounded-md text-center text-base font-medium text-indigo-100 hover:text-white hover:bg-indigo-800/50 transition-all duration-200"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
                 <div className="px-3 py-2">
                   <button className="w-full relative group">
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-400 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-200" />
