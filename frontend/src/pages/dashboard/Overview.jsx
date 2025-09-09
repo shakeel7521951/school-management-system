@@ -1,4 +1,14 @@
 import React from 'react'
+<<<<<<< HEAD
+import Stats from '../../components/dashboard/overview/Stats'
+ 
+const Overview = () => {
+  return (
+    <div className="w-full md:max-w-5xl md:ms-[24%] px-4 md:px-0">
+      <Stats />
+      
+    </div>
+=======
 import Stats from '../../components/dashboard/overview/KPICards/Stats'
 import VisitorTrendsChart from '../../components/dashboard/overview/DashboardCharts/VisitorTrendsChart'
 import ComplaintsPieChart from '../../components/dashboard/overview/DashboardCharts/ComplaintsPieChart'
@@ -39,6 +49,7 @@ const Overview = () => {
         </section>
       </div>
     </>
+>>>>>>> 8fadc1b69ee37ecc39fd0a7d8498afa55ea0ef02
   )
 }
 
