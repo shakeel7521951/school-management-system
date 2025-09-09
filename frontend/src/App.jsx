@@ -9,6 +9,9 @@ import Signup from "./pages/Signup";
 import Sidebaar from "./components/dashboard/common/Sidebaar";
 import Navbarr from "./components/dashboard/common/Navbar";
 import Overview from "./pages/dashboard/Overview";
+import AboutUs from "./pages/AboutUs";
+import Complaints from "./pages/Complaints";
+import ComplaintForm from "./components/complaints/ComplaintForm";
 
 const MainFunction = () => {
   return (
