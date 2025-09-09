@@ -1,114 +1,124 @@
-import React, { useEffect } from 'react';
-import { FaCalendarAlt, FaSchool, FaUsers, FaGraduationCap } from 'react-icons/fa';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import React from "react";
 
-const Hero = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-    });
-  }, []);
+const ComplaintDashboard = () => {
+  // Example data (yaha aap backend ya form submission se data la sakte ho)
+  const complaint = {
+    fullName: "Ali Ahmed",
+    role: "Student",
+    studentId: "ST12345",
+    grade: "10th",
+    complaintType: "Academic",
+    description: "Teacher was absent for multiple classes.",
+    involvedParties: "Mr. Khan",
+    witnesses: "Classmates",
+    documents: "", // Agar file ka link ho to yaha dal dena
+    contactMethod: "Email",
+    contactTime: "Morning",
+    consent: true,
+  };
 
   return (
-    <div className="relative bg-gradient-to-r from-indigo-900 via-indigo-800 to-purple-900 text-white overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-opacity-20 bg-pattern"></div>
-      
-      <div className="relative max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
-          <div className="text-center lg:text-left">
-            <h1 
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
-              data-aos="fade-down"
-              data-aos-delay="100"
-            >
-              <span className="text-indigo-300">School</span> Events & Activities
-            </h1>
-            
-            <p 
-              className="text-lg sm:text-xl mb-8 text-indigo-100 max-w-xl mx-auto lg:mx-0"
-              data-aos="fade-right"
-              data-aos-delay="300"
-            >
-              Stay updated with all the upcoming events, activities, and important dates at our school community.
-            </p>
-            
-            <div 
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-              data-aos="fade-up"
-              data-aos-delay="500"
-            >
-              <button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-indigo-500/30">
-                View Calendar
-              </button>
-              <button className="border-2 border-indigo-300 hover:bg-indigo-300 hover:text-indigo-900 font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105">
-                Upcoming Events
-              </button>
-            </div>
-          </div>
-          
-          {/* Right Content - Feature Icons */}
-          <div className="grid grid-cols-2 gap-6">
-            {[
-              { icon: <FaCalendarAlt size={40} />, text: "Event Calendar", delay: 200 },
-              { icon: <FaSchool size={40} />, text: "School Activities", delay: 400 },
-              { icon: <FaUsers size={40} />, text: "Parent Meetings", delay: 600 },
-              { icon: <FaGraduationCap size={40} />, text: "Graduation Events", delay: 800 }
-            ].map((item, index) => (
-              <div 
-                key={index}
-                className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-6 text-center shadow-lg transform transition-all duration-500 hover:scale-105"
-                data-aos="zoom-in"
-                data-aos-delay={item.delay}
-              >
-                <div className="text-indigo-300 mb-3 flex justify-center">
-                  {item.icon}
-                </div>
-                <h3 className="font-semibold text-lg text-indigo-400">{item.text}</h3>
-              </div>
-            ))}
-          </div>
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <h1 className="text-2xl font-bold text-gray-800 mb-6">
+        Complaint Dashboard
+      </h1>
+
+      {/* User Information */}
+      <section className="bg-white p-6 rounded-lg shadow-md mb-6">
+        <h2 className="text-lg font-semibold text-gray-800 border-b pb-2 mb-4">
+          User Information
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <p>
+            <span className="font-medium">Full Name:</span> {complaint.fullName}
+          </p>
+          <p>
+            <span className="font-medium">Role:</span> {complaint.role}
+          </p>
+          <p>
+            <span className="font-medium">Student ID:</span>{" "}
+            {complaint.studentId || "N/A"}
+          </p>
+          <p>
+            <span className="font-medium">Grade/Class:</span>{" "}
+            {complaint.grade || "N/A"}
+          </p>
         </div>
-        
-        {/* Stats Section */}
-        <div 
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-8 border-t border-indigo-300 border-opacity-20"
-          data-aos="fade-up"
-          data-aos-delay="700"
-        >
-          {[
-            { number: "50+", text: "Annual Events" },
-            { number: "1000+", text: "Students" },
-            { number: "200+", text: "Faculty Members" },
-            { number: "15+", text: "Years of Excellence" }
-          ].map((stat, index) => (
-            <div key={index} className="text-center">
-              <p className="text-3xl font-bold text-indigo-300">{stat.number}</p>
-              <p className="text-indigo-100">{stat.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-      
-      {/* Wave Decoration */}
-      <div className="absolute bottom-0 left-0 w-full">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-16 text-white fill-current">
-          <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" className="shape-fill"></path>
-          <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" className="shape-fill"></path>
-          <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" className="shape-fill"></path>
-        </svg>
-      </div>
-      
-      <style jsx>{`
-        .bg-pattern {
-          background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-      `}</style>
+      </section>
+
+      {/* Complaint Details */}
+      <section className="bg-white p-6 rounded-lg shadow-md mb-6">
+        <h2 className="text-lg font-semibold text-gray-800 border-b pb-2 mb-4">
+          Complaint Details
+        </h2>
+        <p>
+          <span className="font-medium">Complaint Type:</span>{" "}
+          {complaint.complaintType}
+        </p>
+        <p className="mt-2">
+          <span className="font-medium">Description:</span>{" "}
+          {complaint.description}
+        </p>
+      </section>
+
+      {/* Reference & Supporting Info */}
+      <section className="bg-white p-6 rounded-lg shadow-md mb-6">
+        <h2 className="text-lg font-semibold text-gray-800 border-b pb-2 mb-4">
+          Reference & Supporting Information
+        </h2>
+        <p>
+          <span className="font-medium">Involved Parties:</span>{" "}
+          {complaint.involvedParties || "N/A"}
+        </p>
+        <p>
+          <span className="font-medium">Witnesses:</span>{" "}
+          {complaint.witnesses || "N/A"}
+        </p>
+        <p>
+          <span className="font-medium">Supporting Documents:</span>{" "}
+          {complaint.documents ? (
+            <a
+              href={complaint.documents}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-indigo-600 underline"
+            >
+              View Document
+            </a>
+          ) : (
+            "N/A"
+          )}
+        </p>
+      </section>
+
+      {/* Contact Preferences */}
+      <section className="bg-white p-6 rounded-lg shadow-md mb-6">
+        <h2 className="text-lg font-semibold text-gray-800 border-b pb-2 mb-4">
+          Contact Preferences
+        </h2>
+        <p>
+          <span className="font-medium">Preferred Method:</span>{" "}
+          {complaint.contactMethod}
+        </p>
+        <p>
+          <span className="font-medium">Preferred Time:</span>{" "}
+          {complaint.contactTime || "N/A"}
+        </p>
+      </section>
+
+      {/* Consent */}
+      <section className="bg-white p-6 rounded-lg shadow-md">
+        <h2 className="text-lg font-semibold text-gray-800 border-b pb-2 mb-4">
+          Consent
+        </h2>
+        <p>
+          {complaint.consent
+            ? "✅ User has given consent for processing."
+            : "❌ Consent not provided."}
+        </p>
+      </section>
     </div>
   );
 };
 
-export default Hero;
+export default ComplaintDashboard;
