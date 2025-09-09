@@ -13,6 +13,8 @@ const ContactPage = () => {
     message: "",
   });
 
+  
+
   const form = useRef();
   const sendEmail = (e) => {
     e.preventDefault();
@@ -30,13 +32,6 @@ const ContactPage = () => {
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log("Form submitted:", formData);
-  //   alert("Thank you! Your message has been sent.");
-  //   setFormData({ name: "", email: "", type: "General Inquiry", message: "" });
-  // };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-pink-50">
       {/* Hero Section */}
@@ -46,8 +41,8 @@ const ContactPage = () => {
       >
         <div className="bg-white opacity-50 absolute inset-0"></div>
         <div className="relative z-10">
-          <h1 className="text-4xl md:text-6xl font-bold text-blue-950 mb-4">Get In Touch</h1>
-          <p className="text-lg md:text-xl max-w-2xl text-blue-950 mx-auto px-4 font-bold">
+          <h1 className="text-4xl md:text-6xl font-bold text-blue-950 mb-4" data-aos="fade-down">Get In Touch</h1>
+          <p className="text-lg md:text-xl max-w-2xl text-blue-950 mx-auto px-4 font-bold" data-aos="fade-up">
             Have a question, complaint, feedback, or suggestion? Our Qatar school team is ready to assist you.
           </p>
         </div>
@@ -55,8 +50,8 @@ const ContactPage = () => {
 
       {/* Secondary Heading */}
       <div className="text-center my-12 px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#1A4480]">Contact Us</h2>
-        <p className="text-gray-700 mt-2 text-base md:text-lg">
+        <h2 className="text-3xl md:text-4xl font-bold text-[#1A4480]" data-aos="fade-down">Contact Us</h2>
+        <p className="text-gray-700 mt-2 text-base md:text-lg" data-aos="fade-up">
           Fill out the form below or use the contact information to reach us.
         </p>
       </div>
@@ -66,7 +61,7 @@ const ContactPage = () => {
         {/* Left Column */}
         <div className="flex-1 flex flex-col space-y-6">
           {/* Contact Info */}
-          <div className="bg-white shadow-xl rounded-2xl p-6 sm:p-8 hover:scale-105 transition-transform duration-300">
+          <div className="bg-white shadow-xl rounded-2xl p-6 sm:p-8 hover:scale-105 transition-transform duration-300" data-aos="fade-right">
             <h3 className="text-2xl md:text-3xl font-bold text-[#1A4480] mb-4">Contact Information</h3>
             <div className="space-y-3">
               <p className="flex items-center text-base md:text-lg">
@@ -82,7 +77,7 @@ const ContactPage = () => {
           </div>
 
           {/* Why Contact Us */}
-          <div className="bg-white shadow-xl rounded-2xl p-6 hover:scale-105 transition-transform duration-300">
+          <div className="bg-white shadow-xl rounded-2xl p-6 hover:scale-105 transition-transform duration-300" data-aos="fade-right">
             <h3 className="text-xl md:text-2xl font-semibold text-[#1A4480] mb-2">Why Contact Us?</h3>
             <p className="text-gray-700 text-sm md:text-base">
               We welcome messages from parents, students, and staff for inquiries, complaints, or feedback.
@@ -102,7 +97,7 @@ const ContactPage = () => {
         </div>
 
         {/* Right Column - Form */}
-        <div className="flex-1 bg-white shadow-xl rounded-2xl p-6 sm:p-10">
+        <div className="flex-1 bg-white shadow-xl rounded-2xl p-6 sm:p-10" data-aos="flip-left">
           <h3 className="text-3xl md:text-4xl font-bold text-[#1A4480] mb-4">Send a Message</h3>
           <p className="text-gray-700 text-sm md:text-base mb-6">
             Use this form to submit a general inquiry, complaint, feedback, or suggestion. We will respond promptly.
