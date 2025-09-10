@@ -65,7 +65,7 @@ const UsersDetail = () => {
                             <th className="p-4 border-b">Name</th>
                             <th className="p-4 border-b">Email</th>
                             <th className="p-4 border-b">Role</th>
-                            <th className="p-4 border-b">Verified</th>
+                            <th className="p-4 border-b">Status</th>
                             <th className="p-4 border-b text-center">Actions</th>
                         </tr>
                     </thead>
