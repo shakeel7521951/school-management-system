@@ -25,10 +25,10 @@ const Sidebar = () => {
   };
 
   const menuItems = [
-    { id: "visitors", label: "Visitors", icon: Users, color: "text-indigo-500", hover: "hover:bg-indigo-50" },
-    { id: "complaints", label: "Complaints", icon: MessageCircle, color: "text-pink-500", hover: "hover:bg-pink-50" },
+    { id: "overview", label: "Overview", icon: Users, color: "text-indigo-500", hover: "hover:bg-indigo-50" },
+    { id: "admincomplain", label: "Complaints", icon: MessageCircle, color: "text-pink-500", hover: "hover:bg-pink-50" },
     { id: "documents", label: "Documents", icon: FileText, color: "text-green-500", hover: "hover:bg-green-50" },
-    { id: "analytics", label: "Analytics", icon: BarChart2, color: "text-amber-500", hover: "hover:bg-amber-50" },
+    { id: "users", label: "Users", icon: BarChart2, color: "text-amber-500", hover: "hover:bg-amber-50" },
     { id: "reports", label: "Reports", icon: FileText, color: "text-purple-500", hover: "hover:bg-purple-50" },
   ];
 
