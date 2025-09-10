@@ -1,4 +1,3 @@
-import React from 'react'
 import Stats from '../../components/dashboard/overview/KPICards/Stats'
 import VisitorTrendsChart from '../../components/dashboard/overview/DashboardCharts/VisitorTrendsChart'
 import ComplaintsPieChart from '../../components/dashboard/overview/DashboardCharts/ComplaintsPieChart'
