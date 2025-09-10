@@ -25,8 +25,7 @@ const Overview = () => {
         <header>
           <h1 className='text-3xl font-bold text-[#1a4480] md:text-4xl'>Overview</h1>
           <p className='text-gray-500 mt-1'>
-            A quick snapshot of visitors, complaints, documents, and
-            performance.
+            A quick snapshot of visitors, complaints, documents, and performance.
           </p>
           <hr className='mt-4 border-gray-200' />
         </header>

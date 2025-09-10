@@ -247,7 +247,7 @@ const AdminComplain = () => {
 
   // Mobile complaint card view
   const ComplaintCard = ({ complaint }) => (
-    <div className="bg-white rounded-lg shadow-sm p-4 mb-4 border border-gray-200">
+    <div className="bg-white rounded-lg shadow-sm p-4 mb-4 border border-gray-200 ">
       <div className="flex justify-between items-start">
         <div>
           <div className="flex items-center gap-2 mb-2">
@@ -703,7 +703,7 @@ const AdminComplain = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen w-full md:max-w-4xl md:ms-[26%] p-0 z-90">
       {/* Main Content */}
       <main className="flex-1 p-4 md:p-6 lg:p-8">
         {/* Page Header */}
@@ -715,14 +715,14 @@ const AdminComplain = () => {
         </div>
 
         {/* Filters and Search */}
-        <div className="bg-white rounded-xl shadow-sm p-4 md:p-6 mb-6 md:mb-8">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+        <div className="bg-white rounded-xl shadow-sm p-4 md:p-6 mb-6 md:mb-8 "> 
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 ">
+            <div className=" flex-1 max-w-md ">
+             
               <input
                 type="text"
                 placeholder="Search complaints..."
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors text-sm md:text-base"
+                className="w-full pl-5 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors text-sm md:text-base "
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -975,14 +975,6 @@ const AdminComplain = () => {
         <div className="flex flex-col sm:flex-row items-center justify-between mt-6 px-2">
           <div className="text-sm text-gray-700 mb-2 sm:mb-0">
             Showing {filteredAndSortedComplaints.length} of {complaints.length} complaints
-          </div>
-          <div className="flex gap-2">
-            <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-              Previous
-            </button>
-            <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-              Next
-            </button>
           </div>
         </div>
       </main>

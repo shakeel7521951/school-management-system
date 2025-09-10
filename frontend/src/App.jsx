@@ -15,8 +15,7 @@ import AboutUs from "./pages/AboutUs";
 import Complaints from "./pages/Complaints";
 import ComplaintForm from "./components/complaints/ComplaintForm";
 import Documents from "./components/dashboard/overview/Documents";
-// import Users  from "./pages/dashboard/Users";
-import Users from "./pages/dashboard/Users";
+
 
 const MainFunction = () => {
   return (
@@ -55,12 +54,11 @@ const router = createBrowserRouter([
   { path: "/signup", element: <Signup /> },
   {
     element: <AdminRoute />,
-    children: [
-      { path: "/overview", element: <Overview /> },
-      { path: "/documents", element: <Documents /> },
-      { path: "/admincomplain", element: <AdminComplain /> },
-      { path: "/users", element: <Users /> },
-    ],
+    children: [{ path: "/overview", element: <Overview /> },
+
+     { path: "/documents", element: <Documents /> },
+
+      { path: "/admincomplain", element: <AdminComplain /> }  ],
   },
 
 ]);
