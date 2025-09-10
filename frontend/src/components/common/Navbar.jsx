@@ -13,7 +13,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-indigo-950 via-indigo-900 to-indigo-950 shadow-md">
+    <nav className="w-full fixed top-0 left-0 z-50  bg-gradient-to-r from-indigo-950 via-indigo-900 to-indigo-950 shadow-md">
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo */}
         <Link
