@@ -14,11 +14,8 @@ import AdminComplain from "./pages/dashboard/AdminComplain";
 import AboutUs from "./pages/AboutUs";
 import Complaints from "./pages/Complaints";
 import ComplaintForm from "./components/complaints/ComplaintForm";
-<<<<<<< HEAD
 import Documents from "./components/dashboard/overview/Documents";
-=======
-import Users  from "./pages/dashboard/Users";
->>>>>>> 8fadc1b69ee37ecc39fd0a7d8498afa55ea0ef02
+
 
 const MainFunction = () => {
   return (
@@ -58,13 +55,10 @@ const router = createBrowserRouter([
   {
     element: <AdminRoute />,
     children: [{ path: "/overview", element: <Overview /> },
-<<<<<<< HEAD
+
      { path: "/documents", element: <Documents /> },
 
-=======
-      { path: "/admincomplain", element: <AdminComplain /> }
->>>>>>> 8fadc1b69ee37ecc39fd0a7d8498afa55ea0ef02
-    ],
+      { path: "/admincomplain", element: <AdminComplain /> }  ],
   },
 ]);
 function App() {

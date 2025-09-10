@@ -1,14 +1,5 @@
 import React from 'react'
-<<<<<<< HEAD
-import Stats from '../../components/dashboard/overview/Stats'
- 
-const Overview = () => {
-  return (
-    <div className="w-full md:max-w-5xl md:ms-[24%] px-4 md:px-0">
-      <Stats />
-      
-    </div>
-=======
+
 import Stats from '../../components/dashboard/overview/KPICards/Stats'
 import VisitorTrendsChart from '../../components/dashboard/overview/DashboardCharts/VisitorTrendsChart'
 import ComplaintsPieChart from '../../components/dashboard/overview/DashboardCharts/ComplaintsPieChart'
@@ -18,13 +9,12 @@ const Overview = () => {
   return (
     <>
       {/* Main Content */}
-      <div className='max-w-7xl   bg-gray-50 py-4  px-4 flex flex-col gap-10'>
+      <div className='max-w-7xl bg-gray-50 py-4 px-4 flex flex-col gap-10'>
         {/* Page Title */}
         <header>
           <h1 className='text-3xl font-bold text-gray-800'>Overview</h1>
           <p className='text-gray-500 mt-1'>
-            A quick snapshot of visitors, complaints, documents, and
-            performance.
+            A quick snapshot of visitors, complaints, documents, and performance.
           </p>
           <hr className='mt-4 border-gray-200' />
         </header>
@@ -49,7 +39,6 @@ const Overview = () => {
         </section>
       </div>
     </>
->>>>>>> 8fadc1b69ee37ecc39fd0a7d8498afa55ea0ef02
   )
 }
 
