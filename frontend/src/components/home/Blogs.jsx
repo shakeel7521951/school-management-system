@@ -61,7 +61,7 @@ export default function Blogs() {
                     </div>
 
                     {/* Additional formal element */}
-                    <div className='bg-white rounded-xl mt-3 p-6 w-full shadow-lg border border-gray-100' >
+                    <div className='bg-white rounded-xl mt-3 p-4 w-full shadow-lg border border-gray-100' >
                         <div className="flex items-center mb-4">
                             <div className="bg-[#273C66] p-2 rounded-full mr-3">
                                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,13 +74,13 @@ export default function Blogs() {
                             Subscribe to our newsletter and be the first to know about new features,
                             events, and educational insights.
                         </p>
-                        <div className="flex">
+                        <div className="flex  flex-wrap">
                             <input
                                 type="email"
                                 placeholder="Your email address"
                                 className="flex-grow px-4 py-3 border border-gray-300 rounded-l-lg outline-0 "
                             />
-                            <button className="bg-[#273C66] text-white px-5 py-3 rounded-r-lg font-medium hover:bg-transparent hover:text-black hover:border-[#273C66] border transition-colors">
+                            <button className="bg-[#273C66] text-white px-2 sm:px-5 py-3 rounded-r-lg font-medium hover:bg-transparent hover:text-black hover:border-[#273C66] border transition-colors">
                                 Subscribe
                             </button>
                         </div>
@@ -105,16 +105,16 @@ export default function Blogs() {
                                     <div className="sm:w-3/5">
                                         <div className="flex items-center text-xs text-gray-500 mb-3 font-medium">
                                             <div className="flex items-center mr-4">
-                                                <span className="text-blue-800 mr-1">{val.calender}</span>
+                                                <span className="text-[#1A4480] mr-1">{val.calender}</span>
                                                 <span className="text-gray-600">{val.date}</span>
                                             </div>
                                             <div className="flex items-center">
-                                                <span className="text-blue-800 mr-1">{val.comnt}</span>
+                                                <span className="text-[#1A4480] mr-1">{val.comnt}</span>
                                                 <span className="text-gray-600">{val.comments}</span>
                                             </div>
                                         </div>
 
-                                        <h3 className="text-lg font-semibold text-gray-800 mb-2 leading-tight hover:text-blue-800 transition-colors cursor-pointer">
+                                        <h3 className="text-lg font-semibold text-gray-800 mb-2 leading-tight hover:text-[#1A4480] transition-colors cursor-pointer">
                                             {val.title}
                                         </h3>
 
@@ -122,7 +122,7 @@ export default function Blogs() {
                                             {val.description}
                                         </p>
 
-                                        <button className="flex items-center bg-blue-800 py-2 px-4 text-white rounded-md font-medium text-sm hover:bg-blue-900 transition-colors group">
+                                        <button className="flex items-center bg-[#1A4480] py-2 px-4 text-white rounded-md cursor-pointer font-medium text-sm hover:bg-[#1a4480ce] transition-colors group">
                                             {val.btn}
                                             <FaArrowRight className="ml-2 text-xs group-hover:translate-x-1 transition-transform" />
                                         </button>

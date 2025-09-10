@@ -90,14 +90,14 @@ export default function StudyResearch() {
                     </div>
 
                     <div className="flex flex-wrap gap-4">
-                        <button className="px-6 py-3 rounded-md bg-gradient-to-r from-blue-700 to-blue-900 text-white font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center">
+                        <button className="px-6 py-3 rounded-md bg-gradient-to-r cursor-pointer from-[#1A4480] to-[#273c66ac] text-white font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center">
                             <span>Discover Our Programs</span>
                             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
                         
-                        <button className="px-6 py-3 rounded-md border border-blue-700 text-blue-700 font-semibold shadow-sm hover:bg-blue-50 transition-colors duration-300">
+                        <button className="px-6 py-3 rounded-md border border-[#1A4480] cursor-pointer text-[#1A4480] font-semibold shadow-sm hover:bg-blue-50 transition-colors duration-300">
                             Research Publications
                         </button>
                     </div>
@@ -105,15 +105,15 @@ export default function StudyResearch() {
                     {/* Stats */}
                     <div className="flex flex-wrap mt-10 pt-8 border-t border-gray-200">
                         <div className="w-1/2 md:w-1/3 mb-4 md:mb-0">
-                            <div className="text-2xl font-bold text-blue-800">95%</div>
+                            <div className="text-2xl font-bold text-[#1A4480]">95%</div>
                             <div className="text-sm text-gray-600">Academic Success</div>
                         </div>
                         <div className="w-1/2 md:w-1/3 mb-4 md:mb-0">
-                            <div className="text-2xl font-bold text-blue-800">500+</div>
+                            <div className="text-2xl font-bold text-[#1A4480]">500+</div>
                             <div className="text-sm text-gray-600">Happy Students</div>
                         </div>
                         <div className="w-1/2 md:w-1/3">
-                            <div className="text-2xl font-bold text-blue-800">98%</div>
+                            <div className="text-2xl font-bold text-[#1A4480]">98%</div>
                             <div className="text-sm text-gray-600">Parent Satisfaction</div>
                         </div>
                     </div>
