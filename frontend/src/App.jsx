@@ -14,7 +14,7 @@ import AdminComplain from "./pages/dashboard/AdminComplain";
 import AboutUs from "./pages/AboutUs";
 import Complaints from "./pages/Complaints";
 import ComplaintForm from "./components/complaints/ComplaintForm";
-import Users  from "./pages/dashboard/Users";
+import Users from "./pages/dashboard/Users";
 
 const MainFunction = () => {
   return (
@@ -53,13 +53,15 @@ const router = createBrowserRouter([
   { path: "/signup", element: <Signup /> },
   {
     element: <AdminRoute />,
-    children: [{ path: "/overview", element: <Overview /> },
-      { path: "/admincomplain", element: <AdminComplain /> }
+    children: [
+      { path: "/overview", element: <Overview /> },
+      { path: "/admincomplain", element: <AdminComplain /> },
+      { path: "/users", element: <Users /> }
     ],
   },
 ]);
 function App() {
- 
+
   return <RouterProvider router={router} />;
 }
 
