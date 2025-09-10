@@ -19,7 +19,8 @@ const Overview = () => {
 
   return (
     <>
-      <div className='max-w-7xl bg-gray-50 py-4 px-4 flex flex-col gap-10'>
+      {/* main wrapper  */}
+      <div className="lg:ml-[270px] max-w-7xl bg-gray-50 py-4 px-6 flex flex-col gap-10">
         {/* Page Title */}
         <header>
           <h1 className='text-3xl font-bold text-gray-800'>Overview</h1>
@@ -56,13 +57,13 @@ const Overview = () => {
               Complaints Overview
             </h3>
             <div className='flex-1 rounded-lg border border-gray-100 overflow-hidden'>
-              <table className='w-full table-fixed text-sm'>
+              <table className='w-full text-sm'>
                 <thead>
                   <tr className='bg-gray-100 text-gray-700'>
                     <th className='p-3 text-left font-semibold w-12'>ID</th>
                     <th className='p-3 text-left font-semibold w-40'>Type</th>
                     <th className='p-3 text-left font-semibold w-32'>Status</th>
-                    <th className='p-3 text-left font-semibold w-28'>Date</th>
+                    <th className='hidden md:flex p-3 text-left font-semibold w-28'>Date</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -77,7 +78,7 @@ const Overview = () => {
                       <td className='p-3 text-gray-700'>{c.type}</td>
                       <td className='py-3 px-1'>
                         <span
-                          className={`px-3  text-center border border-red-600 py-1 rounded-full text-xs font-medium shadow-sm whitespace-nowrap
+                          className={`px-3 py-1 text-center rounded-full text-xs font-medium shadow-sm whitespace-nowrap
                 ${
                   c.status === 'Resolved'
                     ? 'bg-green-100 text-green-700'
@@ -89,7 +90,7 @@ const Overview = () => {
                           {c.status}
                         </span>
                       </td>
-                      <td className='p-3 text-gray-600 whitespace-nowrap'>
+                      <td className='p-3 hidden md:flex text-gray-600 whitespace-nowrap'>
                         {c.date}
                       </td>
                     </tr>
@@ -97,11 +98,16 @@ const Overview = () => {
                 </tbody>
               </table>
             </div>
-            <Link to='/'>
-              <button className='mt-4 self-end text-sm text-[#1a4480] font-medium hover:underline'>
+
+            {/* Align button right */}
+            <div className='mt-4 flex justify-end'>
+              <Link
+                to='/complain'
+                className='text-sm text-[#1a4480] font-medium hover:underline'
+              >
                 View All Complaints →
-              </button>
-            </Link>
+              </Link>
+            </div>
           </div>
 
           {/* Recently Joined Users */}
@@ -110,13 +116,13 @@ const Overview = () => {
               Recently Joined Users
             </h3>
             <div className='flex-1 rounded-lg border border-gray-100 overflow-hidden'>
-              <table className='w-full table-fixed text-sm'>
+              <table className='w-full text-sm'>
                 <thead>
                   <tr className='bg-gray-100 text-gray-700'>
                     <th className='p-3 text-left font-semibold w-12'>ID</th>
                     <th className='p-3 text-left font-semibold w-40'>User</th>
                     <th className='p-3 text-left font-semibold w-32'>Role</th>
-                    <th className='p-3 text-left font-semibold w-28'>Joined</th>
+                    <th className='p-3 text-left font-semibold w-28 hidden md:flex'>Joined</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -141,7 +147,7 @@ const Overview = () => {
                       <td className='p-3 text-gray-700'>{u.role}</td>
 
                       {/* Joined */}
-                      <td className='p-3 text-gray-600 whitespace-nowrap'>
+                      <td className='p-3 hidden md:flex text-gray-600 whitespace-nowrap'>
                         {u.joined}
                       </td>
                     </tr>
@@ -149,11 +155,16 @@ const Overview = () => {
                 </tbody>
               </table>
             </div>
-            <Link to='/users'>
-              <button className='mt-4 self-end text-sm text-[#1a4480] font-medium hover:underline'>
+
+            {/* Align button right */}
+            <div className='mt-4 flex justify-end'>
+              <Link
+                to='/users'
+                className='text-sm text-[#1a4480] font-medium hover:underline'
+              >
                 View All Users →
-              </button>
-            </Link>
+              </Link>
+            </div>
           </div>
         </section>
       </div>
