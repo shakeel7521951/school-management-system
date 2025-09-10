@@ -1,5 +1,4 @@
 import React from 'react'
-<<<<<<< HEAD
 import Stats from '../../components/dashboard/overview/Stats'
  
 const Overview = () => {
