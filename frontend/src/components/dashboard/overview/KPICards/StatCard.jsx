@@ -3,25 +3,25 @@ import React from "react";
 const StatCard = ({ title, value, icon }) => {
   return (
     <div
-      className="group flex items-center gap-4 w-[250px] bg-white shadow-md py-4 px-2
-                 border border-gray-200 rounded-2xl transition-all duration-300 cursor-pointer
-                 hover:shadow-lg hover:scale-105"
+      className="group flex items-center gap-5 w-[300px] md:w-[250px] bg-white py-5 px-2
+                 rounded-2xl border border-gray-200 shadow-sm transition-all duration-300
+                 hover:shadow-lg hover:border-[#1a4480]/50 hover:-translate-y-1"
     >
-      {/* Icon */}
+      {/* Icon Section */}
       <div
-        className="p-4 rounded-full flex items-center justify-center shadow-md text-2xl 
-                   bg-[#1a4480] text-white transition-all duration-300 group-hover:bg-yellow-200/40 group-hover:text-[#fd8700]"
+        className="p-3 rounded-xl flex items-center justify-center text-2xl 
+                   bg-gradient-to-r from-[#1a4480] to-[#2c5da7] text-white shadow-md
+                   transition-all duration-300 group-hover:from-[#fd8700] group-hover:to-[#f6a100]"
       >
         {React.cloneElement(icon, {
-          className:
-            "transition-colors duration-300 group-hover:text-[#fd8700]",
+          className: "transition-colors duration-300",
         })}
       </div>
 
-      {/* Content in one line */}
+      {/* Content Section */}
       <div className="flex-1">
-        <p className="text-[18px] font-extrabold text-gray-900 ">{value}</p>
-        <p className="text-gray-500 ">{title}</p>
+        <p className="text-2xl font-bold text-gray-900 leading-tight">{value}</p>
+        <p className="text-sm font-medium text-gray-500">{title}</p>
       </div>
     </div>
   );
