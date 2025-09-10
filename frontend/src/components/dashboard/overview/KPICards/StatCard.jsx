@@ -3,7 +3,7 @@ import React from "react";
 const StatCard = ({ title, value, icon }) => {
   return (
     <div
-      className="group flex items-center gap-4 w-[250px] bg-white shadow-md py-4 px-2
+      className="group flex items-center gap-4 w-[300px] md:w-[250px]  bg-white shadow-md py-4 px-2
                  border border-gray-200 rounded-2xl transition-all duration-300 cursor-pointer
                  hover:shadow-lg hover:scale-105"
     >
