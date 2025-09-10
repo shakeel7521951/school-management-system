@@ -55,15 +55,14 @@ const router = createBrowserRouter([
   { path: "/signup", element: <Signup /> },
   {
     element: <AdminRoute />,
-    children: [{ path: "/overview", element: <Overview /> },
-    { path: "/documents", element: <Documents /> },
-    { path: "/admincomplain", element: <AdminComplain /> }
     children: [
       { path: "/overview", element: <Overview /> },
+      { path: "/documents", element: <Documents /> },
       { path: "/admincomplain", element: <AdminComplain /> },
-      { path: "/users", element: <Users /> }
+      { path: "/users", element: <Users /> },
     ],
   },
+
 ]);
 function App() {
 
