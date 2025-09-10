@@ -1,353 +1,457 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
-  FileText,
   Upload,
-  Download,
   Trash2,
   X,
   Search,
-  File,
-  FileTextIcon,
-  FileSpreadsheet,
-  FileImage,
-  FileArchive,
   ChevronDown,
   Edit3,
+  FolderOpen,
+  Filter,
+  ArrowUpDown,
+  AlertCircle,
+  Eye,
+  Menu,
+  User,
 } from "lucide-react";
-
-const Documents = () => {
+import { motion, AnimatePresence } from "framer-motion";
+import toast, { Toaster } from "react-hot-toast";
+const Students = () => {
   const [search, setSearch] = useState("");
-  const [docs, setDocs] = useState([
-    { id: 1, name: "Student Records.pdf", type: "PDF", size: "2.1 MB", date: "2025-09-07" },
-    { id: 2, name: "Annual Report.docx", type: "Word", size: "1.3 MB", date: "2025-08-25" },
-    { id: 3, name: "Fee Structure.xlsx", type: "Excel", size: "850 KB", date: "2025-08-12" },
-    { id: 4, name: "School Policy.pdf", type: "PDF", size: "3.2 MB", date: "2025-07-30" },
-    { id: 5, name: "Faculty Handbook.docx", type: "Word", size: "4.5 MB", date: "2025-07-15" },
-    { id: 6, name: "Budget Analysis.xlsx", type: "Excel", size: "1.8 MB", date: "2025-06-28" },
-  ]);
-
+  const [students, setStudents] = useState([
+  { id: 1, name: "Sadiq Hussain", status: "Approved", date: "2025-09-07" },
+  { id: 2, name: "Fatima Zahra", status: "Approved", date: "2025-08-25" },
+  { id: 3, name: "Mohammed Ali", status: "Pending", date: "2025-08-12" },
+  { id: 4, name: "Aisha Siddiqui", status: "Approved", date: "2025-07-30" },
+  { id: 5, name: "Omar Farooq", status: "Pending", date: "2025-07-18" },
+  { id: 6, name: "Maryam Noor", status: "Approved", date: "2025-07-05" },
+  { id: 7, name: "Bilal Hussain", status: "Pending", date: "2025-06-22" },
+  { id: 8, name: "Khadija Yusuf", status: "Approved", date: "2025-06-10" },
+  { id: 9, name: "Yusuf Rahman", status: "Pending", date: "2025-05-28" },
+  { id: 10, name: "Hafsa Khan", status: "Approved", date: "2025-05-15" },
+  { id: 11, name: "Ibrahim Malik", status: "Pending", date: "2025-04-30" },
+  { id: 12, name: "Zainab Ahmed", status: "Approved", date: "2025-04-12" },
+]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [file, setFile] = useState(null);
-  const [filterType, setFilterType] = useState("All");
+  const [newStudent, setNewStudent] = useState({ name: "", status: "Pending" });
   const [sortBy, setSortBy] = useState("date");
-
-  // Edit state
+  const [sortOrder, setSortOrder] = useState("desc");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editDoc, setEditDoc] = useState(null);
-
-  const filteredDocs = docs
-    .filter((d) => d.name.toLowerCase().includes(search.toLowerCase()))
-    .filter((d) => filterType === "All" || d.type === filterType)
+  const [editStudent, setEditStudent] = useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [studentToDelete, setStudentToDelete] = useState(null);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
+  // Filter + sort
+  const filteredStudents = students
+    .filter((s) => s.name.toLowerCase().includes(search.toLowerCase()))
     .sort((a, b) => {
-      if (sortBy === "name") return a.name.localeCompare(b.name);
-      if (sortBy === "date") return new Date(b.date) - new Date(a.date);
-      if (sortBy === "size") {
-        const sizeA = parseFloat(a.size);
-        const sizeB = parseFloat(b.size);
-        return sizeB - sizeA;
-      }
-      return 0;
+      let comparison = 0;
+      if (sortBy === "name") comparison = a.name.localeCompare(b.name);
+      if (sortBy === "date") comparison = new Date(a.date) - new Date(b.date);
+      if (sortBy === "status") comparison = a.status.localeCompare(b.status);
+      return sortOrder === "desc" ? -comparison : comparison;
     });
 
-  const handleUpload = () => {
-    if (!file) return;
-    const ext = file.name.split(".").pop().toLowerCase();
-    let type = "Other";
-    if (ext === "pdf") type = "PDF";
-    if (ext === "doc" || ext === "docx") type = "Word";
-    if (ext === "xls" || ext === "xlsx") type = "Excel";
-    if (["jpg", "jpeg", "png"].includes(ext)) type = "Image";
-    if (["zip", "rar"].includes(ext)) type = "Archive";
-
-    const newDoc = {
+  // Add student
+  const handleAddStudent = () => {
+    if (!newStudent.name.trim()) {
+      toast.error("Student name is required");
+      return;
+    }
+    const student = {
       id: Date.now(),
-      name: file.name,
-      type,
-      size: (file.size / 1024 / 1024).toFixed(2) + " MB",
+      name: newStudent.name,
+      status: newStudent.status,
       date: new Date().toISOString().split("T")[0],
     };
-    setDocs([newDoc, ...docs]);
-    setFile(null);
+    setStudents([student, ...students]);
+    setNewStudent({ name: "", status: "Pending" });
     setIsModalOpen(false);
+    toast.success(`Student "${student.name}" added`);
   };
 
-  const handleDownload = (doc) => {
-    alert(`Downloading ${doc.name}...`);
-  };
-
-  const handleDelete = (id) => {
-    if (window.confirm("Delete this document?")) {
-      setDocs(docs.filter((doc) => doc.id !== id));
-    }
-  };
-
-  const handleEdit = (doc) => {
-    setEditDoc(doc);
+  // Edit student
+  const handleEdit = (student) => {
+    setEditStudent({ ...student });
     setIsEditModalOpen(true);
   };
-
   const handleSaveEdit = () => {
-    if (!editDoc) return;
-    setDocs(docs.map((d) => (d.id === editDoc.id ? editDoc : d)));
+    if (!editStudent) return;
+    setStudents(students.map((s) => (s.id === editStudent.id ? editStudent : s)));
     setIsEditModalOpen(false);
+    toast.success(`"${editStudent.name}" updated`);
   };
-
-  const getFileIcon = (type) => {
-    switch (type) {
-      case "PDF":
-        return <FileTextIcon className="text-red-500" size={20} />;
-      case "Word":
-        return <FileText className="text-blue-500" size={20} />;
-      case "Excel":
-        return <FileSpreadsheet className="text-green-500" size={20} />;
-      case "Image":
-        return <FileImage className="text-purple-500" size={20} />;
-      case "Archive":
-        return <FileArchive className="text-yellow-500" size={20} />;
-      default:
-        return <File className="text-gray-500" size={20} />;
-    }
+  // Delete student
+  const handleDeleteClick = (student) => {
+    setStudentToDelete(student);
+    setIsDeleteModalOpen(true);
   };
-
+  const handleDeleteConfirm = () => {
+    if (!studentToDelete) return;
+    setStudents(students.filter((s) => s.id !== studentToDelete.id));
+    setIsDeleteModalOpen(false);
+    toast.success(`"${studentToDelete.name}" deleted`);
+  };
   return (
-    <div className="p-6 bg-gray-50 min-h-screen w-full md:max-w-5xl md:ms-[24%]">
+    <div className="p-6 bg-gray-50 min-h-screen  md:max-w-5xl md:ms-[24%]">
+      <Toaster position="top-center" />
+
+      {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-800">Documents</h1>
-          <p className="text-sm text-gray-500 mt-1">
-            Manage, filter, and upload your documents
-          </p>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <FolderOpen className="text-blue-600" size={28} />
+            <h1 className="text-xl md:text-3xl font-bold text-gray-800">Student Management</h1>
+          </div>
+          <button
+            className="md:hidden p-2 rounded-lg bg-gray-100"
+            onClick={() => setShowMobileFilters(!showMobileFilters)}
+          >
+            <Menu size={20} />
+          </button>
         </div>
+        <p className="text-sm text-gray-500 mt-1 md:mt-0">Manage and track student approvals</p>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center px-5 py-2.5 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 transition shadow-md"
+          className="flex items-center justify-center px-4 py-2.5 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all shadow-md mt-4 md:mt-0 w-full md:w-auto"
         >
           <Upload size={18} className="mr-2" />
-          Upload
+          Add Student
         </button>
       </div>
 
-      {/* Controls */}
-      <div className="bg-white p-4 rounded-xl shadow-sm mb-6 flex flex-col md:flex-row gap-4 md:items-center">
-        {/* Search */}
+      {/* Desktop Controls */}
+      <div className="bg-white p-4 rounded-lg shadow-sm mb-6 hidden md:flex md:flex-row gap-4 md:items-center">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
           <input
             type="text"
-            placeholder="Search documents..."
+            placeholder="Search students..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
-
-        {/* Filters */}
-        <div className="flex gap-3">
-          <div className="relative">
-            <select
-              value={filterType}
-              onChange={(e) => setFilterType(e.target.value)}
-              className="appearance-none pl-3 pr-8 py-2.5 border border-gray-200 rounded-xl bg-white outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="All">All</option>
-              <option value="PDF">PDF</option>
-              <option value="Word">Word</option>
-              <option value="Excel">Excel</option>
-              <option value="Image">Image</option>
-              <option value="Archive">Archive</option>
-            </select>
-            <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
-          </div>
-          <div className="relative">
+        <div className="flex gap-3 flex-wrap">
+          <div className="relative flex items-center">
+            <ArrowUpDown size={16} className="absolute left-3 text-gray-400 z-10" />
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="appearance-none pl-3 pr-8 py-2.5 border border-gray-200 rounded-xl bg-white outline-none focus:ring-2 focus:ring-blue-500"
+              className="appearance-none pl-10 pr-8 py-2.5 border border-gray-200 rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
             >
               <option value="date">Date</option>
               <option value="name">Name</option>
-              <option value="size">Size</option>
+              <option value="status">Status</option>
             </select>
             <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
           </div>
+          <button
+            onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+            className="px-3 py-2.5 border border-gray-200 rounded-lg bg-white hover:bg-gray-50 flex items-center"
+          >
+            {sortOrder === "desc" ? "↓" : "↑"}
+          </button>
         </div>
       </div>
 
-      {/* Document Grid */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {filteredDocs.length ? (
-          filteredDocs.map((doc) => (
-            <div
-              key={doc.id}
-              className="p-5 rounded-xl bg-white border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition"
-            >
-              <div className="flex items-start justify-between">
-                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-gray-50 border">
-                  {getFileIcon(doc.type)}
-                </div>
-              </div>
-              <div className="mt-4">
-                <h3 className="font-semibold text-gray-800 truncate">{doc.name}</h3>
-                <p className="text-xs text-gray-500 mt-1">
-                  {doc.type} • {doc.size}
-                </p>
-              </div>
-              <div className="flex justify-between items-center mt-5 pt-4 border-t border-gray-100">
-                <p className="text-xs text-gray-500">{doc.date}</p>
-                <div className="flex space-x-2">
-                  <button
-                    onClick={() => handleDownload(doc)}
-                    className="p-2 rounded-lg bg-gray-100 text-blue-600 hover:bg-blue-50"
-                  >
-                    <Download size={16} />
-                  </button>
-                  <button
-                    onClick={() => handleEdit(doc)}
-                    className="p-2 rounded-lg bg-gray-100 text-green-600 hover:bg-green-50"
-                  >
-                    <Edit3 size={16} />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(doc.id)}
-                    className="p-2 rounded-lg bg-gray-100 text-red-600 hover:bg-red-50"
-                  >
-                    <Trash2 size={16} />
-                  </button>
-                </div>
-              </div>
+      {/* Table */}
+      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+        {filteredStudents.length ? (
+          <>
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead className="bg-gray-100 text-gray-600 text-sm">
+                  <tr>
+                    <th className="px-4 py-3 font-semibold">Student Name</th>
+                    <th className="px-4 py-3 font-semibold">Status</th>
+                    <th className="px-4 py-3 font-semibold">Date</th>
+                    <th className="px-4 py-3 font-semibold text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {filteredStudents.map((s) => (
+                    <tr key={s.id} className="hover:bg-gray-50 transition">
+                      <td className="px-4 py-3 flex items-center gap-3">
+                        <div className="p-2 bg-gray-100 rounded-lg">
+                          <User className="text-blue-600" size={20} />
+                        </div>
+                        <span className="font-medium text-gray-800">{s.name}</span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <span
+                          className={`px-2.5 py-1 text-xs rounded-full font-medium ${
+                            s.status === "Approved"
+                              ? "bg-green-100 text-green-800"
+                              : "bg-yellow-100 text-yellow-800"
+                          }`}
+                        >
+                          {s.status}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-600">{s.date}</td>
+                      <td className="px-4 py-3 text-right">
+                        <div className="flex justify-end space-x-2">
+                          <Link to="/documentdetail">
+                            <button className="p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition">
+                              <Eye size={16} />
+                            </button>
+                          </Link>
+                          <button
+                            onClick={() => handleEdit(s)}
+                            className="p-2 rounded-lg bg-green-50 text-green-600 hover:bg-green-100 transition"
+                          >
+                            <Edit3 size={16} />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteClick(s)}
+                            className="p-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-          ))
+            {/* Mobile Cards */}
+            <div className="md:hidden">
+              {filteredStudents.map((s) => (
+                <div key={s.id} className="p-4 border-b border-gray-100">
+                  <div className="flex items-start gap-3">
+                    <div className="p-2 bg-gray-100 rounded-lg mt-1">
+                      <User className="text-blue-600" size={20} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-medium text-gray-800 truncate">{s.name}</h3>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span
+                          className={`px-2 py-0.5 text-xs rounded-full font-medium ${
+                            s.status === "Approved"
+                              ? "bg-green-100 text-green-800"
+                              : "bg-yellow-100 text-yellow-800"
+                          }`}
+                        >
+                          {s.status}
+                        </span>
+                        <span className="text-xs text-gray-500">{s.date}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-end space-x-2 mt-3">
+                    <Link to="/studentdetail">
+                      <button className="p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition">
+                        <Eye size={16} />
+                      </button>
+                    </Link>
+                    <button
+                      onClick={() => handleEdit(s)}
+                      className="p-2 rounded-lg bg-green-50 text-green-600 hover:bg-green-100 transition"
+                    >
+                      <Edit3 size={16} />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteClick(s)}
+                      className="p-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         ) : (
-          <div className="col-span-full text-center py-12 bg-white rounded-xl shadow-sm">
-            <FileText className="mx-auto text-gray-300 mb-3" size={48} />
-            <h3 className="text-lg font-medium text-gray-600">No documents</h3>
+          <div className="text-center py-12">
+            <User className="mx-auto text-gray-300 mb-3" size={48} />
+            <h3 className="text-lg font-medium text-gray-600">No students found</h3>
             <p className="text-gray-400 text-sm mt-1">
-              Try changing filters or upload a new file
+              Try adjusting your search or add a new student
             </p>
           </div>
         )}
       </div>
 
-      {/* Upload Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/40 backdrop-blur-sm">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-6 relative mx-4">
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+      {/* Add Student Modal */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-white rounded-lg shadow-xl w-full max-w-md mx-4"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
             >
-              <X size={20} />
-            </button>
-            <h2 className="text-xl font-bold text-gray-800 mb-2">Upload Document</h2>
-            <p className="text-sm text-gray-500 mb-6">
-              Drag & drop or choose a file to upload
-            </p>
-
-            <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center relative mb-6 hover:border-blue-400 transition">
-              {file ? (
-                <>
-                  <FileText className="mx-auto text-blue-600 mb-3" size={40} />
-                  <p className="font-medium text-gray-800">{file.name}</p>
-                  <p className="text-xs text-gray-500 mt-1">
-                    {(file.size / 1024 / 1024).toFixed(2)} MB
-                  </p>
-                </>
-              ) : (
-                <>
-                  <Upload className="mx-auto text-gray-400 mb-3" size={40} />
-                  <p className="text-gray-500">Drop files here or click to browse</p>
-                </>
-              )}
-              <input
-                type="file"
-                onChange={(e) => setFile(e.target.files[0])}
-                className="absolute inset-0 opacity-0 cursor-pointer"
-              />
-            </div>
-
-            <div className="flex justify-end gap-3">
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="px-4 py-2.5 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleUpload}
-                disabled={!file}
-                className={`px-4 py-2.5 rounded-lg font-medium text-white ${
-                  file
-                    ? "bg-blue-600 hover:bg-blue-700"
-                    : "bg-gray-400 cursor-not-allowed"
-                }`}
-              >
-                Upload
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Edit Modal */}
-      {isEditModalOpen && editDoc && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/40 backdrop-blur-sm">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-6 relative mx-4">
-            <button
-              onClick={() => setIsEditModalOpen(false)}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+              <div className="flex items-center justify-between p-5 border-b">
+                <h3 className="text-xl font-semibold text-gray-800">Add Student</h3>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+              <div className="p-5">
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Student Name</label>
+                  <input
+                    type="text"
+                    value={newStudent.name}
+                    onChange={(e) => setNewStudent({ ...newStudent, name: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                  <select
+                    value={newStudent.status}
+                    onChange={(e) => setNewStudent({ ...newStudent, status: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  >
+                    <option value="Pending">Pending</option>
+                    <option value="Approved">Approved</option>
+                  </select>
+                </div>
+              </div>
+              <div className="flex justify-end gap-3 p-5 border-t">
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleAddStudent}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                >
+                  Add
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {/* Edit Student Modal */}
+      <AnimatePresence>
+        {isEditModalOpen && editStudent && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-white rounded-lg shadow-xl w-full max-w-md mx-4"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
             >
-              <X size={20} />
-            </button>
-            <h2 className="text-xl font-bold text-gray-800 mb-2">Edit Document</h2>
-            <p className="text-sm text-gray-500 mb-6">
-              Update document details below
-            </p>
+              <div className="flex items-center justify-between p-5 border-b">
+                <h3 className="text-xl font-semibold text-gray-800">Edit Student</h3>
+                <button
+                  onClick={() => setIsEditModalOpen(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+              <div className="p-5">
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Student Name</label>
+                  <input
+                    type="text"
+                    value={editStudent.name}
+                    onChange={(e) => setEditStudent({ ...editStudent, name: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                  <select
+                    value={editStudent.status}
+                    onChange={(e) => setEditStudent({ ...editStudent, status: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  >
+                    <option value="Pending">Pending</option>
+                    <option value="Approved">Approved</option>
+                  </select>
+                </div>
+              </div>
+              <div className="flex justify-end gap-3 p-5 border-t">
+                <button
+                  onClick={() => setIsEditModalOpen(false)}
+                  className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSaveEdit}
+                  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                >
+                  Save
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-              <input
-                type="text"
-                value={editDoc.name}
-                onChange={(e) => setEditDoc({ ...editDoc, name: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
-              <select
-                value={editDoc.type}
-                onChange={(e) => setEditDoc({ ...editDoc, type: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="PDF">PDF</option>
-                <option value="Word">Word</option>
-                <option value="Excel">Excel</option>
-                <option value="Image">Image</option>
-                <option value="Archive">Archive</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-
-            <div className="flex justify-end gap-3">
-              <button
-                onClick={() => setIsEditModalOpen(false)}
-                className="px-4 py-2.5 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleSaveEdit}
-                className="px-4 py-2.5 rounded-lg font-medium text-white bg-green-600 hover:bg-green-700"
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Delete Confirm Modal */}
+      <AnimatePresence>
+        {isDeleteModalOpen && studentToDelete && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-white rounded-lg shadow-xl w-full max-w-md mx-4"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+            >
+              <div className="flex items-center justify-between p-5 border-b">
+                <h3 className="text-xl font-semibold text-gray-800">Delete Student</h3>
+                <button
+                  onClick={() => setIsDeleteModalOpen(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+              <div className="p-5 text-gray-700">
+                <p>Are you sure you want to delete:</p>
+                <p className="mt-2 font-semibold">{studentToDelete.name}</p>
+                <p className="text-sm text-gray-500 mt-1">This action cannot be undone.</p>
+              </div>
+              <div className="flex justify-end gap-3 p-5 border-t">
+                <button
+                  onClick={() => setIsDeleteModalOpen(false)}
+                  className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleDeleteConfirm}
+                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                >
+                  Delete
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
-
-export default Documents;
+export default Students;
