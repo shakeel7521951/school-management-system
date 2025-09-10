@@ -54,12 +54,11 @@ const router = createBrowserRouter([
   { path: "/signup", element: <Signup /> },
   {
     element: <AdminRoute />,
-    children: [
-      { path: "/overview", element: <Overview /> },
-      { path: "/documents", element: <Documents /> },
-      { path: "/admincomplain", element: <AdminComplain /> },
-      { path: "/users", element: <Users /> },
-    ],
+    children: [{ path: "/overview", element: <Overview /> },
+
+     { path: "/documents", element: <Documents /> },
+
+      { path: "/admincomplain", element: <AdminComplain /> }  ],
   },
 
 ]);

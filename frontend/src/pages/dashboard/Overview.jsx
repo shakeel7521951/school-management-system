@@ -20,13 +20,12 @@ const Overview = () => {
   return (
     <>
       {/* main wrapper  */}
-      <div className="lg:ml-[270px] max-w-7xl bg-gray-50 py-4 px-6 flex flex-col gap-10">
+      <div className="lg:ml-[270px] max-w-7xl bg-gray-50 py-4 px-9 flex flex-col gap-10">
         {/* Page Title */}
         <header>
-          <h1 className='text-3xl font-bold text-gray-800'>Overview</h1>
+          <h1 className='text-3xl font-bold text-[#1a4480] md:text-4xl'>Overview</h1>
           <p className='text-gray-500 mt-1'>
-            A quick snapshot of visitors, complaints, documents, and
-            performance.
+            A quick snapshot of visitors, complaints, documents, and performance.
           </p>
           <hr className='mt-4 border-gray-200' />
         </header>
@@ -59,11 +58,11 @@ const Overview = () => {
             <div className='flex-1 rounded-lg border border-gray-100 overflow-hidden'>
               <table className='w-full text-sm'>
                 <thead>
-                  <tr className='bg-gray-100 text-gray-700'>
+                  <tr className='bg-[#10448c] text-white'>
                     <th className='p-3 text-left font-semibold w-12'>ID</th>
                     <th className='p-3 text-left font-semibold w-40'>Type</th>
                     <th className='p-3 text-left font-semibold w-32'>Status</th>
-                    <th className='hidden md:flex p-3 text-left font-semibold w-28'>Date</th>
+                    <th className='hidden md:table-cell p-3 text-left font-semibold w-28'>Date</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -90,7 +89,7 @@ const Overview = () => {
                           {c.status}
                         </span>
                       </td>
-                      <td className='p-3 hidden md:flex text-gray-600 whitespace-nowrap'>
+                      <td className='p-3 hidden md:table-cell text-gray-600 whitespace-nowrap'>
                         {c.date}
                       </td>
                     </tr>
@@ -118,11 +117,11 @@ const Overview = () => {
             <div className='flex-1 rounded-lg border border-gray-100 overflow-hidden'>
               <table className='w-full text-sm'>
                 <thead>
-                  <tr className='bg-gray-100 text-gray-700'>
+                  <tr className='bg-[#10448c] text-white'>
                     <th className='p-3 text-left font-semibold w-12'>ID</th>
                     <th className='p-3 text-left font-semibold w-40'>User</th>
                     <th className='p-3 text-left font-semibold w-32'>Role</th>
-                    <th className='p-3 text-left font-semibold w-28 hidden md:flex'>Joined</th>
+                    <th className='p-3 text-left font-semibold w-28 hidden md:table-cell'>Joined</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -147,7 +146,7 @@ const Overview = () => {
                       <td className='p-3 text-gray-700'>{u.role}</td>
 
                       {/* Joined */}
-                      <td className='p-3 hidden md:flex text-gray-600 whitespace-nowrap'>
+                      <td className='p-3 hidden md:table-cell text-gray-600 whitespace-nowrap'>
                         {u.joined}
                       </td>
                     </tr>
