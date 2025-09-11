@@ -467,7 +467,7 @@ const AdminComplain = () => {
     );
   };
 
-  // Render card view for mobile/tablet
+  // Render card view for mobiles/tablet
   const renderCardView = () => {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4 mt-4 p-1 sm:p-0 ">
