@@ -17,6 +17,7 @@ import ComplaintForm from "./components/complaints/ComplaintForm";
 import Documents from "./components/dashboard/overview/Documents";
 import DocumentDetail from "./components/dashboard/overview/DocumentDetail";
 import Users from "./pages/dashboard/Users";
+import Reports from "./components/dashboard/overview/Reports";
 
 const MainFunction = () => {
   return (
@@ -60,7 +61,8 @@ const router = createBrowserRouter([
      { path: "/documents", element: <Documents /> },
      { path: "/documentdetail", element: <DocumentDetail /> },
      {path: "/users" , element: <Users />},
-      { path: "/admincomplain", element: <AdminComplain /> }  ],
+      { path: "/admincomplain", element: <AdminComplain /> }  ,
+      { path: "/reports", element: <Reports /> }  ]
   },
 
 ]);
