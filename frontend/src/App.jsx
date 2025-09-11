@@ -17,6 +17,10 @@ import ComplaintForm from "./components/complaints/ComplaintForm";
 import Documents from "./components/dashboard/overview/Documents";
 import DocumentDetail from "./components/dashboard/overview/DocumentDetail";
 import Users from "./pages/dashboard/Users";
+import StDocuments from "./pages/StudentDashboard/StDocuments";
+import StComplaints from "./pages/StudentDashboard/StComplaints";
+import StudentNavbar from "./pages/StudentDashboard/common/StudentNavbar";
+import StudentSidebar from "./pages/StudentDashboard/common/StudentSidebar";
 
 const MainFunction = () => {
   return (
@@ -33,6 +37,16 @@ const AdminRoute = () => {
     <div>
       <Navbarr />
       <Sidebaar />
+      <Outlet />
+    </div>
+  );
+};
+
+const StudentRoute = () => {
+  return (
+    <div>
+      <StudentNavbar />
+      <StudentSidebar />
       <Outlet />
     </div>
   );
@@ -62,7 +76,14 @@ const router = createBrowserRouter([
      {path: "/users" , element: <Users />},
       { path: "/admincomplain", element: <AdminComplain /> }  ],
   },
+  {
+    element: <StudentRoute />,
+    children: [
+      {path: "/stdocuments", element: <StDocuments/>},
+      {path: "/stcomplaints", element: <StComplaints />}
+    ]
 
+  }
 ]);
 function App() {
 
