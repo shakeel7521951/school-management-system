@@ -25,7 +25,7 @@ const Hero = () => {
               data-aos="fade-down"
               data-aos-delay="100"
             >
-              <span className="text-white">School</span> Events & Activities
+              <span className="text-white">School</span> Calendar & Activities
             </h1>
             
             <p 
@@ -33,7 +33,7 @@ const Hero = () => {
               data-aos="fade-right"
               data-aos-delay="300"
             >
-              Stay updated with all the upcoming events, activities, and important dates at our school communitys.
+              Explore upcoming academic events, parent meetings, and student activities — all in one place for our community.
             </p>
             
             <div 
@@ -42,10 +42,10 @@ const Hero = () => {
               data-aos-delay="500"
             >
               <button className="bg-white hover:bg-blue-50 text-indigo-600 font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg">
-                View Calendar
+                View Full Calendar
               </button>
               <button className="border-2 border-blue-300 text-blue-100 hover:bg-indigo-500/80 hover:text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
-                Upcoming Events
+                Explore Events
               </button>
             </div>
           </div>
@@ -53,10 +53,10 @@ const Hero = () => {
           {/* Right Content - Feature Icons */}
           <div className="grid grid-cols-2 gap-6">
             {[
-              { icon: <FaCalendarAlt size={40} />, text: "Event Calendar", delay: 200 },
-              { icon: <FaSchool size={40} />, text: "School Activities", delay: 400 },
-              { icon: <FaUsers size={40} />, text: "Parent Meetings", delay: 600 },
-              { icon: <FaGraduationCap size={40} />, text: "Graduation Events", delay: 800 }
+              { icon: <FaCalendarAlt size={40} />, text: "Academic Calendar", delay: 200 },
+              { icon: <FaSchool size={40} />, text: "Student Activities", delay: 400 },
+              { icon: <FaUsers size={40} />, text: "Parent Engagements", delay: 600 },
+              { icon: <FaGraduationCap size={40} />, text: "Graduation Ceremonies", delay: 800 }
             ].map((item, index) => (
               <div 
                 key={index}
@@ -80,9 +80,9 @@ const Hero = () => {
           data-aos-delay="700"
         >
           {[
-            { number: "50+", text: "Annual Events" },
-            { number: "1000+", text: "Students" },
-            { number: "200+", text: "Faculty Members" },
+            { number: "50+", text: "Annual Programs" },
+            { number: "1000+", text: "Active Students" },
+            { number: "200+", text: "Dedicated Staff" },
             { number: "15+", text: "Years of Excellence" }
           ].map((stat, index) => (
             <div key={index} className="text-center">

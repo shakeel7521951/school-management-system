@@ -4,33 +4,33 @@ import { FaCalendar, FaCommentDots, FaArrowRight } from 'react-icons/fa'
 export default function Blogs() {
     const blog = [
         {
-            img: 'https://img.freepik.com/premium-photo/teacher-working-with-small-group-kids_259150-5455.jpg?ga=GA1.1.1146211304.1754028702&semt=ais_hybrid&w=740&q=80',
+            img: 'https://img.freepik.com/premium-photo/teacher-working-with-small-group-kids_259150-5455.jpg?w=740&q=80',
             calender: <FaCalendar />,
             date: "April 2024",
             comnt: <FaCommentDots />,
             comments: "5 Comments",
-            title: 'Streamlining Administrative Tasks in Schools',
-            description: 'Learn how modern school management systems can automate daily administrative tasks, saving time and reducing errors for educators and staff.',
+            title: 'Streamlining Document Approvals',
+            description: 'Discover how schools can simplify the approval process by automating document submissions, reviews, and feedback – ensuring efficiency and accuracy.',
             btn: 'Read more'
         },
         {
-            img: 'https://img.freepik.com/free-photo/origami-lesson-home_23-2148542874.jpg?ga=GA1.1.1146211304.1754028702&semt=ais_hybrid&w=740&q=80',
+            img: 'https://img.freepik.com/free-photo/origami-lesson-home_23-2148542874.jpg?w=740&q=80',
             calender: <FaCalendar />,
             date: "March 2024",
             comnt: <FaCommentDots />,
             comments: "12 Comments",
-            title: 'Parent-Teacher Communication Platforms',
-            description: 'Discover how digital platforms are revolutionizing communication between parents and teachers, leading to better student outcomes.',
+            title: 'Enhancing Transparency in Schools',
+            description: 'Learn how structured workflows build trust by ensuring every document follows the same clear approval path, with no skipped steps.',
             btn: 'Read more'
         },
         {
-            img: 'https://img.freepik.com/free-photo/workers-looking-monthly-statistics_329181-12025.jpg?ga=GA1.1.1146211304.1754028702&semt=ais_hybrid&w=740&q=80',
+            img: 'https://img.freepik.com/free-photo/workers-looking-monthly-statistics_329181-12025.jpg?w=740&q=80',
             calender: <FaCalendar />,
             date: "February 2024",
             comnt: <FaCommentDots />,
             comments: "8 Comments",
-            title: 'Data-Driven Decision Making in Education',
-            description: 'Explore how analytics and reporting features in school management systems help administrators make informed decisions about curriculum and resources.',
+            title: 'Role-Based Document Review',
+            description: 'Explore how assigning responsibilities to departments like Planning and the General Manager ensures accountability in the approval cycle.',
             btn: 'Read more'
         },
     ];
@@ -39,28 +39,28 @@ export default function Blogs() {
         <div className='py-16 bg-gray-50'>
             <div className='flex flex-wrap justify-between mx-auto sm:w-11/12 max-w-6xl'>
                 {/* Left Content Section */}
-                <div className='w-full order-2 rounded-md lg:w-6/12 p-6' style={{backgroundImage:'url(https://img.freepik.com/premium-vector/dark-blue-abstract-geometric-background-vector-illustration_1259894-793.jpg?ga=GA1.1.1146211304.1754028702&semt=ais_hybrid&w=740&q=80)'}}>
+                <div className='w-full order-2 rounded-md lg:w-6/12 p-6' style={{backgroundImage:'url(https://img.freepik.com/premium-vector/dark-blue-abstract-geometric-background-vector-illustration_1259894-793.jpg?w=740&q=80)'}}>
                     <div className="mb-8">
                         <div className="w-16 h-1 bg-gradient-to-r from-white to-white mb-4 rounded-full"></div>
                         <h2 className="text-3xl font-bold text-white tracking-tight">
-                            Latest News & Updates
+                            News & Insights
                         </h2>
                     </div>
                     <p className='text-white mb-8 text-lg leading-relaxed font-light'>
-                        Stay informed with the latest developments, events, and announcements from our educational community.
-                        From academic insights to policy updates and student achievements, our updates keep you connected
-                        with what matters most in education.
+                        Stay updated with the latest developments in school workflow automation. 
+                        From improving approval efficiency to ensuring transparency, 
+                        our insights help administrators and staff work smarter.
                     </p>
 
-                    <div className='w-full  rounded-lg overflow-hidden shadow-md border border-gray-100'>
+                    <div className='w-full rounded-lg overflow-hidden shadow-md border border-gray-100'>
                         <img
-                            src="https://img.freepik.com/free-photo/happy-man-looking-laptop_23-2148406333.jpg?ga=GA1.1.1146211304.1754028702&semt=ais_hybrid&w=740&q=80"
-                            className='w-full  object-cover'
-                            alt="Professional educator reviewing content"
+                            src="https://img.freepik.com/free-photo/happy-man-looking-laptop_23-2148406333.jpg?w=740&q=80"
+                            className='w-full object-cover'
+                            alt="Administrator reviewing workflow system updates"
                         />
                     </div>
 
-                    {/* Additional formal element */}
+                    {/* Subscription box */}
                     <div className='bg-white rounded-xl mt-3 p-4 w-full shadow-lg border border-gray-100' >
                         <div className="flex items-center mb-4">
                             <div className="bg-[#273C66] p-2 rounded-full mr-3">
@@ -71,10 +71,10 @@ export default function Blogs() {
                             <h3 className="text-xl font-semibold text-gray-800">Never Miss an Update</h3>
                         </div>
                         <p className="text-gray-600 mb-6">
-                            Subscribe to our newsletter and be the first to know about new features,
-                            events, and educational insights.
+                            Subscribe to receive the latest tips, case studies, and updates 
+                            on how schools are improving document workflows.
                         </p>
-                        <div className="flex  flex-wrap">
+                        <div className="flex flex-wrap">
                             <input
                                 type="email"
                                 placeholder="Your email address"
@@ -131,8 +131,6 @@ export default function Blogs() {
                             </div>
                         ))}
                     </div>
-
-
                 </div>
             </div>
         </div>

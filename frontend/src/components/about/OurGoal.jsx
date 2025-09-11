@@ -28,25 +28,32 @@ const OurGoal = () => {
             <span className="font-semibold text-[#1a4480]">
               Al Tamkon Comprehensive School
             </span>
-            , our mission is to build a{' '}
+            , our goal is to provide a{' '}
             <span className="font-semibold text-[#1a4480]">
-              future-ready digital ecosystem
+              secure and transparent digital environment
             </span>{' '}
-            that connects students, parents, and educators seamlessly. We align
-            with{' '}
+            for managing{' '}
+            <span className="font-semibold text-[#1a4480]">
+              document workflows and complaint systems
+            </span>
+            . We ensure that processes are{' '}
+            <span className="font-semibold text-[#1a4480]">structured</span>,{' '}
+            <span className="font-semibold text-[#1a4480]">accessible</span>, and{' '}
+            <span className="font-semibold text-[#1a4480]">bilingual</span> so
+            that students, parents, staff, and administrators can collaborate
+            effectively. This aligns with{' '}
             <span className="font-semibold text-[#1a4480]">
               Qatar’s National Vision 2030
             </span>{' '}
-            by driving innovation, strengthening transparency, and delivering
-            personalized learning experiences.
+            by promoting innovation, accountability, and inclusive growth.
           </p>
 
           {/* Feature Cards */}
           <div className="grid sm:grid-cols-2 gap-5 mt-8">
             {[
-              { icon: Target, label: 'Clear Vision' },
-              { icon: Smartphone, label: 'Mobile-First' },
-              { icon: Globe, label: 'Bilingual Support' }
+              { icon: Target, label: 'Structured Workflow' },
+              { icon: Smartphone, label: 'Mobile & Web Access' },
+              { icon: Globe, label: 'Bilingual (Arabic & English)' }
             ].map((item, idx) => (
               <motion.div
                 key={idx}
@@ -86,7 +93,7 @@ const OurGoal = () => {
           >
             <img
               src="./images/academics.jpg"
-              alt="Students in Qatar classroom using laptops"
+              alt="School digital system with students"
               className="relative rounded-2xl object-cover w-full max-w-xl 
               border-4 border-white shadow-xl"
             />

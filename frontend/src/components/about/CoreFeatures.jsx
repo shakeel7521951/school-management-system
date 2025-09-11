@@ -4,12 +4,12 @@ import { motion } from "framer-motion"
 
 const CoreFeatures = () => {
   const features = [
-    "Visitors Management – Secure check-in/out with instant reports",
-    "Complaints & Feedback – Transparent portal for parents & staff",
-    "Document Workflow – Approvals, e-signatures & archiving",
-    "Analytics & Reports – Dashboards & exportable insights",
-    "Training & Onboarding – Smooth adoption with staff training",
-    "Multi-Branch Support – Scalable for multiple campuses",
+    "Role-Based Access – Define roles and permissions for secure operations",
+    "Complaints Management – Confidential portal with committee-only access",
+    "Document Workflow – Automated approvals (User → Planning → GM Office) with rejection loops",
+    "Reports & Analytics – Interactive dashboards, filters, and exportable insights",
+    "Training & Onboarding – Smooth adoption with bilingual staff training",
+    "Multi-Branch Support – Scalable system for multiple campuses in Qatar",
   ]
 
   return (

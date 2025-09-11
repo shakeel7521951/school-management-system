@@ -3,9 +3,9 @@ import React, { useState } from "react";
 export default function StudyResearch() {
     const [isVideoOpen, setIsVideoOpen] = useState(false);
     const data = [
-        { title: "Education Excellence", percentage: 90 },
-        { title: "Student Motivation", percentage: 80 },
-        { title: "Personal Coaching", percentage: 85 },
+        { title: "Confidential Complaints", percentage: 95 },
+        { title: "Document Workflow Efficiency", percentage: 90 },
+        { title: "Bilingual Accessibility", percentage: 98 },
     ];
 
     const openVideo = () => setIsVideoOpen(true);
@@ -20,7 +20,7 @@ export default function StudyResearch() {
                         <img
                             src="https://img.freepik.com/premium-photo/mature-students-working-together-college-library_107420-68433.jpg?ga=GA1.1.1146211304.1754028702&semt=ais_hybrid&w=740&q=80"
                             className="w-full h-auto"
-                            alt="Students collaborating in library"
+                            alt="Digital School System"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent"></div>
                         
@@ -49,17 +49,16 @@ export default function StudyResearch() {
                 {/* Content Section */}
                 <div className="w-full lg:w-6/12 px-4">
                     <div className="flex items-center mb-6">
-                        <div className="w-12 h-1 bg-gradient-to-r from-blue-700 to-blue-500 mr-4 rounded-full"></div>
                         <h2 className="text-3xl font-bold text-gray-800">
-                            Academic Excellence & Research
+                            Digital Complaints & Workflow System
                         </h2>
                     </div>
                     
                     <p className="text-gray-600 mb-8 text-lg leading-relaxed">
-                        Driving innovation through remarkable research and exceptional
-                        teaching expertise. Our programs combine academic excellence with
-                        real-world applications, empowering students to achieve their full
-                        potential.
+                        Our bilingual system ensures safe complaint submissions, transparent
+                        approvals, and secure digital workflows. From confidential complaints
+                        to final document approvals, everything is handled digitally with full
+                        accountability.
                     </p>
 
                     {/* Progress Bars */}
@@ -91,14 +90,14 @@ export default function StudyResearch() {
 
                     <div className="flex flex-wrap gap-4">
                         <button className="px-6 py-3 rounded-md bg-gradient-to-r cursor-pointer from-[#1A4480] to-[#273c66ac] text-white font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center">
-                            <span>Discover Our Programs</span>
+                            <span>Explore Complaint System</span>
                             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
                         
                         <button className="px-6 py-3 rounded-md border border-[#1A4480] cursor-pointer text-[#1A4480] font-semibold shadow-sm hover:bg-blue-50 transition-colors duration-300">
-                            Research Publications
+                            Document Workflow
                         </button>
                     </div>
                     
@@ -106,15 +105,15 @@ export default function StudyResearch() {
                     <div className="flex flex-wrap mt-10 pt-8 border-t border-gray-200">
                         <div className="w-1/2 md:w-1/3 mb-4 md:mb-0">
                             <div className="text-2xl font-bold text-[#1A4480]">95%</div>
-                            <div className="text-sm text-gray-600">Academic Success</div>
+                            <div className="text-sm text-gray-600">Confidentiality</div>
                         </div>
                         <div className="w-1/2 md:w-1/3 mb-4 md:mb-0">
                             <div className="text-2xl font-bold text-[#1A4480]">500+</div>
-                            <div className="text-sm text-gray-600">Happy Students</div>
+                            <div className="text-sm text-gray-600">Complaints Managed</div>
                         </div>
                         <div className="w-1/2 md:w-1/3">
                             <div className="text-2xl font-bold text-[#1A4480]">98%</div>
-                            <div className="text-sm text-gray-600">Parent Satisfaction</div>
+                            <div className="text-sm text-gray-600">User Satisfaction</div>
                         </div>
                     </div>
                 </div>
@@ -136,7 +135,7 @@ export default function StudyResearch() {
                             <video
                                 className="absolute inset-0 w-full h-full rounded-lg"
                                 src="https://tamakon.edu.qa/wp-content/uploads/2024/11/video.mp4"
-                                title="Academic Excellence Video"
+                                title="System Overview Video"
                                 controls
                             ></video>
                         </div>
