@@ -22,6 +22,7 @@ import StComplaints from "./pages/StudentDashboard/StComplaints";
 import { Toaster } from "react-hot-toast";
 import StudentNavbar from "./components/Studentdashboard/common/StudentNavbar";
 import StudentSidebar from "./components/Studentdashboard/common/StudentSidebar";
+import StSettings from "./pages/StudentDashboard/StSettings";
 
 const MainFunction = () => {
   return (
@@ -83,6 +84,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/stdocuments", element: <StDocuments /> },
       { path: "/stcomplaints", element: <StComplaints /> },
+      { path: "/settings", element: <StSettings/>}
     ],
   },
 ]);
