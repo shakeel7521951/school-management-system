@@ -33,7 +33,7 @@ const Hero = () => {
               data-aos="fade-right"
               data-aos-delay="300"
             >
-              Stay updated with all the upcoming events, activities, and important dates at our school community.
+              Stay updated with all the upcoming events, activities, and important dates at our school communitys.
             </p>
             
             <div 

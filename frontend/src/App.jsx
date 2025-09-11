@@ -21,6 +21,7 @@ import StDocuments from "./pages/StudentDashboard/StDocuments";
 import StComplaints from "./pages/StudentDashboard/StComplaints";
 import StudentNavbar from "./pages/StudentDashboard/common/StudentNavbar";
 import StudentSidebar from "./pages/StudentDashboard/common/StudentSidebar";
+import { Toaster } from "react-hot-toast";
 
 const MainFunction = () => {
   return (
@@ -69,26 +70,41 @@ const router = createBrowserRouter([
   { path: "/signup", element: <Signup /> },
   {
     element: <AdminRoute />,
-    children: [{ path: "/overview", element: <Overview /> },
-
-     { path: "/documents", element: <Documents /> },
-     { path: "/documentdetail", element: <DocumentDetail /> },
-     {path: "/users" , element: <Users />},
-      { path: "/admincomplain", element: <AdminComplain /> }  ],
+    children: [
+      { path: "/overview", element: <Overview /> },
+      { path: "/documents", element: <Documents /> },
+      { path: "/documentdetail", element: <DocumentDetail /> },
+      { path: "/users", element: <Users /> },
+      { path: "/admincomplain", element: <AdminComplain /> },
+    ],
   },
   {
     element: <StudentRoute />,
     children: [
-      {path: "/stdocuments", element: <StDocuments/>},
-      {path: "/stcomplaints", element: <StComplaints />}
-    ]
-
-  }
+      { path: "/stdocuments", element: <StDocuments /> },
+      { path: "/stcomplaints", element: <StComplaints /> },
+    ],
+  },
 ]);
+
 function App() {
-
-
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      {/* 🔥 Toaster is now active for the whole app */}
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            background: "#333",
+            color: "#fff",
+            borderRadius: "8px",
+            padding: "12px 16px",
+          },
+        }}
+      />
+    </>
+  );
 }
 
 export default App;
