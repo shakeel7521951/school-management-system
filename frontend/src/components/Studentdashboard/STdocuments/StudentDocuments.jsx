@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 
 
-const StDocuments = () => {
+const StudentDocuments = () => {
     const [documents, setDocuments] = useState([]);
     const [title, setTitle] = useState("");
     const [file, setFile] = useState(null);
@@ -106,4 +106,4 @@ const StDocuments = () => {
     );
 };
 
-export default StDocuments;
+export default StudentDocuments;
