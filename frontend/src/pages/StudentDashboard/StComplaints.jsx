@@ -1,8 +1,11 @@
 import React from 'react'
+import StudentComplaints from '../../components/Studentdashboard/STdocuments/StudentComplaints'
 
 const StComplaints = () => {
   return (
-    <div>StComplaints</div>
+    <div className='md:ml-64'>
+      <StudentComplaints />
+    </div>
   )
 }
 
