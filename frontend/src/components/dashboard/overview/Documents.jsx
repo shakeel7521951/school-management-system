@@ -94,7 +94,7 @@ const Students = () => {
     toast.success(`"${studentToDelete.name}" deleted`);
   };
   return (
-    <div className="p-6 bg-gray-50 min-h-screen  md:max-w-5xl md:ms-[24%]">
+    <div className="py-4 bg-gray-50 min-h-screen  md:max-w-5xl md:ms-[24%]">
       <Toaster position="top-center" />
 
       {/* Header */}

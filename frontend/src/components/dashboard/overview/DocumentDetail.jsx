@@ -55,7 +55,7 @@ const StudentDetail = () => {
   const nextPage = () => pageNumber < numPages && setPageNumber(pageNumber + 1);
   const prevPage = () => pageNumber > 1 && setPageNumber(pageNumber - 1);
   return (
-    <div className="p-6 bg-gray-50 min-h-screen md:max-w-5xl md:ms-[24%]">
+    <div className="py-6 bg-white min-h-screen md:max-w-5xl md:ms-[24%]">
       <Toaster position="top-center" />
       <div className="mb-8 flex items-center justify-between">
         <div className="flex items-center gap-3">
