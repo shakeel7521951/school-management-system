@@ -4,24 +4,35 @@ import { FaCheckCircle } from "react-icons/fa";
 export default function TrustWorthy() {
     const aray = [
         {
-            title: 'Visitor Management', description: "Seamlessly register and track visitors with a digital gate system connected to CRM. Keep your campus secure and organized."
+            title: 'Secure Complaint System',
+            description: "A safe and confidential platform for students, parents, and staff to submit complaints digitally. Each complaint is tracked with a unique ID."
         },
         {
-            title: 'Complaints & Feedback', description: "A transparent portal for parents, students, and staff. Track complaints, monitor resolution time, and ensure satisfaction."
+            title: 'Confidential Access',
+            description: "Only the Manager Department / Protection Committee can view, manage, and resolve complaints. Regular users can only track their own submissions."
         },
         {
-            title: 'Document Workflow', description: "Go paperless with digital approvals, e-signatures, and smart archiving. Save time and ensure accountability."
+            title: 'Structured Document Workflow',
+            description: "Users upload documents, the Planning Department reviews, and the General Manager provides final approval — ensuring accountability and transparency."
         },
         {
-            title: 'Analytics & Reports', description: "Daily, weekly, and monthly reports with insights on performance, decision times, and complaint resolutions. Export to Excel/PDF easily."
+            title: 'Bilingual Support',
+            description: "Full Arabic and English support across the system. All forms, menus, and notifications are available in both languages for easy access."
         },
     ]
     return (
         <div className=' py-10'>
             <div className=' flex p-3 flex-wrap justify-between w-full sm:w-10/12 mx-auto'>
                 <div className='w-full sm:w-6/12 p-3'>
-                    <h1 className=' font-bold sm:text-3xl text-xl'>Smart School <span style={{ background: 'linear-gradient(#273C66,#6dd5ed)', backgroundClip: 'text', color: 'transparent' }}>Digital Management</span></h1>
-                    <p className=' mt-2'>Simplify operations, enhance communication, and create a modern learning experience with our all-in-one school management solution.</p>
+                    <h1 className=' font-bold sm:text-3xl text-xl'>
+                        Smart School <span style={{ background: 'linear-gradient(#273C66,#6dd5ed)', backgroundClip: 'text', color: 'transparent' }}>
+                            Digital Systems
+                        </span>
+                    </h1>
+                    <p className=' mt-2'>
+                        Ensure transparency, security, and efficiency in school operations with our 
+                        integrated complaint management and document workflow system.
+                    </p>
                     <div className="flex flex-col gap-4 mt-2 ">
                         {aray.map((val, ind) => (
                             <div
@@ -47,7 +58,7 @@ export default function TrustWorthy() {
                         <div className="relative z-10 rounded-xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
                             <img
                                 src="https://img.freepik.com/premium-vector/people-are-reading-books-sitting-laptop-online-education-concept-landing-page-template_212216-951.jpg?ga=GA1.1.1146211304.1754028702&semt=ais_hybrid&w=740&q=80"
-                                alt="Online education platform"
+                                alt="School digital system"
                                 className="w-full h-auto"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-[#78d3fd8f] to-transparent"></div>
@@ -61,7 +72,7 @@ export default function TrustWorthy() {
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                     </svg>
                                 </div>
-                                <span className="text-sm font-medium">2,500+ eBooks</span>
+                                <span className="text-sm font-medium">Confidential Access</span>
                             </div>
                         </div>
 
@@ -72,7 +83,7 @@ export default function TrustWorthy() {
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                                     </svg>
                                 </div>
-                                <span className="text-sm font-medium">Track Progress</span>
+                                <span className="text-sm font-medium">Track Complaints</span>
                             </div>
                         </div>
 

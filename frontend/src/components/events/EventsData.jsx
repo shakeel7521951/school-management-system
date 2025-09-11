@@ -1,5 +1,16 @@
+// ✅ Text updated as per client’s requirements (Design unchanged)
+
 import React, { useState, useEffect } from 'react';
-import { FaCalendarAlt, FaMapMarkerAlt, FaClock, FaFilter, FaSearch, FaRegCalendarCheck, FaTimes, FaUserFriends, FaInfoCircle } from 'react-icons/fa';
+import { 
+  FaCalendarAlt, 
+  FaMapMarkerAlt, 
+  FaClock, 
+  FaSearch, 
+  FaRegCalendarCheck, 
+  FaTimes, 
+  FaUserFriends, 
+  FaInfoCircle 
+} from 'react-icons/fa';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -16,21 +27,21 @@ const EventsData = () => {
     });
   }, []);
 
-  // Sample events data
+  // ✅ Sample events data with refined content
   const events = [
     {
       id: 1,
       title: "Annual Sports Day",
       date: "2023-10-15",
       time: "9:00 AM - 4:00 PM",
-      location: "School Ground",
-      description: "Annual sports competition between different houses. All parents are invited.",
-      fullDescription: "Our Annual Sports Day is a celebration of athleticism, teamwork, and school spirit. Students from all grades will compete in various track and field events. The day will begin with an opening ceremony featuring our marching band and the traditional torch lighting. Medals will be awarded to winners in each category, and the house with the most points will receive the Championship Trophy. Food and refreshment stalls will be available throughout the day.",
+      location: "Main Ground",
+      description: "A full day of inter-house sports competitions and activities.",
+      fullDescription: "Annual Sports Day is a celebration of talent, teamwork, and school spirit. Students will participate in multiple track and field events, starting with a grand opening ceremony and traditional torch lighting. Awards and medals will be presented to winners, and the best-performing house will receive the Championship Trophy. Parents are warmly invited to attend and enjoy the day.",
       category: "sports",
       image: "./events/1.avif",
-      participants: "All students from grades 3-12",
+      participants: "Students (Grades 3–12)",
       organizers: "Physical Education Department",
-      importantNotes: "Please wear appropriate sports attire and house colors. Bring water bottles and sunscreen."
+      importantNotes: "Students must wear proper sports gear and bring water bottles."
     },
     {
       id: 2,
@@ -38,69 +49,69 @@ const EventsData = () => {
       date: "2023-10-22",
       time: "10:00 AM - 2:00 PM",
       location: "Science Lab",
-      description: "Students will showcase their science projects and experiments.",
-      fullDescription: "The Science Fair Exhibition showcases innovative projects from our talented students. This year's theme is 'Sustainable Solutions for Tomorrow'. Projects range from renewable energy models to ecological conservation experiments. A panel of judges including faculty and local scientists will evaluate projects based on creativity, scientific method, and presentation. Parents and community members are encouraged to attend and appreciate the scientific curiosity of our students.",
+      description: "Student-led projects showcasing creativity and innovation.",
+      fullDescription: "Our Science Fair highlights sustainable solutions and forward-thinking projects from students. A diverse range of topics—from renewable energy to environmental conservation—will be presented. Projects will be judged by faculty and guest scientists. Families and the community are encouraged to attend and support our young innovators.",
       category: "academic",
       image: "./events/2.avif",
-      participants: "Science club members and selected students",
+      participants: "Science Club & selected students",
       organizers: "Science Department",
-      importantNotes: "Project setup begins at 8:00 AM. Participants must be present at their stations."
+      importantNotes: "Participants must complete setup by 8:00 AM."
     },
     {
       id: 3,
-      title: "Parent-Teacher Meeting",
+      title: "Parent-Teacher Conference",
       date: "2023-10-30",
       time: "2:00 PM - 5:00 PM",
       location: "Classrooms",
-      description: "Quarterly parent-teacher meeting to discuss student progress.",
-      fullDescription: "The Parent-Teacher Meeting provides an opportunity for parents to discuss their child's academic progress, strengths, and areas for improvement with teachers. Appointments are scheduled in 15-minute intervals to ensure each parent receives adequate attention. Please bring any questions or concerns you may have about your child's education. Progress reports will be distributed during the meeting.",
+      description: "Quarterly discussion on student progress and development.",
+      fullDescription: "This meeting provides parents with the opportunity to discuss their child’s progress, strengths, and areas for growth with teachers. Each appointment will run for 15 minutes. Progress reports will be distributed during the meeting.",
       category: "academic",
       image: "./events/3.avif",
-      participants: "Parents and guardians",
+      participants: "Parents & Guardians",
       organizers: "School Administration",
-      importantNotes: "Please sign up for time slots in advance through the school portal."
+      importantNotes: "Please book time slots via the school portal."
     },
     {
       id: 4,
-      title: "Music Concert",
+      title: "Annual Music Concert",
       date: "2023-11-05",
       time: "6:00 PM - 8:00 PM",
       location: "Auditorium",
-      description: "Annual music concert featuring performances by school bands and choirs.",
-      fullDescription: "Our annual music concert showcases the musical talents of our students. The event will feature performances by the school orchestra, jazz band, choir, and several small ensembles. This year's program includes classical pieces, contemporary arrangements, and original compositions by our students. The concert is directed by our music faculty and promises to be an evening of delightful entertainment for the whole family.",
+      description: "Evening of performances by the school band, choir, and orchestra.",
+      fullDescription: "Our Annual Music Concert celebrates the talent of students in music. Performances include classical, contemporary, and student-composed pieces. Directed by our music faculty, the concert promises an enjoyable evening for all attendees.",
       category: "arts",
       image: "./events/4.avif",
-      participants: "Music students and performers",
+      participants: "Music Students",
       organizers: "Music Department",
-      importantNotes: "Doors open at 5:30 PM. Reserved seating for parents of performers."
+      importantNotes: "Parents of performers will have reserved seating."
     },
     {
       id: 5,
-      title: "Math Olympiad",
+      title: "Inter-School Math Olympiad",
       date: "2023-11-12",
       time: "9:00 AM - 12:00 PM",
       location: "Main Hall",
-      description: "Inter-school mathematics competition hosted at our campus.",
-      fullDescription: "The Math Olympiad brings together talented mathematics students from schools across the region to compete in individual and team challenges. Events include speed calculation, problem-solving, and mathematical puzzles. Our school has a proud tradition of performing well in this competition. Spectators are welcome to observe the final rounds and awards ceremony. This event helps foster a love for mathematics and recognizes academic excellence.",
+      description: "Regional competition testing math skills and logical reasoning.",
+      fullDescription: "The Math Olympiad brings together bright students to compete in speed calculations, puzzles, and problem-solving rounds. Guests are welcome to attend the final round and awards ceremony. This event promotes excellence and a passion for mathematics.",
       category: "academic",
       image: "./events/5.avif",
-      participants: "Selected math club members",
+      participants: "Math Club Students",
       organizers: "Mathematics Department",
-      importantNotes: "Participants should bring their own calculators and writing materials."
+      importantNotes: "Bring calculators and required stationery."
     },
     {
       id: 6,
-      title: "Art Exhibition",
+      title: "Student Art Exhibition",
       date: "2023-11-20",
       time: "3:00 PM - 6:00 PM",
-      location: "Art Room",
-      description: "Display of student artwork from the semester.",
-      fullDescription: "The Art Exhibition celebrates the creativity and artistic development of our students. The exhibit features works in various media including painting, sculpture, digital art, and photography. Pieces were created as part of classroom assignments and independent projects. Local artists will serve as guest judges and provide feedback on the technical skill and creativity demonstrated. Several pieces will be selected for display in the district office throughout the next semester.",
+      location: "Art Studio",
+      description: "Exhibition of creative artwork from across all grades.",
+      fullDescription: "The Art Exhibition displays paintings, sculptures, digital works, and photography created by students. Local guest artists will provide feedback and select outstanding pieces for further display. Visitors will witness the artistic journey of our students.",
       category: "arts",
       image: "./events/6.avif",
-      participants: "Art students",
+      participants: "Art Students",
       organizers: "Art Department",
-      importantNotes: "Artwork may be purchased with proceeds supporting the art program."
+      importantNotes: "Select artworks will be available for purchase."
     }
   ];
 
@@ -112,17 +123,14 @@ const EventsData = () => {
   ];
 
   const filterEvents = (event) => {
-    // Apply category filter
-    if (activeFilter !== 'all' && event.category !== activeFilter) {
+    if (activeFilter !== 'all' && event.category !== activeFilter) return false;
+    if (
+      searchQuery && 
+      !event.title.toLowerCase().includes(searchQuery.toLowerCase()) && 
+      !event.description.toLowerCase().includes(searchQuery.toLowerCase())
+    ) {
       return false;
     }
-    
-    // Apply search filter
-    if (searchQuery && !event.title.toLowerCase().includes(searchQuery.toLowerCase()) && 
-        !event.description.toLowerCase().includes(searchQuery.toLowerCase())) {
-      return false;
-    }
-    
     return true;
   };
 
@@ -145,7 +153,7 @@ const EventsData = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-purple-100 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12" data-aos="fade-down">
           <h1 className="text-4xl font-bold text-indigo-900 mb-4">School Events & Activities</h1>

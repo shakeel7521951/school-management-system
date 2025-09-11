@@ -10,6 +10,7 @@ import {
   ChevronRight,
   School
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -68,9 +69,9 @@ const Sidebar = () => {
             const isActive = activeItem === item.id;
 
             return (
-              <a
+              <Link
                 key={item.id}
-                href={`/${item.id}`}
+                to={`/${item.id}`}   // ✅ fixed for react-router
                 onClick={() => handleItemClick(item.id)}
                 className={`flex items-center p-4 font-medium rounded-xl transition-all duration-200
                   ${isActive ? "bg-blue-50 text-blue-700 shadow-inner" : "text-gray-700"} 
@@ -82,7 +83,7 @@ const Sidebar = () => {
                 />
                 <span className="ml-4 flex-grow">{item.label}</span>
                 {isActive && <ChevronRight size={16} className="text-blue-700 animate-pulse" />}
-              </a>
+              </Link>
             );
           })}
         </nav>
@@ -94,13 +95,13 @@ const Sidebar = () => {
             <p className="text-xs text-gray-500">System Status: Operational</p>
           </div>
 
-          <a
-            href="/logout"
+          <Link
+            to="/logout"   // ✅ use Link instead of <a>
             className="flex items-center p-4 text-gray-600 font-medium rounded-xl hover:bg-red-50 hover:text-red-600 transition-all group"
           >
             <LogOut size={20} className="text-red-500 group-hover:animate-pulse" />
             <span className="ml-4">Logout</span>
-          </a>
+          </Link>
         </div>
       </div>
 

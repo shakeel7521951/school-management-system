@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaGithub, FaYoutube, FaFacebookF, FaArrowRight, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaYoutube, FaFacebookF, FaArrowRight, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 
 export default function Footer() {
-    const quickLinks = [
+  const quickLinks = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Events", path: "/event" },
@@ -14,21 +14,21 @@ export default function Footer() {
   const contacts = [
     {
       label: "Email",
-      value: "john.doe@example.com",
-      href: "mailto:john.doe@example.com", // 🔹 better: add "mailto:"
+      value: "info@qatar-school.com",
+      href: "mailto:info@qatar-school.com",
       icon: <FaEnvelope className="text-indigo-300" />,
       gradient: "from-indigo-400 to-purple-400",
     },
     {
       label: "Phone",
-      value: "+1-202-555-0187",
-      href: "tel:+1-202-555-0187",
+      value: "+974 3000 12345",
+      href: "tel:+974300012345",
       icon: <FaPhoneAlt className="text-indigo-300" />,
       gradient: "from-indigo-400 to-purple-400",
     },
     {
       label: "Location",
-      value: "221B Baker Street, London, UK",
+      value: "Doha, Qatar",
       href: "#",
       icon: <FaMapMarkerAlt className="text-indigo-300" />,
       gradient: "from-indigo-400 to-purple-400",
@@ -39,7 +39,7 @@ export default function Footer() {
 
   useEffect(() => {
     const orb = document.querySelector(".orb");
-    
+
     const handleMove = (e) => {
       if (orb) {
         requestAnimationFrame(() => {
@@ -102,26 +102,26 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-  <h3 className="text-lg font-semibold mb-6 relative inline-block text-white">
-    Quick Links
-    <span className="absolute -bottom-2 left-0 w-10 h-1 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full"></span>
-  </h3>
-  <ul className="space-y-3">
-    {quickLinks.map((link, i) => (
-      <li key={i}>
-        <Link
-          to={link.path}
-          className="flex items-center text-indigo-200 hover:text-white transition-all duration-300 group"
-        >
-          <FaArrowRight className="mr-2 text-xs text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <span className="relative group-hover:translate-x-2 transition-transform duration-300">
-            {link.name}
-          </span>
-        </Link>
-      </li>
-    ))}
-  </ul>
-</div>
+            <h3 className="text-lg font-semibold mb-6 relative inline-block text-white">
+              Quick Links
+              <span className="absolute -bottom-2 left-0 w-10 h-1 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full"></span>
+            </h3>
+            <ul className="space-y-3">
+              {quickLinks.map((link, i) => (
+                <li key={i}>
+                  <Link
+                    to={link.path}
+                    className="flex items-center text-indigo-200 hover:text-white transition-all duration-300 group"
+                  >
+                    <FaArrowRight className="mr-2 text-xs text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <span className="relative group-hover:translate-x-2 transition-transform duration-300">
+                      {link.name}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           {/* Contact Information */}
           <div>
@@ -159,7 +159,7 @@ export default function Footer() {
               <span className="absolute -bottom-2 left-0 w-10 h-1 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full"></span>
             </h3>
             <p className="text-indigo-100 mb-4">
-              Subscribe to my newsletter for the latest updates and insights.
+              Subscribe to our newsletter for the latest updates and announcements.
             </p>
             <form className="mt-4 space-y-3">
               <div className="relative">
