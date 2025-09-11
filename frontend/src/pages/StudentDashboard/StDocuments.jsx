@@ -2,7 +2,9 @@ import React from 'react'
 
 const StDocuments = () => {
   return (
-    <div>StDocuments</div>
+    <div>
+    
+    </div>
   )
 }
 
