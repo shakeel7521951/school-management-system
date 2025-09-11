@@ -26,12 +26,12 @@ const WhoWeAre = () => {
           <div className='relative p-2 rounded-3xl bg-gradient-to-tr from-yellow-200 via-white to-blue-200 shadow-2xl'>
             <img
               src='./images/students.jpg'
-              alt='Al Tamkon Inclusive School'
+              alt='Al Tamkon Comprehensive School community'
               className='relative rounded-2xl object-cover w-full max-w-lg  
     border-4 border-white shadow-xl hover:scale-[1.02] transition duration-500'
             />
 
-            {/* Subtle overlay frame (optional glow) */}
+            {/* Subtle overlay frame */}
             <div className='absolute inset-0 rounded-2xl ring-2 ring-yellow-300/40 pointer-events-none'></div>
           </div>
         </motion.div>
@@ -50,29 +50,23 @@ const WhoWeAre = () => {
 
           {/* Short Description */}
           <p className='text-base md:text-lg leading-relaxed text-gray-700 mb-6'>
-            Since <span className='font-semibold text-blue-800'>2008</span>,{' '}
-            <span className='font-semibold text-blue-900'>
-              Al Tamkon Comprehensive School
-            </span>{' '}
-            has been Qatar’s first specialized private school for{' '}
-            <span className='font-medium text-blue-800'>
-              Multiple Intelligences & Talents
-            </span>
-            . We combine{' '}
-            <span className='font-semibold text-blue-900'>education</span> and{' '}
-            <span className='font-semibold text-blue-900'>
-              therapeutic care
-            </span>{' '}
-            in one trusted institution.
+            Established in <span className='font-semibold text-blue-800'>2008</span>,{' '}
+            <span className='font-semibold text-blue-900'>Al Tamkon Comprehensive School</span>{' '}
+            is Qatar’s pioneering private institution dedicated to{' '}
+            <span className='font-medium text-blue-800'>Multiple Intelligences and Talents</span>.  
+            We integrate{' '}
+            <span className='font-semibold text-blue-900'>academic excellence</span> with{' '}
+            <span className='font-semibold text-blue-900'>therapeutic care</span>, creating a nurturing
+            environment that supports both learning and personal growth.
           </p>
 
           {/* Key Highlights */}
           <div className='grid sm:grid-cols-2 gap-5 mt-8'>
             {[
-              { icon: Award, label: 'National Accreditation' },
-              { icon: ShieldCheck, label: 'Education + Healthcare License' },
-              { icon: Users, label: '235+ Students' },
-              { icon: Building, label: '135+ Staff' }
+              { icon: Award, label: 'Nationally Accredited' },
+              { icon: ShieldCheck, label: 'Licensed in Education & Healthcare' },
+              { icon: Users, label: 'Serving 235+ Students' },
+              { icon: Building, label: 'Supported by 135+ Staff' }
             ].map((item, idx) => (
               <motion.div
                 key={idx}

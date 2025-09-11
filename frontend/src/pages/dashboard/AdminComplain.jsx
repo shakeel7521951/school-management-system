@@ -682,7 +682,7 @@ const AdminComplain = () => {
   };
 
   return (
-    <div className="min-h-screen w-full md:max-w-4xl md:ms-[26%] p-0 z-90">
+    <div className="min-h-screen w-full  md:max-w-5xl md:ms-[24%] p-6 z-90">
       {/* Header */}
       <div className="mb-6 md:mb-8 pt-6">
         <h1 className="p-2 sm:p-0 text-2xl md:text-3xl font-bold text-gray-800 mb-2">Complaint Management</h1>

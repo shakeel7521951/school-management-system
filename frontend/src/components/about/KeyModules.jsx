@@ -4,15 +4,34 @@ import { motion } from 'framer-motion'
 
 const KeyModules = () => {
   const modules = [
-    { icon: FaUsers, title: 'Visitors Management', desc: 'Smart digital check-in/out with instant notifications and reporting to enhance school security.' },
-    { icon: FaClipboardList, title: 'Complaints & Feedback', desc: 'A transparent portal for parents, staff, and students with real-time status tracking for complete accountability.' },
-    { icon: FaFileAlt, title: 'Document Workflow', desc: 'Automated approvals, secure e-signatures, and digital archiving for a paperless and efficient school system.' },
-    { icon: FaChartBar, title: 'Analytics & Reports', desc: 'Interactive dashboards with exportable insights, empowering leadership with data-driven decision making.' }
+    { 
+      icon: FaUsers, 
+      title: 'Role-Based Access', 
+      desc: 'Define clear roles and permissions for users, departments, and administrators to ensure security and accountability.' 
+    },
+    { 
+      icon: FaClipboardList, 
+      title: 'Complaints Management', 
+      desc: 'Confidential system for students, parents, and staff to submit complaints with real-time status tracking and committee-only access.' 
+    },
+    { 
+      icon: FaFileAlt, 
+      title: 'Document Workflow', 
+      desc: 'Automated approval cycle (User → Planning → GM Office) with rejection loops, secure digital archiving, and bilingual support.' 
+    },
+    { 
+      icon: FaChartBar, 
+      title: 'Reports & Analytics', 
+      desc: 'Interactive dashboards with filters, exportable charts, and insights for data-driven decision making.' 
+    }
   ]
 
   return (
     <section className="max-w-7xl mx-auto py-20 px-6">
-      <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-14 text-[#1a4480]" data-aos="zoom-in">
+      <h2 
+        className="text-4xl md:text-5xl font-extrabold text-center mb-14 text-[#1a4480]" 
+        data-aos="zoom-in"
+      >
         Key Modules
       </h2>
 

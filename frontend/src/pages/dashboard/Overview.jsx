@@ -20,7 +20,7 @@ const Overview = () => {
   return (
     <>
       {/* main wrapper  */}
-      <div className="lg:ml-[270px] max-w-7xl bg-gray-50 py-4 px-9 flex flex-col gap-10">
+      <div className="lg:ml-[270px] max-w-6xl   bg-gray-50 py-4 px-15 flex flex-col gap-10">
         {/* Page Title */}
         <header>
           <h1 className='text-3xl font-bold text-[#1a4480] md:text-4xl'>Overview</h1>

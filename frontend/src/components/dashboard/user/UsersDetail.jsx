@@ -35,7 +35,7 @@ const UsersDetail = () => {
     );
 
     return (
-        <div className="p-6">
+        <div className="py-6 px-10 ">
             {/* Header with Search */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                 <h1 className="text-3xl font-extrabold text-[#1446b3]">User Management</h1>
