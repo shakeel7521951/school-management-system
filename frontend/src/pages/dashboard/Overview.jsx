@@ -101,7 +101,7 @@ const Overview = () => {
             {/* Align button right */}
             <div className='mt-4 flex justify-end'>
               <Link
-                to='/complain'
+                to='/admincomplain'
                 className='text-sm text-[#1a4480] font-medium hover:underline'
               >
                 View All Complaints →

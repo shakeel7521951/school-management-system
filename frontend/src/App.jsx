@@ -17,7 +17,6 @@ import ComplaintForm from "./components/complaints/ComplaintForm";
 import Documents from "./components/dashboard/overview/Documents";
 import DocumentDetail from "./components/dashboard/overview/DocumentDetail";
 import Users from "./pages/dashboard/Users";
-import Reports from "./components/dashboard/overview/Reports";
 
 const MainFunction = () => {
   return (
@@ -34,6 +33,16 @@ const AdminRoute = () => {
     <div>
       <Navbarr />
       <Sidebaar />
+      <Outlet />
+    </div>
+  );
+};
+
+const StudentRoute = () => {
+  return (
+    <div>
+      <StudentNavbar />
+      <StudentSidebar />
       <Outlet />
     </div>
   );
@@ -61,15 +70,35 @@ const router = createBrowserRouter([
      { path: "/documents", element: <Documents /> },
      { path: "/documentdetail", element: <DocumentDetail /> },
      {path: "/users" , element: <Users />},
-      { path: "/admincomplain", element: <AdminComplain /> }  ,
-      { path: "/reports", element: <Reports /> }  ]
+      { path: "/admincomplain", element: <AdminComplain /> }  ],
   },
-
+  {
+    element: <StudentRoute />,
+    children: [
+      { path: "/stdocuments", element: <StDocuments /> },
+      { path: "/stcomplaints", element: <StComplaints /> },
+    ],
+  },
 ]);
+
 function App() {
-
-
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      {/* 🔥 Toaster is now active for the whole app */}
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            background: "#333",
+            color: "#fff",
+            borderRadius: "8px",
+            padding: "12px 16px",
+          },
+        }}
+      />
+    </>
+  );
 }
 
 export default App;
