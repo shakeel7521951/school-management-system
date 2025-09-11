@@ -15,6 +15,7 @@ import AboutUs from "./pages/AboutUs";
 import Complaints from "./pages/Complaints";
 import ComplaintForm from "./components/complaints/ComplaintForm";
 import Documents from "./components/dashboard/overview/Documents";
+import DocumentDetail from "./components/dashboard/overview/DocumentDetail";
 import Users from "./pages/dashboard/Users";
 import StDocuments from "./pages/StudentDashboard/StDocuments";
 import StComplaints from "./pages/StudentDashboard/StComplaints";
@@ -23,7 +24,7 @@ import StudentSidebar from "./pages/StudentDashboard/common/StudentSidebar";
 
 const MainFunction = () => {
   return (
-    <div>
+    <div className="overflow-hidden">
       <Navbar />
       <Outlet />
       <Footer />
@@ -68,11 +69,12 @@ const router = createBrowserRouter([
   { path: "/signup", element: <Signup /> },
   {
     element: <AdminRoute />,
-    children: [
-      { path: "/overview", element: <Overview /> },
-      { path: "/documents", element: <Documents /> },
-      { path: "/users", element: <Users /> },
-      { path: "/admincomplain", element: <AdminComplain /> }],
+    children: [{ path: "/overview", element: <Overview /> },
+
+     { path: "/documents", element: <Documents /> },
+     { path: "/documentdetail", element: <DocumentDetail /> },
+     {path: "/users" , element: <Users />},
+      { path: "/admincomplain", element: <AdminComplain /> }  ],
   },
   {
     element: <StudentRoute />,

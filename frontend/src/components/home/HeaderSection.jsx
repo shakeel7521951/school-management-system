@@ -1,7 +1,7 @@
 import React from 'react';
 const HeaderSection = () => {
   return (
-    <div className="relative bg-gradient-to-r from-[#273C66] to-[#1A4480] py-16 overflow-hidden">
+    <div className="relative mt-10 bg-gradient-to-r from-[#273C66] to-[#1A4480] py-16 overflow-hidden">
   
       <div className="absolute top-0 left-0 w-full h-full opacity-10">
         <svg className="absolute top-10 left-1/4 w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
