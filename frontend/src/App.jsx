@@ -19,9 +19,9 @@ import DocumentDetail from "./components/dashboard/overview/DocumentDetail";
 import Users from "./pages/dashboard/Users";
 import StDocuments from "./pages/StudentDashboard/StDocuments";
 import StComplaints from "./pages/StudentDashboard/StComplaints";
-import StudentNavbar from "./pages/StudentDashboard/common/StudentNavbar";
-import StudentSidebar from "./pages/StudentDashboard/common/StudentSidebar";
 import { Toaster } from "react-hot-toast";
+import StudentNavbar from "./components/Studentdashboard/common/StudentNavbar";
+import StudentSidebar from "./components/Studentdashboard/common/StudentSidebar";
 
 const MainFunction = () => {
   return (
