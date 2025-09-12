@@ -56,7 +56,7 @@ const Sidebar = () => {
           <div className="flex items-center justify-center w-14 h-14 rounded-xl bg-blue-100 mb-3">
             <School size={32} className="text-blue-600" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-800 tracking-tight">
+          <h2 className="text-2xl font-bold text-[#1a4480] tracking-tight">
             School DMS
           </h2>
           <p className="text-sm text-gray-500 mt-1">Digital Management System</p>

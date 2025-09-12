@@ -60,7 +60,7 @@ const StudentDetail = () => {
       <div className="mb-8 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <FolderOpen className="text-indigo-600" size={28} />
-          <h1 className="text-2xl font-bold text-gray-800">Student Records</h1>
+          <h1 className="text-3xl font-bold text-[#1a4480] md:text-4xl">Student Records</h1>
         </div>
         <p className="text-sm text-gray-500">{students.length} students</p>
       </div>
