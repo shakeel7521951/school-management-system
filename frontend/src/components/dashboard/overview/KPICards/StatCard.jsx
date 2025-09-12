@@ -2,14 +2,15 @@ import React from "react";
 
 const StatCard = ({ title, value, icon }) => {
   return (
+   
     <div
-      className="group flex items-center gap-5 w-[300px] md:w-[250px] bg-white py-5 px-2
+      className="group flex items-center gap-4 w-full md:w-[236px] bg-white py-5 px-4
                  rounded-2xl border border-gray-200 shadow-sm transition-all duration-300
                  hover:shadow-lg hover:border-[#1a4480]/50 hover:-translate-y-1"
     >
       {/* Icon Section */}
       <div
-        className="p-3 rounded-xl flex items-center justify-center text-2xl 
+        className="p-2 rounded-xl flex items-center justify-center text-2xl 
                    bg-gradient-to-r from-[#1a4480] to-[#2c5da7] text-white shadow-md
                    transition-all duration-300 group-hover:from-[#fd8700] group-hover:to-[#f6a100]"
       >
@@ -27,4 +28,5 @@ const StatCard = ({ title, value, icon }) => {
   );
 };
 
+ 
 export default StatCard;

@@ -46,7 +46,7 @@ const StudentDocuments = () => {
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8">
                 <div>
                     <h1 className="text-5xl font-bold text-[#14528B] flex items-center gap-3">
-                        <FileText className="text-[#4b8fcf]" /> Student Documents
+                         Documents
                     </h1>
                     <p className="text-gray-600 mt-2">
                         Upload and manage your school-related documents easily.

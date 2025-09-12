@@ -3,7 +3,7 @@ import StudentComplaints from '../../components/Studentdashboard/STdocuments/Stu
 
 const StComplaints = () => {
   return (
-    <div className='md:ml-64'>
+    <div className='md:ml-20 lg:ml-64'>
       <StudentComplaints />
     </div>
   )
