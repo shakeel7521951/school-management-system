@@ -7,11 +7,25 @@ import {
   Menu,
   GraduationCap,
   X,
+  LayoutDashboard,
+  LogOut, // ✅ Logout icon
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const StudentSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // ✅ Clear student session (you can also clear localStorage or tokens here)
+    localStorage.removeItem("studentToken");
+
+    // ✅ Redirect to login page
+    navigate("/login");
+
+    // ✅ Close sidebar on logout
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -51,14 +65,15 @@ const StudentSidebar = () => {
         {/* Menu Items */}
         <nav className="mt-8 flex flex-col gap-3 px-3 flex-grow">
           {[
+            { label: "Overview", icon: <LayoutDashboard size={20} />, path: "/stoverview" },
             { label: "Documents", icon: <FileText size={20} />, path: "/stdocuments" },
-
             { label: "Complaints", icon: <MessageSquare size={20} />, path: "/stcomplaints" },
-            { label: "Notifications", icon: <Bell size={20} />, path: "/notifications" },
+            { label: "Notifications", icon: <Bell size={20} />, path: "/stnotifications" },
           ].map((item, index) => (
             <Link
               key={index}
               to={item.path}
+              onClick={() => setIsOpen(false)} // ✅ Close sidebar after navigation
               className="group flex items-center gap-4 px-3 py-2 rounded-lg 
                          hover:bg-white/20 transition-all relative overflow-hidden
                          hover:translate-x-1 hover:scale-105 duration-300 ease-out"
@@ -78,10 +93,12 @@ const StudentSidebar = () => {
           ))}
         </nav>
 
-        {/* Settings at Bottom */}
-        <div className="px-3 mb-6">
+        {/* Bottom Section (Settings + Logout) */}
+        <div className="px-3 mb-6 space-y-3">
+          {/* Settings */}
           <Link
-            to="/settings"
+            to="/stsettings"
+            onClick={() => setIsOpen(false)} // ✅ Close sidebar after navigation
             className="group flex items-center gap-4 px-3 py-2 rounded-lg 
                        hover:bg-white/20 transition-all relative overflow-hidden
                        hover:translate-x-1 hover:scale-105 duration-300 ease-out"
@@ -95,6 +112,23 @@ const StudentSidebar = () => {
               <span className="text-sm font-medium animate-fadeIn">Settings</span>
             )}
           </Link>
+
+          {/* Logout */}
+          <button
+            onClick={handleLogout}
+            className="w-full group flex items-center gap-4 px-3 py-2 rounded-lg 
+                       hover:bg-red-500/20 transition-all relative overflow-hidden
+                       hover:translate-x-1 hover:scale-105 duration-300 ease-out text-left"
+          >
+            <span
+              className="absolute left-0 top-0 h-full w-1 bg-red-400 scale-y-0 
+                         group-hover:scale-y-100 transition-transform duration-300"
+            ></span>
+            <LogOut size={20} />
+            {(isOpen || window.innerWidth >= 1024) && (
+              <span className="text-sm font-medium animate-fadeIn">Logout</span>
+            )}
+          </button>
         </div>
       </div>
 
@@ -120,4 +154,4 @@ const StudentSidebar = () => {
   );
 };
 
-export default StudentSidebar
+export default StudentSidebar;

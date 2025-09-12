@@ -1,54 +1,51 @@
-import React from "react";
-import { Sliders, Globe, Moon, Bell } from "lucide-react";
+import React, { useState } from 'react'
+import { Globe, Sliders, Save } from 'lucide-react'
 
-const PreferencesTab = ({ language, setLanguage, darkMode, setDarkMode, notifications, setNotifications }) => (
-  <>
-    <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-      <Sliders size={20} /> Preferences
-    </h2>
-    <div className="space-y-5">
-      {/* Language */}
+const PreferencesTab = () => {
+  // Local state only for language
+  const [language, setLanguage] = useState('English')
+
+  // Handle Save
+  const handleSave = e => {
+    e.preventDefault()
+    console.log('Saved:', { language })
+
+    // Reset after save
+    setLanguage('English')
+  }
+
+  return (
+    <form onSubmit={handleSave} className='space-y-8 max-w-lg mx-auto'>
+      {/* Heading */}
+      <h2 className='text-2xl font-bold text-gray-800 flex items-center gap-2'>
+        <Sliders size={24} className='text-[#104C80]' /> Preferences
+      </h2>
+
+      {/* Language Selector */}
       <div>
-        <label className=" text-sm font-medium flex items-center gap-2">
-          <Globe size={18} /> Language
+        <label className='text-sm font-medium text-gray-700 flex items-center gap-2 mb-1'>
+          <Globe size={18} className='text-gray-500' /> Language
         </label>
         <select
           value={language}
-          onChange={(e) => setLanguage(e.target.value)}
-          className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-[#104C80] outline-none"
+          onChange={e => setLanguage(e.target.value)}
+          className='w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#104C80] focus:border-[#104C80] outline-none transition'
         >
           <option>English</option>
           <option>العربية</option>
         </select>
       </div>
 
-      {/* Dark Mode */}
-      <div className="flex items-center gap-3">
-        <input
-          type="checkbox"
-          checked={darkMode}
-          onChange={(e) => setDarkMode(e.target.checked)}
-          className="w-4 h-4 accent-[#104C80]"
-        />
-        <label className="text-sm flex items-center gap-2">
-          <Moon size={18} /> Enable Dark Mode
-        </label>
-      </div>
+      {/* Save Button */}
+      <button
+        type='submit'
+        className='mx-auto flex items-center justify-center gap-2 bg-[#104C80] text-white font-medium py-2 px-6 rounded-xl 
+             hover:bg-[#0c3a63] hover:shadow-lg active:scale-95 transition-all duration-300 shadow-md'
+      >
+        <Save size={18} /> Save Changes
+      </button>
+    </form>
+  )
+}
 
-      {/* Notifications */}
-      <div className="flex items-center gap-3">
-        <input
-          type="checkbox"
-          checked={notifications}
-          onChange={(e) => setNotifications(e.target.checked)}
-          className="w-4 h-4 accent-[#104C80]"
-        />
-        <label className="text-sm flex items-center gap-2">
-          <Bell size={18} /> Email Notifications
-        </label>
-      </div>
-    </div>
-  </>
-);
-
-export default PreferencesTab;
+export default PreferencesTab
