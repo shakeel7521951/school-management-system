@@ -689,7 +689,7 @@ const AdminComplain = () => {
         <p className="p-2 sm:p-0 text-gray-600">Manage and review submitted complaints in the system</p>
       </div>
 
-      {/* Filters and Search */}
+      {/* Filters & Search */}
       <div className="bg-white rounded-xl shadow-sm p-4 md:p-6 mb-6 ">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex-1 max-w-md">
