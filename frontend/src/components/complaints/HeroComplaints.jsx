@@ -41,7 +41,7 @@ const HeroComplaints = () => {
 
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-cover bg-center"
+      className="relative pt-10 min-h-screen flex items-center justify-center overflow-hidden bg-cover bg-center"
        style={{
     backgroundImage: `url(${heroComplain})`,
   }}
@@ -56,16 +56,16 @@ const HeroComplaints = () => {
       <div className="absolute bottom-0 -right-20 w-96 h-96 bg-indigo-500/20 rounded-full filter blur-3xl animate-pulse" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-10 text-center">
+      <div className="relative z-10 max-w-5xl  mx-auto px-6 sm:px-8 lg:px-10 py-10 text-center">
         {/* Heading */}
         <motion.h1
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-          className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white mb-6 leading-snug drop-shadow-lg"
+          className="text-3xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-snug drop-shadow-lg"
         >
-          Your Feedback <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-cyan-200 to-indigo-200">
+          Your Feedback 
+          <span className="text-transparent ps-3 bg-clip-text bg-gradient-to-r from-blue-300 via-cyan-200 to-indigo-200">
             Drives Improvement
           </span>
         </motion.h1>
@@ -75,7 +75,7 @@ const HeroComplaints = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-          className="max-w-2xl mx-auto text-lg sm:text-xl text-blue-100 font-light mb-10 leading-relaxed"
+          className="max-w-2xl mx-auto text-lg sm:text-xl text-gray-100 font-light mb-10 leading-relaxed"
         >
           We value your experience and are committed to addressing your
           concerns. Share your feedback with us, and let's work together toward

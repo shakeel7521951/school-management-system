@@ -8,6 +8,7 @@ export default function Footer() {
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Events", path: "/event" },
+    { name: "FeedBack", path: "/complain" },
     { name: "Contact", path: "/contact-us" },
   ];
 

@@ -38,7 +38,7 @@ const UsersDetail = () => {
         <div className="py-6 px-10 ">
             {/* Header with Search */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-                <h1 className="text-3xl font-extrabold text-[#1446b3]">User Management</h1>
+                <h1 className="text-3xl font-bold text-[#1a4480] md:text-4xl">User Management</h1>
                 <div className="flex gap-4 w-full sm:w-auto">
                     <div className="relative flex-1">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
@@ -60,7 +60,7 @@ const UsersDetail = () => {
             <div className="overflow-x-auto bg-white rounded-xl shadow-lg">
                 <table className="w-full border-collapse font-serif">
                     <thead>
-                        <tr className="bg-[#1446b3] text-left text-white text-xl">
+                        <tr className="bg-[#1a4480] text-left text-white text-xl">
                             <th className="p-4 border-b">#</th>
                             <th className="p-4 border-b">Name</th>
                             <th className="p-4 border-b">Email</th>
