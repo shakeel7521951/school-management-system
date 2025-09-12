@@ -7,48 +7,48 @@ export default function ReviewSection() {
     const reviews = [
         {
             id: 1,
-            name: "Sarah Johnson",
+            name: "Aisha Al-Mutairi",
             role: "School Principal",
-            avatar: "https://img.freepik.com/free-photo/portrait-confident-educated-asian-female-teacher_53876-129491.jpg?ga=GA1.1.1146211304.1754028702&semt=ais_hybrid&w=740&q=80",
+            avatar: "https://img.freepik.com/free-photo/portrait-confident-educated-asian-female-teacher_53876-129491.jpg?w=740&q=80",
             rating: 5,
-            content: "This platform has transformed how we manage our school. Attendance tracking, grade management, and parent communication have never been smoother. Our teachers are more efficient and parents feel more connected.",
-            school: "Greenwood High School"
+            content: "The document workflow system has made our approval process more transparent. Every document now passes smoothly from the Planning Department to the General Manager’s Office without delays.",
+            school: "Al Noor International School"
         },
         {
             id: 2,
-            name: "Michael Chen",
-            role: "Parent",
-            avatar: "https://img.freepik.com/free-photo/portrait-handsome-smiling-stylish-young-man_158595-5130.jpg?ga=GA1.1.1146211304.1754028702&semt=ais_hybrid&w=740&q=80",
+            name: "Fahad Al-Saadi",
+            role: "Planning Department Staff",
+            avatar: "https://img.freepik.com/free-photo/portrait-handsome-smiling-stylish-young-man_158595-5130.jpg?w=740&q=80",
             rating: 5,
-            content: "As a parent, I love being able to track my child's progress in real-time. The notification system keeps me updated on assignments, events, and important announcements. It's like having a window into the classroom.",
-            school: "Parent of two students"
+            content: "Our team can now review submissions efficiently and provide clear feedback. The structured workflow prevents documents from being lost or bypassed, saving us hours of manual tracking.",
+            school: "Planning Department"
         },
         {
             id: 3,
-            name: "Dr. Emily Rodriguez",
-            role: "Mathematics Department Head",
-            avatar: "https://img.freepik.com/free-photo/pretty-smiling-joyfully-female-with-fair-hair-dressed-casually-looking-with-satisfaction_176420-15187.jpg?ga=GA1.1.1146211304.1754028702&semt=ais_hybrid&w=740&q=80",
+            name: "Dr. Mariam Khalid",
+            role: "General Manager",
+            avatar: "https://img.freepik.com/free-photo/pretty-smiling-joyfully-female-with-fair-hair-dressed-casually-looking-with-satisfaction_176420-15187.jpg?w=740&q=80",
             rating: 5,
-            content: "The analytics features have revolutionized how we assess student performance. We can now identify learning gaps early and tailor our instruction accordingly. Our test scores have improved by 22% since implementation.",
-            school: "Lincoln Academy"
+            content: "With this system, I can review and approve documents in an organized way. It ensures that all approvals are documented, making the process more reliable and accountable.",
+            school: "General Manager Office"
         },
         {
             id: 4,
-            name: "James Wilson",
+            name: "Omar Hassan",
             role: "IT Administrator",
-            avatar: "https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?ga=GA1.1.1146211304.1754028702&semt=ais_hybrid&w=740&q=80",
+            avatar: "https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?w=740&q=80",
             rating: 5,
-            content: "Implementation was seamless, and the support team was exceptional. The system integrates perfectly with our existing infrastructure. I particularly appreciate the robust security features protecting student data.",
-            school: "Central School District"
+            content: "Integration was quick and smooth. The security features are excellent, ensuring all sensitive school data is protected. Teachers and staff found the system very easy to adapt to.",
+            school: "Central Education Network"
         },
         {
             id: 5,
-            name: "Lisa Thompson",
-            role: "Art Teacher",
-            avatar: "https://img.freepik.com/free-photo/portrait-young-beautiful-teacher_1303-18063.jpg?ga=GA1.1.1146211304.1754028702&semt=ais_hybrid&w=740&q=80",
+            name: "Lina Youssef",
+            role: "Teacher",
+            avatar: "https://img.freepik.com/free-photo/portrait-young-beautiful-teacher_1303-18063.jpg?w=740&q=80",
             rating: 5,
-            content: "Even as someone who isn't tech-savvy, I found the platform incredibly intuitive. Submitting grades, taking attendance, and sharing resources with students has never been easier. It's truly teacher-friendly!",
-            school: "Creative Arts Magnet School"
+            content: "Submitting documents for approval is now hassle-free. I can upload, track status, and receive feedback without chasing signatures. It has reduced paperwork stress significantly.",
+            school: "Creative Arts School"
         }
     ];
 
@@ -76,12 +76,11 @@ export default function ReviewSection() {
         const visibleReviews = [];
         const totalReviews = reviews.length;
         
-        // Always show 3 reviews: previous, current, and next
         for (let i = -1; i <= 1; i++) {
             const index = (currentIndex + i + totalReviews) % totalReviews;
             visibleReviews.push({
                 ...reviews[index],
-                position: i // -1: left, 0: center, 1: right
+                position: i 
             });
         }
         
@@ -98,15 +97,14 @@ export default function ReviewSection() {
                 <div className="text-center mb-16">
                     <h2 className="text-4xl font-bold text-[#273C66] mb-4">What Our Community Says</h2>
                     <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                        Hear from educators, parents, and administrators who have transformed their 
-                        educational experience with our school management platform.
+                        Hear from principals, teachers, IT staff, and managers about how the School Document Workflow System improved transparency, efficiency, and accountability.
                     </p>
                 </div>
 
                 {/* Review Slider */}
                 <div className="relative max-w-5xl mx-auto">
                     <div className="flex items-center justify-center h-96">
-                        {getVisibleReviews().map((review, index) => (
+                        {getVisibleReviews().map((review) => (
                             <div 
                                 key={review.id}
                                 className={`absolute transition-all duration-500 ease-in-out transform
@@ -154,7 +152,6 @@ export default function ReviewSection() {
                                         "{review.content}"
                                     </p>
                                     
-                                    {/* Decorative element */}
                                     <div className="absolute bottom-0 right-0 w-24 h-24 bg-[#273C66] opacity-5 rounded-tl-full"></div>
                                 </div>
                             </div>
@@ -175,10 +172,6 @@ export default function ReviewSection() {
                         <FaChevronRight />
                     </button>
                 </div>
-                
-               
-                
-            
             </div>
         </div>
     );

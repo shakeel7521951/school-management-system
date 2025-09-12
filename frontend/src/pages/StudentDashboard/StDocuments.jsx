@@ -3,7 +3,7 @@ import StudentDocuments from '../../components/Studentdashboard/STdocuments/Stud
 
 const StDocuments = () => {
   return (
-    <div>
+    <div className='ml-64'>
     <StudentDocuments />
     </div>
   )

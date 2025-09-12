@@ -13,33 +13,33 @@ const Deliverables = () => {
   const items = [
     {
       icon: FaUsers,
-      title: 'Visitor Management',
-      desc: 'Digital gate system with quick check-in/out and instant reporting for enhanced security.'
+      title: 'Role-Based Access',
+      desc: 'Secure access control with customizable roles and permissions across modules.'
     },
     {
       icon: FaClipboardList,
-      title: 'Complaints & Feedback',
-      desc: 'A transparent portal for parents, students, and staff with live tracking of responses.'
+      title: 'Complaints Management',
+      desc: 'Confidential portal with restricted committee access, ensuring transparency and accountability.'
     },
     {
       icon: FaFileAlt,
       title: 'Document Workflow',
-      desc: 'Smart approvals, secure e-signatures, and a powerful search-ready digital archive.'
+      desc: 'Automated approval cycle (User → Planning → GM Office) with rejection loop and digital archiving.'
     },
     {
       icon: FaChartBar,
-      title: 'Analytics & Reports',
-      desc: 'Interactive dashboards with exportable insights for informed decision-making.'
+      title: 'Reports & Analytics',
+      desc: 'Dashboards with filters, drill-down insights, and exportable reports for data-driven decisions.'
     },
     {
       icon: FaChalkboardTeacher,
       title: 'Training & Onboarding',
-      desc: 'Comprehensive onboarding and hands-on training sessions for staff success.'
+      desc: 'Bilingual (Arabic & English) training sessions and continuous support for smooth adoption.'
     },
     {
       icon: FaSchool,
       title: 'Multi-Branch Support',
-      desc: 'Scalable system designed to manage multiple schools and campuses with ease.'
+      desc: 'Scalable platform designed to manage multiple campuses and schools across Qatar.'
     }
   ]
 
