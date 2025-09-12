@@ -8,31 +8,31 @@ import {
   ChevronDown,
   Edit3,
   FolderOpen,
-  Filter,
   ArrowUpDown,
-  AlertCircle,
   Eye,
-  Menu,
   User,
+  Menu,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import toast, { Toaster } from "react-hot-toast";
+
 const Students = () => {
   const [search, setSearch] = useState("");
   const [students, setStudents] = useState([
-  { id: 1, name: "Sadiq Hussain", status: "Approved", date: "2025-09-07" },
-  { id: 2, name: "Fatima Zahra", status: "Approved", date: "2025-08-25" },
-  { id: 3, name: "Mohammed Ali", status: "Pending", date: "2025-08-12" },
-  { id: 4, name: "Aisha Siddiqui", status: "Approved", date: "2025-07-30" },
-  { id: 5, name: "Omar Farooq", status: "Pending", date: "2025-07-18" },
-  { id: 6, name: "Maryam Noor", status: "Approved", date: "2025-07-05" },
-  { id: 7, name: "Bilal Hussain", status: "Pending", date: "2025-06-22" },
-  { id: 8, name: "Khadija Yusuf", status: "Approved", date: "2025-06-10" },
-  { id: 9, name: "Yusuf Rahman", status: "Pending", date: "2025-05-28" },
-  { id: 10, name: "Hafsa Khan", status: "Approved", date: "2025-05-15" },
-  { id: 11, name: "Ibrahim Malik", status: "Pending", date: "2025-04-30" },
-  { id: 12, name: "Zainab Ahmed", status: "Approved", date: "2025-04-12" },
-]);
+    { id: 1, name: "Sadiq Hussain", status: "Approved", date: "2025-09-07" },
+    { id: 2, name: "Fatima Zahra", status: "Approved", date: "2025-08-25" },
+    { id: 3, name: "Mohammed Ali", status: "Pending", date: "2025-08-12" },
+    { id: 4, name: "Aisha Siddiqui", status: "Approved", date: "2025-07-30" },
+    { id: 5, name: "Omar Farooq", status: "Pending", date: "2025-07-18" },
+    { id: 6, name: "Maryam Noor", status: "Approved", date: "2025-07-05" },
+    { id: 7, name: "Bilal Hussain", status: "Pending", date: "2025-06-22" },
+    { id: 8, name: "Khadija Yusuf", status: "Approved", date: "2025-06-10" },
+    { id: 9, name: "Yusuf Rahman", status: "Pending", date: "2025-05-28" },
+    { id: 10, name: "Hafsa Khan", status: "Approved", date: "2025-05-15" },
+    { id: 11, name: "Ibrahim Malik", status: "Pending", date: "2025-04-30" },
+    { id: 12, name: "Zainab Ahmed", status: "Approved", date: "2025-04-12" },
+  ]);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newStudent, setNewStudent] = useState({ name: "", status: "Pending" });
   const [sortBy, setSortBy] = useState("date");
@@ -42,6 +42,7 @@ const Students = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [studentToDelete, setStudentToDelete] = useState(null);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
+
   // Filter + sort
   const filteredStudents = students
     .filter((s) => s.name.toLowerCase().includes(search.toLowerCase()))
@@ -82,6 +83,7 @@ const Students = () => {
     setIsEditModalOpen(false);
     toast.success(`"${editStudent.name}" updated`);
   };
+
   // Delete student
   const handleDeleteClick = (student) => {
     setStudentToDelete(student);
@@ -93,36 +95,29 @@ const Students = () => {
     setIsDeleteModalOpen(false);
     toast.success(`"${studentToDelete.name}" deleted`);
   };
+
   return (
-    <div className="py-4 bg-gray-50 min-h-screen  md:max-w-5xl md:ms-[24%]">
+    <div className="lg:ml-[270px] max-w-6xl bg-gray-50 py-4 px-15 flex flex-col gap-10 min-h-screen">
       <Toaster position="top-center" />
 
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <FolderOpen className="text-blue-600" size={28} />
-            <h1 className="text-xl md:text-3xl font-bold text-gray-800">Student Management</h1>
-          </div>
-          <button
-            className="md:hidden p-2 rounded-lg bg-gray-100"
-            onClick={() => setShowMobileFilters(!showMobileFilters)}
-          >
-            <Menu size={20} />
-          </button>
+      <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <FolderOpen className="text-blue-600" size={28} />
+          <h1 className="text-3xl font-bold text-[#1a4480] md:text-4xl">Student Management</h1>
         </div>
-        <p className="text-sm text-gray-500 mt-1 md:mt-0">Manage and track student approvals</p>
+        <p className="text-gray-500">Manage and track student approvals</p>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center justify-center px-4 py-2.5 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all shadow-md mt-4 md:mt-0 w-full md:w-auto"
+          className="flex items-center justify-center px-4 py-2.5 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all shadow-md w-full md:w-auto"
         >
           <Upload size={18} className="mr-2" />
           Add Student
         </button>
-      </div>
+      </header>
 
-      {/* Desktop Controls */}
-      <div className="bg-white p-4 rounded-lg shadow-sm mb-6 hidden md:flex md:flex-row gap-4 md:items-center">
+      {/* Controls */}
+      <div className="bg-white p-6 rounded-2xl shadow-md mb-6 flex flex-col md:flex-row md:items-center gap-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
           <input
@@ -149,20 +144,21 @@ const Students = () => {
           </div>
           <button
             onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
-            className="px-3 py-2.5 border border-gray-200 rounded-lg bg-white hover:bg-gray-50 flex items-center"
+            className="px-3 py-2 border border-gray-200 rounded-lg bg-white hover:bg-gray-50 flex items-center"
           >
             {sortOrder === "desc" ? "↓" : "↑"}
           </button>
         </div>
       </div>
 
-      {/* Table */}
-      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+      {/* Students Table */}
+      <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
         {filteredStudents.length ? (
           <>
+            {/* Desktop Table */}
             <div className="hidden md:block overflow-x-auto">
               <table className="w-full text-left border-collapse">
-                <thead className="bg-gray-100 text-gray-600 text-sm">
+                <thead className="bg-[#10448c] text-white text-sm">
                   <tr>
                     <th className="px-4 py-3 font-semibold">Student Name</th>
                     <th className="px-4 py-3 font-semibold">Status</th>
@@ -217,10 +213,11 @@ const Students = () => {
                 </tbody>
               </table>
             </div>
+
             {/* Mobile Cards */}
             <div className="md:hidden">
               {filteredStudents.map((s) => (
-                <div key={s.id} className="p-4 border-b border-gray-100">
+                <div key={s.id} className="bg-white p-6 rounded-2xl shadow-md border border-gray-100 mb-4">
                   <div className="flex items-start gap-3">
                     <div className="p-2 bg-gray-100 rounded-lg mt-1">
                       <User className="text-blue-600" size={20} />
@@ -275,6 +272,7 @@ const Students = () => {
         )}
       </div>
 
+      {/* Add/Edit/Delete Modals (rounded-2xl) */}
       {/* Add Student Modal */}
       <AnimatePresence>
         {isModalOpen && (
@@ -285,7 +283,7 @@ const Students = () => {
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-white rounded-lg shadow-xl w-full max-w-md mx-4"
+              className="bg-white rounded-2xl shadow-xl w-full max-w-md mx-4"
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
@@ -339,6 +337,7 @@ const Students = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
       {/* Edit Student Modal */}
       <AnimatePresence>
         {isEditModalOpen && editStudent && (
@@ -349,7 +348,7 @@ const Students = () => {
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-white rounded-lg shadow-xl w-full max-w-md mx-4"
+              className="bg-white rounded-2xl shadow-xl w-full max-w-md mx-4"
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
@@ -404,7 +403,7 @@ const Students = () => {
         )}
       </AnimatePresence>
 
-      {/* Delete Confirm Modal */}
+      {/* Delete Student Modal */}
       <AnimatePresence>
         {isDeleteModalOpen && studentToDelete && (
           <motion.div
@@ -414,7 +413,7 @@ const Students = () => {
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-white rounded-lg shadow-xl w-full max-w-md mx-4"
+              className="bg-white rounded-2xl shadow-xl w-full max-w-md mx-4"
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
@@ -454,4 +453,5 @@ const Students = () => {
     </div>
   );
 };
+
 export default Students;

@@ -35,7 +35,7 @@ const UsersHeader = () => {
 
     return (
         <div className="w-full  sm:px-6 md:px-8 py-6">
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#1446b3] mb-6 sm:mb-8">User Analytics</h2>
+            <h2 className="text-3xl font-bold text-[#1a4480] md:text-4xl">User Analytics</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 {stats.map((stat, index) => (
                     <div

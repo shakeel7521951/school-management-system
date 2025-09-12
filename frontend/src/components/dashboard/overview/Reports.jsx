@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
 import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
   BarChart,
   Bar,
   XAxis,
   YAxis,
   CartesianGrid,
   ResponsiveContainer,
-  Legend,
+  Tooltip as ReTooltip,
+  Legend as ReLegend,
   LineChart,
   Line,
 } from "recharts";
 import { AlertCircle, Download, Filter, Calendar, RotateCw } from "lucide-react";
+
+// ===== Chart.js for Pie =====
+import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
+
+ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 // ===== Sample Data (replace with API results) =====
 const complaintTypeData = [
@@ -26,10 +29,10 @@ const complaintTypeData = [
 ];
 
 const severityData = [
-  { severity: "Simple", count: 7, resolved: 5 },
-  { severity: "Urgent", count: 9, resolved: 6 },
-  { severity: "Follow-up", count: 6, resolved: 4 },
-  { severity: "Serious", count: 12, resolved: 5 },
+  { severity: "Low", count: 7, resolved: 5 },
+  { severity: "Medium", count: 9, resolved: 6 },
+  { severity: "High", count: 6, resolved: 4 },
+  { severity: "Critical", count: 12, resolved: 5 },
 ];
 
 const monthlyData = [
@@ -47,6 +50,41 @@ const statusData = [
   { status: "Pending", value: 6, color: "#f59e0b" },
 ];
 
+// ===== Chart.js Pie Component =====
+const ComplaintsPieChart = ({ complaintTypeData, activeChart }) => {
+  const labels = complaintTypeData.map((item) => item.name);
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Complaints",
+        data:
+          activeChart === "resolved"
+            ? complaintTypeData.map((item) => item.resolved)
+            : complaintTypeData.map((item) => item.value),
+        backgroundColor: complaintTypeData.map((item) => item.color),
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: "bottom" },
+      title: { display: true, text: "Complaints by Category" },
+    },
+  };
+
+  return (
+    <div className="w-full h-[300px]">
+      <Pie data={data} options={options} />
+    </div>
+  );
+};
+
+// ===== Reports Component =====
 export default function Reports() {
   const [timeRange, setTimeRange] = useState("last6months");
   const [isLoading, setIsLoading] = useState(false);
@@ -63,56 +101,33 @@ export default function Reports() {
   }, [timeRange]);
 
   const handleExport = () => {
-    alert("Export functionality would be implemented here");
+    console.log("Export reports clicked");
+    // Implement real export (CSV, PDF, Excel) here
   };
 
   // Stats summary
-  const totalComplaints = complaintTypeData.reduce((sum, item) => sum + item.value, 0);
-  const totalResolved = statusData.find(item => item.status === "Resolved")?.value || 0;
-  const resolutionRate = totalComplaints > 0 ? Math.round((totalResolved / totalComplaints) * 100) : 0;
-
-  // Custom Pie Tooltip
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-white p-3 shadow-md rounded-md border">
-          <p className="font-semibold">{label}</p>
-          <p className="text-sm">
-            Total: <span className="font-medium">{payload[0].value}</span>
-          </p>
-          {payload[1] && (
-            <p className="text-sm">
-              Resolved:{" "}
-              <span className="font-medium text-green-500">{payload[1].value}</span>
-            </p>
-          )}
-        </div>
-      );
-    }
-    return null;
-  };
-
-  // Custom Pie Labels
-  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
-    const RADIAN = Math.PI / 180;
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-    return (
-      <text x={x} y={y} fill="white" textAnchor={x > cx ? "start" : "end"} dominantBaseline="central">
-        {`${(percent * 100).toFixed(0)}%`}
-      </text>
-    );
-  };
+  const totalComplaints = complaintTypeData.reduce(
+    (sum, item) => sum + item.value,
+    0
+  );
+  const totalResolved =
+    statusData.find((item) => item.status === "Resolved")?.value || 0;
+  const resolutionRate =
+    totalComplaints > 0
+      ? Math.round((totalResolved / totalComplaints) * 100)
+      : 0;
 
   return (
     <div className="py-6 space-y-8 min-h-screen md:max-w-5xl md:ms-[24%]">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">📊  Reports</h1>
-          <p className="text-gray-500 mt-1">Dashboard overview of submitted complaints</p>
+          <h1 className="text-3xl font-bold text-[#1a4480] md:text-4xl">
+            📊 Reports
+          </h1>
+          <p className="text-gray-500 mt-1">
+            Overview of complaints and resolutions
+          </p>
         </div>
 
         <div className="flex gap-2">
@@ -136,7 +151,10 @@ export default function Reports() {
               <option value="last6months">Last 6 Months</option>
               <option value="lastyear">Last Year</option>
             </select>
-            <Calendar size={16} className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
+            <Calendar
+              size={16}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
+            />
           </div>
 
           <button
@@ -155,29 +173,41 @@ export default function Reports() {
           <h3 className="font-medium text-gray-700 mb-3">Filter Reports</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Complaint Type</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Complaint Category
+              </label>
               <select className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="">All Types</option>
-                {complaintTypeData.map(type => (
-                  <option key={type.name} value={type.name}>{type.name}</option>
+                <option value="">All Categories</option>
+                {complaintTypeData.map((type) => (
+                  <option key={type.name} value={type.name}>
+                    {type.name}
+                  </option>
                 ))}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Severity</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Severity
+              </label>
               <select className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="">All Severities</option>
-                {severityData.map(sev => (
-                  <option key={sev.severity} value={sev.severity}>{sev.severity}</option>
+                {severityData.map((sev) => (
+                  <option key={sev.severity} value={sev.severity}>
+                    {sev.severity}
+                  </option>
                 ))}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Status
+              </label>
               <select className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="">All Statuses</option>
-                {statusData.map(status => (
-                  <option key={status.status} value={status.status}>{status.status}</option>
+                {statusData.map((status) => (
+                  <option key={status.status} value={status.status}>
+                    {status.status}
+                  </option>
                 ))}
               </select>
             </div>
@@ -198,25 +228,31 @@ export default function Reports() {
         <div className="rounded-2xl shadow-md bg-white p-4 text-center">
           <h3 className="text-sm text-gray-500">In Progress</h3>
           <p className="text-2xl font-bold text-blue-600">
-            {statusData.find(item => item.status === "In Progress")?.value || 0}
+            {statusData.find((item) => item.status === "In Progress")?.value ||
+              0}
           </p>
         </div>
         <div className="rounded-2xl shadow-md bg-white p-4 text-center">
           <h3 className="text-sm text-gray-500">Pending</h3>
           <p className="text-2xl font-bold text-amber-600">
-            {statusData.find(item => item.status === "Pending")?.value || 0}
+            {statusData.find((item) => item.status === "Pending")?.value || 0}
           </p>
         </div>
         <div className="rounded-2xl shadow-md bg-white p-4 text-center">
-          <h3 className="text-sm text-gray-500">Resolution Rate</h3>
-          <p className="text-2xl font-bold text-indigo-600">{resolutionRate}%</p>
+          <h3 className="text-sm text-gray-500">Resolution %</h3>
+          <p className="text-2xl font-bold text-indigo-600">
+            {resolutionRate}%
+          </p>
         </div>
       </div>
 
       {isLoading ? (
         <div className="flex justify-center items-center h-64">
           <div className="text-center">
-            <RotateCw className="animate-spin mx-auto mb-3 text-blue-500" size={32} />
+            <RotateCw
+              className="animate-spin mx-auto mb-3 text-blue-500"
+              size={32}
+            />
             <p className="text-gray-600">Loading data...</p>
           </div>
         </div>
@@ -224,59 +260,61 @@ export default function Reports() {
         <>
           {/* Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Pie Chart - Complaint Types */}
+            {/* Pie Chart - Chart.js */}
             <div className="rounded-2xl shadow-md bg-white p-4">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-lg font-semibold text-gray-700">Complaints by Type</h2>
+                <h2 className="text-lg font-semibold text-gray-700">
+                  Complaints by Category
+                </h2>
                 <div className="flex bg-gray-100 rounded-lg p-1">
                   <button
-                    className={`px-3 py-1 text-sm rounded-md ${activeChart === "all" ? "bg-white shadow-sm" : ""}`}
+                    className={`px-3 py-1 text-sm rounded-md ${
+                      activeChart === "all" ? "bg-white shadow-sm" : ""
+                    }`}
                     onClick={() => setActiveChart("all")}
                   >
                     All
                   </button>
                   <button
-                    className={`px-3 py-1 text-sm rounded-md ${activeChart === "resolved" ? "bg-white shadow-sm" : ""}`}
+                    className={`px-3 py-1 text-sm rounded-md ${
+                      activeChart === "resolved" ? "bg-white shadow-sm" : ""
+                    }`}
                     onClick={() => setActiveChart("resolved")}
                   >
                     Resolved
                   </button>
                 </div>
               </div>
-              <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                  <Pie
-                    data={complaintTypeData}
-                    dataKey={activeChart === "resolved" ? "resolved" : "value"}
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={110}
-                    label={renderCustomizedLabel}
-                    labelLine={false}
-                  >
-                    {complaintTypeData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip content={<CustomTooltip />} />
-                  <Legend />
-                </PieChart>
-              </ResponsiveContainer>
+              <ComplaintsPieChart
+                complaintTypeData={complaintTypeData}
+                activeChart={activeChart}
+              />
             </div>
 
             {/* Bar Chart - Severity */}
             <div className="rounded-2xl shadow-md bg-white p-4">
-              <h2 className="text-lg font-semibold text-gray-700 mb-4">Complaints by Severity</h2>
+              <h2 className="text-lg font-semibold text-gray-700 mb-4">
+                Complaints by Severity
+              </h2>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={severityData}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="severity" />
                   <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="count" name="Total" fill="#3b82f6" radius={[6, 6, 0, 0]} />
-                  <Bar dataKey="resolved" name="Resolved" fill="#22c55e" radius={[6, 6, 0, 0]} />
+                  <ReTooltip />
+                  <ReLegend />
+                  <Bar
+                    dataKey="count"
+                    name="Total"
+                    fill="#3b82f6"
+                    radius={[6, 6, 0, 0]}
+                  />
+                  <Bar
+                    dataKey="resolved"
+                    name="Resolved"
+                    fill="#22c55e"
+                    radius={[6, 6, 0, 0]}
+                  />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -284,16 +322,32 @@ export default function Reports() {
 
           {/* Line Chart - Monthly Trends */}
           <div className="rounded-2xl shadow-md bg-white p-4">
-            <h2 className="text-lg font-semibold text-gray-700 mb-4">Complaints Trend (Monthly)</h2>
+            <h2 className="text-lg font-semibold text-gray-700 mb-4">
+              Monthly Complaints Trend
+            </h2>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={monthlyData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
                 <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="complaints" name="Total Complaints" stroke="#3b82f6" strokeWidth={3} dot={{ r: 5 }} />
-                <Line type="monotone" dataKey="resolved" name="Resolved" stroke="#22c55e" strokeWidth={3} dot={{ r: 5 }} />
+                <ReTooltip />
+                <ReLegend />
+                <Line
+                  type="monotone"
+                  dataKey="complaints"
+                  name="Total Complaints"
+                  stroke="#3b82f6"
+                  strokeWidth={3}
+                  dot={{ r: 5 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="resolved"
+                  name="Resolved"
+                  stroke="#22c55e"
+                  strokeWidth={3}
+                  dot={{ r: 5 }}
+                />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -303,9 +357,16 @@ export default function Reports() {
             severityData.length === 0 &&
             monthlyData.length === 0 && (
               <div className="text-center py-12">
-                <AlertCircle className="mx-auto mb-3 text-gray-300" size={48} />
-                <h3 className="text-lg font-medium text-gray-600">No data available</h3>
-                <p className="text-gray-500 mt-1">Try adjusting your filters or time range</p>
+                <AlertCircle
+                  className="mx-auto mb-3 text-gray-300"
+                  size={48}
+                />
+                <h3 className="text-lg font-medium text-gray-600">
+                  No data available
+                </h3>
+                <p className="text-gray-500 mt-1">
+                  Try adjusting your filters or time range
+                </p>
               </div>
             )}
         </>
