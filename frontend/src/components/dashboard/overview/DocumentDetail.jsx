@@ -14,15 +14,15 @@ import { Document, Page, pdfjs } from "react-pdf";
 // ✅ Import styles to fix warnings
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
-// ✅ Vite-compatible worker setup
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/legacy/build/pdf.worker.min.js",
-  import.meta.url
-).toString();
+
+// ✅ Use worker from /public
+pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
+
 // PDF file (must be in public/)
 const pdfFile = "/Sadiq_Resume.pdf";
+
 const StudentDetail = () => {
-  const [students, setStudents] = useState([
+  const [students] = useState([
     { id: 1, name: "Sadiq Hussain", status: "Approved", date: "2025-09-07" },
     { id: 2, name: "Fatima Zahra", status: "Approved", date: "2025-08-25" },
     { id: 3, name: "Mohammed Ali", status: "Pending", date: "2025-08-12" },
@@ -36,31 +36,36 @@ const StudentDetail = () => {
     { id: 11, name: "Ibrahim Malik", status: "Pending", date: "2025-04-30" },
     { id: 12, name: "Zainab Ahmed", status: "Approved", date: "2025-04-12" },
   ]);
+
   const [openPdf, setOpenPdf] = useState(false);
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
+
   const handleDownload = (student) => {
     const link = document.createElement("a");
-    link.href = pdfFile; 
-    link.download = `${student.name}_record.pdf`; 
+    link.href = pdfFile;
+    link.download = `${student.name}_record.pdf`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     toast.success(`Downloading ${student.name}'s record...`);
   };
+
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
     setPageNumber(1);
   };
+
   const nextPage = () => pageNumber < numPages && setPageNumber(pageNumber + 1);
   const prevPage = () => pageNumber > 1 && setPageNumber(pageNumber - 1);
+
   return (
     <div className="py-6 bg-white min-h-screen md:max-w-5xl md:ms-[24%]">
       <Toaster position="top-center" />
       <div className="mb-8 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <FolderOpen className="text-indigo-600" size={28} />
-          <h1 className="text-3xl font-bold text-[#1a4480] md:text-4xl">Student Records</h1>
+          <h1 className="text-2xl font-bold text-[#1a4480]">Student Records</h1>
         </div>
         <p className="text-sm text-gray-500">{students.length} students</p>
       </div>
@@ -81,10 +86,14 @@ const StudentDetail = () => {
                 <User size={28} />
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-gray-800 truncate">{student.name}</h3>
+                <h3 className="font-semibold text-gray-800 truncate">
+                  {student.name}
+                </h3>
                 <p
                   className={`text-sm font-medium ${
-                    student.status === "Approved" ? "text-green-600" : "text-yellow-600"
+                    student.status === "Approved"
+                      ? "text-green-600"
+                      : "text-yellow-600"
                   }`}
                 >
                   {student.status}
@@ -114,7 +123,7 @@ const StudentDetail = () => {
       </div>
       {openPdf && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-          <div className="bg-white  rounded-2xl shadow-lg w-[45%] h-[90%] overflow-auto relative flex flex-col">
+          <div className="bg-white rounded-2xl shadow-lg w-[45%] h-[90%] overflow-auto relative flex flex-col">
             <button
               onClick={() => setOpenPdf(false)}
               className="absolute top-3 right-3 p-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition z-50"
@@ -153,4 +162,5 @@ const StudentDetail = () => {
     </div>
   );
 };
+
 export default StudentDetail;
