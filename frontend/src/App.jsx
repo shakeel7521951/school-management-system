@@ -27,6 +27,13 @@ import StudentSidebar from './components/Studentdashboard/common/StudentSidebar'
 import StSettings from './pages/StudentDashboard/StSettings'
 import StOverview from './pages/StudentDashboard/StOverview'
 import StNotifications from './pages/StudentDashboard/StNotifications'
+import TeacherNavbar from './components/teacherDashboard/common/TeacherNavbar'
+import TeacherSideBar from './components/teacherDashboard/common/TeacherSideBar'
+import TeacherOverview from './pages/TeacherDashboard/TeacherOverview'
+import TeacherDocuments from './pages/TeacherDashboard/TeacherDocuments'
+import TeacherComplaints from './pages/TeacherDashboard/TeacherComplaints'
+import TeacherAnnouncements from './pages/TeacherDashboard/TeacherAnnouncements'
+import TeacherProfile from './pages/TeacherDashboard/TeacherProfile'
 
 const MainFunction = () => {
   return (
@@ -53,6 +60,16 @@ const StudentRoute = () => {
     <div>
       <StudentNavbar />
       <StudentSidebar />
+      <Outlet />
+    </div>
+  )
+}
+
+const TeacherRoute = () => {
+  return (
+    <div>
+      <TeacherNavbar />
+      <TeacherSideBar />
       <Outlet />
     </div>
   )
@@ -94,6 +111,31 @@ const router = createBrowserRouter([
       { path: '/stnotifications', element: <StNotifications /> },
 
       { path: '/stsettings', element: <StSettings /> }
+    ]
+  },
+  {
+    element: <TeacherRoute />,
+    children: [
+      {
+        path: '/teacheroverview',
+        element: <TeacherOverview />
+      },
+       {
+        path: '/teacherdocuments',
+        element: <TeacherDocuments />
+      },
+      {
+        path: '/teachercomplaints',
+        element: <TeacherComplaints />
+      },
+       {
+        path: '/teacherannouncements',
+        element: <TeacherAnnouncements />
+      },
+       {
+        path: '/teacherprofile',
+        element: <TeacherProfile />
+      }
     ]
   }
 ])

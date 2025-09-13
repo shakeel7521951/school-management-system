@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -34,19 +35,60 @@ export default function Navbar() {
               >
                 {link.name}
               </Link>
-              {/* underline animation */}
               <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-400 transition-all duration-500 group-hover:w-full"></span>
             </li>
           ))}
         </ul>
 
-        {/* Desktop Login Button */}
-        <Link to="/login" className="hidden md:block relative group">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-400 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-200" />
-          <div className="relative px-6 py-2 bg-indigo-950 rounded-full text-indigo-200 group-hover:text-white transition duration-200 font-semibold">
-            Login
+        {/* Desktop Right Section */}
+        <div className="hidden md:flex items-center gap-6">
+          {/* Login Button */}
+          <Link to="/login" className="relative group">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-400 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-200" />
+            <div className="relative px-6 py-2 bg-indigo-950 rounded-full text-indigo-200 group-hover:text-white transition duration-200 font-semibold">
+              Login
+            </div>
+          </Link>
+
+          {/* Profile Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setProfileOpen(!profileOpen)}
+              className="flex items-center gap-2 p-2 rounded-full bg-indigo-900 hover:bg-indigo-800 transition"
+            >
+              <FaUserCircle className="text-3xl text-indigo-200" />
+            </button>
+
+            {profileOpen && (
+              <div className="absolute right-0 mt-3 w-48 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-50 animate-fadeIn">
+              
+
+                {/* Links */}
+                <Link
+                  to="/overview"
+                  className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
+                  onClick={() => setProfileOpen(false)}
+                >
+                  Admin Dashboard
+                </Link>
+                <Link
+                  to="/teacheroverview"
+                  className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
+                  onClick={() => setProfileOpen(false)}
+                >
+                  Teacher Dashboard
+                </Link>
+                <Link
+                  to="/stoverview"
+                  className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
+                  onClick={() => setProfileOpen(false)}
+                >
+                  Student Dashboard
+                </Link>
+              </div>
+            )}
           </div>
-        </Link>
+        </div>
 
         {/* Mobile Menu Button */}
         <button
@@ -98,17 +140,68 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Mobile Login */}
-        <Link
-          to="/login"
-          onClick={() => setIsOpen(false)}
-          className="mt-10 w-full relative group block"
-        >
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-400 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-200" />
-          <div className="relative px-4 py-3 bg-indigo-950 rounded-full text-center text-indigo-200 group-hover:text-white transition duration-200 font-semibold">
-            Login
+        {/* Mobile Login + Profile */}
+        <div className="mt-10 flex flex-col gap-4">
+          <Link
+            to="/login"
+            onClick={() => setIsOpen(false)}
+            className="relative group block"
+          >
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-400 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-200" />
+            <div className="relative px-4 py-3 bg-indigo-950 rounded-full text-center text-indigo-200 group-hover:text-white transition duration-200 font-semibold">
+              Login
+            </div>
+          </Link>
+
+          {/* Profile Dropdown (Mobile) */}
+          <div className="relative">
+            <button
+              onClick={() => setProfileOpen(!profileOpen)}
+              className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-indigo-900 rounded-full text-indigo-200 hover:bg-indigo-800 hover:text-white transition"
+            >
+              <FaUserCircle className="text-2xl" />
+              <span className="font-medium">Profile</span>
+            </button>
+
+            {profileOpen && (
+              <div className="mt-3 w-full bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50 animate-fadeIn">
+               
+
+                {/* Links */}
+                <Link
+                  to="/overview"
+                  className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
+                  onClick={() => {
+                    setProfileOpen(false);
+                    setIsOpen(false);
+                  }}
+                >
+                  Admin Dashboard
+                </Link>
+                <Link
+                  to="/teacheroverview"
+                  className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
+                  onClick={() => {
+                    setProfileOpen(false);
+                    setIsOpen(false);
+                  }}
+                >
+                  Teacher Dashboard
+                </Link>
+                <Link
+                  to="/stoverview"
+                  className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
+                  onClick={() => {
+                    setProfileOpen(false);
+                    setIsOpen(false);
+                  }}
+                >
+                  Student Dashboard
+                </Link>
+              </div>
+            )}
           </div>
-        </Link>
+        </div>
       </div>
 
       {/* Overlay */}
