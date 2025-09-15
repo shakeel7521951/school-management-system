@@ -69,7 +69,7 @@ const TeacherComplaints = () => {
         title: newComplaint.title,
         date: today,
         status: 'Pending',
-        type: newComplaint.type,
+        type: newComplaint.type,  
         description: newComplaint.description
       },
       ...complaints

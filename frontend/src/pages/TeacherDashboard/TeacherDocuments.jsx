@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Search, Upload } from "lucide-react";
-import DocumentTable from "../../components/teacherDashboard/teacherDocuments/Documenttable";
+import DocumentTable from "../../components/teacherDashboard/teacherDocuments/DocumentTable";
 import ViewModal from "../../components/teacherDashboard/teacherDocuments/ViewModal";
 import UploadModal from "../../components/teacherDashboard/teacherDocuments/UploadModal";
 
