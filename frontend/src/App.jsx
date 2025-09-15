@@ -14,10 +14,8 @@ import AdminComplain from './pages/dashboard/AdminComplain'
 import AboutUs from './pages/AboutUs'
 import Complaints from './pages/Complaints'
 import ComplaintForm from './components/complaints/ComplaintForm'
-import Documents from './components/dashboard/overview/Documents'
-import DocumentDetail from './components/dashboard/overview/DocumentDetail'
 import Users from './pages/dashboard/Users'
-import Reports from './components/dashboard/overview/Reports'
+import Reports from "../src/components/dashboard/Reports"
 
 import StDocuments from './pages/StudentDashboard/StDocuments'
 import StComplaints from './pages/StudentDashboard/StComplaints'
@@ -34,6 +32,7 @@ import TeacherDocuments from './pages/TeacherDashboard/TeacherDocuments'
 import TeacherComplaints from './pages/TeacherDashboard/TeacherComplaints'
 import TeacherAnnouncements from './pages/TeacherDashboard/TeacherAnnouncements'
 import TeacherProfile from './pages/TeacherDashboard/TeacherProfile'
+import Documents from './pages/dashboard/Documents'
 
 const MainFunction = () => {
   return (
@@ -94,11 +93,13 @@ const router = createBrowserRouter([
     element: <AdminRoute />,
     children: [
       { path: '/overview', element: <Overview /> },
-      { path: '/documents', element: <Documents /> },
-      { path: '/documentdetail', element: <DocumentDetail /> },
+     {
+      path :"/documents" , element:<Documents/>    },
       { path: '/users', element: <Users /> },
       { path: '/admincomplain', element: <AdminComplain /> },
-      { path: '/reports', element: <Reports /> }
+     {
+      path :"/reports", element:<Reports/>
+     }
     ]
   },
   {

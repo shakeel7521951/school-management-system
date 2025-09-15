@@ -12,13 +12,9 @@ const UploadModal = ({
   handleFileChange,
 }) => {
   return (
-    <div
-      className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 px-4"
-    >
-      <div
-        className="bg-white/30 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-xl 
-                   relative overflow-hidden border border-white/20"
-      >
+    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 px-4">
+      <div className="bg-white/30 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-xl 
+                      relative overflow-hidden border border-white/20">
         {/* Header */}
         <div className="bg-gradient-to-r from-[#104c80] to-[#1e64a9] px-6 py-5 flex items-center justify-between">
           <div className="flex items-center gap-3 text-white">
@@ -33,6 +29,7 @@ const UploadModal = ({
         {/* Body */}
         <form onSubmit={onSubmit} className="p-6 grid grid-cols-1 gap-4">
           <div className="grid sm:grid-cols-2 gap-4">
+            {/* Title */}
             <input
               type="text"
               value={uploadTitle}
@@ -42,6 +39,8 @@ const UploadModal = ({
               className="w-full border border-gray-300/40 bg-white/60 backdrop-blur-sm 
                          px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#104c80] outline-none"
             />
+
+            {/* Document Type */}
             <select
               value={uploadType}
               onChange={(e) => setUploadType(e.target.value)}
@@ -50,26 +49,27 @@ const UploadModal = ({
                          px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#104c80] outline-none"
             >
               <option value="">Select Type</option>
-              <option value="Schedule">Schedule</option>
-              <option value="Report">Report</option>
-              <option value="Plan">Plan</option>
-              <option value="Other">Other</option>
+              <option value="Attendance">Attendance Report</option>
+              <option value="Report">Student Progress Report</option>
+              <option value="Grades">Grades Report</option>
             </select>
           </div>
 
-          {/* File */}
+          {/* File Upload */}
           <label
             htmlFor="file-input"
             className="flex flex-col items-center justify-center gap-2 border-2 border-dashed 
                        border-gray-300/50 rounded-lg p-6 text-center cursor-pointer 
                        hover:border-[#104c80] bg-white/40 backdrop-blur-sm transition"
           >
-            <p className="text-sm text-gray-700">Drag & drop a file here, or click to browse</p>
-            <p className="text-xs text-gray-500">PDF, DOCX, XLSX — max 10MB</p>
+            <p className="text-sm text-gray-700">
+              Drag & drop a file here, or click to browse
+            </p>
+            <p className="text-xs text-gray-500">PDF, DOCX, XLSX, ZIP — max 10MB</p>
             <input
               id="file-input"
               type="file"
-              accept=".pdf,.doc,.docx,.xls,.xlsx,.pptx"
+              accept=".pdf,.doc,.docx,.xls,.xlsx,.zip"
               className="hidden"
               onChange={handleFileChange}
             />
