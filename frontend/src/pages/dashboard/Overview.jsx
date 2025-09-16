@@ -18,17 +18,17 @@ const Overview = () => {
   ];
 
   return (
-    <div className="lg:ml-[270px] max-w-7xl mx-auto bg-gray-50 py-6 px-4 sm:px-6 lg:px-8 flex flex-col gap-10">
-      {/* Page Title */}
-      <header>
-        <h1 className="text-3xl font-bold text-[#1a4480] md:text-4xl">
-          Overview
-        </h1>
-        <p className="text-gray-500 mt-1">
-          A quick snapshot of visitors, complaints, documents, and performance.
-        </p>
-        <hr className="mt-4 border-gray-200" />
-      </header>
+    <>
+      {/* main wrapper  */}
+      <div className="lg:ml-[270px] md:ml-20 max-w-6xl   bg-gray-50 py-4 px-15 flex flex-col gap-10">
+        {/* Page Title */}
+        <header>
+          <h1 className='text-3xl font-bold text-[#1a4480] md:text-4xl'>Overview</h1>
+          <p className='text-gray-500 mt-1'>
+            A quick snapshot of visitors, complaints, documents, and performance.
+          </p>
+          <hr className='mt-4 border-gray-200' />
+        </header>
 
       {/* KPI Cards */}
       <Stats />
