@@ -39,7 +39,7 @@ const DocumentApprovalBarChart = () => {
   };
 
   return (
-    <div className="w-full h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px]">
+    <div className="w-full h-[300px] sm:h-[300px] md:h-[350px] lg:h-[400px]">
       <Bar data={data} options={options} />
     </div>
   );

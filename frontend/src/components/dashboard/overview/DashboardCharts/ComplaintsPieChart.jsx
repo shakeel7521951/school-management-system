@@ -32,7 +32,7 @@ const ComplaintsPieChart = () => {
   };
 
   return (
-    <div className="w-full h-[300px] sm:h-[350px] md:h-[400px]">
+    <div className="w-full h-[300px] sm:h-[350px] md:h-[300px]">
       <Pie data={data} options={options} />
     </div>
   );
