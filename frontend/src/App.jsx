@@ -14,11 +14,14 @@ import AboutUs from './pages/AboutUs'
 import Complaints from './pages/Complaints'
 import ComplaintForm from './components/complaints/ComplaintForm'
 import Users from './pages/dashboard/Users'
-<<<<<<< HEAD
-=======
-import Reports from '../src/components/dashboard/Reports'
 
->>>>>>> 3c485ba35835a4edc6c32f8463d8226aab8930f0
+// ✅ keep only one Reports import (the correct one)
+import Reports from './components/dashboard/report/Reports'
+
+// ✅ new admin document routes
+import RequestedDocuments from './pages/dashboard/AdminDocuments.jsx/RequestedDocuments'
+import UploadedDocuments from './pages/dashboard/AdminDocuments.jsx/UploadedDocuments'
+
 import StDocuments from './pages/StudentDashboard/StDocuments'
 import StComplaints from './pages/StudentDashboard/StComplaints'
 import { Toaster } from 'react-hot-toast'
@@ -33,15 +36,8 @@ import TeacherOverview from './pages/TeacherDashboard/TeacherOverview'
 import TeacherDocuments from './pages/TeacherDashboard/TeacherDocuments'
 import TeacherComplaints from './pages/TeacherDashboard/TeacherComplaints'
 import TeacherProfile from './pages/TeacherDashboard/TeacherProfile'
-<<<<<<< HEAD
-import Documents from './pages/dashboard/Documents'
-import AdminComplain from './components/dashboard/adminComplaints/AdminComplain'
-import Reports from './components/dashboard/report/Reports'
-=======
-import RequestedDocuments from './pages/dashboard/AdminDocuments.jsx/RequestedDocuments'
-import UploadedDocuments from './pages/dashboard/AdminDocuments.jsx/UploadedDocuments'
 import TeacherNotifications from './pages/TeacherDashboard/TeacherNotifications'
->>>>>>> 3c485ba35835a4edc6c32f8463d8226aab8930f0
+import AdminComplain from './components/dashboard/adminComplaints/AdminComplain'
 
 const MainFunction = () => {
   return (
@@ -103,58 +99,30 @@ const router = createBrowserRouter([
     children: [
       { path: '/overview', element: <Overview /> },
       { path: 'documents/uploaded', element: <UploadedDocuments /> },
-
       { path: 'documents/requests', element: <RequestedDocuments /> },
-
       { path: '/users', element: <Users /> },
       { path: '/admincomplain', element: <AdminComplain /> },
-<<<<<<< HEAD
-     {
-      path :"/reports", element:<Reports />
-     }
-=======
-      {
-        path: '/reports',
-        element: <Reports />
-      }
->>>>>>> 3c485ba35835a4edc6c32f8463d8226aab8930f0
+      { path: '/reports', element: <Reports /> }
     ]
   },
   {
     element: <StudentRoute />,
     children: [
       { path: '/stoverview', element: <StOverview /> },
-
       { path: '/stdocuments', element: <StDocuments /> },
       { path: '/stcomplaints', element: <StComplaints /> },
       { path: '/stnotifications', element: <StNotifications /> },
-
       { path: '/stsettings', element: <StSettings /> }
     ]
   },
   {
     element: <TeacherRoute />,
     children: [
-      {
-        path: '/teacheroverview',
-        element: <TeacherOverview />
-      },
-      {
-        path: '/teacherdocuments',
-        element: <TeacherDocuments />
-      },
-      {
-        path: '/teachercomplaints',
-        element: <TeacherComplaints />
-      },
-      {
-        path: '/teachernotifications',
-        element: <TeacherNotifications />
-      },
-      {
-        path: '/teacherprofile',
-        element: <TeacherProfile />
-      }
+      { path: '/teacheroverview', element: <TeacherOverview /> },
+      { path: '/teacherdocuments', element: <TeacherDocuments /> },
+      { path: '/teachercomplaints', element: <TeacherComplaints /> },
+      { path: '/teachernotifications', element: <TeacherNotifications /> },
+      { path: '/teacherprofile', element: <TeacherProfile /> }
     ]
   }
 ])

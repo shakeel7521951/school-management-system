@@ -150,7 +150,7 @@ export default function Reports() {
           </div>
 
           <button
-            className="flex w-full lg:w-[100px] items-center gap-2 bg-blue-600 text-white rounded-lg px-3 sm:px-4 py-2 text-sm font-medium hover:bg-blue-700"
+            className="flex w-[100px] items-center gap-2 bg-blue-600 text-white rounded-lg px-3 sm:px-4 py-2 text-sm font-medium hover:bg-blue-700"
           >
             <Download size={16} />
             Export
