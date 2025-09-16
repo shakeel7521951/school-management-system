@@ -267,7 +267,7 @@ const AdminComplain = () => {
   };
 
   return (
-    <div className="lg:ml-[270px] max-w-6xl bg-gray-50 py-4 px-15 flex flex-col gap-8 min-h-screen">
+    <div className="lg:ml-[270px] md:ml-20 max-w-6xl bg-gray-50 py-4 px-15 flex flex-col gap-8 min-h-screen">
       {/* Page Title */}
       <header>
         <h1 className="text-3xl font-extrabold text-[#1a4480] md:text-5xl">Complaint Management</h1>

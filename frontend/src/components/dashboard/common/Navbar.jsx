@@ -15,20 +15,20 @@ const Navbar = ({ onMenuClick, userName = "Admin User", userRole = "Administrato
   }, []);
 
   return (
-    <header className="flex items-center justify-between bg-white border-b border-gray-200 shadow-sm px-6 py-3 sticky top-0 h-16 ">
+    <header className="flex items-center justify-between bg-white border-b border-gray-200 shadow-sm px-4 sm:px-6 md:px-8 py-3 sticky top-0 h-16 z-50">
       {/* Left Section */}
-      <div className="flex items-center">
+      <div className="flex items-center flex-1">
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden p-2 rounded-lg mr-4 bg-gray-100 hover:bg-gray-200 transition-all"
+          className="md:hidden p-2 rounded-lg mr-3 bg-gray-100 hover:bg-gray-200 transition-all"
           onClick={onMenuClick}
           aria-label="Toggle menu"
         >
           <Menu size={20} className="text-gray-700" />
         </button>
 
-        {/* Search Bar - Hidden on mobile */}
-        <div className="hidden md:flex items-center ms-[350px] bg-gray-100 rounded-xl px-3 py-2 w-64 shadow-inner">
+        {/* Search Bar (hidden on mobile) */}
+        <div className="hidden md:flex items-center bg-gray-100 rounded-xl px-3 py-2 w-full max-w-sm lg:max-w-md shadow-inner">
           <Search size={18} className="text-gray-400 mr-2" />
           <input
             type="text"
@@ -39,14 +39,16 @@ const Navbar = ({ onMenuClick, userName = "Admin User", userRole = "Administrato
         </div>
       </div>
 
-      {/* Center Title - Visible on mobile */}
-      <h1 className="md:hidden font-bold text-xl text-gray-800 tracking-tight">School DMS</h1>
+      {/* Center Title - Visible on mobile only */}
+      <h1 className="md:hidden font-bold text-lg sm:text-xl text-gray-800 tracking-tight">
+        School DMS
+      </h1>
 
       {/* Right Section */}
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-3 sm:space-x-4">
         {/* Notifications */}
         <div className="relative">
-          <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 hover:bg-indigo-200 transition-all">
+          <button className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 hover:bg-indigo-200 transition-all">
             <Bell size={20} />
             {notificationsCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center shadow-sm">
@@ -67,14 +69,14 @@ const Navbar = ({ onMenuClick, userName = "Admin User", userRole = "Administrato
               <p className="text-sm font-semibold text-gray-800">{userName}</p>
               <p className="text-xs text-gray-500">{userRole}</p>
             </div>
-            <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-600 border border-gray-300">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-600 border border-gray-300">
               <User size={20} />
             </div>
           </button>
 
           {/* Profile Dropdown */}
           {isProfileOpen && (
-            <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl  shadow-lg py-1 border border-gray-100 z-50">
+            <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-lg py-1 border border-gray-100 z-50">
               <div className="px-4 py-2 border-b border-gray-100">
                 <p className="text-sm font-medium text-gray-800">{userName}</p>
                 <p className="text-xs text-gray-500">{userRole}</p>

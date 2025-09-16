@@ -18,12 +18,18 @@ const DocumentViewModal = ({ doc, onClose }) => {
             animate={{ scale: 1 }}
             exit={{ scale: 0.9 }}
           >
+            {/* Header */}
             <div className="p-5 border-b flex justify-between items-center">
               <h3 className="text-lg font-semibold">View Document</h3>
-              <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+              <button
+                onClick={onClose}
+                className="text-gray-400 hover:text-gray-600"
+              >
                 ✕
               </button>
             </div>
+
+            {/* Document Info */}
             <div className="p-5 space-y-2 text-gray-700">
               <p><span className="font-medium">Title:</span> {doc.title}</p>
               <p><span className="font-medium">Uploaded By:</span> {doc.uploaderName} ({doc.uploadedBy})</p>
@@ -32,6 +38,8 @@ const DocumentViewModal = ({ doc, onClose }) => {
               {doc.fileName && <p><span className="font-medium">File:</span> {doc.fileName}</p>}
               {doc.reviewerNotes && <p><span className="font-medium">Notes:</span> {doc.reviewerNotes}</p>}
             </div>
+
+            {/* Footer Buttons */}
             <div className="flex justify-end gap-3 p-5 border-t">
               <button
                 onClick={onClose}
@@ -40,13 +48,26 @@ const DocumentViewModal = ({ doc, onClose }) => {
                 Close
               </button>
               {doc.fileName && (
-                <a
-                  href={`/${doc.fileName}`}
-                  download
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
-                >
-                  <Download size={16} /> Download
-                </a>
+                <>
+                  {/* 🔹 View in browser */}
+                  <a
+                    href={doc.fileName}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
+                  >
+                    View
+                  </a>
+
+                  {/* 🔹 Direct Download */}
+                  <a
+                    href={doc.fileName}
+                    download
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
+                  >
+                    <Download size={16} /> Download
+                  </a>
+                </>
               )}
             </div>
           </motion.div>

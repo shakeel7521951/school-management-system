@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FileText, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import DocumentViewModal from "../../components/dashboard/documents/DocumentViewModal";
 import DeleteConfirmModal from "../../components/dashboard/documents/DeleteConfirmModal";
 import DocumentsTable from "../../components/dashboard/documents/DocumentsTable";
@@ -18,7 +18,7 @@ const Documents = () => {
       date: "2025-09-10",
       status: "Approved",
       type: "Attendance",
-      fileName: "attendance_report.xlsx",
+      fileName: "/documents/Resume.pdf",
       reviewerNotes: "Approved by Admin.",
       uploadedBy: "Teacher",
       uploaderName: "Mr. Khan",
@@ -29,7 +29,7 @@ const Documents = () => {
       date: "2025-09-12",
       status: "Pending",
       type: "Report",
-      fileName: "progress_report.pdf",
+      fileName: "/documents/Resume.pdf",
       reviewerNotes: "—",
       uploadedBy: "Teacher",
       uploaderName: "Ms. Fatima",
@@ -40,11 +40,12 @@ const Documents = () => {
   const [studentDocs, setStudentDocs] = useState([
     {
       id: 101,
-      title: "Math Assignment",
+      title: "Documents",
       date: "2025-09-01",
       status: "Pending",
       uploadedBy: "Student",
       uploaderName: "Ali",
+      fileName: "/documents/Resume.pdf",
     },
     {
       id: 102,
@@ -53,6 +54,7 @@ const Documents = () => {
       status: "Pending",
       uploadedBy: "Student",
       uploaderName: "Sara",
+      fileName: "/documents/Resume.pdf",
     },
   ]);
 
@@ -105,17 +107,16 @@ const Documents = () => {
   const allDocs = sortDocs([...teacherDocs, ...studentDocs]);
 
   return (
-    <div className="lg:ml-[270px] max-w-6xl bg-gray-50 py-6 px-6 flex flex-col gap-10 min-h-screen">
+    <div className="lg:ml-[270px] md:ml-20 max-w-6xl bg-gray-50 py-6 px-4 sm:px-6 md:px-8 flex flex-col gap-10 min-h-screen">
       {/* Header */}
-      <header className="flex w-[300px] ">
-        {/* <FileText className="text-blue-600" size={28} /> */}
-        <h1 className="text-[26px] font-bold text-[#1a4480]">
-         Document Management
+      <header className="flex w-full">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1a4480]">
+          Document Management
         </h1>
       </header>
 
       {/* Search + Sort + Filter Controls */}
-      <div className="bg-white p-6 rounded-2xl shadow-md flex flex-col md:flex-row md:items-center gap-4 ">
+      <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-md flex flex-col md:flex-row md:items-center gap-4">
         {/* Search */}
         <div className="relative flex-1">
           <Search
