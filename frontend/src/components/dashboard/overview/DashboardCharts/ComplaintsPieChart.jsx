@@ -11,14 +11,20 @@ const ComplaintsPieChart = () => {
       {
         label: "Complaints",
         data: [12, 5, 8, 3, 6],
-        backgroundColor: ["#6366F1", "#F59E0B", "#10B981", "#EF4444", "#8B5CF6"],
+        backgroundColor: [
+          "#6366F1",
+          "#F59E0B",
+          "#10B981",
+          "#EF4444",
+          "#8B5CF6",
+        ],
       },
     ],
   };
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false, // Fill parent height
+    maintainAspectRatio: false, // allows height control
     plugins: {
       legend: { position: "bottom" },
       title: { display: true, text: "Complaints by Type" },
@@ -26,7 +32,7 @@ const ComplaintsPieChart = () => {
   };
 
   return (
-    <div className="w-full h-full  mt-[-18px]">
+    <div className="w-full h-[300px] sm:h-[350px] md:h-[400px]">
       <Pie data={data} options={options} />
     </div>
   );

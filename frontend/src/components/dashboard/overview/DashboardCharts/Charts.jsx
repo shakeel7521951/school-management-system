@@ -6,20 +6,25 @@ import ComplaintsDoughnutChart from "./ComplaintsDoughnutChart";
 
 const Charts = () => {
   return (
-    <div className="space-y-6 mt-6">
+    <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Visitor Trends */}
       <div className="bg-white p-4 rounded-xl shadow">
-        <VisitorTrendsChart/>
+        <VisitorTrendsChart />
       </div>
 
+      {/* Complaints Pie */}
       <div className="bg-white p-4 rounded-xl shadow">
-        <ComplaintsPieChart/>
+        <ComplaintsPieChart />
       </div>
 
-      <div className="bg-white p-4 border border-blue-900 h-[200px] rounded-xl shadow">
-        <DocumentApprovalBarChart/>
+      {/* Document Approval Bar */}
+      <div className="bg-white p-4 border border-blue-900 h-[250px] rounded-xl shadow">
+        <DocumentApprovalBarChart />
       </div>
-       <div className="bg-white p-4 rounded-xl shadow">
-        <ComplaintsDoughnutChart/>
+
+      {/* Complaints Doughnut */}
+      <div className="bg-white p-4 rounded-xl shadow">
+        <ComplaintsDoughnutChart />
       </div>
     </div>
   );

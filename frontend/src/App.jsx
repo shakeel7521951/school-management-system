@@ -10,13 +10,10 @@ import Signup from './pages/Signup'
 import Sidebaar from './components/dashboard/common/Sidebaar'
 import Navbarr from './components/dashboard/common/Navbar'
 import Overview from './pages/dashboard/Overview'
-import AdminComplain from './pages/dashboard/AdminComplain'
 import AboutUs from './pages/AboutUs'
 import Complaints from './pages/Complaints'
 import ComplaintForm from './components/complaints/ComplaintForm'
 import Users from './pages/dashboard/Users'
-import Reports from "../src/components/dashboard/Reports"
-
 import StDocuments from './pages/StudentDashboard/StDocuments'
 import StComplaints from './pages/StudentDashboard/StComplaints'
 import { Toaster } from 'react-hot-toast'
@@ -33,6 +30,8 @@ import TeacherComplaints from './pages/TeacherDashboard/TeacherComplaints'
 import TeacherAnnouncements from './pages/TeacherDashboard/TeacherAnnouncements'
 import TeacherProfile from './pages/TeacherDashboard/TeacherProfile'
 import Documents from './pages/dashboard/Documents'
+import AdminComplain from './components/dashboard/adminComplaints/AdminComplain'
+import Reports from './components/dashboard/report/Reports'
 
 const MainFunction = () => {
   return (
@@ -98,7 +97,7 @@ const router = createBrowserRouter([
       { path: '/users', element: <Users /> },
       { path: '/admincomplain', element: <AdminComplain /> },
      {
-      path :"/reports", element:<Reports/>
+      path :"/reports", element:<Reports />
      }
     ]
   },
