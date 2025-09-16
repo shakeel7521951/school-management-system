@@ -15,6 +15,7 @@ const DocumentTable = ({ docs, onView, getStatusBadge }) => {
               <th className="py-3 px-4">Status</th>
               <th className="py-3 px-4">Reviewer Notes</th>
               <th className="py-3 px-4">Actions</th>
+
             </tr>
           </thead>
 

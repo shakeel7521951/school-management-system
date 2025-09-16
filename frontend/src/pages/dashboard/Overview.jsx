@@ -30,8 +30,8 @@ const Overview = () => {
         <hr className="mt-4 border-gray-200" />
       </header>
 
-      {/* KPI Cards */}
-      <Stats />
+        {/* KPI Cards */}
+        <Stats />
 
       {/* Charts Section */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
@@ -76,41 +76,42 @@ const Overview = () => {
                     key={c.id}
                     className={`${i % 2 === 0 ? "bg-white" : "bg-gray-50"
                       } hover:bg-gray-100 transition`}
-                  >
-                    <td className="p-3 text-gray-700 text-center">{c.id}</td>
-                    <td className="p-3 text-gray-700">{c.type}</td>
-                    <td className="py-3 px-1">
-                      <span
-                        className={`px-3 py-1 text-center rounded-full text-xs font-medium shadow-sm whitespace-nowrap
-                          ${c.status === "Resolved"
-                            ? "bg-green-100 text-green-700"
-                            : c.status === "Pending"
-                              ? "bg-red-100 text-red-700"
-                              : "bg-yellow-100 text-yellow-700"
-                          }`}
-                      >
-                        {c.status}
-                      </span>
-                    </td>
-                    <td className="p-3 hidden md:table-cell text-gray-600 whitespace-nowrap">
-                      {c.date}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                    >
+                      <td className="p-3 text-gray-700 text-center">{c.id}</td>
+                      <td className="p-3 text-gray-700">{c.type}</td>
+                      <td className="py-3 px-1">
+                        <span
+                          className={`px-3 py-1 text-center rounded-full text-xs font-medium shadow-sm whitespace-nowrap
+                            ${
+                              c.status === "Resolved"
+                                ? "bg-green-100 text-green-700"
+                                : c.status === "Pending"
+                                ? "bg-red-100 text-red-700"
+                                : "bg-yellow-100 text-yellow-700"
+                            }`}
+                        >
+                          {c.status}
+                        </span>
+                      </td>
+                      <td className="p-3 hidden md:table-cell text-gray-600 whitespace-nowrap">
+                        {c.date}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-          {/* Align button right */}
-          <div className="mt-4 flex justify-end">
-            <Link
-              to="/complain"
-              className="text-sm text-[#1a4480] font-medium hover:underline"
-            >
-              View All Complaints →
-            </Link>
+            {/* Align button right */}
+            <div className="mt-4 flex justify-end">
+              <Link
+                to="/complain"
+                className="text-sm text-[#1a4480] font-medium hover:underline"
+              >
+                View All Complaints →
+              </Link>
+            </div>
           </div>
-        </div>
 
         {/* Recently Joined Users */}
         <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-lg border border-gray-100 flex flex-col h-full">
@@ -152,18 +153,19 @@ const Overview = () => {
             </table>
           </div>
 
-          {/* Align button right */}
-          <div className="mt-4 flex justify-end">
-            <Link
-              to="/users"
-              className="text-sm text-[#1a4480] font-medium hover:underline"
-            >
-              View All Users →
-            </Link>
+            {/* Align button right */}
+            <div className="mt-4 flex justify-end">
+              <Link
+                to="/users"
+                className="text-sm text-[#1a4480] font-medium hover:underline"
+              >
+                View All Users →
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </>
   );
 };
 
