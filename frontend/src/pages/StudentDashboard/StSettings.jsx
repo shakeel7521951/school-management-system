@@ -5,12 +5,9 @@ import PreferencesTab from "../../components/Studentdashboard/Settings/Preferenc
 import SecurityTab from "../../components/Studentdashboard/Settings/SecurityTab";
 import SupportTab from "../../components/Studentdashboard/Settings/SupportTab";
 import TabButton from "../../components/Studentdashboard/Settings/TabButton";
-const StSettings=()=>{
-  const [activeTab, setActiveTab] = useState("profile");
 
-  // Global state
-  // const [fullName, setFullName] = useState("John Doe");
-  // const [email, setEmail] = useState("student@example.com");
+const StSettings = () => {
+  const [activeTab, setActiveTab] = useState("profile");
   const [language, setLanguage] = useState("English");
 
   const tabs = [
@@ -21,18 +18,15 @@ const StSettings=()=>{
   ];
 
   return (
-    <div
-      className="md:ml-20 lg:ml-64 px-4  min-h-screen py-10 transition-colors duration-500 bg-gradient-to-br from-gray-100 via-blue-50 to-gray-200 font-sans"
-    
-    >
-      <div className="w-full max-w-2xl px-4">
+    <div className="px-4 py-10 min-h-screen bg-gradient-to-br from-gray-100 via-blue-50 to-gray-200 font-sans">
+      <div className="w-full mx-auto flex flex-col justify-center items-center">
         {/* HEADER */}
-        <h1 className="text-4xl font-extrabold text-[#1a4480] tracking-tight">
-        Settings
+        <h1 className="text-4xl font-extrabold text-[#1a4480] tracking-tight text-center">
+          Settings
         </h1>
 
         {/* TABS */}
-        <div className="flex flex-wrap gap-3 mb-6 mt-6">
+        <div className="flex flex-wrap justify-center ml-40 items-center gap-3 my-6">
           {tabs.map((tab) => (
             <TabButton
               key={tab.id}
@@ -44,20 +38,13 @@ const StSettings=()=>{
         </div>
 
         {/* CONTENT */}
-        <div
-          className="rounded-xl shadow-lg p-6 transition-colors duration-300 bg-white" 
-        >
-          {activeTab === "profile" && (
-            <ProfileTab/>
-          )}
+        <div className="rounded-xl shadow-lg p-6 bg-white transition-colorsn flex items-center justify-center ml-48 box-border duration-300">
+          {activeTab === "profile" && <ProfileTab />}
           {activeTab === "security" && <SecurityTab />}
           {activeTab === "other" && (
-            <PreferencesTab
-              language={language}
-              setLanguage={setLanguage}
-            />
+            <PreferencesTab language={language} setLanguage={setLanguage} />
           )}
-          {activeTab === "support" && <SupportTab/>}
+          {activeTab === "support" && <SupportTab />}
         </div>
       </div>
     </div>

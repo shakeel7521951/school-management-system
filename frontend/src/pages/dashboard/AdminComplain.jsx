@@ -1,21 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import {
-  FaEdit,
-  FaTrash,
-  FaEye,
-  FaFileExport,
-  FaCheck,
-  FaTimes,
-  FaExclamationTriangle,
-  FaSearch,
-  FaSort,
-  FaSortUp,
-  FaSortDown,
-  FaFilter,
-  FaUser,
-  FaCalendar,
-  FaArrowLeft,
-  FaArrowRight,
+import { FaEdit, FaTrash, FaEye, FaFileExport, FaCheck, FaTimes, FaExclamationTriangle, FaSearch, FaSort, FaSortUp, FaSortDown, FaFilter, FaUser, FaCalendar, FaArrowLeft, FaArrowRight,
 } from "react-icons/fa";
 
 const USER_ROLE = "manager";
@@ -286,7 +270,7 @@ const AdminComplain = () => {
     <div className="lg:ml-[270px] max-w-6xl bg-gray-50 py-4 px-15 flex flex-col gap-8 min-h-screen">
       {/* Page Title */}
       <header>
-        <h1 className="text-3xl font-bold text-[#1a4480] md:text-4xl">Complaint Management</h1>
+        <h1 className="text-3xl font-extrabold text-[#1a4480] md:text-5xl">Complaint Management</h1>
         <p className="text-gray-500 mt-1">Manage and resolve all system complaints efficiently</p>
         <hr className="mt-4 border-gray-200" />
       </header>
@@ -435,21 +419,21 @@ const AdminComplain = () => {
                     onClick={() => key !== "actions" && handleSort(key)}
                     className="p-3 text-left font-semibold text-sm cursor-pointer select-none"
                   >
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center border gap-1">
                       {key === "id"
                         ? "ID"
                         : key === "fullName"
-                        ? "Complainant"
-                        : key === "complaintType"
-                        ? "Type"
+                        ? "Name"
+                        : key === "class"
+                        ? "Class"
+                        : key === "age"
+                        ? "Age"
                         : key === "date"
-                        ? "Date"
-                        : key === "status"
-                        ? "Status"
-                        : key === "priority"
-                        ? "Priority"
-                        : key === "assignedTo"
-                        ? "Assigned To"
+                        ? "Date   "
+                        : key === "type"
+                        ? "Type"
+                        : key === "severity"
+                        ? "Severity"
                         : "Actions"}
                       {sortConfig.key === key && (sortConfig.direction === "ascending" ? <FaSortUp /> : <FaSortDown />)}
                       {sortConfig.key !== key && key !== "actions" && <FaSort className="text-gray-300" />}

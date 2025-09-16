@@ -16,8 +16,8 @@ const SecurityTab = () => {
   }
 
   return (
-    <>
-      <form onSubmit={handleSave} className='space-y-8 max-w-lg mx-auto'>
+    < >
+      <form onSubmit={handleSave} className='space-y-8 max-w-lg w-[600px] mx-auto'>
       <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2 ">
         <Lock size={22} className="text-[#104C80]" /> Security Settings
       </h2>

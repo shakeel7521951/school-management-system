@@ -15,7 +15,7 @@ const PreferencesTab = () => {
   }
 
   return (
-    <form onSubmit={handleSave} className='space-y-8 max-w-lg mx-auto'>
+    <form onSubmit={handleSave} className='space-y-8 max-w-lg w-[600px] mx-auto'>
       {/* Heading */}
       <h2 className='text-2xl font-bold text-gray-800 flex items-center gap-2'>
         <Sliders size={24} className='text-[#104C80]' /> Preferences

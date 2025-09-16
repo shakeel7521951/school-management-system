@@ -35,12 +35,12 @@ const UsersHeader = () => {
 
     return (
         <div className="w-full  sm:px-6 md:px-8 py-6">
-            <h2 className="text-3xl font-bold text-[#1a4480] md:text-4xl">User Analytics</h2>
+            <h2 className="text-3xl font-extrabold text-[#1a4480] md:text-4xl">User Analytics</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 {stats.map((stat, index) => (
                     <div
                         key={index}
-                        className="p-3 sm:p-5 rounded-xl border border-[#1446b3] shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-white flex flex-col justify-between">
+                        className="p-3 mt-4 sm:p-5 rounded-xl border border-[#1446b3] shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-white flex flex-col justify-between">
                         <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
                             <div
                                 className={`p-3 sm:p-4 rounded-lg bg-gradient-to-r ${stat.color} text-white font-bold shadow-md flex items-center justify-center`}
