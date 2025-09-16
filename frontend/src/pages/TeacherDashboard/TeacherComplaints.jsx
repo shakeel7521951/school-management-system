@@ -42,7 +42,7 @@ const TeacherComplaints = () => {
     {
       id: 3,
       employeeName: "Daniya",
-      jobTitle: "Physics TEcaher",
+      jobTitle: "Physics Teacher",
       department: "Science",
       date: "2025-09-08",
       type: "Management",
@@ -59,7 +59,6 @@ const TeacherComplaints = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedComplaint, setSelectedComplaint] = useState(null);
 
-  // ✅ aligned newComplaint with existing structure
   const [newComplaint, setNewComplaint] = useState({
     employeeName: "",
     jobTitle: "",
@@ -91,7 +90,7 @@ const TeacherComplaints = () => {
     e.preventDefault();
     if (!newComplaint.employeeName.trim() || !newComplaint.details.trim()) return;
 
-    const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD format
+    const today = new Date().toISOString().split("T")[0];
 
     setComplaints([
       {
@@ -103,7 +102,6 @@ const TeacherComplaints = () => {
       ...complaints,
     ]);
 
-    // Reset form after submission
     setNewComplaint({
       employeeName: "",
       jobTitle: "",
@@ -120,7 +118,6 @@ const TeacherComplaints = () => {
     setShowModal(false);
   };
 
-  // Move complaint to next stage
   const handleNextStage = (id) => {
     setComplaints((prev) =>
       prev.map((c) => {
@@ -136,7 +133,8 @@ const TeacherComplaints = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6 lg:ml-64 bg-gray-50 min-h-screen md:ml-20">
+    <div className="p-4 sm:p-6 lg:ml-64 md:ml-20 bg-gray-50 min-h-screen">
+      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -154,7 +152,8 @@ const TeacherComplaints = () => {
         </button>
       </motion.div>
 
-      <div className="overflow-x-auto">
+      {/* Table for md and above */}
+      <div className="hidden md:block overflow-x-auto">
         <ComplaintTable
           complaints={complaints}
           statusStyles={statusStyles}
@@ -163,6 +162,31 @@ const TeacherComplaints = () => {
         />
       </div>
 
+      {/* Cards for mobile */}
+      <div className="md:hidden space-y-4">
+        {complaints.map((c) => (
+          <div
+            key={c.id}
+            className="bg-white rounded-lg shadow p-4 border border-gray-200"
+            onClick={() => setSelectedComplaint(c)}
+          >
+            <div className="flex justify-between items-center mb-2">
+              <h4 className="font-semibold text-gray-800">{c.employeeName}</h4>
+              <span
+                className={`px-2 py-1 rounded-full text-sm ${statusStyles[c.status]}`}
+              >
+                {c.status}
+              </span>
+            </div>
+            <p className="text-gray-600 text-sm mb-1">{c.jobTitle}</p>
+            <p className="text-gray-600 text-sm mb-1">{c.department}</p>
+            <p className="text-gray-600 text-sm mb-1">{c.date}</p>
+            <p className="text-gray-600 text-sm">{c.details}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Modals */}
       <AnimatePresence>
         {showModal && (
           <ComplaintModal
@@ -173,7 +197,6 @@ const TeacherComplaints = () => {
           />
         )}
       </AnimatePresence>
-
       <AnimatePresence>
         {selectedComplaint && (
           <ComplaintDetailModal

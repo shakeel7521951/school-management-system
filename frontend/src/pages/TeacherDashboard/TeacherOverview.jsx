@@ -29,7 +29,7 @@ const TeacherOverview = () => {
         className='bg-white shadow rounded-2xl p-6'
       >
         <h3 className='text-xl font-semibold text-[#104c80] mb-5 flex items-center gap-2'>
-          <Bell size={22} /> Announcements
+          <Bell size={22} /> Notifications
         </h3>
         <ul className='space-y-5'>
           {announcements.map((a, index) => (

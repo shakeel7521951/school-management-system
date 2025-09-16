@@ -20,7 +20,7 @@ const TeacherDocuments = () => {
     },
     {
       id: 2,
-      title: 'Student Progress Report',
+      title: 'Students Progress Report',
       date: 'Sep 12, 2025',
       status: 'Pending',
       type: 'Report',
@@ -35,6 +35,15 @@ const TeacherDocuments = () => {
       type: 'Grades',
       fileName: 'grades_class8.xlsx',
       reviewerNotes: 'Please recheck marks calculation.'
+    },
+     {
+      id: 4,
+      title: 'Course Outline',
+      date: 'Sep 20, 2025',
+      status: 'Resolved',
+      type: 'Outline',
+      fileName: 'grades_class8.xlsx',
+      reviewerNotes: '—'
     },
    
   ])

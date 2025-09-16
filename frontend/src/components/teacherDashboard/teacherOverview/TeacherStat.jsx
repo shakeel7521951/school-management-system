@@ -17,7 +17,7 @@ const TeacherStats = () => {
       delay: 0.2,
     },
     {
-      title: "Announcements",
+      title: "Notifications",
       value: 3,
       icon: <Bell size={28} className="text-white" />,
       delay: 0.3,

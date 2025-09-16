@@ -15,7 +15,7 @@ import AboutUs from './pages/AboutUs'
 import Complaints from './pages/Complaints'
 import ComplaintForm from './components/complaints/ComplaintForm'
 import Users from './pages/dashboard/Users'
-import Reports from "../src/components/dashboard/Reports"
+import Reports from '../src/components/dashboard/Reports'
 
 import StDocuments from './pages/StudentDashboard/StDocuments'
 import StComplaints from './pages/StudentDashboard/StComplaints'
@@ -30,9 +30,10 @@ import TeacherSideBar from './components/teacherDashboard/common/TeacherSideBar'
 import TeacherOverview from './pages/TeacherDashboard/TeacherOverview'
 import TeacherDocuments from './pages/TeacherDashboard/TeacherDocuments'
 import TeacherComplaints from './pages/TeacherDashboard/TeacherComplaints'
-import TeacherAnnouncements from './pages/TeacherDashboard/TeacherAnnouncements'
 import TeacherProfile from './pages/TeacherDashboard/TeacherProfile'
-import Documents from './pages/dashboard/Documents'
+import RequestedDocuments from './pages/dashboard/AdminDocuments.jsx/RequestedDocuments'
+import UploadedDocuments from './pages/dashboard/AdminDocuments.jsx/UploadedDocuments'
+import TeacherNotifications from './pages/TeacherDashboard/TeacherNotifications'
 
 const MainFunction = () => {
   return (
@@ -93,13 +94,16 @@ const router = createBrowserRouter([
     element: <AdminRoute />,
     children: [
       { path: '/overview', element: <Overview /> },
-     {
-      path :"/documents" , element:<Documents/>    },
+      { path: 'documents/uploaded', element: <UploadedDocuments /> },
+
+      { path: 'documents/requests', element: <RequestedDocuments /> },
+
       { path: '/users', element: <Users /> },
       { path: '/admincomplain', element: <AdminComplain /> },
-     {
-      path :"/reports", element:<Reports/>
-     }
+      {
+        path: '/reports',
+        element: <Reports />
+      }
     ]
   },
   {
@@ -121,7 +125,7 @@ const router = createBrowserRouter([
         path: '/teacheroverview',
         element: <TeacherOverview />
       },
-       {
+      {
         path: '/teacherdocuments',
         element: <TeacherDocuments />
       },
@@ -129,11 +133,11 @@ const router = createBrowserRouter([
         path: '/teachercomplaints',
         element: <TeacherComplaints />
       },
-       {
-        path: '/teacherannouncements',
-        element: <TeacherAnnouncements />
+      {
+        path: '/teachernotifications',
+        element: <TeacherNotifications />
       },
-       {
+      {
         path: '/teacherprofile',
         element: <TeacherProfile />
       }

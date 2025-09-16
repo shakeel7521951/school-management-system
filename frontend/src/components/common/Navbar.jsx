@@ -22,7 +22,7 @@ export default function Navbar() {
           to="/"
           className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-300 tracking-wide hover:scale-105 transition-transform duration-300"
         >
-          Mindora
+          Al Tamakon
         </Link>
 
         {/* Desktop Menu */}
@@ -115,7 +115,7 @@ export default function Navbar() {
             className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-300"
             onClick={() => setIsOpen(false)}
           >
-            Mindora
+            Al Tamakon
           </Link>
           <button
             onClick={() => setIsOpen(false)}

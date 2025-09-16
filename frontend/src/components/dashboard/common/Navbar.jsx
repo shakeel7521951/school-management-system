@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Bell, User, Search, Menu, Settings, LogOut } from "lucide-react";
 
-const Navbar = ({ onMenuClick, userName = "Admin User", userRole = "Administrator" }) => {
+const Navbar = ({
+  onMenuClick,
+  userName = "Admin User",
+  userRole = "Administrator",
+}) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [notificationsCount, setNotificationsCount] = useState(3);
 
@@ -15,7 +19,7 @@ const Navbar = ({ onMenuClick, userName = "Admin User", userRole = "Administrato
   }, []);
 
   return (
-    <header className="flex items-center justify-between bg-white border-b border-gray-200 shadow-sm px-4 sm:px-6 md:px-8 py-3 sticky top-0 h-16 z-50">
+    <header className="md:ml-20 lg:ml-64 flex items-center justify-between bg-white border-b border-gray-200 shadow-sm px-4 md:px-6 py-3 sticky top-0 h-16 z-50">
       {/* Left Section */}
       <div className="flex items-center flex-1">
         {/* Mobile Menu Button */}
@@ -27,28 +31,23 @@ const Navbar = ({ onMenuClick, userName = "Admin User", userRole = "Administrato
           <Menu size={20} className="text-gray-700" />
         </button>
 
-        {/* Search Bar (hidden on mobile) */}
-        <div className="hidden md:flex items-center bg-gray-100 rounded-xl px-3 py-2 w-full max-w-sm lg:max-w-md shadow-inner">
+        {/* Search Bar */}
+        <div className="hidden md:flex items-center bg-gray-100 rounded-xl px-3 py-2 shadow-inner w-40 sm:w-56 md:w-64 lg:w-80">
           <Search size={18} className="text-gray-400 mr-2" />
           <input
             type="text"
             placeholder="Search..."
-            className="bg-transparent text-gray-700 placeholder-gray-400 outline-none w-full"
+            className="bg-transparent text-gray-700 placeholder-gray-400 outline-none w-full text-sm"
             aria-label="Search"
           />
         </div>
       </div>
 
-      {/* Center Title - Visible on mobile only */}
-      <h1 className="md:hidden font-bold text-lg sm:text-xl text-gray-800 tracking-tight">
-        School DMS
-      </h1>
-
       {/* Right Section */}
       <div className="flex items-center space-x-3 sm:space-x-4">
         {/* Notifications */}
         <div className="relative">
-          <button className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 hover:bg-indigo-200 transition-all">
+          <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 hover:bg-indigo-200 transition-all">
             <Bell size={20} />
             {notificationsCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center shadow-sm">
@@ -65,11 +64,14 @@ const Navbar = ({ onMenuClick, userName = "Admin User", userRole = "Administrato
             onClick={() => setIsProfileOpen(!isProfileOpen)}
             aria-expanded={isProfileOpen}
           >
-            <div className="hidden md:block text-right">
-              <p className="text-sm font-semibold text-gray-800">{userName}</p>
+            {/* Hide name/role on mobile */}
+            <div className="hidden sm:block text-right">
+              <p className="text-sm font-semibold text-gray-800 truncate max-w-[100px] lg:max-w-none">
+                {userName}
+              </p>
               <p className="text-xs text-gray-500">{userRole}</p>
             </div>
-            <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-600 border border-gray-300">
+            <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-600 border border-gray-300">
               <User size={20} />
             </div>
           </button>
