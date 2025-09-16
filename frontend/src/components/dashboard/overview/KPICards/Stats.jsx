@@ -11,14 +11,18 @@ const Stats = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+    <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 w-full px-2 sm:px-4">
       {kpiCards.map((stat) => (
-        <StatCard
+        <div
           key={stat.id}
-          title={stat.title}
-          value={stat.value}
-          icon={stat.icon}
-        />
+          className="w-full"
+        >
+          <StatCard
+            title={stat.title}
+            value={stat.value}
+            icon={stat.icon}
+          />
+        </div>
       ))}
     </div>
   );
