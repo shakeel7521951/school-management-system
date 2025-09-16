@@ -18,45 +18,48 @@ const Overview = () => {
   ];
 
   return (
-    <>
-      {/* main wrapper  */}
-      <div className="lg:ml-[270px] md:ml-20 max-w-6xl   bg-gray-50 py-4 px-15 flex flex-col gap-10">
-        {/* Page Title */}
-        <header>
-          <h1 className='text-3xl font-bold text-[#1a4480] md:text-4xl'>Overview</h1>
-          <p className='text-gray-500 mt-1'>
-            A quick snapshot of visitors, complaints, documents, and performance.
-          </p>
-          <hr className='mt-4 border-gray-200' />
-        </header>
+    <div className="lg:ml-[270px] md:ml-20 px-4 sm:px-6 md:px-8 py-6 max-w-full bg-gray-50 flex flex-col gap-10">
+      {/* Page Title */}
+      <header>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1a4480]">
+          Overview
+        </h1>
+        <p className="text-gray-500 mt-1 text-sm sm:text-base">
+          A quick snapshot of visitors, complaints, documents, and performance.
+        </p>
+        <hr className="mt-4 border-gray-200" />
+      </header>
 
       {/* KPI Cards */}
       <Stats />
 
       {/* Charts Section */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-white px-6 py-8 rounded-2xl shadow-md h-[350px]">
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        {/* Pie Chart */}
+        <div className="bg-white px-4 sm:px-6 py-6 rounded-2xl shadow-md h-[350px]">
           <ComplaintsPieChart />
         </div>
 
-        <div className="bg-white px-6 py-4 rounded-2xl shadow-md border border-gray-100 h-[350px] flex flex-col">
+        {/* Bar Chart */}
+        <div className="bg-white px-4 sm:px-6 py-6 rounded-2xl shadow-md border border-gray-100 h-[350px] flex flex-col">
           <DocumentApprovalBarChart />
         </div>
 
-        <div className="bg-white w-full p-6 rounded-2xl shadow-md border border-gray-100 h-[380px] col-span-1 md:col-span-2">
+        {/* Line Chart */}
+        <div className="bg-white w-full p-4 sm:p-6 rounded-2xl shadow-md border border-gray-100 h-[380px] col-span-1 md:col-span-2">
           <VisitorTrendsChart />
         </div>
       </section>
 
       {/* Tables Section */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
         {/* Complaints Overview */}
-        <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 flex flex-col h-full">
+        <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-lg border border-gray-100 flex flex-col h-full">
           <h3 className="text-lg font-semibold mb-4 text-gray-800">
             Complaints Overview
           </h3>
-          <div className="flex-1 rounded-lg border border-gray-100 overflow-hidden">
-            <table className="w-full text-sm">
+          <div className="flex-1 rounded-lg border border-gray-100 overflow-x-auto">
+            <table className="w-full text-sm min-w-[400px]">
               <thead>
                 <tr className="bg-[#10448c] text-white">
                   <th className="p-3 text-left font-semibold w-12">ID</th>
@@ -110,12 +113,12 @@ const Overview = () => {
         </div>
 
         {/* Recently Joined Users */}
-        <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 flex flex-col h-full">
+        <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-lg border border-gray-100 flex flex-col h-full">
           <h3 className="text-lg font-semibold mb-4 text-gray-800">
             Recently Joined Users
           </h3>
-          <div className="flex-1 rounded-lg border border-gray-100 overflow-hidden">
-            <table className="w-full text-sm">
+          <div className="flex-1 rounded-lg border border-gray-100 overflow-x-auto">
+            <table className="w-full text-sm min-w-[400px]">
               <thead>
                 <tr className="bg-[#10448c] text-white">
                   <th className="p-3 text-left font-semibold w-12">ID</th>
@@ -133,20 +136,13 @@ const Overview = () => {
                     className={`${i % 2 === 0 ? "bg-white" : "bg-gray-50"
                       } hover:bg-gray-100 transition`}
                   >
-                    {/* ID */}
                     <td className="p-3 text-gray-700 text-center">{u.id}</td>
-
-                    {/* User */}
                     <td className="p-3 flex items-center gap-3">
                       <span className="text-gray-700 font-medium whitespace-nowrap">
                         {u.name}
                       </span>
                     </td>
-
-                    {/* Role */}
                     <td className="p-3 text-gray-700">{u.role}</td>
-
-                    {/* Joined */}
                     <td className="p-3 hidden md:table-cell text-gray-600 whitespace-nowrap">
                       {u.joined}
                     </td>
