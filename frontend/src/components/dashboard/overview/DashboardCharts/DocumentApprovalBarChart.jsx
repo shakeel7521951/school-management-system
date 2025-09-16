@@ -31,7 +31,7 @@ const DocumentApprovalBarChart = () => {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false, // let it stretch to parent height
+    maintainAspectRatio: false, // allows height control via CSS
     plugins: {
       legend: { position: "top" },
       title: { display: true, text: "Document Approvals & Rejections" },
@@ -39,7 +39,7 @@ const DocumentApprovalBarChart = () => {
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px]">
       <Bar data={data} options={options} />
     </div>
   );

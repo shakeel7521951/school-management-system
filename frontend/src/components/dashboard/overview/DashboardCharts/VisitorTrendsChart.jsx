@@ -38,7 +38,7 @@ const VisitorTrendsChart = () => {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false, 
+    maintainAspectRatio: false,
     plugins: {
       legend: { position: "top" },
       title: { display: true, text: "Visitor Trends (Weekly)" },
@@ -46,7 +46,7 @@ const VisitorTrendsChart = () => {
   };
 
   return (
-    <div className="w-full h-80"> {/* fixed container height */}
+    <div className="w-full h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px]">
       <Line data={data} options={options} />
     </div>
   );

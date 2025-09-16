@@ -2,9 +2,8 @@ import React from "react";
 
 const StatCard = ({ title, value, icon }) => {
   return (
-   
     <div
-      className="group flex items-center gap-4 w-full md:w-[236px] bg-white py-5 px-4
+      className="group flex items-center gap-4 w-full sm:w-[48%] lg:w-[236px] bg-white py-5 px-4
                  rounded-2xl border border-gray-200 shadow-sm transition-all duration-300
                  hover:shadow-lg hover:border-[#1a4480]/50 hover:-translate-y-1"
     >
@@ -28,5 +27,4 @@ const StatCard = ({ title, value, icon }) => {
   );
 };
 
- 
 export default StatCard;

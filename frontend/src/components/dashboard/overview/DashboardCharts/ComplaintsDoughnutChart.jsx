@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import {
@@ -27,7 +26,7 @@ const ComplaintsDoughnutChart = () => {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: false, // allows height control
     cutout: "70%",
     plugins: {
       legend: { position: "bottom" },
@@ -35,7 +34,11 @@ const ComplaintsDoughnutChart = () => {
     },
   };
 
-  return <Doughnut  data={data} options={options} />;
+  return (
+    <div className="w-full h-[300px] sm:h-[350px] md:h-[400px]">
+      <Doughnut data={data} options={options} />
+    </div>
+  );
 };
 
 export default ComplaintsDoughnutChart;
