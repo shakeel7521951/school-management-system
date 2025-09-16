@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AnnouncementList from "../../components/teacherDashboard/teacherAnnouncements/AnnouncementList";
-import AnnouncementModal from "../../components/teacherDashboard/teacherAnnouncements/AnnouncementModal";
 
 const TeacherAnnouncements = () => {
   const [announcements, setAnnouncements] = useState([
@@ -62,12 +61,7 @@ const TeacherAnnouncements = () => {
           Announcements
         </h2>
 
-        <button
-          onClick={() => setShowModal(true)}
-          className="px-3 sm:px-4 py-2 bg-[#104c80] text-white rounded-lg shadow-md hover:bg-[#0d3a63] transition font-medium text-sm sm:text-base"
-        >
-          + Add Announcement
-        </button>
+       
       </motion.div>
 
       {/* List */}
