@@ -426,9 +426,9 @@ export default function EditorPage() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
+    <div className=" flex flex-col h-screen bg-gray-100">
       {/* Top toolbar */}
-      <div className="bg-white border-b p-2 flex flex-wrap gap-1">
+      <div className="px-10 bg-white border-b p-2 flex flex-wrap gap-1">
         <div className="flex items-center gap-1 mr-4">
           <button
             onClick={() => editor.chain().focus().undo().run()}
@@ -619,7 +619,7 @@ export default function EditorPage() {
       </div>
 
       {/* Form fields toolbar */}
-      <div className="bg-gray-200 p-2 flex flex-wrap gap-2">
+      <div className="px-10 bg-gray-200 p-2 flex flex-wrap gap-2">
         <span className="text-sm font-medium py-2">Form Fields:</span>
         <button onClick={insertInput} className="px-3 py-1 rounded bg-blue-100 text-blue-800 hover:bg-blue-200 text-sm">
           Text Input
