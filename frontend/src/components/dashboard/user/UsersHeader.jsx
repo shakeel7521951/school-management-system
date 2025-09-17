@@ -4,21 +4,21 @@ import { Users, UserPlus, UserCheck, TrendingDown } from "lucide-react";
 const UsersHeader = () => {
     const stats = [
         {
-            title: "Total Users",
+            title: "Total Visitors",
             description: "Total registered users on the platform",
             value: "150",
             icon: <Users size={18} />,
             color: "from-[#1446b3] to-green-500",
         },
         {
-            title: "New Users",
+            title: "New Visitors",
             description: "Users registered in the last 7 days",
             value: "0",
             icon: <UserPlus size={18} />,
             color: "from-green-500 to-[#1446b3]",
         },
         {
-            title: "Active Users",
+            title: "Active ",
             description: "Users active in the last 24 hours",
             value: "11",
             icon: <UserCheck size={18} />,
@@ -35,7 +35,7 @@ const UsersHeader = () => {
 
     return (
         <div className="w-full  sm:px-6 md:px-8 py-6">
-            <h2 className="text-3xl font-extrabold text-[#1a4480] md:text-4xl">User Analytics</h2>
+            <h2 className="text-3xl font-extrabold text-[#1a4480] md:text-4xl">Visitor Analytics</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 {stats.map((stat, index) => (
                     <div

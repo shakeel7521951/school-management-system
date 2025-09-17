@@ -15,7 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState("/admincomplain");
+  const [activeItem, setActiveItem] = useState("admincomplain");
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
 
@@ -57,7 +57,7 @@ const Sidebar = () => {
         { id: "/documents/uploaded", label: "Uploaded Documents" },
       ],
     },
-    // { id: "users", label: "Users", icon: BarChart2, color: "text-amber-500", hover: "hover:bg-amber-50" },
+    { id: "users", label: "Visitors", icon: BarChart2, color: "text-amber-500", hover: "hover:bg-amber-50" },
     // { id: "reports", label: "Reports", icon: FileText, color: "text-purple-500", hover: "hover:bg-purple-50" },
   ];
 
