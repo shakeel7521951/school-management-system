@@ -9,27 +9,27 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Sidebaar from './components/dashboard/common/Sidebaar'
 import Navbarr from './components/dashboard/common/Navbar'
-import Overview from './pages/dashboard/Overview'
+// import Overview from './pages/dashboard/Overview'
 import AboutUs from './pages/AboutUs'
 import Complaints from './pages/Complaints'
 import ComplaintForm from './components/complaints/ComplaintForm'
-import Users from './pages/dashboard/Users'
+import Visitors from './pages/dashboard/Visitors'
 
 // ✅ keep only one Reports import (the correct one)
-import Reports from './components/dashboard/report/Reports'
+// import Reports from './components/dashboard/report/Reports'
 
 // ✅ new admin document routes
 import RequestedDocuments from './pages/dashboard/AdminDocuments.jsx/RequestedDocuments'
 import UploadedDocuments from './pages/dashboard/AdminDocuments.jsx/UploadedDocuments'
 
-import StDocuments from './pages/StudentDashboard/StDocuments'
+// import StDocuments from './pages/StudentDashboard/StDocuments'
 import StComplaints from './pages/StudentDashboard/StComplaints'
 import { Toaster } from 'react-hot-toast'
 import StudentNavbar from './components/Studentdashboard/common/StudentNavbar'
 import StudentSidebar from './components/Studentdashboard/common/StudentSidebar'
-import StSettings from './pages/StudentDashboard/StSettings'
+// import StSettings from './pages/StudentDashboard/StSettings'
 import StOverview from './pages/StudentDashboard/StOverview'
-import StNotifications from './pages/StudentDashboard/StNotifications'
+// import StNotifications from './pages/StudentDashboard/StNotifications'
 import TeacherNavbar from './components/teacherDashboard/common/TeacherNavbar'
 import TeacherSideBar from './components/teacherDashboard/common/TeacherSideBar'
 import TeacherOverview from './pages/TeacherDashboard/TeacherOverview'
@@ -97,22 +97,25 @@ const router = createBrowserRouter([
   {
     element: <AdminRoute />,
     children: [
-      { path: '/overview', element: <Overview /> },
+      { path: 'admincomplain', element: <AdminComplain /> },
+
       { path: 'documents/uploaded', element: <UploadedDocuments /> },
       { path: 'documents/requests', element: <RequestedDocuments /> },
-      { path: '/users', element: <Users /> },
-      { path: '/admincomplain', element: <AdminComplain /> },
-      { path: '/reports', element: <Reports /> }
+
+      // { path: 'overview', element: <Overview /> },
+      { path: 'users', element: <Visitors /> },
+      // { path: 'reports', element: <Reports /> }
     ]
   },
   {
     element: <StudentRoute />,
     children: [
-      { path: '/stoverview', element: <StOverview /> },
-      { path: '/stdocuments', element: <StDocuments /> },
-      { path: '/stcomplaints', element: <StComplaints /> },
-      { path: '/stnotifications', element: <StNotifications /> },
-      { path: '/stsettings', element: <StSettings /> }
+      { path: 'stcomplaints', element: <StComplaints /> }
+
+      // { path: '/stoverview', element: <StOverview /> },
+      // { path: '/stdocuments', element: <StDocuments /> },
+      // { path: '/stnotifications', element: <StNotifications /> },
+      // { path: '/stsettings', element: <StSettings /> }
     ]
   },
   {
@@ -127,7 +130,7 @@ const router = createBrowserRouter([
   }
 ])
 
-function App() {
+function App () {
   return (
     <>
       <RouterProvider router={router} />

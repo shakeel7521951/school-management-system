@@ -26,13 +26,13 @@ const StOverview = () => {
 
       {/* ✅ Stats Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <StatCard
+        {/* <StatCard
           icon={<FileText className="text-white" size={32} />}
           title="Documents Uploaded"
           value={totalDocuments}
           delay={0.1}
           animation="from-[#1a4480] to-[#3a70c4] hover:from-[#163668] hover:to-[#2d5ca5]"
-        />
+        /> */}
         <StatCard
           icon={<MessageSquare className="text-white" size={32} />}
           title="Complaints Submitted"
@@ -40,7 +40,7 @@ const StOverview = () => {
           delay={0.2}
           animation="from-[#1a4480] to-[#4686d1] hover:from-[#163668] hover:to-[#356fb8]"
         />
-        <StatCard
+        {/* <StatCard
           icon={
             <motion.div
               animate={{
@@ -60,11 +60,11 @@ const StOverview = () => {
           value={announcements.length}
           delay={0.3}
           animation="from-[#1a4480] to-[#5a97e0] hover:from-[#163668] hover:to-[#4179c1]"
-        />
+        /> */}
       </div>
 
       {/* ✅ Announcements Section */}
-      <Announcements announcements={announcements} />
+      {/* <Announcements announcements={announcements} /> */}
     </div>
   );
 };

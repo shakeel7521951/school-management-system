@@ -3,7 +3,7 @@ import { Search, UserPlus } from "lucide-react";
 
 const UsersDetail = () => {
     const [users, setUsers] = useState([
-        { id: 1, name: "Sir Shakeel", email: "shakeel7521951@gmail.com", role: "Admin", verified: true },
+        { id: 1, name: "Ali", email: "ali7521951@gmail.com", role: "Admin", verified: true },
         { id: 2, name: "Sara Khan", email: "sara@example.com", role: "User", verified: false },
         { id: 3, name: "Bilal Ahmed", email: "bilal@example.com", role: "Admin", verified: true },
     ]);
@@ -33,7 +33,7 @@ const UsersDetail = () => {
             {/* Header with Search */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1a4480]">
-                    User Management
+                    Visitor Management
                 </h1>
                 <div className="flex flex-col md:flex-row gap-4 w-full sm:w-auto">
                     <div className="relative flex-1">
@@ -43,15 +43,15 @@ const UsersDetail = () => {
                         />
                         <input
                             type="text"
-                            placeholder="Search users..."
+                            placeholder="Search visitors..."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             className="w-full pl-10 pr-4 py-2 border-2 border-[#1446b3] shadow-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                         />
                     </div>
-                    <button className="bg-[#1446b3] font-bold hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-transform transform hover:scale-105">
-                        <UserPlus size={18} /> Add User
-                    </button>
+                    {/* <button className="bg-[#1446b3] font-bold hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-transform transform hover:scale-105">
+                        <UserPlus size={18} /> Add Visitor
+                    </button> */}
                 </div>
             </div>
 

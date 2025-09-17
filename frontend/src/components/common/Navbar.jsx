@@ -65,21 +65,21 @@ export default function Navbar() {
 
                 {/* Links */}
                 <Link
-                  to="/overview"
+                  to="/admincomplain"
                   className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
                   onClick={() => setProfileOpen(false)}
                 >
                   Admin Dashboard
                 </Link>
                 <Link
-                  to="/teacheroverview"
+                  to="/teacherdocuments"
                   className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
                   onClick={() => setProfileOpen(false)}
                 >
                   Teacher Dashboard
                 </Link>
                 <Link
-                  to="/stoverview"
+                  to="/stcomplaints"
                   className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
                   onClick={() => setProfileOpen(false)}
                 >
@@ -169,7 +169,7 @@ export default function Navbar() {
 
                 {/* Links */}
                 <Link
-                  to="/overview"
+                  to="/admincomplaints"
                   className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
                   onClick={() => {
                     setProfileOpen(false);
@@ -179,7 +179,7 @@ export default function Navbar() {
                   Admin Dashboard
                 </Link>
                 <Link
-                  to="/teacheroverview"
+                  to="/teacherdocuments"
                   className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
                   onClick={() => {
                     setProfileOpen(false);
@@ -189,7 +189,7 @@ export default function Navbar() {
                   Teacher Dashboard
                 </Link>
                 <Link
-                  to="/stoverview"
+                  to="/stcomplaints"
                   className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
                   onClick={() => {
                     setProfileOpen(false);
