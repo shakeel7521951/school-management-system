@@ -38,6 +38,7 @@ import TeacherComplaints from './pages/TeacherDashboard/TeacherComplaints'
 import TeacherProfile from './pages/TeacherDashboard/TeacherProfile'
 import TeacherNotifications from './pages/TeacherDashboard/TeacherNotifications'
 import AdminComplain from './components/dashboard/adminComplaints/AdminComplain'
+import EditorPage from './pages/dashboard/EditorPage'
 
 const MainFunction = () => {
   return (
@@ -127,7 +128,8 @@ const router = createBrowserRouter([
       // { path: '/teachernotifications', element: <TeacherNotifications /> },
       // { path: '/teacherprofile', element: <TeacherProfile /> }
     ]
-  }
+  },
+  {path:"/editor",element:<EditorPage />},
 ])
 
 function App () {
