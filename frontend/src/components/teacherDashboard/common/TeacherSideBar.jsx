@@ -65,11 +65,11 @@ const TeacherSidebar = () => {
         {/* Menu Items */}
         <nav className="mt-8 flex flex-col gap-3 px-3 flex-grow">
           {[
-            { label: "Overview", icon: <LayoutDashboard size={20} />, path: "/teacheroverview" },
+            // { label: "Overview", icon: <LayoutDashboard size={20} />, path: "/teacheroverview" },
             { label: "Documents", icon: <FileText size={20} />, path: "/teacherdocuments" },
-            { label: "Complaints", icon: <ClipboardList size={20} />, path: "/teachercomplaints" },
-            { label: "Notifications", icon: <Bell size={20} />, path: "/teachernotifications" },
-            { label: "Profile", icon: <User size={20} />, path: "/teacherprofile" },
+            // { label: "Complaints", icon: <ClipboardList size={20} />, path: "/teachercomplaints" },
+            // { label: "Notifications", icon: <Bell size={20} />, path: "/teachernotifications" },
+            // { label: "Profile", icon: <User size={20} />, path: "/teacherprofile" },
           ].map((item, index) => (
             <Link
               key={index}
@@ -95,7 +95,7 @@ const TeacherSidebar = () => {
         </nav>
 
         {/* Bottom Section (Logout only) */}
-        <div className="px-3 mb-6 space-y-3">
+        {/* <div className="px-3 mb-6 space-y-3">
           <button
             onClick={handleLogout}
             className="w-full group flex items-center gap-4 px-3 py-2 rounded-lg 
@@ -111,7 +111,7 @@ const TeacherSidebar = () => {
               <span className="text-sm font-medium animate-fadeIn">Logout</span>
             )}
           </button>
-        </div>
+        </div> */}
       </div>
 
       {/* Toggle Button */}

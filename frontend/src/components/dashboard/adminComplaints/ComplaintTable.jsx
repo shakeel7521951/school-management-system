@@ -3,13 +3,14 @@ import { FaUser, FaEye, FaEdit, FaTrash, FaSort, FaSortUp, FaSortDown, FaExclama
 
 // Colors
 const typeColors = {
+    Bullying: "bg-indigo-100 text-indigo-700",
+    "Physical Safety": "bg-red-100 text-red-700", 
+    Staff: "bg-orange-100 text-orange-700",
+    Learning: "bg-green-100 text-green-700",
     Facilities: "bg-purple-100 text-purple-700",
+    Bus: "bg-cyan-100 text-cyan-700",
     Emotions: "bg-pink-100 text-pink-700",
-    Learning: "bg-indigo-100 text-indigo-700",
-    "Work Environment": "bg-yellow-100 text-yellow-700",
-    Stress: "bg-orange-100 text-orange-700",
     Rights: "bg-blue-100 text-blue-700",
-    "Safety at Work": "bg-red-100 text-red-700",
 };
 
 const severityColors = {

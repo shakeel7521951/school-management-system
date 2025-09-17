@@ -19,7 +19,6 @@ const ComplaintFilters = ({
 }) => {
     return (
         <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
-            {/* Header */}
             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-4">
                 <h2 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
                     <FaFilter className="text-gray-500" /> Filters
@@ -32,9 +31,7 @@ const ComplaintFilters = ({
                 </button>
             </div>
 
-            {/* Filters Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {/* Search */}
                 <div className="flex flex-col">
                     <label className="text-sm font-medium text-gray-700 mb-1">Search</label>
                     <div className="relative">
@@ -56,18 +53,18 @@ const ComplaintFilters = ({
                 <div className="flex flex-col">
                     <label className="text-sm font-medium text-gray-700 mb-1">Status</label>
                     <select
-                        className="border border-gray-300 px-3 py-2.5 rounded-lg shadow-sm focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
                         value={filterStatus}
                         onChange={(e) => {
                             setFilterStatus(e.target.value);
                             setCurrentPage(1);
                         }}
+                        className="border border-gray-300 px-3 py-2.5 rounded-lg shadow-sm focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
                     >
                         <option value="all">All Status</option>
-                        <option value="Pending">Pending</option>
-                        <option value="In Progress">In Progress</option>
-                        <option value="Resolved">Resolved</option>
-                        <option value="Rejected">Rejected</option>
+                        <option value="pending">Pending</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="resolved">Resolved</option>
+                        <option value="rejected">Rejected</option>
                     </select>
                 </div>
 
@@ -75,12 +72,12 @@ const ComplaintFilters = ({
                 <div className="flex flex-col">
                     <label className="text-sm font-medium text-gray-700 mb-1">Priority</label>
                     <select
-                        className="border border-gray-300 px-3 py-2.5 rounded-lg shadow-sm focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
                         value={filterPriority}
                         onChange={(e) => {
                             setFilterPriority(e.target.value);
                             setCurrentPage(1);
                         }}
+                        className="border border-gray-300 px-3 py-2.5 rounded-lg shadow-sm focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
                     >
                         <option value="all">All Priority</option>
                         <option value="High">High</option>
@@ -93,40 +90,40 @@ const ComplaintFilters = ({
                 <div className="flex flex-col">
                     <label className="text-sm font-medium text-gray-700 mb-1">Type</label>
                     <select
-                        className="border border-gray-300 px-3 py-2.5 rounded-lg shadow-sm focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
                         value={filterType}
                         onChange={(e) => {
                             setFilterType(e.target.value);
                             setCurrentPage(1);
                         }}
+                        className="border border-gray-300 px-3 py-2.5 rounded-lg shadow-sm focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
                     >
                         <option value="all">All Types</option>
-                        <option value="Digital Forms">Digital Forms</option>
-                        <option value="Behavior">Behavior</option>
-                        <option value="HR">HR</option>
-                        <option value="Academic">Academic</option>
-                        <option value="Facility">Facility</option>
-                        <option value="Transport">Transport</option>
+                        <option value="physical safety">Physical Safety</option>
+                        <option value="Emotions">Emotions</option>
+                        <option value="bullying">Bullying</option>
+                        <option value="staff">Staff</option>
+                        <option value="Learning">Learning</option>
+                        <option value="Facilities">Facilities</option>
+                        <option value="Bus">Bus</option>
+                        <option value="Rights">Rights</option>
+                        <option value="other">Other</option>
                     </select>
                 </div>
             </div>
 
-            {/* Bottom Controls */}
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mt-6">
-                {/* Info text */}
                 <div className="text-sm text-gray-700 text-center sm:text-left">
                     Showing {filteredComplaints.length} complaints
                 </div>
 
-                {/* Right side (Items per page + Export) */}
                 <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                     <select
-                        className="border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400 w-full sm:w-auto"
                         value={itemsPerPage}
                         onChange={(e) => {
                             setItemsPerPage(Number(e.target.value));
                             setCurrentPage(1);
                         }}
+                        className="border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400 w-full sm:w-auto"
                     >
                         <option value="5">5 per page</option>
                         <option value="10">10 per page</option>

@@ -118,11 +118,11 @@ const router = createBrowserRouter([
   {
     element: <TeacherRoute />,
     children: [
-      { path: '/teacheroverview', element: <TeacherOverview /> },
+      // { path: '/teacheroverview', element: <TeacherOverview /> },
       { path: '/teacherdocuments', element: <TeacherDocuments /> },
-      { path: '/teachercomplaints', element: <TeacherComplaints /> },
-      { path: '/teachernotifications', element: <TeacherNotifications /> },
-      { path: '/teacherprofile', element: <TeacherProfile /> }
+      // { path: '/teachercomplaints', element: <TeacherComplaints /> },
+      // { path: '/teachernotifications', element: <TeacherNotifications /> },
+      // { path: '/teacherprofile', element: <TeacherProfile /> }
     ]
   }
 ])

@@ -70,10 +70,10 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 mb-6">
               <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center transform transition-transform duration-500 hover:rotate-12">
-                <span className="text-xl font-bold text-white">MI</span>
+                <span className="text-xl font-bold text-white"> T</span>
               </div>
               <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-purple-300 to-indigo-300">
-                Mindora
+                Al Tamakon
               </h2>
             </div>
             <p className="text-indigo-100 mb-6 leading-relaxed">

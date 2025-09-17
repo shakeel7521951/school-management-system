@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { FaEdit, FaTrash, FaEye, FaFileExport, FaCheck, FaTimes, FaExclamationTriangle, FaSearch, FaSort, FaSortUp, FaSortDown, FaFilter, FaUser, FaCalendar, FaArrowLeft, FaArrowRight,
+import {
+  FaEdit, FaTrash, FaEye, FaFileExport, FaCheck, FaTimes, FaExclamationTriangle, FaSearch, FaSort, FaSortUp, FaSortDown, FaFilter, FaUser, FaCalendar, FaArrowLeft, FaArrowRight,
 } from "react-icons/fa";
 
 const USER_ROLE = "manager";
@@ -39,128 +40,145 @@ const AdminComplain = () => {
       {
         id: 1,
         fullName: "Ali Khan",
-        role: "Student",
-        complaintType: "Facility",
-        description:
-          "Fan not working in classroom C-12. It's been 3 days and the temperature is getting uncomfortable for students.",
-        status: "Pending",
-        priority: "High",
-        date: "2025-09-15",
-        assignedTo: "Maintenance Dept",
-        comments: "Awaiting technician assignment",
+        class: "12",
+        age: "18",
+        date: "2025-09-10",
+        complaintType: "Facilities",
+        severity: "simple-note",
+        impact: "physical",
+        detail: "Library chairs broken and uncomfortable for students.",
+        expectedAction: "resolve",
+        Action: ""
       },
       {
         id: 2,
         fullName: "Sara Ahmed",
-        role: "Parent",
-        complaintType: "Behavior",
-        description:
-          "Bullying issue reported in grade 5 section B. My daughter is being targeted by a group of classmates.",
-        status: "In Progress",
-        priority: "High",
-        date: "2025-09-14",
-        assignedTo: "Counseling Office",
-        comments: "Meeting scheduled with students and parents",
+        class: "12",
+        age: "18",
+        date: "2025-09-11",
+        complaintType: "Facilities",
+        severity: "urgent",
+        impact: "physical",
+        detail: "Water dispensers not working on the 2nd floor.",
+        expectedAction: "pending",
+        Action: ""
       },
       {
         id: 3,
         fullName: "Dr. Usman Ali",
-        role: "Teacher",
-        complaintType: "Academic",
-        description:
-          "Shortage of textbooks for Physics class. 5 students still don't have books after 2 weeks.",
-        status: "Resolved",
-        priority: "Medium",
-        date: "2025-09-10",
-        assignedTo: "Academic Office",
-        comments: "Books delivered to classroom on Sept 12",
+        class: "12",
+        age: "18",
+        date: "2025-09-12",
+        complaintType: "Emotions",
+        severity: "follow-up",
+        impact: "psychological",
+        detail: "Students reporting stress due to continuous tests without breaks.",
+        expectedAction: "resolve",
+        Action: ""
       },
       {
         id: 4,
         fullName: "Fatima Zahra",
-        role: "Student",
-        complaintType: "Digital Forms",
-        description: "Unable to submit assignment through portal. Getting error code 502 repeatedly.",
-        status: "Pending",
-        priority: "Medium",
+        class: "12",
+        age: "18",
         date: "2025-09-16",
-        assignedTo: "IT Department",
-        comments: "Under investigation",
+        complaintType: "Learning",
+        severity: "urgent",
+        impact: "academic",
+        detail: "Unable to submit assignments due to portal error 502.",
+        expectedAction: "pending",
+        Action: ""
       },
       {
         id: 5,
         fullName: "Mr. Asif Mahmood",
-        role: "Parent",
-        complaintType: "Transport",
-        description:
-          "Bus route #7 consistently arriving 20-25 minutes late, causing students to miss first period.",
-        status: "Rejected",
-        priority: "High",
-        date: "2025-09-05",
-        assignedTo: "Transport Office",
-        comments: "Route timing adjusted, driver reassigned",
+        class: "12",
+        age: "18",
+        date: "2025-09-13",
+        complaintType: "Work Environment",
+        severity: "follow-up",
+        impact: "social",
+        detail: "Construction noise outside classrooms affecting focus.",
+        expectedAction: "resolve",
+        Action: ""
       },
       {
         id: 6,
         fullName: "Ayesha Malik",
-        role: "Student",
-        complaintType: "Academic",
-        description: "Grade not updated in the system for Mathematics assignment #3.",
-        status: "Resolved",
-        priority: "Low",
-        date: "2025-09-12",
-        assignedTo: "Academic Office",
-        comments: "Grade updated on Sept 13",
+        class: "12",
+        age: "18",
+        date: "2025-09-14",
+        complaintType: "Stress",
+        severity: "simple-note",
+        impact: "psychological",
+        detail: "Students under high stress before exams.",
+        expectedAction: "resolve",
+        Action: ""
       },
       {
         id: 7,
         fullName: "Bilal Ahmed",
-        role: "Teacher",
-        complaintType: "HR",
-        description: "Payroll discrepancy for the month of August. Overtime hours not accounted for.",
-        status: "In Progress",
-        priority: "High",
-        date: "2025-09-08",
-        assignedTo: "HR Department",
-        comments: "Under review by finance team",
+        class: "12",
+        age: "18",
+        date: "2025-09-15",
+        complaintType: "Rights",
+        severity: "serious",
+        impact: "academic",
+        detail: "Unfair grading reported in midterm exams.",
+        expectedAction: "rejected",
+        Action: ""
       },
       {
         id: 8,
         fullName: "Zainab Hassan",
-        role: "Parent",
-        complaintType: "Facility",
-        description: "Restroom cleanliness issue in the east wing building. Soap dispensers not refilled regularly.",
-        status: "Pending",
-        priority: "Medium",
-        date: "2025-09-17",
-        assignedTo: "Maintenance Dept",
-        comments: "Assigned to cleaning staff",
-      },
+        class: "12",
+        age: "18",
+        date: "2025-09-15",
+        complaintType: "Safety at Work",
+        severity: "serious",
+        impact: "physical",
+        detail: "Broken glass in playground area causing safety hazard.",
+        expectedAction: "resolve",
+        Action: ""
+      }
     ];
+
     setComplaints(data);
   }, []);
 
   // Colors
+  // Status colors based on expectedAction
   const statusColors = {
-    Pending: "bg-red-100 text-red-700",
-    "In Progress": "bg-yellow-100 text-yellow-700",
-    Resolved: "bg-green-100 text-green-700",
-    Rejected: "bg-gray-100 text-gray-700",
+    resolve: "bg-green-100 text-green-700",
+    pending: "bg-red-100 text-red-700",
+    rejected: "bg-gray-100 text-gray-700",
   };
 
-  const priorityColors = {
-    High: "bg-red-100 text-red-700",
-    Medium: "bg-amber-100 text-amber-700",
-    Low: "bg-gray-100 text-gray-700",
-  };
-
+  // Complaint Type Colors
   const typeColors = {
-    "Digital Forms": "bg-indigo-100 text-indigo-700",
-    Behavior: "bg-red-100 text-red-700",
-    HR: "bg-yellow-100 text-yellow-700",
-    Academic: "bg-green-100 text-green-700",
-    Facility: "bg-purple-100 text-purple-700",
-    Transport: "bg-cyan-100 text-cyan-700",
+    Facilities: "bg-purple-100 text-purple-700",
+    Emotions: "bg-pink-100 text-pink-700",
+    Learning: "bg-indigo-100 text-indigo-700",
+    "Work Environment": "bg-yellow-100 text-yellow-700",
+    Stress: "bg-orange-100 text-orange-700",
+    Rights: "bg-blue-100 text-blue-700",
+    "Safety at Work": "bg-red-100 text-red-700",
+  };
+
+  // Severity Colors
+  const severityColors = {
+    "simple-note": "bg-gray-100 text-gray-700",
+    urgent: "bg-red-100 text-red-700",
+    "follow-up": "bg-amber-100 text-amber-700",
+    serious: "bg-purple-100 text-purple-700",
+  };
+
+  // Impact Colors (extra for your data)
+  const impactColors = {
+    physical: "bg-green-100 text-green-700",
+    psychological: "bg-pink-100 text-pink-700",
+    academic: "bg-blue-100 text-blue-700",
+    social: "bg-orange-100 text-orange-700",
   };
 
   // Filter & search
@@ -365,7 +383,6 @@ const AdminComplain = () => {
           <div className="flex flex-col">
             <label className="text-sm font-medium text-gray-700 mb-1">Type</label>
             <select
-              className="border border-gray-300 px-3 py-2.5 rounded-lg shadow-sm focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
               value={filterType}
               onChange={(e) => {
                 setFilterType(e.target.value);
@@ -373,13 +390,14 @@ const AdminComplain = () => {
               }}
             >
               <option value="all">All Types</option>
-              <option value="Digital Forms">Digital Forms</option>
-              <option value="Behavior">Behavior</option>
-              <option value="HR">HR</option>
-              <option value="Academic">Academic</option>
-              <option value="Facility">Facility</option>
-              <option value="Transport">Transport</option>
+              {uniqueTypes.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
             </select>
+
+
           </div>
         </div>
 
@@ -423,18 +441,18 @@ const AdminComplain = () => {
                       {key === "id"
                         ? "ID"
                         : key === "fullName"
-                        ? "Name"
-                        : key === "class"
-                        ? "Class"
-                        : key === "age"
-                        ? "Age"
-                        : key === "date"
-                        ? "Date   "
-                        : key === "type"
-                        ? "Type"
-                        : key === "severity"
-                        ? "Severity"
-                        : "Actions"}
+                          ? "Name"
+                          : key === "class"
+                            ? "Class"
+                            : key === "age"
+                              ? "Age"
+                              : key === "date"
+                                ? "Date   "
+                                : key === "type"
+                                  ? "Type"
+                                  : key === "severity"
+                                    ? "Severity"
+                                    : "Actions"}
                       {sortConfig.key === key && (sortConfig.direction === "ascending" ? <FaSortUp /> : <FaSortDown />)}
                       {sortConfig.key !== key && key !== "actions" && <FaSort className="text-gray-300" />}
                     </div>
