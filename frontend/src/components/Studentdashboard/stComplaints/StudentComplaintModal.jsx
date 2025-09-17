@@ -60,17 +60,17 @@ const ComplaintModal = ({ isOpen, onClose, onSubmit }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4">
-            <div className="bg-white rounded-xl p-6 sm:p-8 w-full max-w-2xl shadow-lg">
-                <h2 className="text-2xl font-bold text-[#14528B] mb-4 flex items-center gap-2">
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-2 sm:px-4">
+            <div className="bg-white rounded-xl p-4 sm:p-6 md:p-8 w-full sm:w-[90%] md:w-[80%] lg:max-w-2xl shadow-lg max-h-[90vh] overflow-y-auto">
+                <h2 className="text-xl sm:text-2xl font-bold text-[#14528B] mb-4 flex items-center gap-2">
                     <AlertTriangle size={20} /> Student Complaint Form
                 </h2>
-                {error && <p className="text-red-500 mb-3">{error}</p>}
+                {error && <p className="text-red-500 mb-3 text-sm">{error}</p>}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Name */}
                     <div>
-                        <label className="font-semibold">Name </label>
+                        <label className="font-semibold">Name</label>
                         <input
                             type="text"
                             value={form.name}
@@ -103,7 +103,7 @@ const ComplaintModal = ({ isOpen, onClose, onSubmit }) => {
 
                     {/* Date */}
                     <div>
-                        <label className="font-semibold">Date of Complaint </label>
+                        <label className="font-semibold">Date of Complaint</label>
                         <input
                             type="date"
                             value={form.date}
@@ -114,7 +114,7 @@ const ComplaintModal = ({ isOpen, onClose, onSubmit }) => {
 
                     {/* Type */}
                     <div>
-                        <label className="font-semibold">Complaint Type </label>
+                        <label className="font-semibold">Complaint Type</label>
                         <select
                             value={form.type}
                             onChange={(e) => handleChange("type", e.target.value)}
@@ -135,7 +135,7 @@ const ComplaintModal = ({ isOpen, onClose, onSubmit }) => {
 
                     {/* Severity */}
                     <div>
-                        <label className="font-semibold">Severity </label>
+                        <label className="font-semibold">Severity</label>
                         <select
                             value={form.severity}
                             onChange={(e) => handleChange("severity", e.target.value)}
