@@ -20,7 +20,9 @@ import { Color } from "@tiptap/extension-color";
 import Image from "@tiptap/extension-image";
 import { FaBold, FaItalic, FaUnderline, FaLink, FaHeading, FaListUl, FaListOl, 
          FaTable, FaImage, FaAlignLeft, FaAlignCenter, FaAlignRight, FaAlignJustify,
-         FaPalette, FaSave, FaFilePdf, FaPrint, FaUndo, FaRedo } from "react-icons/fa";
+         FaPalette, FaSave, FaFilePdf, FaPrint, FaUndo, FaRedo, FaDownload } from "react-icons/fa";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 
 // --- Custom node: input field ---
 const InputField = Node.create({
@@ -246,7 +248,8 @@ export default function EditorPage() {
   const [savedId, setSavedId] = useState(null);
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [currentColor, setCurrentColor] = useState('#000000');
-  const fileInputRef = useRef(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const editorRef = useRef(null);
 
   const editor = useEditor({
     extensions: [
@@ -392,43 +395,150 @@ export default function EditorPage() {
     editor.chain().focus().setColor(color).run();
   };
 
+  const generateHTML = useCallback(() => {
+    if (!editor) return '';
+    
+    // Get the editor's HTML content
+    const htmlContent = editor.getHTML();
+    
+    // Create a complete HTML document
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; padding: 20px; }
+        @media print {
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        ${htmlContent}
+        <div class="no-print mt-8 pt-4 border-t">
+            <p class="text-sm text-gray-500">Form created with Advanced Form Builder</p>
+        </div>
+    </div>
+</body>
+</html>`;
+  }, [editor]);
+
+  const downloadHTML = useCallback(() => {
+    const htmlContent = generateHTML();
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'form.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, [generateHTML]);
+
+  const exportPDF = useCallback(async () => {
+    if (!editor) return;
+    
+    try {
+      // Create a temporary div to hold the content for PDF generation
+      const content = document.createElement('div');
+      content.innerHTML = editor.getHTML();
+      content.style.width = '794px'; // A4 width in pixels at 96dpi
+      content.style.padding = '20px';
+      content.style.backgroundColor = 'white';
+      document.body.appendChild(content);
+      
+      const canvas = await html2canvas(content, {
+        scale: 2,
+        useCORS: true,
+        logging: false
+      });
+      
+      document.body.removeChild(content);
+      
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+      
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+      const imgX = (pdfWidth - imgWidth * ratio) / 2;
+      const imgY = 10;
+      
+      pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+      pdf.save('form.pdf');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      alert('Failed to generate PDF. Please try again.');
+    }
+  }, [editor]);
+
   const save = async () => {
     if (!editor) return;
+    setIsSaving(true);
+    
     const json = editor.getJSON();
+    const html = generateHTML();
     const title = window.prompt('Form title', 'Untitled form') || 'Untitled form';
     
     try {
       const res = await fetch('http://localhost:5000/api/forms', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: json, title })
+        body: JSON.stringify({ 
+          content: json, 
+          html: html,
+          title 
+        })
       });
+      
+      if (!res.ok) {
+        throw new Error(`Server returned ${res.status}`);
+      }
+      
       const data = await res.json();
       setSavedId(data._id);
       alert('Form saved successfully! ID: ' + data._id);
     } catch (err) {
-      console.error(err);
-      alert('Save failed');
+      console.error('Save error:', err);
+      alert('Save failed. Please check your connection and try again.');
+    } finally {
+      setIsSaving(false);
     }
   };
 
-  const exportPDF = () => {
-    alert('PDF export functionality would be implemented here');
-    // This would typically generate a PDF from the form content
-  };
-
   const printForm = () => {
-    window.print();
+    const htmlContent = generateHTML();
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(htmlContent);
+    printWindow.document.close();
+    
+    // Wait for images to load before printing
+    printWindow.onload = function() {
+      printWindow.focus();
+      printWindow.print();
+      // printWindow.close(); // Uncomment if you want to automatically close after printing
+    };
   };
 
   if (!editor) {
-    return null;
+    return <div className="flex items-center justify-center h-screen">Loading editor...</div>;
   }
 
   return (
-    <div className=" flex flex-col h-screen bg-gray-100">
+    <div className="flex flex-col h-screen bg-gray-100">
       {/* Top toolbar */}
-      <div className="px-10 bg-white border-b p-2 flex flex-wrap gap-1">
+      <div className="bg-white border-b p-2 flex flex-wrap gap-1">
         <div className="flex items-center gap-1 mr-4">
           <button
             onClick={() => editor.chain().focus().undo().run()}
@@ -595,11 +705,19 @@ export default function EditorPage() {
 
         <div className="flex items-center gap-1 ml-auto">
           <button
+            onClick={downloadHTML}
+            className="p-2 rounded bg-green-600 text-white hover:bg-green-700 flex items-center gap-1"
+            title="Download HTML"
+          >
+            <FaDownload /> HTML
+          </button>
+          <button
             onClick={save}
-            className="p-2 rounded bg-blue-600 text-white hover:bg-blue-700 flex items-center gap-1"
+            disabled={isSaving}
+            className="p-2 rounded bg-blue-600 text-white hover:bg-blue-700 flex items-center gap-1 disabled:opacity-50"
             title="Save form"
           >
-            <FaSave /> Save
+            <FaSave /> {isSaving ? 'Saving...' : 'Save'}
           </button>
           <button
             onClick={exportPDF}
@@ -619,7 +737,7 @@ export default function EditorPage() {
       </div>
 
       {/* Form fields toolbar */}
-      <div className="px-10 bg-gray-200 p-2 flex flex-wrap gap-2">
+      <div className="bg-gray-200 p-2 flex flex-wrap gap-2">
         <span className="text-sm font-medium py-2">Form Fields:</span>
         <button onClick={insertInput} className="px-3 py-1 rounded bg-blue-100 text-blue-800 hover:bg-blue-200 text-sm">
           Text Input
@@ -646,7 +764,7 @@ export default function EditorPage() {
 
       {/* Editor content */}
       <div className="flex-1 overflow-auto p-4">
-        <div className="bg-white p-8 rounded shadow-lg max-w-4xl mx-auto min-h-[500px]">
+        <div ref={editorRef} className="bg-white p-8 rounded shadow-lg max-w-4xl mx-auto min-h-[500px]">
           <EditorContent editor={editor} />
         </div>
       </div>
