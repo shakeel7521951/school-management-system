@@ -97,22 +97,22 @@ const router = createBrowserRouter([
   {
     element: <AdminRoute />,
     children: [
-      { path: '/overview', element: <Overview /> },
+      // { path: '/overview', element: <Overview /> },
       { path: 'documents/uploaded', element: <UploadedDocuments /> },
       { path: 'documents/requests', element: <RequestedDocuments /> },
-      { path: '/users', element: <Users /> },
+      // { path: '/users', element: <Users /> },
       { path: '/admincomplain', element: <AdminComplain /> },
-      { path: '/reports', element: <Reports /> }
+      // { path: '/reports', element: <Reports /> }
     ]
   },
   {
     element: <StudentRoute />,
     children: [
       { path: '/stoverview', element: <StOverview /> },
-      { path: '/stdocuments', element: <StDocuments /> },
+      // { path: '/stdocuments', element: <StDocuments /> },
       { path: '/stcomplaints', element: <StComplaints /> },
-      { path: '/stnotifications', element: <StNotifications /> },
-      { path: '/stsettings', element: <StSettings /> }
+      // { path: '/stnotifications', element: <StNotifications /> },
+      // { path: '/stsettings', element: <StSettings /> }
     ]
   },
   {

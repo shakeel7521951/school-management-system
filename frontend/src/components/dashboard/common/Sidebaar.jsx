@@ -15,11 +15,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState("overview");
+  const [activeItem, setActiveItem] = useState("/admincomplain");
   const [openDropdown, setOpenDropdown] = useState(null);
-
-  // ✅ Use lg breakpoint (>=1024px = desktop, show full sidebar)
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,24 +27,25 @@ const Sidebar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Sidebar always open on desktop
   useEffect(() => {
-    if (isDesktop) {
-      setIsOpen(true);
-    } else {
-      setIsOpen(false);
-    }
+    setIsOpen(isDesktop);
   }, [isDesktop]);
 
   const handleLogout = () => {
     localStorage.removeItem("adminToken");
     navigate("/login");
-    if (!isDesktop) setIsOpen(false); // collapse on md & below
+    if (!isDesktop) setIsOpen(false);
   };
 
   const menuItems = [
-    { id: "overview", label: "Overview", icon: Users, color: "text-indigo-500", hover: "hover:bg-indigo-50" },
-    { id: "admincomplain", label: "Complaints", icon: MessageCircle, color: "text-pink-500", hover: "hover:bg-pink-50" },
+    // { id: "/overview", label: "Overview", icon: Users, color: "text-indigo-500", hover: "hover:bg-indigo-50" },
+    { 
+      id: "/admincomplain", 
+      label: "Complaints", 
+      icon: MessageCircle, 
+      color: "text-pink-500", 
+      hover: "hover:bg-pink-50" 
+    },
     {
       id: "documents",
       label: "Documents",
@@ -53,17 +53,16 @@ const Sidebar = () => {
       color: "text-green-500",
       hover: "hover:bg-green-50",
       dropdown: [
-        { id: "documents/requests", label: "Requested Documents" },
-        { id: "documents/uploaded", label: "Uploaded Documents" },
+        { id: "/documents/requests", label: "Requested Documents" },
+        { id: "/documents/uploaded", label: "Uploaded Documents" },
       ],
     },
-    { id: "users", label: "Users", icon: BarChart2, color: "text-amber-500", hover: "hover:bg-amber-50" },
-    { id: "reports", label: "Reports", icon: FileText, color: "text-purple-500", hover: "hover:bg-purple-50" },
+    // { id: "users", label: "Users", icon: BarChart2, color: "text-amber-500", hover: "hover:bg-amber-50" },
+    // { id: "reports", label: "Reports", icon: FileText, color: "text-purple-500", hover: "hover:bg-purple-50" },
   ];
 
   return (
     <>
-      {/* Overlay for md & below */}
       {!isDesktop && isOpen && (
         <div
           className="fixed inset-0 bg-black/40 z-40 lg:hidden"
@@ -71,13 +70,11 @@ const Sidebar = () => {
         ></div>
       )}
 
-      {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-full bg-white border-r border-gray-200
                     shadow-2xl transition-all duration-500 z-50 flex flex-col justify-between
                     ${isOpen ? "w-64" : "w-0 lg:w-64"} overflow-hidden`}
       >
-        {/* Logo */}
         <div className="px-4 py-6 flex flex-col items-center border-b border-gray-200">
           <div className="w-14 h-14 flex items-center justify-center rounded-xl bg-blue-100 mb-2">
             <School size={32} className="text-blue-600" />
@@ -92,7 +89,6 @@ const Sidebar = () => {
           )}
         </div>
 
-        {/* Menu */}
         <nav className="flex-grow space-y-2 mt-6 px-2">
           {menuItems.map((item) => {
             const IconComponent = item.icon;
@@ -107,8 +103,8 @@ const Sidebar = () => {
                       setOpenDropdown(isDropdownOpen ? null : item.id);
                     } else {
                       setActiveItem(item.id);
-                      navigate(`/${item.id}`);
-                      if (!isDesktop) setIsOpen(false); // ✅ auto close after navigation
+                      navigate(item.id); // fixed navigation
+                      if (!isDesktop) setIsOpen(false);
                     }
                   }}
                   className={`w-full flex items-center gap-4 px-3 py-2 rounded-lg transition-all
@@ -117,7 +113,7 @@ const Sidebar = () => {
                 >
                   <IconComponent
                     size={20}
-                    className={`${isActive ? "text-blue-700" : item.color} group-hover:scale-110`}
+                    className={`${isActive ? "text-blue-700" : item.color}`}
                   />
                   {isOpen && (
                     <>
@@ -132,22 +128,20 @@ const Sidebar = () => {
                   )}
                 </button>
 
-                {/* Dropdown */}
                 {item.dropdown && isDropdownOpen && isOpen && (
                   <div className="ml-8 mt-1 space-y-1">
                     {item.dropdown.map((sub) => (
                       <Link
                         key={sub.id}
-                        to={`/${sub.id}`}
+                        to={sub.id}
                         onClick={() => {
                           setActiveItem(sub.id);
-                          if (!isDesktop) setIsOpen(false); // ✅ auto close on md & below
+                          if (!isDesktop) setIsOpen(false);
                         }}
                         className={`block px-3 py-1.5 text-sm rounded-md
-                                    ${
-                                      activeItem === sub.id
-                                        ? "bg-green-50 text-green-700"
-                                        : "text-gray-600 hover:bg-gray-100"
+                                    ${activeItem === sub.id
+                                      ? "bg-green-50 text-green-700"
+                                      : "text-gray-600 hover:bg-gray-100"
                                     }`}
                       >
                         {sub.label}
@@ -160,7 +154,6 @@ const Sidebar = () => {
           })}
         </nav>
 
-        {/* Footer */}
         <div className="px-3 mb-6 space-y-3">
           {isOpen && (
             <div className="mb-4 px-2">
@@ -179,7 +172,6 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* ✅ Hamburger shown on md & below */}
       {!isDesktop && (
         <button
           className="fixed top-4 left-4 z-50 p-2.5 bg-blue-600 text-white shadow-lg rounded-full

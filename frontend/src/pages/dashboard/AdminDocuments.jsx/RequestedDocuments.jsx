@@ -3,9 +3,9 @@ import { Bell, PlusCircle, FileText } from "lucide-react";
 
 const RequestedDocuments = () => {
   const [requestedDocs, setRequestedDocs] = useState([
-    { id: 1, title: "ID Card", type: "PDF", note: "", role: "Student" },
-    { id: 2, title: "Domicile", type: "PDF", note: "Re-upload clear scanned copy", role: "Student" },
-    { id: 3, title: "Paid Challan", type: "PDF", note: "", role: "Student" },
+    // { id: 1, title: "ID Card", type: "PDF", note: "", role: "Student" },
+    // { id: 2, title: "Domicile", type: "PDF", note: "Re-upload clear scanned copy", role: "Student" },
+    // { id: 3, title: "Paid Challan", type: "PDF", note: "", role: "Student" },
     { id: 4, title: "Attendance Report", type: "XLSX", note: "", role: "Teacher", requestedBy: "Admin" },
     { id: 5, title: "Course Outline", type: "PDF", note: "", role: "Teacher" },
     { id: 6, title: "Students Progress Report", type: "PDF", note: "", role: "Teacher" },

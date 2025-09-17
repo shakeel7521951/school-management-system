@@ -65,10 +65,10 @@ const StudentSidebar = () => {
         {/* Menu Items */}
         <nav className="mt-8 flex flex-col gap-3 px-3 flex-grow">
           {[
-            { label: "Overview", icon: <LayoutDashboard size={20} />, path: "/stoverview" },
-            { label: "Documents", icon: <FileText size={20} />, path: "/stdocuments" },
+            // { label: "Overview", icon: <LayoutDashboard size={20} />, path: "/stoverview" },
+            // { label: "Documents", icon: <FileText size={20} />, path: "/stdocuments" },
             { label: "Complaints", icon: <MessageSquare size={20} />, path: "/stcomplaints" },
-            { label: "Notifications", icon: <Bell size={20} />, path: "/stnotifications" },
+            // { label: "Notifications", icon: <Bell size={20} />, path: "/stnotifications" },
           ].map((item, index) => (
             <Link
               key={index}
@@ -96,7 +96,7 @@ const StudentSidebar = () => {
         {/* Bottom Section (Settings + Logout) */}
         <div className="px-3 mb-6 space-y-3">
           {/* Settings */}
-          <Link
+          {/* <Link
             to="/stsettings"
             onClick={() => setIsOpen(false)} // ✅ Close sidebar after navigation
             className="group flex items-center gap-4 px-3 py-2 rounded-lg 
@@ -111,10 +111,10 @@ const StudentSidebar = () => {
             {(isOpen || window.innerWidth >= 1024) && (
               <span className="text-sm font-medium animate-fadeIn">Settings</span>
             )}
-          </Link>
+          </Link> */}
 
           {/* Logout */}
-          <button
+          {/* <button
             onClick={handleLogout}
             className="w-full group flex items-center gap-4 px-3 py-2 rounded-lg 
                        hover:bg-red-500/20 transition-all relative overflow-hidden
@@ -128,7 +128,7 @@ const StudentSidebar = () => {
             {(isOpen || window.innerWidth >= 1024) && (
               <span className="text-sm font-medium animate-fadeIn">Logout</span>
             )}
-          </button>
+          </button> */}
         </div>
       </div>
 

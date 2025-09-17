@@ -5,11 +5,11 @@ import RejectDocumentModal from "../../../components/dashboard/UploadedDocuments
 import ViewDocumentModal from "../../../components/dashboard/UploadedDocuments/ViewDocumentModal";
 const UploadedDocuments = () => {
   const [uploads, setUploads] = useState([
-    { id: 1, title: "ID Card", uploader: "Ali", role: "Student", type: "PDF", date: "2025-09-15", status: "Pending", note: "" },
+    // { id: 1, title: "ID Card", uploader: "Ali", role: "Student", type: "PDF", date: "2025-09-15", status: "Pending", note: "" },
     { id: 2, title: "Student Report", uploader: "Sara", role: "Teacher", type: "PDF", date: "2025-09-16", status: "Pending", note: "" },
-    { id: 3, title: "Paid Challan", uploader: "Mohammed", role: "Student", type: "PDF", date: "2025-09-14", status: "Resolved", note: "" },
+    // { id: 3, title: "Paid Challan", uploader: "Mohammed", role: "Student", type: "PDF", date: "2025-09-14", status: "Resolved", note: "" },
     { id: 4, title: "Course Material", uploader: "Fatima", role: "Teacher", type: "PDF", date: "2025-09-13", status: "Resolved", note: "" },
-    { id: 5, title: "Domicile", uploader: "Fatima", role: "Student", type: "PDF", date: "2025-09-13", status: "Rejected", note: "Reuplaod clear Scanned copy" },
+    // { id: 5, title: "Domicile", uploader: "Fatima", role: "Student", type: "PDF", date: "2025-09-13", status: "Rejected", note: "Reuplaod clear Scanned copy" },
      { id: 5, title: "Grades Report - Class 8", uploader: "Fatima", role: "Teacher", type: "xlsx", date: "2025-09-13", status: "Rejected", note: "Please recheck marks calculation" },
   ]);
 
