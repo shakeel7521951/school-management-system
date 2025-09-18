@@ -278,8 +278,7 @@ export default function EditorPage() {
       TextareaField,
       FileField
     ],
-    content: `<h1>Advanced Form Builder</h1>
-    <p>Create professional forms with rich text formatting and various field types.</p>`,
+    content: `<h1></h1>`,
     onUpdate: ({ editor }) => {
       // Handle editor updates if needed
     }
@@ -427,19 +426,6 @@ export default function EditorPage() {
 </html>`;
   }, [editor]);
 
-  const downloadHTML = useCallback(() => {
-    const htmlContent = generateHTML();
-    const blob = new Blob([htmlContent], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'form.html';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }, [generateHTML]);
-
   const exportPDF = useCallback(async () => {
     if (!editor) return;
     
@@ -492,7 +478,7 @@ export default function EditorPage() {
     const title = window.prompt('Form title', 'Untitled form') || 'Untitled form';
     
     try {
-      const res = await fetch('http://localhost:5000/api/forms', {
+      const res = await fetch('http://localhost:5000/createForm', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -538,7 +524,7 @@ export default function EditorPage() {
   return (
     <div className="flex flex-col h-screen bg-gray-100">
       {/* Top toolbar */}
-      <div className="bg-white border-b p-2 flex flex-wrap gap-1">
+      <div className="bg-white border-b p-2 flex flex-wrap gap-1 px-10">
         <div className="flex items-center gap-1 mr-4">
           <button
             onClick={() => editor.chain().focus().undo().run()}
@@ -705,13 +691,6 @@ export default function EditorPage() {
 
         <div className="flex items-center gap-1 ml-auto">
           <button
-            onClick={downloadHTML}
-            className="p-2 rounded bg-green-600 text-white hover:bg-green-700 flex items-center gap-1"
-            title="Download HTML"
-          >
-            <FaDownload /> HTML
-          </button>
-          <button
             onClick={save}
             disabled={isSaving}
             className="p-2 rounded bg-blue-600 text-white hover:bg-blue-700 flex items-center gap-1 disabled:opacity-50"
@@ -737,7 +716,7 @@ export default function EditorPage() {
       </div>
 
       {/* Form fields toolbar */}
-      <div className="bg-gray-200 p-2 flex flex-wrap gap-2">
+      <div className="bg-gray-200 p-2 flex flex-wrap gap-2 px-14">
         <span className="text-sm font-medium py-2">Form Fields:</span>
         <button onClick={insertInput} className="px-3 py-1 rounded bg-blue-100 text-blue-800 hover:bg-blue-200 text-sm">
           Text Input
