@@ -40,6 +40,7 @@ import TeacherNotifications from './pages/TeacherDashboard/TeacherNotifications'
 import AdminComplain from './components/dashboard/adminComplaints/AdminComplain'
 import EditorPage from './pages/dashboard/EditorPage'
 import FormViewer from './pages/dashboard/FormViewer'
+import ResponseForm from './pages/TeacherDashboard/TeacherDocuments'
 
 const MainFunction = () => {
   return (
@@ -124,7 +125,7 @@ const router = createBrowserRouter([
     element: <TeacherRoute />,
     children: [
       // { path: '/teacheroverview', element: <TeacherOverview /> },
-      { path: '/teacherdocuments', element: <TeacherDocuments /> },
+      { path: '/teacherdocuments', element: <ResponseForm /> },
       // { path: '/teachercomplaints', element: <TeacherComplaints /> },
       // { path: '/teachernotifications', element: <TeacherNotifications /> },
       // { path: '/teacherprofile', element: <TeacherProfile /> }
