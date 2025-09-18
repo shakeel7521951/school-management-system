@@ -348,7 +348,7 @@ export default function EditorPage() {
     const required = window.confirm('Is this field required?');
     editor.chain().focus().insertContent({ type: 'checkboxField', attrs: { label, name, options, required } }).run();
   }, [editor]);
-
+  
   const insertRadio = useCallback(() => {
     if (!editor) return;
     const label = window.prompt('Radio group label', 'Gender');
