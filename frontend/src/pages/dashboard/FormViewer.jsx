@@ -17,12 +17,13 @@ const FormViewer = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [submissionStatus, setSubmissionStatus] = useState(null);
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const fetchFormHTML = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:5000/html-form/${id}`);
+        const response = await fetch(`${BACKEND_URL}/html-form/${id}`);
         if (!response.ok) throw new Error("Failed to fetch form");
 
         const html = await response.text();
@@ -42,7 +43,7 @@ const FormViewer = () => {
   const handleSubmitForm = async (data) => {
     try {
       setSubmissionStatus("submitting");
-      const response = await fetch("http://localhost:5000/submitForm", {
+      const response = await fetch(`${BACKEND_URL}/submitForm`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

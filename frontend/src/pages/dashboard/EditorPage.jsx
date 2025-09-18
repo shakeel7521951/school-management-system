@@ -27,6 +27,7 @@ import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 // --- Custom node: input field ---
 const InputField = Node.create({
@@ -482,10 +483,10 @@ export default function EditorPage() {
     const html = generateHTML();
 
     try {
-      let url = 'http://localhost:5000/createForm';
+      let url = `${BACKEND_URL}/createForm`;
       let method = 'POST';
       if (id) {
-        url = `http://localhost:5000/update-form/${id}`;
+        url = `${BACKEND_URL}/update-form/${id}`;
         method = 'PUT';
       }
 
@@ -524,7 +525,7 @@ export default function EditorPage() {
     const loadForm = async () => {
       if (id) {
         try {
-          const response = await fetch(`http://localhost:5000/single-form/${id}`);
+          const response = await fetch(`${BACKEND_URL}/single-form/${id}`);
 
           if (!response.ok) {
             throw new Error('Failed to fetch form');
