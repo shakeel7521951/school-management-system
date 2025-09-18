@@ -12,6 +12,7 @@ export default function Navbar() {
     { name: "Events", path: "/event" },
     { name: "FeedBack", path: "/complain" },
     { name: "Contact", path: "/contact-us" },
+    {name:"Visitors",path:"/visitor"}
   ];
 
   return (

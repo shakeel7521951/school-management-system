@@ -41,6 +41,7 @@ import AdminComplain from './components/dashboard/adminComplaints/AdminComplain'
 import EditorPage from './pages/dashboard/EditorPage'
 import FormViewer from './pages/dashboard/FormViewer'
 import ResponseForm from './pages/TeacherDashboard/TeacherDocuments'
+import VisitorManagement from './pages/VisitormanagementPage'
 
 const MainFunction = () => {
   return (
@@ -92,7 +93,8 @@ const router = createBrowserRouter([
       { path: '/complain', element: <Complaints /> },
       { path: '/contact-us', element: <ContactUs /> },
       { path: '/complainform', element: <ComplaintForm /> },
-      { path: '/complainstatus', element: <ComplaintForm /> }
+      { path: '/complainstatus', element: <ComplaintForm /> },
+      { path: '/visitor', element: <VisitorManagement/> },
     ]
   },
   { path: '/login', element: <Login /> },
