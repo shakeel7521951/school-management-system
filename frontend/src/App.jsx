@@ -129,7 +129,7 @@ const router = createBrowserRouter([
       // { path: '/teacherprofile', element: <TeacherProfile /> }
     ]
   },
-  {path:"/editor",element:<EditorPage />},
+  {path:"/form-editor",element:<EditorPage />},
 ])
 
 function App () {

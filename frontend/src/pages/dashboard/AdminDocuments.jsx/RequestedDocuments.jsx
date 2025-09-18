@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { Bell, PlusCircle, FileText } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 const RequestedDocuments = () => {
+  const navigate = useNavigate();
   const [requestedDocs, setRequestedDocs] = useState([
     // { id: 1, title: "ID Card", type: "PDF", note: "", role: "Student" },
     // { id: 2, title: "Domicile", type: "PDF", note: "Re-upload clear scanned copy", role: "Student" },
@@ -62,7 +64,7 @@ const RequestedDocuments = () => {
             Requested Documents
           </h2>
           <button
-            onClick={() => setShowRequestModal(true)}
+            onClick={()=>navigate("/form-editor")}
             className='flex items-center gap-2 px-5 py-2.5 bg-[#104c80] text-white rounded-lg shadow-md hover:bg-[#0d3a63] transition'
           >
             <PlusCircle className='w-5 h-5' /> Request New
