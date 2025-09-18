@@ -39,6 +39,7 @@ import TeacherProfile from './pages/TeacherDashboard/TeacherProfile'
 import TeacherNotifications from './pages/TeacherDashboard/TeacherNotifications'
 import AdminComplain from './components/dashboard/adminComplaints/AdminComplain'
 import EditorPage from './pages/dashboard/EditorPage'
+import FormViewer from './pages/dashboard/FormViewer'
 
 const MainFunction = () => {
   return (
@@ -129,10 +130,12 @@ const router = createBrowserRouter([
       // { path: '/teacherprofile', element: <TeacherProfile /> }
     ]
   },
-  {path:"/form-editor",element:<EditorPage />},
+  { path: "/form-editor", element: <EditorPage /> },
+  { path: "/form-editor/:id", element: <EditorPage /> },
+  { path: "/view/:id", element: <FormViewer /> }
 ])
 
-function App () {
+function App() {
   return (
     <>
       <RouterProvider router={router} />

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Heading from "@tiptap/extension-heading";
@@ -18,11 +18,15 @@ import Underline from "@tiptap/extension-underline";
 import { TextStyle } from "@tiptap/extension-text-style";
 import { Color } from "@tiptap/extension-color";
 import Image from "@tiptap/extension-image";
-import { FaBold, FaItalic, FaUnderline, FaLink, FaHeading, FaListUl, FaListOl, 
-         FaTable, FaImage, FaAlignLeft, FaAlignCenter, FaAlignRight, FaAlignJustify,
-         FaPalette, FaSave, FaFilePdf, FaPrint, FaUndo, FaRedo, FaDownload } from "react-icons/fa";
+import {
+  FaBold, FaItalic, FaUnderline, FaLink, FaHeading, FaListUl, FaListOl,
+  FaTable, FaImage, FaAlignLeft, FaAlignCenter, FaAlignRight, FaAlignJustify,
+  FaPalette, FaSave, FaFilePdf, FaPrint, FaUndo, FaRedo, FaDownload
+} from "react-icons/fa";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 // --- Custom node: input field ---
 const InputField = Node.create({
@@ -43,10 +47,10 @@ const InputField = Node.create({
   renderHTML({ HTMLAttributes }) {
     return ['div', { 'data-type': 'input-field', class: 'my-3' },
       ['label', { class: 'block text-sm font-medium mb-1' }, HTMLAttributes.label],
-      ['input', { 
-        type: 'text', 
-        placeholder: HTMLAttributes.placeholder, 
-        class: 'border p-2 rounded w-full', 
+      ['input', {
+        type: 'text',
+        placeholder: HTMLAttributes.placeholder,
+        class: 'border p-2 rounded w-full',
         name: HTMLAttributes.name,
         required: HTMLAttributes.required
       }]
@@ -74,8 +78,8 @@ const SelectField = Node.create({
     const opts = (HTMLAttributes.options || []).map(o => ['option', { value: o }, o]);
     return ['div', { 'data-type': 'select-field', class: 'my-3' },
       ['label', { class: 'block text-sm font-medium mb-1' }, HTMLAttributes.label],
-      ['select', { 
-        name: HTMLAttributes.name, 
+      ['select', {
+        name: HTMLAttributes.name,
         class: 'border p-2 rounded w-full',
         required: HTMLAttributes.required
       }, ['option', { value: '' }, '-- Select --'], ...opts]
@@ -99,9 +103,9 @@ const DateField = Node.create({
   renderHTML({ HTMLAttributes }) {
     return ['div', { 'data-type': 'date-field', class: 'my-3' },
       ['label', { class: 'block text-sm font-medium mb-1' }, HTMLAttributes.label],
-      ['input', { 
-        type: 'date', 
-        name: HTMLAttributes.name, 
+      ['input', {
+        type: 'date',
+        name: HTMLAttributes.name,
         class: 'border p-2 rounded w-full',
         required: HTMLAttributes.required
       }]
@@ -128,17 +132,17 @@ const CheckboxField = Node.create({
   renderHTML({ HTMLAttributes }) {
     const checkboxes = (HTMLAttributes.options || []).map((o, i) => [
       'div', { class: 'flex items-center mb-1' },
-      ['input', { 
-        type: 'checkbox', 
+      ['input', {
+        type: 'checkbox',
         id: `${HTMLAttributes.name}_${i}`,
-        name: HTMLAttributes.name, 
+        name: HTMLAttributes.name,
         value: o,
         class: 'mr-2',
         required: HTMLAttributes.required
       }],
       ['label', { for: `${HTMLAttributes.name}_${i}`, class: 'text-sm' }, o]
     ]);
-    
+
     return ['div', { 'data-type': 'checkbox-field', class: 'my-3' },
       ['label', { class: 'block text-sm font-medium mb-2' }, HTMLAttributes.label],
       ...checkboxes
@@ -165,17 +169,17 @@ const RadioField = Node.create({
   renderHTML({ HTMLAttributes }) {
     const radios = (HTMLAttributes.options || []).map((o, i) => [
       'div', { class: 'flex items-center mb-1' },
-      ['input', { 
-        type: 'radio', 
+      ['input', {
+        type: 'radio',
         id: `${HTMLAttributes.name}_${i}`,
-        name: HTMLAttributes.name, 
+        name: HTMLAttributes.name,
         value: o,
         class: 'mr-2',
         required: HTMLAttributes.required
       }],
       ['label', { for: `${HTMLAttributes.name}_${i}`, class: 'text-sm' }, o]
     ]);
-    
+
     return ['div', { 'data-type': 'radio-field', class: 'my-3' },
       ['label', { class: 'block text-sm font-medium mb-2' }, HTMLAttributes.label],
       ...radios
@@ -203,9 +207,9 @@ const TextareaField = Node.create({
   renderHTML({ HTMLAttributes }) {
     return ['div', { 'data-type': 'textarea-field', class: 'my-3' },
       ['label', { class: 'block text-sm font-medium mb-1' }, HTMLAttributes.label],
-      ['textarea', { 
-        placeholder: HTMLAttributes.placeholder, 
-        class: 'border p-2 rounded w-full', 
+      ['textarea', {
+        placeholder: HTMLAttributes.placeholder,
+        class: 'border p-2 rounded w-full',
         name: HTMLAttributes.name,
         rows: HTMLAttributes.rows,
         required: HTMLAttributes.required
@@ -233,9 +237,9 @@ const FileField = Node.create({
   renderHTML({ HTMLAttributes }) {
     return ['div', { 'data-type': 'file-field', class: 'my-3' },
       ['label', { class: 'block text-sm font-medium mb-1' }, HTMLAttributes.label],
-      ['input', { 
-        type: 'file', 
-        class: 'border p-2 rounded w-full', 
+      ['input', {
+        type: 'file',
+        class: 'border p-2 rounded w-full',
         name: HTMLAttributes.name,
         accept: HTMLAttributes.accept,
         required: HTMLAttributes.required
@@ -245,10 +249,14 @@ const FileField = Node.create({
 });
 
 export default function EditorPage() {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [savedId, setSavedId] = useState(null);
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [currentColor, setCurrentColor] = useState('#000000');
   const [isSaving, setIsSaving] = useState(false);
+  const [formTitle, setFormTitle] = useState('Untitled form');
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
   const editorRef = useRef(null);
 
   const editor = useEditor({
@@ -384,7 +392,7 @@ export default function EditorPage() {
     if (!editor) return;
     const rows = parseInt(window.prompt('Number of rows', '3')) || 3;
     const cols = parseInt(window.prompt('Number of columns', '3')) || 3;
-    
+
     editor.chain().focus().insertTable({ rows, cols, withHeaderRow: true }).run();
   }, [editor]);
 
@@ -396,17 +404,17 @@ export default function EditorPage() {
 
   const generateHTML = useCallback(() => {
     if (!editor) return '';
-    
+
     // Get the editor's HTML content
     const htmlContent = editor.getHTML();
-    
+
     // Create a complete HTML document
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form</title>
+    <title>${formTitle}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; padding: 20px; }
@@ -418,17 +426,14 @@ export default function EditorPage() {
 <body>
     <div class="max-w-4xl mx-auto">
         ${htmlContent}
-        <div class="no-print mt-8 pt-4 border-t">
-            <p class="text-sm text-gray-500">Form created with Advanced Form Builder</p>
-        </div>
     </div>
 </body>
 </html>`;
-  }, [editor]);
+  }, [editor, formTitle]);
 
   const exportPDF = useCallback(async () => {
     if (!editor) return;
-    
+
     try {
       // Create a temporary div to hold the content for PDF generation
       const content = document.createElement('div');
@@ -437,22 +442,22 @@ export default function EditorPage() {
       content.style.padding = '20px';
       content.style.backgroundColor = 'white';
       document.body.appendChild(content);
-      
+
       const canvas = await html2canvas(content, {
         scale: 2,
         useCORS: true,
         logging: false
       });
-      
+
       document.body.removeChild(content);
-      
+
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
         format: 'a4'
       });
-      
+
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
       const imgWidth = canvas.width;
@@ -460,61 +465,122 @@ export default function EditorPage() {
       const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
       const imgX = (pdfWidth - imgWidth * ratio) / 2;
       const imgY = 10;
-      
+
       pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
-      pdf.save('form.pdf');
+      pdf.save(`${formTitle.replace(/\s+/g, '_')}.pdf`);
     } catch (error) {
       console.error('Error generating PDF:', error);
       alert('Failed to generate PDF. Please try again.');
     }
-  }, [editor]);
+  }, [editor, formTitle]);
 
   const save = async () => {
     if (!editor) return;
     setIsSaving(true);
-    
+
     const json = editor.getJSON();
     const html = generateHTML();
-    const title = window.prompt('Form title', 'Untitled form') || 'Untitled form';
-    
+
     try {
-      const res = await fetch('http://localhost:5000/createForm', {
-        method: 'POST',
+      let url = 'http://localhost:5000/createForm';
+      let method = 'POST';
+      if (id) {
+        url = `http://localhost:5000/update-form/${id}`;
+        method = 'PUT';
+      }
+
+      const res = await fetch(url, {
+        method: method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          content: json, 
+        body: JSON.stringify({
+          content: json,
           html: html,
-          title 
+          title: formTitle
         })
       });
-      
+
       if (!res.ok) {
         throw new Error(`Server returned ${res.status}`);
       }
-      
+
       const data = await res.json();
-      setSavedId(data._id);
-      alert('Form saved successfully! ID: ' + data._id);
+
+      // If creating a new form, set the saved ID
+      if (!id) {
+        setSavedId(data._id);
+      }
+
+      toast(`Form ${id ? 'updated' : 'saved'} successfully! ID: ${data._id || id}`);
+      navigate("/documents/requests")
     } catch (err) {
       console.error('Save error:', err);
-      alert('Save failed. Please check your connection and try again.');
     } finally {
       setIsSaving(false);
     }
   };
+
+  // Load form data when component mounts or when id changes
+  useEffect(() => {
+    const loadForm = async () => {
+      if (id) {
+        try {
+          const response = await fetch(`http://localhost:5000/single-form/${id}`);
+
+          if (!response.ok) {
+            throw new Error('Failed to fetch form');
+          }
+
+          const contentType = response.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            const formData = await response.json();
+
+            // Set the form title from the loaded data
+            if (formData.title) {
+              setFormTitle(formData.title);
+            }
+
+            // Set the editor content
+            if (editor && formData.content) {
+              editor.commands.setContent(formData.content);
+            }
+          } else {
+            const textData = await response.text();
+            console.error('Expected JSON but got:', textData.substring(0, 200));
+            throw new Error('Server returned non-JSON response');
+          }
+        } catch (error) {
+          console.error('Error loading form:', error);
+          alert('Failed to load form. Please try again.');
+        }
+      }
+    };
+
+    loadForm();
+  }, [editor, id]);
 
   const printForm = () => {
     const htmlContent = generateHTML();
     const printWindow = window.open('', '_blank');
     printWindow.document.write(htmlContent);
     printWindow.document.close();
-    
+
     // Wait for images to load before printing
-    printWindow.onload = function() {
+    printWindow.onload = function () {
       printWindow.focus();
       printWindow.print();
-      // printWindow.close(); // Uncomment if you want to automatically close after printing
     };
+  };
+
+  const handleTitleChange = (e) => {
+    setFormTitle(e.target.value);
+  };
+
+  const handleTitleBlur = () => {
+    setIsEditingTitle(false);
+  };
+
+  const handleTitleClick = () => {
+    setIsEditingTitle(true);
   };
 
   if (!editor) {
@@ -523,6 +589,30 @@ export default function EditorPage() {
 
   return (
     <div className="flex flex-col h-screen bg-gray-100">
+      {/* Form title section */}
+      <div className="bg-white border-b p-4 px-10 flex items-center justify-center">
+        {isEditingTitle ? (
+          <input
+            type="text"
+            value={formTitle}
+            onChange={handleTitleChange}
+            onBlur={handleTitleBlur}
+            className="text-2xl font-bold text-center border-b-2 border-blue-500 focus:outline-none"
+            autoFocus
+          />
+        ) : (
+          <h1
+            className="text-2xl font-bold cursor-pointer hover:text-blue-600"
+            onClick={handleTitleClick}
+          >
+            {formTitle}
+          </h1>
+        )}
+        <span className="ml-4 text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">
+          {id ? `Editing: ${id}` : 'Creating new form'}
+        </span>
+      </div>
+
       {/* Top toolbar */}
       <div className="bg-white border-b p-2 flex flex-wrap gap-1 px-10">
         <div className="flex items-center gap-1 mr-4">
@@ -589,7 +679,7 @@ export default function EditorPage() {
           >
             <FaUnderline />
           </button>
-          
+
           <div className="relative">
             <button
               onClick={() => setShowColorPicker(!showColorPicker)}
@@ -696,7 +786,7 @@ export default function EditorPage() {
             className="p-2 rounded bg-blue-600 text-white hover:bg-blue-700 flex items-center gap-1 disabled:opacity-50"
             title="Save form"
           >
-            <FaSave /> {isSaving ? 'Saving...' : 'Save'}
+            <FaSave /> {isSaving ? 'Saving...' : id ? 'Update' : 'Save'}
           </button>
           <button
             onClick={exportPDF}
