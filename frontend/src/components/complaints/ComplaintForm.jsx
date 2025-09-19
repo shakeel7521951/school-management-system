@@ -82,7 +82,7 @@ const ComplaintForm = () => {
       >
         {/* Header */}
         <motion.div
-          className="bg-indigo-600 px-6 py-5"
+          className="bg-gradient-to-l from-[#2a588a] via-[#1A426D] to-[#2a588a] px-6 py-5"
           variants={itemVariants}
         >
           <h1 className="text-2xl font-bold text-white">
@@ -130,8 +130,8 @@ const ComplaintForm = () => {
                 disabled={isSubmitting}
                 className={`px-6 py-2 text-sm font-semibold rounded-md text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
                   isSubmitting
-                    ? "bg-indigo-400 cursor-not-allowed"
-                    : "bg-indigo-600 hover:bg-indigo-700"
+                    ? "bg-[#1A426E] cursor-not-allowed"
+                    : "bg-[#1A426E] hover:bg-[#315d8d]"
                 }`}
               >
                 {isSubmitting ? "Submitting..." : "Submit Complaint"}
