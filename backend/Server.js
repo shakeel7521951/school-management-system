@@ -15,14 +15,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true,
-}))
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://school-management-system-lime-six.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 mongoose.connect("mongodb+srv://shakeeldev:shakeeldev@cluster0.wr0hjhv.mongodb.net").then(() => console.log("Database is connected successfully")).catch((error) => console.log("Error in connecting database."));
 
 app.get("/", (req, res) => {
-    return res.status(200).json({ message: "Backend is running..." });
+  return res.status(200).json({ message: "Backend is running..." });
 })
 
 app.use(userRoutes)
