@@ -103,6 +103,7 @@ const router = createBrowserRouter([
       { path: '/complainform', element: <ComplaintForm /> },
       { path: '/complainstatus', element: <ComplaintForm /> },
       { path: '/visitor', element: <VisitorForm /> },
+      { path: '/my-profile', element: <ProfilePage /> },
     ]
   },
   { path: '/login', element: <Login /> },

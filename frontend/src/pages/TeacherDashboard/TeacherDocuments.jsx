@@ -32,24 +32,7 @@ const ResponseForm = () => {
     }
   };
 
-  const handleDeleteForm = async (id) => {
-    try {
-      const response = await fetch(`http://localhost:5000/delete-form/${id}`, {
-        method: 'DELETE'
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to delete form');
-      }
-      
-      // Remove the form from the local state
-      setForms(forms.filter(form => form._id !== id));
-      setDeleteConfirm(null);
-    } catch (err) {
-      setError(err.message);
-      console.error('Error deleting form:', err);
-    }
-  };
+ 
 
   const handleDownloadHTML = (form) => {
     const blob = new Blob([form.html], { type: 'text/html' });
@@ -184,13 +167,7 @@ const ResponseForm = () => {
                           >
                             <Eye className="w-4 h-4" />
                           </button>
-                          <button
-                            onClick={() => navigate(`/form-editor/${form._id}`)}
-                            className="p-2 text-green-600 hover:bg-green-100 rounded-full transition"
-                            title="Edit Form"
-                          >
-                            <Edit className="w-4 h-4" />
-                          </button>
+                         
                           <button
                             onClick={() => handleDownloadHTML(form)}
                             className="p-2 text-purple-600 hover:bg-purple-100 rounded-full transition"
@@ -205,13 +182,7 @@ const ResponseForm = () => {
                           >
                             <Printer className="w-4 h-4" />
                           </button>
-                          <button
-                            onClick={() => setDeleteConfirm(form._id)}
-                            className="p-2 text-red-600 hover:bg-red-100 rounded-full transition"
-                            title="Delete Form"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
+                        
                         </div>
                       </td>
                     </tr>

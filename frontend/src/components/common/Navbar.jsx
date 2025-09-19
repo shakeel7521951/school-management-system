@@ -10,13 +10,9 @@ export default function Navbar() {
   const [profileOpen, setProfileOpen] = useState(false);
 
   const profile = useSelector(selectUserProfile);
-
-  console.log("profile",profile);
-  
   const dispatch = useDispatch();
-
-  console.log("profile.....",profile)
-
+  console.log(profile);
+  
   const [logout, { isLoading }] = useLogoutMutation();
 
   const navLinks = [
@@ -30,8 +26,8 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     try {
-      await logout().unwrap(); // API call
-      dispatch(clearProfile()); // clear Redux state
+      await logout().unwrap();
+      dispatch(clearProfile());
       setProfileOpen(false);
       setIsOpen(false);
     } catch (err) {
@@ -65,7 +61,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop Right Section */}
+        {/* Desktop Profile/Login */}
         <div className="hidden lg:flex items-center gap-6">
           {!profile ? (
             <Link to="/login" className="relative group">
@@ -89,20 +85,21 @@ export default function Navbar() {
                 ) : (
                   <FaUserCircle className="text-3xl text-indigo-200" />
                 )}
-                <span className="text-indigo-200 font-medium">{profile?.name.split(" ")[0]}</span>
+                <span className="text-indigo-200 font-medium">
+                  {profile?.name.split(" ")[0]}
+                </span>
               </button>
 
+              {/* Desktop Dropdown */}
               {profileOpen && (
                 <div className="absolute right-0 mt-3 w-48 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-50 animate-fadeIn">
-                   {profile && (
-                    <Link
-                      to="/my-profile"
-                      className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
-                      onClick={() => setProfileOpen(false)}
-                    >
-                      My Profile
-                    </Link>
-                  )}
+                  <Link
+                    to="/my-profile"
+                    className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
+                    onClick={() => setProfileOpen(false)}
+                  >
+                    My Profile
+                  </Link>
                   {profile?.role === "admin" && (
                     <Link
                       to="/admincomplain"
@@ -170,10 +167,7 @@ export default function Navbar() {
           >
             Al Tamakon
           </Link>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="p-2 bg-indigo-950 rounded"
-          >
+          <button onClick={() => setIsOpen(false)} className="p-2 bg-indigo-950 rounded">
             <FaTimes className="text-indigo-200 text-2xl" />
           </button>
         </div>
@@ -185,7 +179,7 @@ export default function Navbar() {
               <Link
                 to={link.path}
                 onClick={() => setIsOpen(false)}
-                className="block text-center text-indigo-100 hover:text-indigo-400 hover:bg-indigo-950 rounded-xl py-3 transition duration-300"
+                className="block text-center text-indigo-100 hover:text-indigo-400 hover:bg-indigo-950 rounded-xl py-1 transition duration-300"
               >
                 {link.name}
               </Link>
@@ -193,8 +187,8 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Mobile Login/Profile */}
-        <div className="mt-10 flex flex-col gap-4">
+        {/* Mobile Profile/Login */}
+        <div className="mt-10 flex flex-col gap-4 relative">
           {!profile ? (
             <Link
               to="/login"
@@ -221,11 +215,21 @@ export default function Navbar() {
                 ) : (
                   <FaUserCircle className="text-2xl" />
                 )}
-                <span className="font-medium">{profile?.name.split(" ")[1]}</span>
+                <span className="font-medium">{profile?.name.split(" ")[0]}</span>
               </button>
 
               {profileOpen && (
-                <div className="mt-3 w-full bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50 animate-fadeIn">
+                <div className="mt-2 w-full bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50 animate-fadeIn">
+                  <Link
+                    to="/my-profile"
+                    className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
+                    onClick={() => {
+                      setProfileOpen(false);
+                      setIsOpen(false);
+                    }}
+                  >
+                    My Profile
+                  </Link>
                   {profile?.role === "admin" && (
                     <Link
                       to="/admincomplain"
