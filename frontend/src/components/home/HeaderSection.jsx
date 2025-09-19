@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 const HeaderSection = () => {
   return (
     <div className="relative mt-10 bg-gradient-to-r from-[#273C66] to-[#1A4480] py-16 overflow-hidden">
@@ -42,9 +44,9 @@ const HeaderSection = () => {
             <button className="text-black transition-all ease-in cursor-pointer px-6 py-3 bg-white hover:bg-[#273C66] shadow-white hover:text-white rounded-full shadow-md hover:shadow-md items-center">
               Get Free Demo
             </button>
-            <button className="text-white px-6 py-3 border border-white hover:border hover:bg-transparent shadow-white hover:text-white transition-all ease-in cursor-pointer rounded-full shadow hover:shadow-md flex items-center">
+            <Link to="/contact-us" className="text-white px-6 py-3 border border-white hover:border hover:bg-transparent shadow-white hover:text-white transition-all ease-in cursor-pointer rounded-full shadow hover:shadow-md flex items-center">
               Contact Us
-            </button>
+            </Link>
           </div>
           
           {/* Feature highlights */}
