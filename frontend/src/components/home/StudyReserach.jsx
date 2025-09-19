@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function StudyResearch() {
     const [isVideoOpen, setIsVideoOpen] = useState(false);
@@ -89,12 +90,12 @@ export default function StudyResearch() {
                     </div>
 
                     <div className="flex flex-wrap gap-4">
-                        <button className="px-6 py-3 rounded-md bg-gradient-to-r cursor-pointer from-[#1A4480] to-[#273c66ac] text-white font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center">
+                        <Link to="/complainform" className="px-6 py-3 rounded-md bg-gradient-to-r cursor-pointer from-[#1A4480] to-[#273c66ac] text-white font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center">
                             <span>Explore Complaint System</span>
                             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
-                        </button>
+                        </Link>
                         
                         <button className="px-6 py-3 rounded-md border border-[#1A4480] cursor-pointer text-[#1A4480] font-semibold shadow-sm hover:bg-blue-50 transition-colors duration-300">
                             Document Workflow

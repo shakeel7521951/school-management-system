@@ -73,7 +73,7 @@ const ComplaintForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 py-30 px-4 sm:px-6 lg:px-8">
       <motion.div
         className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden"
         initial="hidden"

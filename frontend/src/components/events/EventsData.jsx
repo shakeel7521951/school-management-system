@@ -14,6 +14,7 @@ import {
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
+
 const EventsData = () => {
   const [activeFilter, setActiveFilter] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
@@ -27,7 +28,6 @@ const EventsData = () => {
     })
   }, [])
 
-  // ✅ Sample events data with refined content
   const events = [
     {
       id: 1,
@@ -40,7 +40,7 @@ const EventsData = () => {
       fullDescription:
         'Annual Sports Day is a celebration of talent, teamwork, and school spirit. Students will participate in multiple track and field events, starting with a grand opening ceremony and traditional torch lighting. Awards and medals will be presented to winners, and the best-performing house will receive the Championship Trophy. Parents are warmly invited to attend and enjoy the day.',
       category: 'sports',
-      image: './events/1.avif',
+      image: './events/sports.jpg',
       participants: 'Students (Grades 3–12)',
       organizers: 'Physical Education Department',
       importantNotes:
@@ -71,7 +71,7 @@ const EventsData = () => {
       fullDescription:
         'This meeting provides parents with the opportunity to discuss their child’s progress, strengths, and areas for growth with teachers. Each appointment will run for 15 minutes. Progress reports will be distributed during the meeting.',
       category: 'academic',
-      image: './events/3.avif',
+      image: './events/meeting.jpg',
       participants: 'Parents & Guardians',
       organizers: 'School Administration',
       importantNotes: 'Please book time slots via the school portal.'
@@ -87,7 +87,7 @@ const EventsData = () => {
       fullDescription:
         'Our Annual Music Concert celebrates the talent of students in music. Performances include classical, contemporary, and student-composed pieces. Directed by our music faculty, the concert promises an enjoyable evening for all attendees.',
       category: 'arts',
-      image: './events/4.avif',
+      image: './events/concert.webp',
       participants: 'Music Students',
       organizers: 'Music Department',
       importantNotes: 'Parents of performers will have reserved seating.'
@@ -118,7 +118,7 @@ const EventsData = () => {
       fullDescription:
         'The Art Exhibition displays paintings, sculptures, digital works, and photography created by students. Local guest artists will provide feedback and select outstanding pieces for further display. Visitors will witness the artistic journey of our students.',
       category: 'arts',
-      image: './events/6.avif',
+      image: './events/exhibition.avif',
       participants: 'Art Students',
       organizers: 'Art Department',
       importantNotes: 'Select artworks will be available for purchase.'
@@ -191,7 +191,7 @@ const EventsData = () => {
             />
           </div>
 
-          <div className='flex flex-wrap gap-3 justify-center'>
+          <div id='event' className='flex flex-wrap gap-3 justify-center'>
             {categories.map(category => (
               <button
                 key={category.id}
