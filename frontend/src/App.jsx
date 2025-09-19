@@ -13,8 +13,7 @@ import Navbarr from './components/dashboard/common/Navbar'
 import AboutUs from './pages/AboutUs'
 import Complaints from './pages/Complaints'
 import ComplaintForm from './components/complaints/ComplaintForm'
-import Visitors from './pages/dashboard/Visitors'
-
+import Users from './pages/dashboard/Users'
 // ✅ keep only one Reports import (the correct one)
 // import Reports from './components/dashboard/report/Reports'
 
@@ -41,8 +40,12 @@ import AdminComplain from './components/dashboard/adminComplaints/AdminComplain'
 import EditorPage from './pages/dashboard/EditorPage'
 import FormViewer from './pages/dashboard/FormViewer'
 import ResponseForm from './pages/TeacherDashboard/TeacherDocuments'
-import VisitorManagement from './pages/VisitormanagementPage'
-import RegistrationForm from './pages/RegistrationForm'
+import VisitorTable from './pages/dashboard/VisitorsTable'
+import VisitorForm from './pages/VisitorForm'
+import { useProfileQuery } from './redux/slices/UserApi'
+import { useEffect } from 'react'
+import { clearProfile, setProfile } from './redux/slices/UserSlice'
+import { useDispatch } from 'react-redux';
 
 const MainFunction = () => {
   return (
@@ -95,7 +98,7 @@ const router = createBrowserRouter([
       { path: '/contact-us', element: <ContactUs /> },
       { path: '/complainform', element: <ComplaintForm /> },
       { path: '/complainstatus', element: <ComplaintForm /> },
-      { path: '/visitor', element: <VisitorManagement/> },
+      { path: '/visitor', element: <VisitorForm /> },
     ]
   },
   { path: '/login', element: <Login /> },
@@ -105,12 +108,13 @@ const router = createBrowserRouter([
     element: <AdminRoute />,
     children: [
       { path: 'admincomplain', element: <AdminComplain /> },
+      { path: 'visitortable', element: <VisitorTable/> },
 
       { path: 'documents/uploaded', element: <UploadedDocuments /> },
       { path: 'documents/requests', element: <RequestedDocuments /> },
 
       // { path: 'overview', element: <Overview /> },
-      { path: 'users', element: <Visitors /> },
+      { path: 'users', element: <Users /> },
       // { path: 'reports', element: <Reports /> }
     ]
   },
@@ -141,6 +145,16 @@ const router = createBrowserRouter([
 ])
 
 function App() {
+  const dispatch = useDispatch();
+  const { data: profileData } = useProfileQuery();
+
+  useEffect(() => {
+    if (profileData) {
+      dispatch(setProfile(profileData.user));
+    } else {
+      dispatch(clearProfile());
+    }
+  }, [profileData, dispatch]);
   return (
     <>
       <RouterProvider router={router} />

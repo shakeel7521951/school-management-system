@@ -12,7 +12,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="relative bg-gradient-to-r from-indigo-950 via-indigo-900 to-indigo-950 text-white overflow-hidden pt-5">
+   <div className="relative bg-gradient-to-r from-[#104c80] via-[#1c5fa3] to-[#104c80] text-white overflow-hidden pt-5">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-opacity-20 bg-pattern"></div>
       
@@ -41,10 +41,10 @@ const Hero = () => {
               data-aos="fade-up"
               data-aos-delay="500"
             >
-              <button className="bg-white hover:bg-blue-50 text-indigo-600 font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg">
+              <button className="bg-white hover:bg-blue-50 text-[#104c80] font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg">
                 View Full Calendar
               </button>
-              <button className="border-2 border-blue-300 text-blue-100 hover:bg-indigo-500/80 hover:text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+              <button className="border-2 border-[#104c80] text-blue-100 hover:bg-[#104c80]/80 hover:text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
                 Explore Events
               </button>
             </div>
@@ -60,7 +60,7 @@ const Hero = () => {
             ].map((item, index) => (
               <div 
                 key={index}
-                className="bg-indigo-700/30 backdrop-filter backdrop-blur-lg rounded-xl p-6 text-center shadow-lg transform transition duration-500 hover:scale-105 border border-indigo-300/30"
+                className="bg-[#104c80]/40 backdrop-filter backdrop-blur-lg rounded-xl p-6 text-center shadow-lg transform transition duration-500 hover:scale-105 border border-[#104c80]/30"
                 data-aos="zoom-in"
                 data-aos-delay={item.delay}
               >
@@ -75,7 +75,7 @@ const Hero = () => {
         
         {/* Stats Section */}
         <div 
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-8 pb-4 border-t border-blue-300/30"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-8 pb-4 border-t border-[#104c80]/40"
           data-aos="fade-up"
           data-aos-delay="700"
         >
