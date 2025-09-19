@@ -278,7 +278,7 @@ const EventsData = () => {
 
         {/* Upcoming Events Banner */}
         <div
-          className='mt-12 bg-gradient-to-r from-[#104c80] to-[#3b82f6] rounded-xl p-8 text-white shadow-lg'
+          className='mt-12 bg-gradient-to-r from-[#104c80] to-[#104c80]/80 rounded-xl p-8 text-white shadow-lg'
           data-aos='fade-up'
         >
           <div className='flex flex-col md:flex-row items-center justify-between'>
@@ -318,7 +318,7 @@ const EventsData = () => {
               </div>
               <button
                 onClick={closeModal}
-                className='absolute top-4 right-4 bg-white text-indigo-700 rounded-full p-2 shadow-md hover:bg-indigo-100 transition-colors'
+                className='absolute top-4 right-4 bg-white text-[#104c80] rounded-full p-2 shadow-md hover:bg-indigo-100 transition-colors'
               >
                 <FaTimes className='text-xl' />
               </button>
@@ -326,41 +326,41 @@ const EventsData = () => {
 
             <div className='p-6 sm:p-8'>
               <div className='flex flex-wrap items-center gap-2 mb-4'>
-                <span className='bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full'>
+                <span className='bg-indigo-100 text-[#104c80] text-sm font-medium px-3 py-1 rounded-full'>
                   {selectedEvent.category.toUpperCase()}
                 </span>
-                <span className='bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-sm font-medium px-3 py-1 rounded-full'>
+                <span className='bg-gradient-to-r from-[#104c80] to-[#104c80]/70 text-white text-sm font-medium px-3 py-1 rounded-full'>
                   UPCOMING
                 </span>
               </div>
 
-              <h2 className='text-2xl sm:text-3xl font-bold text-indigo-900 mb-4'>
+              <h2 className='text-2xl sm:text-3xl font-bold text-[#104c80] mb-4'>
                 {selectedEvent.title}
               </h2>
 
               <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mb-6'>
                 <div className='space-y-4'>
                   <div className='flex items-start'>
-                    <FaCalendarAlt className='text-indigo-600 mt-1 mr-3 text-lg' />
+                    <FaCalendarAlt className='text-[#104c80] mt-1 mr-3 text-lg' />
                     <div>
-                      <p className='font-medium text-indigo-900'>Date</p>
-                      <p className='text-indigo-700'>
+                      <p className='font-medium text-[#104c80]'>Date</p>
+                      <p className='text-[#104c80]'>
                         {formatDate(selectedEvent.date)}
                       </p>
                     </div>
                   </div>
                   <div className='flex items-start'>
-                    <FaClock className='text-indigo-600 mt-1 mr-3 text-lg' />
+                    <FaClock className='text-[#104c80] mt-1 mr-3 text-lg' />
                     <div>
-                      <p className='font-medium text-indigo-900'>Time</p>
-                      <p className='text-indigo-700'>{selectedEvent.time}</p>
+                      <p className='font-medium text-[#104c80]'>Time</p>
+                      <p className='text-[#104c80]'>{selectedEvent.time}</p>
                     </div>
                   </div>
                   <div className='flex items-start'>
-                    <FaMapMarkerAlt className='text-indigo-600 mt-1 mr-3 text-lg' />
+                    <FaMapMarkerAlt className='text-[#104c80] mt-1 mr-3 text-lg' />
                     <div>
-                      <p className='font-medium text-indigo-900'>Location</p>
-                      <p className='text-indigo-700'>
+                      <p className='font-medium text-[#104c80]'>Location</p>
+                      <p className='text-[#104c80]'>
                         {selectedEvent.location}
                       </p>
                     </div>
@@ -369,21 +369,21 @@ const EventsData = () => {
 
                 <div className='space-y-4'>
                   <div className='flex items-start'>
-                    <FaUserFriends className='text-indigo-600 mt-1 mr-3 text-lg' />
+                    <FaUserFriends className='text-[#104c80] mt-1 mr-3 text-lg' />
                     <div>
-                      <p className='font-medium text-indigo-900'>
+                      <p className='font-medium text-[#104c80]'>
                         Participants
                       </p>
-                      <p className='text-indigo-700'>
+                      <p className='text-[#104c80]'>
                         {selectedEvent.participants}
                       </p>
                     </div>
                   </div>
                   <div className='flex items-start'>
-                    <FaInfoCircle className='text-indigo-600 mt-1 mr-3 text-lg' />
+                    <FaInfoCircle className='text-[#104c80] mt-1 mr-3 text-lg' />
                     <div>
-                      <p className='font-medium text-indigo-900'>Organizers</p>
-                      <p className='text-indigo-700'>
+                      <p className='font-medium text-[#104c80]'>Organizers</p>
+                      <p className='text-[#104c80]'>
                         {selectedEvent.organizers}
                       </p>
                     </div>
@@ -392,21 +392,21 @@ const EventsData = () => {
               </div>
 
               <div className='mb-6'>
-                <h3 className='text-xl font-semibold text-indigo-900 mb-3'>
+                <h3 className='text-xl font-semibold text-[#104c80] mb-3'>
                   Event Description
                 </h3>
-                <p className='text-indigo-700 leading-relaxed'>
+                <p className='text-[#104c80] leading-relaxed'>
                   {selectedEvent.fullDescription}
                 </p>
               </div>
 
-              <div className='bg-indigo-50 border-l-4 border-indigo-400 p-4 mb-6'>
+              <div className='bg-indigo-50 border-l-4 border-[#104c80] p-4 mb-6'>
                 <div className='flex'>
                   <div className='flex-shrink-0'>
-                    <FaInfoCircle className='h-5 w-5 text-indigo-400' />
+                    <FaInfoCircle className='h-5 w-5 text-[#104c80]' />
                   </div>
                   <div className='ml-3'>
-                    <p className='text-sm text-indigo-700'>
+                    <p className='text-sm text-[#104c80]'>
                       <span className='font-medium'>Important Notes:</span>{' '}
                       {selectedEvent.importantNotes}
                     </p>
@@ -415,10 +415,10 @@ const EventsData = () => {
               </div>
 
               <div className='flex flex-col sm:flex-row gap-3'>
-                <button className='flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-3 px-4 rounded-lg transition-colors shadow-md'>
+                <button className='flex-1 bg-gradient-to-r from-[#104c80] to-[#104c80]/70 hover:from-[#104c80] hover:to-[#104c80] text-white font-medium py-3 px-4 rounded-lg transition-colors shadow-md'>
                   Add to Calendar
                 </button>
-                <button className='flex-1 border border-indigo-300 hover:bg-indigo-50 text-indigo-700 font-medium py-3 px-4 rounded-lg transition-colors'>
+                <button className='flex-1 border border-indigo-300 hover:bg-indigo-50 text-[#104c80]font-medium py-3 px-4 rounded-lg transition-colors'>
                   Share Event
                 </button>
               </div>
