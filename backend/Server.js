@@ -5,6 +5,7 @@ import cors from "cors";
 const app = express();
 const PORT = 5000;
 
+import userRoutes from "./routes/useRoutes.js";
 import formRoutes from './routes/FormRoutes.js';
 import formSubmissionRoutes from "./routes/FormSubmissionRoutes.js";
 
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
     return res.status(200).json({ message: "Backend is running..." });
 })
 
+app.use(userRoutes)
 app.use(formRoutes)
 app.use(formSubmissionRoutes)
 
