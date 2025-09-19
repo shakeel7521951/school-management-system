@@ -46,6 +46,7 @@ import { useProfileQuery } from './redux/slices/UserApi'
 import { useEffect } from 'react'
 import { clearProfile, setProfile } from './redux/slices/UserSlice'
 import { useDispatch } from 'react-redux';
+import OtpVerify from './pages/OtpVerify'
 
 const MainFunction = () => {
   return (
@@ -103,6 +104,7 @@ const router = createBrowserRouter([
   },
   { path: '/login', element: <Login /> },
   { path: '/signup', element: <Signup /> },
+  { path: '/OtpVerify', element: <OtpVerify /> },
   {
     element: <AdminRoute />,
     children: [
