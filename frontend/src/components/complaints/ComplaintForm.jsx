@@ -82,7 +82,7 @@ const ComplaintForm = () => {
       >
         {/* Header */}
         <motion.div
-          className="bg-gradient-to-l from-[#2a588a] via-[#1A426D] to-[#2a588a] px-6 py-5"
+          className="bg-gradient-to-l from-[#2a588a] via-[#1A426D] to-[#2a588a] px-6 py-5 border-2"
           variants={itemVariants}
         >
           <h1 className="text-2xl font-bold text-white">

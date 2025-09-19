@@ -2,7 +2,7 @@ import React from "react";
 
 const ComplaintDetailsSection = ({ formData, handleChange }) => {
   return (
-    <section className="bg-white p-6 rounded-lg shadow-md">
+    <section className="bg-white p-6 rounded-lg shadow-md ">
       <h2 className="text-lg font-semibold text-gray-800 border-b pb-2 mb-4">
         Complaint Details
       </h2>
