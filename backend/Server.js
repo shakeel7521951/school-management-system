@@ -12,7 +12,7 @@ import formSubmissionRoutes from "./routes/FormSubmissionRoutes.js";
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(cors());
+app.use(cors({origin:"http://localhost:5173"}));
 
 mongoose.connect("mongodb+srv://shakeeldev:shakeeldev@cluster0.wr0hjhv.mongodb.net").then(() => console.log("Database is connected successfully")).catch((error) => console.log("Error in connecting database."));
 
