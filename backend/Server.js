@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 
+import cookieParser from "cookie-parser";
+
 const app = express();
 const PORT = 5000;
 
@@ -11,6 +13,7 @@ import formSubmissionRoutes from "./routes/FormSubmissionRoutes.js";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.use(cors({
   origin: 'http://localhost:5173',

@@ -1,10 +1,18 @@
 import { useState } from "react";
 import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUserProfile, clearProfile } from "../../redux/slices/UserSlice";
+import { useLogoutMutation } from "../../redux/slices/UserApi";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+
+  const profile = useSelector(selectUserProfile);
+  const dispatch = useDispatch();
+
+  const [logout, { isLoading }] = useLogoutMutation();
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -14,6 +22,17 @@ export default function Navbar() {
     { name: "Contact", path: "/contact-us" },
     { name: "Visitors", path: "/visitor" },
   ];
+
+  const handleLogout = async () => {
+    try {
+      await logout().unwrap(); // API call
+      dispatch(clearProfile()); // clear Redux state
+      setProfileOpen(false);
+      setIsOpen(false);
+    } catch (err) {
+      console.error("❌ Logout failed:", err);
+    }
+  };
 
   return (
     <nav className="w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-[#104c80] via-[#1e3a5f] to-[#0a1a2f] shadow-md">
@@ -26,7 +45,7 @@ export default function Navbar() {
           Al Tamakon
         </Link>
 
-        {/* Desktop Menu (only lg and up) */}
+        {/* Desktop Menu */}
         <ul className="hidden lg:flex gap-12 text-base font-medium">
           {navLinks.map((link) => (
             <li key={link.name} className="group relative">
@@ -41,54 +60,76 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop Right Section (only lg and up) */}
+        {/* Desktop Right Section */}
         <div className="hidden lg:flex items-center gap-6">
-          {/* Login Button */}
-          <Link to="/login" className="relative group">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-400 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-200" />
-            <div className="relative px-6 py-2 bg-indigo-950 rounded-full text-indigo-200 group-hover:text-white transition duration-200 font-semibold">
-              Login
-            </div>
-          </Link>
-
-          {/* Profile Dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setProfileOpen(!profileOpen)}
-              className="flex items-center gap-2 p-2 rounded-full bg-indigo-900 hover:bg-indigo-800 transition"
-            >
-              <FaUserCircle className="text-3xl text-indigo-200" />
-            </button>
-
-            {profileOpen && (
-              <div className="absolute right-0 mt-3 w-48 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-50 animate-fadeIn">
-                <Link
-                  to="/admincomplain"
-                  className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
-                  onClick={() => setProfileOpen(false)}
-                >
-                  Admin Dashboard
-                </Link>
-                <Link
-                  to="/teacherdocuments"
-                  className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
-                  onClick={() => setProfileOpen(false)}
-                >
-                  Teacher Dashboard
-                </Link>
-                <Link
-                  to="/stcomplaints"
-                  className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
-                  onClick={() => setProfileOpen(false)}
-                >
-                  Student Dashboard
-                </Link>
+          {!profile ? (
+            <Link to="/login" className="relative group">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-400 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-200" />
+              <div className="relative px-6 py-2 bg-indigo-950 rounded-full text-indigo-200 group-hover:text-white transition duration-200 font-semibold">
+                Login
               </div>
-            )}
-          </div>
+            </Link>
+          ) : (
+            <div className="relative">
+              <button
+                onClick={() => setProfileOpen(!profileOpen)}
+                className="flex items-center gap-2 p-2 rounded-full bg-indigo-900 hover:bg-indigo-800 transition"
+              >
+                {profile?.profilePic ? (
+                  <img
+                    src={profile.profilePic}
+                    alt="Profile"
+                    className="w-10 h-10 rounded-full object-cover border border-indigo-400"
+                  />
+                ) : (
+                  <FaUserCircle className="text-3xl text-indigo-200" />
+                )}
+                <span className="text-indigo-200 font-medium">{profile?.name}</span>
+              </button>
+
+              {profileOpen && (
+                <div className="absolute right-0 mt-3 w-48 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-50 animate-fadeIn">
+                  {profile?.role === "admin" && (
+                    <Link
+                      to="/admincomplain"
+                      className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      Admin Dashboard
+                    </Link>
+                  )}
+                  {profile?.role === "teacher" && (
+                    <Link
+                      to="/teacherdocuments"
+                      className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      Teacher Dashboard
+                    </Link>
+                  )}
+                  {profile?.role === "student" && (
+                    <Link
+                      to="/stcomplaints"
+                      className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      Student Dashboard
+                    </Link>
+                  )}
+                  <button
+                    onClick={handleLogout}
+                    disabled={isLoading}
+                    className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition"
+                  >
+                    {isLoading ? "Logging out..." : "Logout"}
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
-        {/* Mobile Menu Button (sm + md, hide on lg) */}
+        {/* Mobile Menu Button */}
         <button
           className="lg:hidden relative group"
           onClick={() => setIsOpen(true)}
@@ -100,7 +141,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Sidebar (sm + md) */}
+      {/* Mobile Sidebar */}
       <div
         className={`fixed top-0 right-0 h-full w-72 bg-gradient-to-b from-indigo-950 via-indigo-900 to-indigo-950 border-l border-indigo-500/20 shadow-xl transform transition-transform duration-300 z-50 p-6 ${
           isOpen ? "translate-x-0" : "translate-x-full"
@@ -138,64 +179,86 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Mobile Login + Profile */}
+        {/* Mobile Login/Profile */}
         <div className="mt-10 flex flex-col gap-4">
-          <Link
-            to="/login"
-            onClick={() => setIsOpen(false)}
-            className="relative group block"
-          >
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-400 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-200" />
-            <div className="relative px-4 py-3 bg-indigo-950 rounded-full text-center text-indigo-200 group-hover:text-white transition duration-200 font-semibold">
-              Login
-            </div>
-          </Link>
-
-          {/* Profile Dropdown (Mobile) */}
-          <div className="relative">
-            <button
-              onClick={() => setProfileOpen(!profileOpen)}
-              className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-indigo-900 rounded-full text-indigo-200 hover:bg-indigo-800 hover:text-white transition"
+          {!profile ? (
+            <Link
+              to="/login"
+              onClick={() => setIsOpen(false)}
+              className="relative group block"
             >
-              <FaUserCircle className="text-2xl" />
-              <span className="font-medium">Profile</span>
-            </button>
-
-            {profileOpen && (
-              <div className="mt-3 w-full bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50 animate-fadeIn">
-                <Link
-                  to="/admincomplaints"
-                  className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
-                  onClick={() => {
-                    setProfileOpen(false);
-                    setIsOpen(false);
-                  }}
-                >
-                  Admin Dashboard
-                </Link>
-                <Link
-                  to="/teacherdocuments"
-                  className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
-                  onClick={() => {
-                    setProfileOpen(false);
-                    setIsOpen(false);
-                  }}
-                >
-                  Teacher Dashboard
-                </Link>
-                <Link
-                  to="/stcomplaints"
-                  className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
-                  onClick={() => {
-                    setProfileOpen(false);
-                    setIsOpen(false);
-                  }}
-                >
-                  Student Dashboard
-                </Link>
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-400 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-200" />
+              <div className="relative px-4 py-3 bg-indigo-950 rounded-full text-center text-indigo-200 group-hover:text-white transition duration-200 font-semibold">
+                Login
               </div>
-            )}
-          </div>
+            </Link>
+          ) : (
+            <div className="relative">
+              <button
+                onClick={() => setProfileOpen(!profileOpen)}
+                className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-indigo-900 rounded-full text-indigo-200 hover:bg-indigo-800 hover:text-white transition"
+              >
+                {profile?.profilePic ? (
+                  <img
+                    src={profile.profilePic}
+                    alt="Profile"
+                    className="w-8 h-8 rounded-full object-cover border border-indigo-400"
+                  />
+                ) : (
+                  <FaUserCircle className="text-2xl" />
+                )}
+                <span className="font-medium">{profile?.name}</span>
+              </button>
+
+              {profileOpen && (
+                <div className="mt-3 w-full bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50 animate-fadeIn">
+                  {profile?.role === "admin" && (
+                    <Link
+                      to="/admincomplain"
+                      className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
+                      onClick={() => {
+                        setProfileOpen(false);
+                        setIsOpen(false);
+                      }}
+                    >
+                      Admin Dashboard
+                    </Link>
+                  )}
+                  {profile?.role === "teacher" && (
+                    <Link
+                      to="/teacherdocuments"
+                      className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
+                      onClick={() => {
+                        setProfileOpen(false);
+                        setIsOpen(false);
+                      }}
+                    >
+                      Teacher Dashboard
+                    </Link>
+                  )}
+                  {profile?.role === "User" && (
+                    <Link
+                      to="/stcomplaints"
+                      className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
+                      onClick={() => {
+                        setProfileOpen(false);
+                        setIsOpen(false);
+                      }}
+                    >
+                      Student Dashboard
+                    </Link>
+                  )}
+                  <button
+                    onClick={handleLogout}
+                    disabled={isLoading}
+                    className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition"
+                  >
+                    {isLoading ? "Logging out..." : "Logout"}
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 

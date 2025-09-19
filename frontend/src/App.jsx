@@ -47,6 +47,8 @@ import { useEffect } from 'react'
 import { clearProfile, setProfile } from './redux/slices/UserSlice'
 import { useDispatch } from 'react-redux';
 import OtpVerify from './pages/OtpVerify'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 
 const MainFunction = () => {
   return (
@@ -105,11 +107,13 @@ const router = createBrowserRouter([
   { path: '/login', element: <Login /> },
   { path: '/signup', element: <Signup /> },
   { path: '/OtpVerify', element: <OtpVerify /> },
+  { path: '/forgot-password', element: <ForgotPassword /> },
+  { path: '/reset-password', element: <ResetPassword /> },
   {
     element: <AdminRoute />,
     children: [
       { path: 'admincomplain', element: <AdminComplain /> },
-      { path: 'visitortable', element: <VisitorTable/> },
+      { path: 'visitortable', element: <VisitorTable /> },
 
       { path: 'documents/uploaded', element: <UploadedDocuments /> },
       { path: 'documents/requests', element: <RequestedDocuments /> },
@@ -148,7 +152,6 @@ const router = createBrowserRouter([
 function App() {
   const dispatch = useDispatch();
   const { data: profileData } = useProfileQuery();
-
   useEffect(() => {
     if (profileData) {
       dispatch(setProfile(profileData.user));
