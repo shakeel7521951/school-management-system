@@ -34,7 +34,7 @@ const HeroSection = () => {
           className='text-3xl sm:text-5xl md:text-6xl font-extrabold mb-6 
           text-white drop-shadow-lg leading-tight'
         >
-          Al Tamkon Comprehensive School
+          Al Tamakon Comprehensive School
         </h1>
 
         {/* Tagline */}
