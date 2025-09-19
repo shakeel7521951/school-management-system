@@ -42,6 +42,10 @@ import EditorPage from './pages/dashboard/EditorPage'
 import FormViewer from './pages/dashboard/FormViewer'
 import ResponseForm from './pages/TeacherDashboard/TeacherDocuments'
 import VisitorManagement from './pages/VisitormanagementPage'
+import { useProfileQuery } from './redux/slices/UserApi'
+import { useEffect } from 'react'
+import { clearProfile, setProfile } from './redux/slices/UserSlice'
+import { useDispatch } from 'react-redux';
 
 const MainFunction = () => {
   return (
@@ -94,7 +98,7 @@ const router = createBrowserRouter([
       { path: '/contact-us', element: <ContactUs /> },
       { path: '/complainform', element: <ComplaintForm /> },
       { path: '/complainstatus', element: <ComplaintForm /> },
-      { path: '/visitor', element: <VisitorManagement/> },
+      { path: '/visitor', element: <VisitorManagement /> },
     ]
   },
   { path: '/login', element: <Login /> },
@@ -139,6 +143,16 @@ const router = createBrowserRouter([
 ])
 
 function App() {
+  const dispatch = useDispatch();
+  const { data: profileData } = useProfileQuery();
+
+  useEffect(() => {
+    if (profileData) {
+      dispatch(setProfile(profileData.user));
+    } else {
+      dispatch(clearProfile());
+    }
+  }, [profileData, dispatch]);
   return (
     <>
       <RouterProvider router={router} />
