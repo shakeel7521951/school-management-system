@@ -42,6 +42,7 @@ import EditorPage from './pages/dashboard/EditorPage'
 import FormViewer from './pages/dashboard/FormViewer'
 import ResponseForm from './pages/TeacherDashboard/TeacherDocuments'
 import VisitorManagement from './pages/VisitormanagementPage'
+import RegistrationForm from './pages/RegistrationForm'
 
 const MainFunction = () => {
   return (
@@ -99,6 +100,7 @@ const router = createBrowserRouter([
   },
   { path: '/login', element: <Login /> },
   { path: '/signup', element: <Signup /> },
+  { path: "/registration", element: <RegistrationForm />},
   {
     element: <AdminRoute />,
     children: [
