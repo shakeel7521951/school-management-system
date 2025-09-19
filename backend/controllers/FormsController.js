@@ -27,9 +27,7 @@ export const getAllForms = async (req, res) => {
 
 export const getFormHTML = async (req, res) => {
     try {
-        console.log("HTML API is running....");
         const form = await Form.findById(req.params.id);
-        console.log(form)
         if (!form) {
             return res.status(404).json({ message: 'Form not found' });
         }

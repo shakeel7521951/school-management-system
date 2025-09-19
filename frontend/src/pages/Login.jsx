@@ -19,7 +19,8 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const response = await login(formData).unwrap()
+      const response = await login(formData).unwrap();
+      dispatch(setProfile(response.user));
       navigate("/")
       toast(response?.message)
     } catch (err) {

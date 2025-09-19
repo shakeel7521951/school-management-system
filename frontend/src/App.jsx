@@ -160,10 +160,10 @@ function App() {
       dispatch(clearProfile());
     }
   }, [profileData, dispatch]);
+
   return (
     <>
       <RouterProvider router={router} />
-      {/* 🔥 Toaster is now active for the whole app */}
       <Toaster
         position='top-right'
         toastOptions={{
