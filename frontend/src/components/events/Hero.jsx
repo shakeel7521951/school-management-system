@@ -44,9 +44,9 @@ const Hero = () => {
               <button className="bg-white hover:bg-blue-50 text-[#104c80] font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg">
                 View Full Calendar
               </button>
-              <button className="border-2 border-[#104c80] text-blue-100 hover:bg-[#104c80]/80 hover:text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+              <a href="#event" className="border-2 border-[#104c80] text-blue-100 hover:bg-[#104c80]/80 hover:text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
                 Explore Events
-              </button>
+              </a>
             </div>
           </div>
           

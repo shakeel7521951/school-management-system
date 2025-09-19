@@ -73,7 +73,7 @@ const ComplaintForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 py-30 px-4 sm:px-6 lg:px-8">
       <motion.div
         className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden"
         initial="hidden"
@@ -82,7 +82,7 @@ const ComplaintForm = () => {
       >
         {/* Header */}
         <motion.div
-          className="bg-gradient-to-l from-[#2a588a] via-[#1A426D] to-[#2a588a] px-6 py-5"
+          className="bg-gradient-to-l from-[#2a588a] via-[#1A426D] to-[#2a588a] px-6 py-5 border-2"
           variants={itemVariants}
         >
           <h1 className="text-2xl font-bold text-white">
