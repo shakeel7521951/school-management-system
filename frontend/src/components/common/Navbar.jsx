@@ -12,12 +12,11 @@ export default function Navbar() {
     { name: "Events", path: "/event" },
     { name: "FeedBack", path: "/complain" },
     { name: "Contact", path: "/contact-us" },
-    {name:"Visitors",path:"/visitor"}
+    { name: "Visitors", path: "/visitor" },
   ];
 
   return (
     <nav className="w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-[#104c80] via-[#1e3a5f] to-[#0a1a2f] shadow-md">
-
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo */}
         <Link
@@ -27,8 +26,8 @@ export default function Navbar() {
           Al Tamakon
         </Link>
 
-        {/* Desktop Menu */}
-        <ul className="hidden md:flex gap-12 text-base font-medium">
+        {/* Desktop Menu (only lg and up) */}
+        <ul className="hidden lg:flex gap-12 text-base font-medium">
           {navLinks.map((link) => (
             <li key={link.name} className="group relative">
               <Link
@@ -42,8 +41,8 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop Right Section */}
-        <div className="hidden md:flex items-center gap-6">
+        {/* Desktop Right Section (only lg and up) */}
+        <div className="hidden lg:flex items-center gap-6">
           {/* Login Button */}
           <Link to="/login" className="relative group">
             <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-400 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-200" />
@@ -63,9 +62,6 @@ export default function Navbar() {
 
             {profileOpen && (
               <div className="absolute right-0 mt-3 w-48 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-50 animate-fadeIn">
-              
-
-                {/* Links */}
                 <Link
                   to="/admincomplain"
                   className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
@@ -92,9 +88,9 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Button (sm + md, hide on lg) */}
         <button
-          className="md:hidden relative group"
+          className="lg:hidden relative group"
           onClick={() => setIsOpen(true)}
         >
           <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-400 rounded blur opacity-60 group-hover:opacity-100 transition duration-200" />
@@ -104,7 +100,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Sidebar */}
+      {/* Mobile Sidebar (sm + md) */}
       <div
         className={`fixed top-0 right-0 h-full w-72 bg-gradient-to-b from-indigo-950 via-indigo-900 to-indigo-950 border-l border-indigo-500/20 shadow-xl transform transition-transform duration-300 z-50 p-6 ${
           isOpen ? "translate-x-0" : "translate-x-full"
@@ -167,9 +163,6 @@ export default function Navbar() {
 
             {profileOpen && (
               <div className="mt-3 w-full bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50 animate-fadeIn">
-               
-
-                {/* Links */}
                 <Link
                   to="/admincomplaints"
                   className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"

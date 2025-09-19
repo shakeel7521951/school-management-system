@@ -47,19 +47,19 @@ const ContactPage = () => {
             "url('https://allonehealth.com/wp-content/uploads/2022/07/iStock-1358014313-scaled-1.jpg')",
         }}
       >
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#114E83]/80 via-[#114E83]/60 to-[#114E83]/80"></div>
         <div className="relative z-10 px-4">
           <h1
-            className="text-3xl sm:text-4xl md:text-6xl pt-14 font-extrabold text-white mb-4 sm:mb-6"
+            className="text-3xl sm:text-4xl md:text-7xl pt-14 font-extrabold text-white mb-4 sm:mb-6"
             data-aos="fade-down"
           >
             Get In Touch
           </h1>
           <p
-            className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto text-white font-semibold"
+            className="text-base sm:text-lg md:text-2xl max-w-2xl mx-auto text-white font-semibold"
             data-aos="fade-up"
           >
-            Have a question, complaint, feedback, or suggestion? Our Qatar school
+            Have a question, complaint, feedback, or suggestion? Our Al_Tamakon's
             team is ready to assist you.
           </p>
         </div>
@@ -95,13 +95,13 @@ const ContactPage = () => {
             </h3>
             <div className="space-y-3">
               <p className="flex items-center text-base md:text-lg">
-                <FaMapMarkerAlt className="mr-2 text-[#d08700]" /> Doha, Qatar
+                <FaMapMarkerAlt className="mr-2 text-[#d08700]" />Ain Khaled, Umm Saneem, Al-Sammak Street 392, Area 56, Building 41
               </p>
               <p className="flex items-center text-base md:text-lg">
-                <FaPhone className="mr-2 text-[#d08700]" /> +974 3000 12345
+                <FaPhone className="mr-2 text-[#d08700]" /> +97444660466
               </p>
               <p className="flex items-center text-base md:text-lg">
-                <FaEnvelope className="mr-2 text-[#d08700]" /> info@qatar-school.com
+                <FaEnvelope className="mr-2 text-[#d08700]" /> info@tamakon.org
               </p>
             </div>
           </div>
