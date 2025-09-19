@@ -12,6 +12,8 @@ export default function Navbar() {
   const profile = useSelector(selectUserProfile);
   const dispatch = useDispatch();
 
+  console.log("profile.....",profile)
+
   const [logout, { isLoading }] = useLogoutMutation();
 
   const navLinks = [
@@ -84,11 +86,20 @@ export default function Navbar() {
                 ) : (
                   <FaUserCircle className="text-3xl text-indigo-200" />
                 )}
-                <span className="text-indigo-200 font-medium">{profile?.name}</span>
+                <span className="text-indigo-200 font-medium">{profile?.name.split(" ")[0]}</span>
               </button>
 
               {profileOpen && (
                 <div className="absolute right-0 mt-3 w-48 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-50 animate-fadeIn">
+                   {profile && (
+                    <Link
+                      to="/my-profile"
+                      className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      My Profile
+                    </Link>
+                  )}
                   {profile?.role === "admin" && (
                     <Link
                       to="/admincomplain"
@@ -107,7 +118,7 @@ export default function Navbar() {
                       Teacher Dashboard
                     </Link>
                   )}
-                  {profile?.role === "student" && (
+                  {profile?.role === "User" && (
                     <Link
                       to="/stcomplaints"
                       className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
@@ -207,7 +218,7 @@ export default function Navbar() {
                 ) : (
                   <FaUserCircle className="text-2xl" />
                 )}
-                <span className="font-medium">{profile?.name}</span>
+                <span className="font-medium">{profile?.name.split(" ")[1]}</span>
               </button>
 
               {profileOpen && (
