@@ -49,6 +49,7 @@ import { useDispatch } from 'react-redux';
 import OtpVerify from './pages/OtpVerify'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
+import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
   return (

@@ -10,7 +10,12 @@ export default function Navbar() {
   const [profileOpen, setProfileOpen] = useState(false);
 
   const profile = useSelector(selectUserProfile);
+
+  console.log("profile",profile);
+  
   const dispatch = useDispatch();
+
+
 
   const [logout, { isLoading }] = useLogoutMutation();
 
