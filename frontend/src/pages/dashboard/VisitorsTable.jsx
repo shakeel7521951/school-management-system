@@ -47,7 +47,7 @@ const VisitorTable = () => {
     <div className='lg:ml-64 min-h-screen bg-gradient-to-br from-[#f0f4f9] to-[#dce7f3] p-6'>
       {/* Page Title */}
       <h1 className='text-2xl md:text-3xl font-bold text-[#104c80] text-center mb-8'>
-        🛡️ Visitor Management - Admin Dashboard
+         Visitor Management
       </h1>
 
       {/* Visitors Table */}

@@ -40,7 +40,8 @@ import AdminComplain from './components/dashboard/adminComplaints/AdminComplain'
 import EditorPage from './pages/dashboard/EditorPage'
 import FormViewer from './pages/dashboard/FormViewer'
 import ResponseForm from './pages/TeacherDashboard/TeacherDocuments'
-import VisitorManagement from './pages/VisitormanagementPage'
+import VisitorTable from './pages/dashboard/VisitorsTable'
+import VisitorForm from './pages/VisitorForm'
 import { useProfileQuery } from './redux/slices/UserApi'
 import { useEffect } from 'react'
 import { clearProfile, setProfile } from './redux/slices/UserSlice'
@@ -97,7 +98,7 @@ const router = createBrowserRouter([
       { path: '/contact-us', element: <ContactUs /> },
       { path: '/complainform', element: <ComplaintForm /> },
       { path: '/complainstatus', element: <ComplaintForm /> },
-      { path: '/visitor', element: <VisitorManagement /> },
+      { path: '/visitor', element: <VisitorForm /> },
     ]
   },
   { path: '/login', element: <Login /> },
