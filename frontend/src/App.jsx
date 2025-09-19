@@ -13,8 +13,7 @@ import Navbarr from './components/dashboard/common/Navbar'
 import AboutUs from './pages/AboutUs'
 import Complaints from './pages/Complaints'
 import ComplaintForm from './components/complaints/ComplaintForm'
-import Visitors from './pages/dashboard/Visitors'
-
+import Users from './pages/dashboard/Users'
 // ✅ keep only one Reports import (the correct one)
 // import Reports from './components/dashboard/report/Reports'
 
@@ -41,8 +40,8 @@ import AdminComplain from './components/dashboard/adminComplaints/AdminComplain'
 import EditorPage from './pages/dashboard/EditorPage'
 import FormViewer from './pages/dashboard/FormViewer'
 import ResponseForm from './pages/TeacherDashboard/TeacherDocuments'
-import VisitorManagement from './pages/VisitormanagementPage'
-
+import VisitorForm from './pages/VisitorForm'
+import VisitorTable from './pages/dashboard/VisitorsTable'
 const MainFunction = () => {
   return (
     <div className='overflow-hidden'>
@@ -94,7 +93,7 @@ const router = createBrowserRouter([
       { path: '/contact-us', element: <ContactUs /> },
       { path: '/complainform', element: <ComplaintForm /> },
       { path: '/complainstatus', element: <ComplaintForm /> },
-      { path: '/visitor', element: <VisitorManagement/> },
+      { path: '/visitor', element: <VisitorForm/> },
     ]
   },
   { path: '/login', element: <Login /> },
@@ -103,12 +102,13 @@ const router = createBrowserRouter([
     element: <AdminRoute />,
     children: [
       { path: 'admincomplain', element: <AdminComplain /> },
+      { path: 'visitortable', element: <VisitorTable/> },
 
       { path: 'documents/uploaded', element: <UploadedDocuments /> },
       { path: 'documents/requests', element: <RequestedDocuments /> },
 
       // { path: 'overview', element: <Overview /> },
-      { path: 'users', element: <Visitors /> },
+      { path: 'users', element: <Users /> },
       // { path: 'reports', element: <Reports /> }
     ]
   },
