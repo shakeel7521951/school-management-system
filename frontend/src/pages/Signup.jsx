@@ -1,16 +1,59 @@
-import { FaUser, FaLock, FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaUser, FaLock, FaEnvelope, FaEye, FaEyeSlash, FaMobile } from "react-icons/fa";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useUserRegistrationMutation } from "../redux/slices/UserApi" // adjust path
+import { toast } from "react-toastify";
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [registerUser, { isLoading, isError, error, isSuccess, data }] =
+    useUserRegistrationMutation();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match!");
+      return;
+    }
+
+    try {
+      const response = await registerUser({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password,
+      }).unwrap();
+
+      toast.success(response?.message || "Signup successful!");
+      navigate("/OtpVerify", { state: { email: formData.email } });
+
+    } catch (err) {
+      toast.error(err?.data?.message || "Signup failed");
+    }
+  };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 sm:px-8 md:px-12 lg:px-16 py-16 bg-gradient-to-br from-[#104c80] via-[#0d3a63] to-[#082845]">
       {/* Glassmorphism Card */}
       <div className="w-full max-w-3xl bg-white/15 backdrop-blur-2xl shadow-2xl rounded-2xl overflow-hidden border border-white/20">
-        
+
         {/* Header */}
         <div className="bg-gradient-to-r from-[#104c80] to-[#0d3a63] py-6 px-4 sm:px-8 text-center shadow-md">
           <h1 className="text-white font-serif text-2xl sm:text-3xl font-bold tracking-wide">
@@ -22,8 +65,7 @@ export default function Signup() {
         </div>
 
         {/* Body */}
-        <div className="p-6 sm:p-8">
-          
+        <form onSubmit={handleSubmit} className="p-6 sm:p-8">
           {/* Full Name + Email */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-5">
             {/* Full Name */}
@@ -38,8 +80,12 @@ export default function Signup() {
                 />
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="Enter your full name"
                   className="w-full pl-10 pr-4 py-2 border border-white/30 rounded-lg bg-white/20 backdrop-blur-md text-white placeholder-white/60 focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] transition-all duration-200 outline-none"
+                  required
                 />
               </div>
             </div>
@@ -56,13 +102,36 @@ export default function Signup() {
                 />
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Enter your email"
                   className="w-full pl-10 pr-4 py-2 border border-white/30 rounded-lg bg-white/20 backdrop-blur-md text-white placeholder-white/60 focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] transition-all duration-200 outline-none"
+                  required
                 />
               </div>
             </div>
           </div>
-
+          <div>
+            <label className="block text-white/90 font-semibold mb-2">
+              Phone
+            </label>
+            <div className="relative">
+              <FaMobile
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/80"
+                size={18}
+              />
+              <input
+                type="number"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="Enter your phone number"
+                className="w-full pl-10 pr-4 py-2 border border-white/30 rounded-lg bg-white/20 backdrop-blur-md text-white placeholder-white/60 focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] transition-all duration-200 outline-none"
+                required
+              />
+            </div>
+          </div>
           {/* Password + Confirm Password */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
             {/* Password */}
@@ -77,8 +146,12 @@ export default function Signup() {
                 />
                 <input
                   type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
                   placeholder="Enter your password"
                   className="w-full pl-10 pr-10 py-2 border border-white/30 rounded-lg bg-white/20 backdrop-blur-md text-white placeholder-white/60 focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] transition-all duration-200 outline-none"
+                  required
                 />
                 <button
                   type="button"
@@ -102,12 +175,18 @@ export default function Signup() {
                 />
                 <input
                   type={showConfirmPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
                   placeholder="Confirm your password"
                   className="w-full pl-10 pr-10 py-2 border border-white/30 rounded-lg bg-white/20 backdrop-blur-md text-white placeholder-white/60 focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] transition-all duration-200 outline-none"
+                  required
                 />
                 <button
                   type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  onClick={() =>
+                    setShowConfirmPassword(!showConfirmPassword)
+                  }
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-[#0d3a63] transition-colors"
                 >
                   {showConfirmPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
@@ -118,10 +197,26 @@ export default function Signup() {
 
           {/* Signup Button */}
           <div className="flex justify-center">
-            <button className="w-[200px] bg-gradient-to-r from-[#104c80] to-[#0d3a63] text-white font-bold py-3 px-4 rounded-lg transform hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-[#104c80]/40">
-              Sign Up
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-[200px] bg-gradient-to-r from-[#104c80] to-[#0d3a63] text-white font-bold py-3 px-4 rounded-lg transform hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-[#104c80]/40 disabled:opacity-50"
+            >
+              {isLoading ? "Signing Up..." : "Sign Up"}
             </button>
           </div>
+
+          {/* Error / Success */}
+          {isError && (
+            <p className="text-red-400 text-center mt-4">
+              {error?.data?.message || "Signup failed"}
+            </p>
+          )}
+          {isSuccess && (
+            <p className="text-green-400 text-center mt-4">
+              Signup successful!
+            </p>
+          )}
 
           {/* Login Link */}
           <div className="mt-6 text-center text-white/80 cursor-pointer">
@@ -133,8 +228,7 @@ export default function Signup() {
               Login
             </Link>
           </div>
-
-        </div>
+        </form>
       </div>
     </div>
   );

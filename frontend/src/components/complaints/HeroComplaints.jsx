@@ -49,7 +49,7 @@ const HeroComplaints = () => {
       aria-label="Customer Feedback Hero Section"
     >
       {/* Overlay (improved opacity for readability) */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-navy/60 to-black/70"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-[#114E83]/80 via-[#114E83]/60 to-[#114E83]/80"></div>
 
       {/* Decorative blurred circles */}
       <div className="absolute -top-20 -left-20 w-72 h-72 bg-blue-500/30 rounded-full filter blur-3xl animate-pulse" />
@@ -62,13 +62,13 @@ const HeroComplaints = () => {
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-          className="text-3xl sm:text-5xl lg:text-7xl font-bold text-white/90 mb-6 leading-snug drop-shadow-lg"
+          className="text-3xl sm:text-5xl lg:text-7xl font-extrabold text-white/90 mb-6 leading-snug drop-shadow-lg"
         >
-          Your 
-          <span className="text-transparent ps-3 bg-clip-text bg-gradient-to-r from-[#1e4d80]  via to-[#134b86]">
-            Feedback  
+          
+          <span className="text-transparent ps-3 bg-clip-text bg-white">
+           Your Feedback Drives Improvement
           </span>
-          Drives Improvement
+         
         </motion.h1>
 
         {/* Description */}

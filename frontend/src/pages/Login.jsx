@@ -1,8 +1,31 @@
 import { FaLock, FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa'
 import { useState } from 'react'
+import { useLoginMutation } from "../redux/slices/UserApi";
+import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
 
-export default function Login () {
+export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
+  const [formData, setFormData] = useState({ email: '', password: '' })
+  const navigate = useNavigate();
+  const [login, { isLoading, isError, error, isSuccess, data }] =
+    useLoginMutation()
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await login(formData).unwrap()
+      navigate("/")
+      toast(response?.message)
+    } catch (err) {
+      toast.error(err?.data?.message)
+    }
+  }
 
   return (
     <div className='min-h-screen flex items-center justify-center px-4 sm:px-8 md:px-12 lg:px-16 py-16 bg-gradient-to-br from-[#104c80] via-[#0d3a63] to-[#082845] relative overflow-hidden'>
@@ -23,9 +46,9 @@ export default function Login () {
         </div>
 
         {/* Body */}
-        <div className='p-6 sm:p-8'>
+        <form onSubmit={handleSubmit} className='p-6 sm:p-8'>
           {/* Email + Password Row */}
-          <div className='grid grid-cols-1  gap-6 mb-6'>
+          <div className='grid grid-cols-1 gap-6 mb-6'>
             {/* Email Field */}
             <div>
               <label className='block text-white font-semibold mb-2'>
@@ -38,8 +61,12 @@ export default function Login () {
                 />
                 <input
                   type='email'
+                  name='email'
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder='Enter your email'
                   className='w-full pl-10 pr-4 py-2 bg-white/10 text-white placeholder-white/70 border border-white/30 rounded-lg focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] transition-all duration-200 outline-none'
+                  required
                 />
               </div>
             </div>
@@ -56,19 +83,19 @@ export default function Login () {
                 />
                 <input
                   type={showPassword ? 'text' : 'password'}
+                  name='password'
+                  value={formData.password}
+                  onChange={handleChange}
                   placeholder='Enter your password'
                   className='w-full pl-10 pr-10 py-2 bg-white/10 text-white placeholder-white/70 border border-white/30 rounded-lg focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] transition-all duration-200 outline-none'
+                  required
                 />
                 <button
                   type='button'
                   onClick={() => setShowPassword(!showPassword)}
                   className='absolute right-3 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white transition-colors'
                 >
-                  {showPassword ? (
-                    <FaEyeSlash size={18} />
-                  ) : (
-                    <FaEye size={18} />
-                  )}
+                  {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
                 </button>
               </div>
             </div>
@@ -86,10 +113,24 @@ export default function Login () {
 
           {/* Login Button */}
           <div className='flex justify-center'>
-            <button className='w-[200px] bg-gradient-to-r from-[#104c80] to-[#0d3a63] text-white font-bold py-3 px-4 rounded-lg transform hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-[#104c80]/40'>
-              Login
+            <button
+              type='submit'
+              disabled={isLoading}
+              className='w-[200px] bg-gradient-to-r from-[#104c80] to-[#0d3a63] text-white font-bold py-3 px-4 rounded-lg transform hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-[#104c80]/40 disabled:opacity-50'
+            >
+              {isLoading ? 'Logging in...' : 'Login'}
             </button>
           </div>
+
+          {/* Error / Success */}
+          {isError && (
+            <p className='text-red-400 text-center mt-4'>
+              {error?.data?.message || 'Login failed'}
+            </p>
+          )}
+          {isSuccess && (
+            <p className='text-green-400 text-center mt-4'>Login successful!</p>
+          )}
 
           {/* Signup Link */}
           <div className='mt-6 text-center text-white/90'>
@@ -101,7 +142,7 @@ export default function Login () {
               Sign Up
             </a>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   )
