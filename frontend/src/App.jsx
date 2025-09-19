@@ -46,6 +46,7 @@ import { useProfileQuery } from './redux/slices/UserApi'
 import { useEffect } from 'react'
 import { clearProfile, setProfile } from './redux/slices/UserSlice'
 import { useDispatch } from 'react-redux';
+import RegistrationForm from './pages/RegistrationForm'
 
 const MainFunction = () => {
   return (

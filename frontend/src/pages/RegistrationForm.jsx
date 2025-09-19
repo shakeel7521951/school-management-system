@@ -2,7 +2,7 @@ import React from "react";
 
 const RegistrationForm = () => {
     return (
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 py-8">
+        <div className="w-full bg-gradient-to-r from-blue-50/50 to-pink-50/50 px-4 sm:px-6 lg:px-8 xl:px-12 py-8">
             <div className="max-w-6xl mx-auto bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center text-[#1c60a3] mb-8">
                     Student Registration Form | استمارة تسجيل طالب
@@ -109,7 +109,7 @@ const RegistrationForm = () => {
                     <div className="col-span-1 md:col-span-2 text-center">
                         <button
                             type="submit"
-                            className="bg-[#1b4c80] hover:bg-[#386ca3] text-[#d1911b] font-bold px-6 py-3 rounded-md w-full sm:w-auto"
+                            className="bg-[#336294] hover:bg-[#386ca3] text-[#ebad39] font-bold px-6 py-3 rounded-md w-full sm:w-auto"
                         >
                             Submit | إرسال
                         </button>
