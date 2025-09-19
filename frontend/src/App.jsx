@@ -40,6 +40,8 @@ import TeacherNotifications from './pages/TeacherDashboard/TeacherNotifications'
 import AdminComplain from './components/dashboard/adminComplaints/AdminComplain'
 import EditorPage from './pages/dashboard/EditorPage'
 import FormViewer from './pages/dashboard/FormViewer'
+import ResponseForm from './pages/TeacherDashboard/TeacherDocuments'
+import VisitorManagement from './pages/VisitormanagementPage'
 
 const MainFunction = () => {
   return (
@@ -91,7 +93,8 @@ const router = createBrowserRouter([
       { path: '/complain', element: <Complaints /> },
       { path: '/contact-us', element: <ContactUs /> },
       { path: '/complainform', element: <ComplaintForm /> },
-      { path: '/complainstatus', element: <ComplaintForm /> }
+      { path: '/complainstatus', element: <ComplaintForm /> },
+      { path: '/visitor', element: <VisitorManagement/> },
     ]
   },
   { path: '/login', element: <Login /> },
@@ -124,7 +127,7 @@ const router = createBrowserRouter([
     element: <TeacherRoute />,
     children: [
       // { path: '/teacheroverview', element: <TeacherOverview /> },
-      { path: '/teacherdocuments', element: <TeacherDocuments /> },
+      { path: '/teacherdocuments', element: <ResponseForm /> },
       // { path: '/teachercomplaints', element: <TeacherComplaints /> },
       // { path: '/teachernotifications', element: <TeacherNotifications /> },
       // { path: '/teacherprofile', element: <TeacherProfile /> }

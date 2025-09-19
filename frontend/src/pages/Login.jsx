@@ -1,87 +1,102 @@
-import { FaLock, FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
-import { useState } from "react";
+import { FaLock, FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa'
+import { useState } from 'react'
 
-export default function Login() {
-  const [showPassword, setShowPassword] = useState(false);
+export default function Login () {
+  const [showPassword, setShowPassword] = useState(false)
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 sm:px-8 md:px-12 lg:px-16 py-16 bg-gradient-to-br from-indigo-900 via-indigo-800 to-purple-900">
-      {/* Login Card */}
-      <div className="w-full max-w-3xl bg-white shadow-xl rounded-lg overflow-hidden border border-indigo-300/30">
-        
+    <div className='min-h-screen flex items-center justify-center px-4 sm:px-8 md:px-12 lg:px-16 py-16 bg-gradient-to-br from-[#104c80] via-[#0d3a63] to-[#082845] relative overflow-hidden'>
+      {/* Background Circles for Glass Effect */}
+      <div className='absolute w-72 h-72 bg-[#ffffff33] rounded-full blur-3xl top-10 left-10 animate-pulse'></div>
+      <div className='absolute w-96 h-96 bg-[#104c8055] rounded-full blur-3xl bottom-10 right-10 animate-pulse'></div>
+
+      {/* Login Card - Glassmorphism */}
+      <div className='w-full max-w-lg backdrop-blur-xl bg-white/20 shadow-2xl rounded-2xl overflow-hidden border border-white/30 relative z-10'>
         {/* Login Header */}
-        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 py-6 px-4 sm:px-8 text-center">
-          <h1 className="text-white font-serif text-2xl sm:text-3xl font-bold">
+        <div className='bg-gradient-to-r from-[#104c80]/90 to-[#0d3a63]/90 py-6 px-4 sm:px-8 text-center shadow-md'>
+          <h1 className='text-white font-serif text-2xl sm:text-3xl font-bold tracking-wide'>
             Join The Movement
           </h1>
+          <p className='text-white/80 text-sm mt-1'>
+            Access your account securely
+          </p>
         </div>
 
         {/* Body */}
-        <div className="p-6 sm:p-8">
-          {/* Email Field */}
-          <div className="mb-4">
-            <label className="block text-indigo-900 font-semibold mb-2">
-              Email Address
-            </label>
-            <div className="relative">
-              <FaEnvelope
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-indigo-600"
-                size={18}
-              />
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full pl-10 pr-4 py-2 border border-indigo-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 outline-none"
-              />
+        <div className='p-6 sm:p-8'>
+          {/* Email + Password Row */}
+          <div className='grid grid-cols-1  gap-6 mb-6'>
+            {/* Email Field */}
+            <div>
+              <label className='block text-white font-semibold mb-2'>
+                Email Address
+              </label>
+              <div className='relative'>
+                <FaEnvelope
+                  className='absolute left-3 top-1/2 transform -translate-y-1/2 text-white/80'
+                  size={18}
+                />
+                <input
+                  type='email'
+                  placeholder='Enter your email'
+                  className='w-full pl-10 pr-4 py-2 bg-white/10 text-white placeholder-white/70 border border-white/30 rounded-lg focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] transition-all duration-200 outline-none'
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Password Field */}
-          <div className="mb-6">
-            <label className="block text-indigo-900 font-semibold mb-2">
-              Password
-            </label>
-            <div className="relative">
-              <FaLock
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-indigo-600"
-                size={18}
-              />
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
-                className="w-full pl-10 pr-10 py-2 border border-indigo-300 outline-none rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-indigo-600 hover:text-indigo-800 transition-colors"
-              >
-                {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
-              </button>
+            {/* Password Field */}
+            <div>
+              <label className='block text-white font-semibold mb-2'>
+                Password
+              </label>
+              <div className='relative'>
+                <FaLock
+                  className='absolute left-3 top-1/2 transform -translate-y-1/2 text-white/80'
+                  size={18}
+                />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder='Enter your password'
+                  className='w-full pl-10 pr-10 py-2 bg-white/10 text-white placeholder-white/70 border border-white/30 rounded-lg focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] transition-all duration-200 outline-none'
+                />
+                <button
+                  type='button'
+                  onClick={() => setShowPassword(!showPassword)}
+                  className='absolute right-3 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white transition-colors'
+                >
+                  {showPassword ? (
+                    <FaEyeSlash size={18} />
+                  ) : (
+                    <FaEye size={18} />
+                  )}
+                </button>
+              </div>
             </div>
           </div>
 
           {/* Forgot Password */}
-          <div className="text-right mb-6">
+          <div className='text-right mb-6'>
             <a
-              href="/forgot-password"
-              className="text-indigo-600 hover:text-indigo-800 hover:underline text-sm transition-colors"
+              href='/forgot-password'
+              className='text-white hover:text-gray-200 hover:underline text-sm transition-colors'
             >
               Forgot Password?
             </a>
           </div>
 
           {/* Login Button */}
-          <button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-3 px-4 rounded-lg transform hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-indigo-500/30">
-            Login
-          </button>
+          <div className='flex justify-center'>
+            <button className='w-[200px] bg-gradient-to-r from-[#104c80] to-[#0d3a63] text-white font-bold py-3 px-4 rounded-lg transform hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-[#104c80]/40'>
+              Login
+            </button>
+          </div>
 
           {/* Signup Link */}
-          <div className="mt-6 text-center text-indigo-800">
+          <div className='mt-6 text-center text-white/90'>
             <span>Don't have an account? </span>
             <a
-              href="/signup"
-              className="text-indigo-600 hover:text-indigo-800 hover:underline font-medium transition-colors"
+              href='/signup'
+              className='text-white font-medium hover:text-gray-200 hover:underline transition-colors'
             >
               Sign Up
             </a>
@@ -89,5 +104,5 @@ export default function Login() {
         </div>
       </div>
     </div>
-  );
+  )
 }
