@@ -33,7 +33,7 @@ const UsersDetail = () => {
             {/* Header with Search */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1a4480]">
-                    Visitor Management
+                    Users Management
                 </h1>
                 <div className="flex flex-col md:flex-row gap-4 w-full sm:w-auto">
                     <div className="relative flex-1">
