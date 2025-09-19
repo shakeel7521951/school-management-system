@@ -10,6 +10,7 @@ const PORT = 5000;
 import userRoutes from "./routes/useRoutes.js";
 import formRoutes from './routes/FormRoutes.js';
 import formSubmissionRoutes from "./routes/FormSubmissionRoutes.js";
+import stComplaintRoutes from "./routes/stComplaintRoutes.js";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,5 +34,6 @@ app.get("/", (req, res) => {
 app.use(userRoutes)
 app.use(formRoutes)
 app.use(formSubmissionRoutes)
+app.use(stComplaintRoutes)
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

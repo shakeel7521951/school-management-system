@@ -3,8 +3,11 @@ import { useState } from 'react'
 import { useLoginMutation } from "../redux/slices/UserApi";
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
+import { setProfile } from '../redux/slices/UserSlice';
+import { useDispatch } from 'react-redux';
 
 export default function Login() {
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({ email: '', password: '' })
   const navigate = useNavigate();

@@ -1,4 +1,3 @@
-import React from 'react'
 import StudentComplaints from '../../components/Studentdashboard/stComplaints/StudentComplaints'
 import StudentComplaintModal from '../../components/Studentdashboard/stComplaints/StudentComplaintModal'
 

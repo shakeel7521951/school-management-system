@@ -1,13 +1,23 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AlertCircle, Bell, FileText, Plus } from "lucide-react";
 import StudentComplaintModal from "./StudentComplaintModal";
+import {
+  useGetAllStComplaintsQuery,
+} from "../../../redux/slices/StComplaintApi";
 
 const StudentComplaints = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [complaints, setComplaints] = useState([]);
 
-  const handleAddComplaint = (newComplaint) => {
-    setComplaints((prev) => [...prev, newComplaint]);
+  // RTK Query hooks
+  const { data: complaints = [], isLoading, isError } = useGetAllStComplaintsQuery();
+
+  const handleAddComplaint = async (newComplaint) => {
+    try {
+      await createComplaint(newComplaint).unwrap();
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Failed to submit complaint:", error);
+    }
   };
 
   return (
@@ -26,15 +36,6 @@ const StudentComplaints = () => {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-6 mt-5">
         <div className="bg-white p-4 rounded-xl shadow-lg">
           <div className="flex items-center gap-3">
-            <FileText className="text-blue-600" size={28} />
-            <h2 className="text-2xl text-[#14528C] font-bold">Documents</h2>
-          </div>
-          <p className="text-2xl font-bold mt-2">12</p>
-          <p className="text-gray-500 text-sm sm:text-base">Uploaded by you</p>
-        </div>
-
-        <div className="bg-white p-4 rounded-xl shadow-lg">
-          <div className="flex items-center gap-3">
             <AlertCircle className="text-red-600" size={28} />
             <h2 className="text-2xl text-[#14528C] font-bold">Complaints</h2>
           </div>
@@ -44,11 +45,24 @@ const StudentComplaints = () => {
 
         <div className="bg-white p-4 rounded-xl shadow-lg">
           <div className="flex items-center gap-3">
-            <Bell className="text-yellow-600" size={28} />
-            <h2 className="text-2xl text-[#14528C] font-bold">Announcements</h2>
+            <FileText className="text-blue-600" size={28} />
+            <h2 className="text-2xl text-[#14528C] font-bold">Pending</h2>
           </div>
-          <p className="text-2xl font-bold mt-2">5</p>
-          <p className="text-gray-500 text-sm sm:text-base">Unread notices</p>
+          <p className="text-2xl font-bold mt-2">
+            {complaints?.reduce((sum, item) =>
+              item.status?.toLowerCase() === "pending" ? sum + 1 : sum, 0
+            )}
+          </p>
+          <p className="text-gray-500 text-sm sm:text-base">Waiting for approval</p>
+        </div>
+
+        <div className="bg-white p-4 rounded-xl shadow-lg">
+          <div className="flex items-center gap-3">
+            <Bell className="text-yellow-600" size={28} />
+            <h2 className="text-2xl text-[#14528C] font-bold">Rejected</h2>
+          </div>
+          <p className="text-2xl font-bold mt-2">{complaints?.reduce((sum, item) => item.status?.toLowerCase() === 'rejected' ? sum + 1 : sum, 0)}</p>
+          <p className="text-gray-500 text-sm sm:text-base">Rejected by administration</p>
         </div>
       </div>
 
@@ -67,14 +81,18 @@ const StudentComplaints = () => {
         <h2 className="text-lg sm:text-xl lg:text-2xl text-[#14528C] font-bold mb-4 flex items-center gap-2">
           <FileText size={20} /> Your Complaints
         </h2>
-        {complaints.length === 0 ? (
+
+        {isLoading ? (
+          <p className="text-gray-500">Loading complaints...</p>
+        ) : isError ? (
+          <p className="text-red-500">Failed to fetch complaints.</p>
+        ) : complaints.length === 0 ? (
           <p className="text-gray-500">No complaints submitted yet.</p>
         ) : (
           <table className="w-full border border-gray-300 text-sm sm:text-base">
             <thead>
               <tr className="bg-gray-100">
                 {[
-                  "ID",
                   "Name",
                   "Class",
                   "Age",
@@ -84,6 +102,7 @@ const StudentComplaints = () => {
                   "Impact",
                   "Details",
                   "Expected Action",
+                  "Status",
                 ].map((heading) => (
                   <th
                     key={heading}
@@ -96,17 +115,19 @@ const StudentComplaints = () => {
             </thead>
             <tbody>
               {complaints.map((comp) => (
-                <tr key={comp.id} className="hover:bg-gray-50 text-center">
-                  <td className="border border-gray-300 p-2">{comp.id}</td>
+                <tr key={comp._id} className="hover:bg-gray-50 text-center">
                   <td className="border border-gray-300 p-2">{comp.name}</td>
                   <td className="border border-gray-300 p-2">{comp.studentClass}</td>
                   <td className="border border-gray-300 p-2">{comp.age}</td>
-                  <td className="border border-gray-300 p-2">{comp.date}</td>
+                  <td className="border border-gray-300 p-2">
+                    {comp.date ? new Date(comp.date).toLocaleDateString() : "-"}
+                  </td>
                   <td className="border border-gray-300 p-2">{comp.type}</td>
                   <td className="border border-gray-300 p-2">{comp.severity}</td>
                   <td className="border border-gray-300 p-2">{comp.impact}</td>
                   <td className="border border-gray-300 p-2">{comp.details}</td>
                   <td className="border border-gray-300 p-2">{comp.action}</td>
+                  <td className="border border-gray-300 p-2">{comp.status}</td>
                 </tr>
               ))}
             </tbody>
