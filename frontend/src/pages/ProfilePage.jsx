@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUserProfile } from "../redux/slices/UserSlice";
 import { useLogoutMutation } from "../redux/slices/UserApi";
-import { FaUserCircle, FaEnvelope, FaPhone, FaKey, FaSignOutAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { FaUserCircle, FaLock, FaTimes, FaSignOutAlt } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ProfilePage = () => {
   const profile = useSelector(selectUserProfile);
+  const [logout] = useLogoutMutation();
   const navigate = useNavigate();
-  const [logout, { isLoading }] = useLogoutMutation();
 
-  const handleChangePassword = () => {
-    navigate("/change-password");
-  };
+  const [showModal, setShowModal] = useState(false);
+  const [passwords, setPasswords] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
 
   const handleLogout = async () => {
     try {
@@ -23,61 +27,137 @@ const ProfilePage = () => {
     }
   };
 
-  if (!profile) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-[#104c80] font-semibold">
-        Loading profile...
-      </div>
-    );
-  }
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    if (passwords.newPassword !== passwords.confirmPassword) {
+      alert("New passwords do not match!");
+      return;
+    }
+    console.log("Password change request:", passwords);
+    setShowModal(false);
+    setPasswords({ oldPassword: "", newPassword: "", confirmPassword: "" });
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-[#f0f4ff] via-[#d9e4ff] to-[#c0d4ff] flex items-start justify-center py-20 px-4">
-      <div className="bg-white shadow-2xl rounded-3xl p-8 md:p-12 w-full max-w-2xl flex flex-col gap-8">
-        {/* Profile Header */}
-        <div className="flex flex-col items-center gap-4 mt-3">
-          {profile.profilePic ? (
+    <div className="min-h-screen mt-10 px-4 flex items-center justify-center bg-gray-100">
+      {/* Card Container */}
+      <div className="relative  bg-white shadow-xl rounded-3xl w-full max-w-lg text-center overflow-hidden">
+        {/* Gradient Header */}
+        <div className="h-36 bg-[#104c80]"></div>
+
+        {/* Profile Image */}
+        <div className="absolute top-16 left-1/2 transform -translate-x-1/2">
+          {profile?.profilePic ? (
             <img
               src={profile.profilePic}
               alt="Profile"
-              className="w-32 h-32 rounded-full object-cover border-4 border-[#104c80]"
+              className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-lg"
             />
           ) : (
-            <FaUserCircle className="text-9xl text-[#104c80]" />
+            <FaUserCircle className="w-28 h-28 text-white bg-gray-200 rounded-full border-4 border-white shadow-lg" />
           )}
-          <h2 className="text-3xl font-bold text-[#104c80]">{profile.name}</h2>
-          <p className="text-[#104c80] font-medium text-lg">{profile.role}</p>
         </div>
 
-        {/* Info Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="flex items-center gap-3 bg-[#e0f2ff] p-5 rounded-xl shadow hover:shadow-xl transition">
-            <FaEnvelope className="text-[#104c80] text-xl" />
-            <span className="text-[#104c80] font-medium">{profile.email}</span>
-          </div>
-          <div className="flex items-center gap-3 bg-[#e0f2ff] p-5 rounded-xl shadow hover:shadow-xl transition">
-            <FaPhone className="text-[#104c80] text-xl" />
-            <span className="text-[#104c80] font-medium">{profile.phone}</span>
-          </div>
-        </div>
+        {/* Content */}
+        <div className="mt-20 px-6 pb-8">
+          {/* User Name - Prominent */}
+          <h2 className="text-3xl font-extrabold text-gray-900">
+            {profile?.name || "John Doe"}
+          </h2>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col md:flex-row justify-center gap-6">
-          <button
-            onClick={handleChangePassword}
-            className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#104c80] to-indigo-700 text-white rounded-full font-semibold hover:scale-105 transition transform duration-300 shadow-md"
-          >
-            <FaKey /> Change Password
-          </button>
-          <button
-            onClick={handleLogout}
-            disabled={isLoading}
-            className="flex items-center justify-center gap-2 px-6 py-3 bg-red-600 text-white rounded-full font-semibold hover:scale-105 transition transform duration-300 shadow-md"
-          >
-            <FaSignOutAlt /> {isLoading ? "Logging out..." : "Logout"}
-          </button>
+          {/* Role */}
+          <p className="text-[#104c80] font-medium text-sm mt-1">
+            {profile?.role || "Frontend Developer"}
+          </p>
+
+          {/* Email & Phone */}
+          <p className="text-gray-600 text-sm mt-2">
+            {profile?.email || "john.doe@example.com"}
+          </p>
+          <p className="text-gray-600 text-sm">{profile?.phone || "+1 234 567 890"}</p>
+
+          {/* Action Buttons */}
+          <div className="mt-8 flex flex-col gap-3 items-center">
+            {/* Smaller Change Password Button */}
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-[#104c80] text-white px-5 py-2 rounded-full font-medium shadow hover:bg-[#08345d] transition w-auto"
+            >
+              Change Password
+            </button>
+
+            {/* Better Logout Button */}
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 text-sm text-red-600 font-medium border border-red-500 px-5 py-2 rounded-full hover:bg-red-50 transition"
+            >
+              <FaSignOutAlt /> Logout
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Password Modal */}
+      <AnimatePresence>
+        {showModal && (
+          <motion.div
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md relative"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setShowModal(false)}
+                className="absolute top-3 right-3 text-gray-500 hover:text-red-500"
+              >
+                <FaTimes size={18} />
+              </button>
+
+              <h2 className="text-xl font-semibold text-[#104c80] mb-6 text-center">
+                Change Password
+              </h2>
+
+              <form onSubmit={handlePasswordSubmit} className="space-y-5">
+                {[
+                  { label: "Old Password", name: "oldPassword" },
+                  { label: "New Password", name: "newPassword" },
+                  { label: "Confirm New Password", name: "confirmPassword" },
+                ].map((field, idx) => (
+                  <div key={idx} className="relative">
+                    <FaLock className="absolute left-3 top-3 text-gray-400" />
+                    <input
+                      type="password"
+                      placeholder={field.label}
+                      value={passwords[field.name]}
+                      onChange={(e) =>
+                        setPasswords({
+                          ...passwords,
+                          [field.name]: e.target.value,
+                        })
+                      }
+                      required
+                      className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#104c80] outline-none bg-gray-50"
+                    />
+                  </div>
+                ))}
+                <button
+                  type="submit"
+                  className="w-full bg-[#104c80] text-white py-3 rounded-lg font-medium shadow hover:bg-[#08345d] transition"
+                >
+                  Save Changes
+                </button>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
