@@ -1,5 +1,6 @@
 import Blogs from "../components/home/Blogs"
 import FAQSection from "../components/home/FAQSection"
+import Features from "../components/home/Features"
 import HeaderSection from "../components/home/HeaderSection"
 import ReviewSection from "../components/home/ReviewSection"
 import StudyReserach from "../components/home/StudyReserach"
@@ -11,11 +12,12 @@ const Home = () => {
   return (
     <div>
         <HeaderSection/>
-        <TrustWorthy/>
         <StudyReserach/>
-        <Blogs/>
-        <ReviewSection/>
-        <FAQSection/>
+        <Features />
+        {/* <TrustWorthy/> */}
+        {/* <Blogs/> */}
+        {/* <ReviewSection/> */}
+        {/* <FAQSection/> */}
     </div>
   )
 }

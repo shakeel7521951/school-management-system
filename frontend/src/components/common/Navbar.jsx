@@ -34,7 +34,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-[#1A3570] via-[#1A4480] to-[#2E3A87] shadow-lg backdrop-blur">
+    <nav className="w-full fixed top-0 left-0 z-50 bg-[#1A4480] shadow-lg backdrop-blur">
       <div className="container mx-auto flex items-center justify-between px-6 py-3">
         {/* Logo */}
         <NavLink to="/" className="w-[160px] h-[75px]">
@@ -50,8 +50,8 @@ export default function Navbar() {
           {navLinks.map((link) =>
             link.name === "Tamakon" ? (
               <li key={link.name} className="relative group">
-                <button
-                  className="relative pb-1 text-gray-200 hover:text-indigo-300 transition duration-300 flex items-center gap-1 after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-gradient-to-r after:from-indigo-400 after:to-purple-400 after:transition-all after:duration-300"
+                <button 
+                  className="relative pb-1 text-gray-200 hover:text-blue-300 transition duration-300 flex items-center gap-1"
                 >
                   Tamakon
                   <svg
@@ -122,9 +122,9 @@ export default function Navbar() {
                   to={link.path}
                   className={({ isActive }) =>
                     `relative pb-1 transition duration-300 ${isActive
-                      ? "text-indigo-300 font-semibold after:w-full"
-                      : "text-gray-200 hover:text-indigo-300 after:w-0 hover:after:w-full"
-                    } after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-gradient-to-r after:from-indigo-400 after:to-purple-400 after:transition-all after:duration-300`
+                      ? "text-blue-500 font-semibold"
+                      : "text-gray-200 hover:text-blue-300"
+                    }`
                   }
                 >
                   {link.name}
@@ -151,7 +151,12 @@ export default function Navbar() {
             {!profile ? (
               <NavLink
                 to="/login"
-                className="px-6 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full text-white font-semibold shadow-md hover:shadow-lg hover:scale-105 transition duration-300"
+                className="px-6 py-2 bg-transparent border-2 border-white/60
+             rounded-full text-white font-semibold shadow-lg 
+             hover:from-[#084497] hover:via-[#6D28D9] hover:to-[#084497] 
+             hover:shadow-[0_0_18px_rgba(109,40,217,0.7)] 
+             hover:bg-gradient-to-r from-[#0A1E40] via-[#1A4480] to-[#282bd9]
+             hover:scale-105 transition-all duration-300 ease-in-out"
               >
                 Login
               </NavLink>
@@ -266,7 +271,7 @@ export default function Navbar() {
                 onClick={() => setIsOpen(false)}
                 className={({ isActive }) =>
                   `block text-center py-2 rounded-lg transition duration-300 ${isActive
-                    ? "bg-indigo-800 text-indigo-300 font-semibold"
+                    ? "bg-indigo-800 text-blue-400 font-semibold"
                     : "text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30"
                   }`
                 }
@@ -283,7 +288,7 @@ export default function Navbar() {
             <NavLink
               to="/login"
               onClick={() => setIsOpen(false)}
-              className="px-4 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full text-center text-white font-semibold shadow-md hover:shadow-lg transition"
+              className="px-4 py-3 bg-gradient-to-r from-[#273C66] via-[#1A4480] to-[#273C66] rounded-full text-center text-white font-semibold shadow-md hover:shadow-lg transition"
             >
               Login
             </NavLink>
