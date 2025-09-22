@@ -1,54 +1,79 @@
-import React, { useState } from "react";
+import { useState, useMemo } from "react";
 import { FileText } from "lucide-react";
 import AdminDocumentsTable from "../../../components/dashboard/UploadedDocuments/AdminDocumentsTable";
 import RejectDocumentModal from "../../../components/dashboard/UploadedDocuments/RejectDocumentModal";
 import ViewDocumentModal from "../../../components/dashboard/UploadedDocuments/ViewDocumentModal";
+import {
+  useAllSubmittedFormsQuery,
+  useUpdateSubmissionStatusMutation,
+} from "../../../redux/slices/SubmittedFormsApi";
+
 const UploadedDocuments = () => {
-  const [uploads, setUploads] = useState([
-    // { id: 1, title: "ID Card", uploader: "Ali", role: "Student", type: "PDF", date: "2025-09-15", status: "Pending", note: "" },
-    { id: 2, title: "Student Report", uploader: "Sara", role: "Teacher", type: "PDF", date: "2025-09-16", status: "Pending", note: "" },
-    // { id: 3, title: "Paid Challan", uploader: "Mohammed", role: "Student", type: "PDF", date: "2025-09-14", status: "Resolved", note: "" },
-    { id: 4, title: "Course Material", uploader: "Fatima", role: "Teacher", type: "PDF", date: "2025-09-13", status: "Resolved", note: "" },
-    // { id: 5, title: "Domicile", uploader: "Fatima", role: "Student", type: "PDF", date: "2025-09-13", status: "Rejected", note: "Reuplaod clear Scanned copy" },
-     { id: 5, title: "Grades Report - Class 8", uploader: "Fatima", role: "Teacher", type: "xlsx", date: "2025-09-13", status: "Rejected", note: "Please recheck marks calculation" },
-  ]);
+  const { data: submissions = [], isLoading, refetch } = useAllSubmittedFormsQuery();
+  const [updateStatus] = useUpdateSubmissionStatusMutation();
 
   const [selectedDoc, setSelectedDoc] = useState(null);
   const [rejectNote, setRejectNote] = useState("");
   const [showRejectModal, setShowRejectModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
 
-  // Approve
-  const handleApprove = (id) => {
-    setUploads(
-      uploads.map((doc) =>
-        doc.id === id ? { ...doc, status: "Resolved", note: "" } : doc
-      )
-    );
+  // 🔄 Transform backend data into table format
+  const uploads = useMemo(
+    () =>
+      submissions.map((item) => ({
+        id: item._id,
+        title: item.formData?.subject || "Untitled",
+        uploader: item.formData?.full_name || "Unknown",
+        role: item.formData?.class ? `Class ${item.formData.class}` : "N/A",
+        type: "Form Submission",
+        date: item.submittedAt,
+        status: item.status || "Pending",
+        note: item.note || "",
+        raw: item, // keep original for modals
+      })),
+    [submissions]
+  );
+
+  // ✅ Approve
+  const handleApprove = async (id) => {
+    try {
+      await updateStatus({ id, status: "Resolved" }).unwrap();
+      refetch();
+    } catch (err) {
+      console.error("Approve failed:", err);
+    }
   };
 
-  // Reject
-  const handleRejectSubmit = () => {
+  // ✅ Reject
+  const handleRejectSubmit = async () => {
     if (!rejectNote.trim() || !selectedDoc) return;
-    setUploads(
-      uploads.map((doc) =>
-        doc.id === selectedDoc.id
-          ? { ...doc, status: "Rejected", note: rejectNote }
-          : doc
-      )
-    );
-    setRejectNote("");
-    setSelectedDoc(null);
-    setShowRejectModal(false);
+    try {
+      await updateStatus({
+        id: selectedDoc.id,
+        status: "Rejected",
+        note: rejectNote,
+      }).unwrap();
+
+      refetch();
+      setRejectNote("");
+      setSelectedDoc(null);
+      setShowRejectModal(false);
+    } catch (err) {
+      console.error("Reject failed:", err);
+    }
   };
 
-  // Status badge
+  // ✅ Status badge
   const getStatusClass = (status) => {
     switch (status) {
-      case "Pending": return "bg-yellow-100 text-yellow-800";
-      case "Resolved": return "bg-green-100 text-green-800";
-      case "Rejected": return "bg-red-100 text-red-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Pending":
+        return "bg-yellow-100 text-yellow-800";
+      case "Resolved":
+        return "bg-green-100 text-green-800";
+      case "Rejected":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -64,16 +89,20 @@ const UploadedDocuments = () => {
         </div>
 
         {/* Table */}
-        <AdminDocumentsTable
-          uploads={uploads}
-          setSelectedDoc={setSelectedDoc}
-          setShowViewModal={setShowViewModal}
-          setShowRejectModal={setShowRejectModal}
-          handleApprove={handleApprove}
-          getStatusClass={getStatusClass}
-        />
+        {isLoading ? (
+          <div className="text-center py-12 text-gray-500">Loading...</div>
+        ) : (
+          <AdminDocumentsTable
+            uploads={uploads}
+            setSelectedDoc={setSelectedDoc}
+            setShowViewModal={setShowViewModal}
+            setShowRejectModal={setShowRejectModal}
+            handleApprove={handleApprove}
+            getStatusClass={getStatusClass}
+          />
+        )}
 
-        {uploads.length === 0 && (
+        {uploads.length === 0 && !isLoading && (
           <div className="text-center py-12 text-gray-500">
             <FileText className="w-12 h-12 mx-auto text-gray-300 mb-3" />
             <p>No documents uploaded yet</p>
@@ -84,7 +113,7 @@ const UploadedDocuments = () => {
       {/* Modals */}
       {showViewModal && selectedDoc && (
         <ViewDocumentModal
-          selectedDoc={selectedDoc}
+          selectedDoc={selectedDoc.raw}
           onClose={() => setShowViewModal(false)}
           getStatusClass={getStatusClass}
         />
@@ -92,7 +121,7 @@ const UploadedDocuments = () => {
 
       {showRejectModal && selectedDoc && (
         <RejectDocumentModal
-          selectedDoc={selectedDoc}
+          selectedDoc={selectedDoc.raw}
           rejectNote={rejectNote}
           setRejectNote={setRejectNote}
           onClose={() => {

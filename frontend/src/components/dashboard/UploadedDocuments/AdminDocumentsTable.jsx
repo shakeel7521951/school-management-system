@@ -1,4 +1,3 @@
-import React from "react";
 import { Eye, CheckCircle, XCircle } from "lucide-react";
 
 const AdminDocumentsTable = ({
@@ -30,9 +29,7 @@ const AdminDocumentsTable = ({
             {uploads.map((doc, i) => (
               <tr key={doc.id} className="hover:bg-gray-50 transition-colors">
                 <td className="px-4 py-3 text-sm">{i + 1}</td>
-                <td className="px-4 py-3 text-sm font-medium text-gray-900">
-                  {doc.title}
-                </td>
+                <td className="px-4 py-3 text-sm font-medium text-gray-900">{doc.title}</td>
                 <td className="px-4 py-3 text-sm text-gray-600">{doc.uploader}</td>
                 <td className="px-4 py-3 text-sm text-gray-600">{doc.role}</td>
                 <td className="px-4 py-3 text-sm text-gray-600">{doc.type}</td>
@@ -50,6 +47,7 @@ const AdminDocumentsTable = ({
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex justify-center gap-2">
+                    {/* View */}
                     <button
                       onClick={() => {
                         setSelectedDoc(doc);
@@ -60,6 +58,8 @@ const AdminDocumentsTable = ({
                     >
                       <Eye size={16} />
                     </button>
+
+                    {/* Approve */}
                     <button
                       onClick={() => handleApprove(doc.id)}
                       className="p-2 text-green-600 hover:text-green-700 hover:bg-green-50 rounded-md"
@@ -67,6 +67,8 @@ const AdminDocumentsTable = ({
                     >
                       <CheckCircle size={16} />
                     </button>
+
+                    {/* Reject */}
                     <button
                       onClick={() => {
                         setSelectedDoc(doc);
