@@ -1,8 +1,9 @@
 import express from "express";
-import { getFormSubmissions, submitForm } from "../controllers/FormSubmissionController.js";
+import { getAllSubmissions, submitForm, updateSubmissionStatus } from "../controllers/FormSubmissionController.js";
 const router = express.Router();
 
 router.post('/submitForm', submitForm);
-router.get('getSubmittedForms/:formId', getFormSubmissions);
+router.get("/submissions", getAllSubmissions);
+router.patch("/submissions/:id/status", updateSubmissionStatus);
 
 export default router;
