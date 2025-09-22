@@ -5,7 +5,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 export const stComplaintApi = createApi({
   reducerPath: "stComplaintApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${BACKEND_URL}`, // 👈 adjust if your backend uses /api prefix
+    baseUrl: `${BACKEND_URL}`,
     prepareHeaders: (headers, { getState }) => {
       const token = getState()?.user?.profile?.token;
       if (token) {
