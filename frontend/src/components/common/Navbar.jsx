@@ -135,7 +135,7 @@ export default function Navbar() {
                   {link.name === 'Tamakon' && (
                     <div className='absolute text-[15px] overflow-hidden left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50'>
                       <NavLink to='/about-tamakon' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>About Tamakon</NavLink>
-                      <NavLink to='/team' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>Team</NavLink>
+                      <NavLink to='/tamakon-team' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>Team</NavLink>
                       <NavLink to='/director-message' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>Director Manager Message</NavLink>
                       <NavLink to='/acting-director-message' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>Acting Director General Message</NavLink>
                       <NavLink to='/school-fees' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>School Fees</NavLink>
