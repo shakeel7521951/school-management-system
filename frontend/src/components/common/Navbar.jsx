@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectUserProfile, clearProfile } from '../../redux/slices/UserSlice'
 import { useLogoutMutation } from '../../redux/slices/UserApi'
 
-export default function Navbar () {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [profileOpen, setProfileOpen] = useState(false)
   const profile = useSelector(selectUserProfile)
@@ -72,65 +72,20 @@ export default function Navbar () {
                 {/* Dropdowns */}
                 {link.name === 'Tamakon' && (
                   <div className='absolute text-[15px]  overflow-hidden left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50'>
-                    <NavLink
-                      to='/about-tamakon'
-                      className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'
-                    >
-                      About Tamakon
-                    </NavLink>
-                    <NavLink
-                      to='/team'
-                      className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'
-                    >
-                      Team
-                    </NavLink>
-                    <NavLink
-                      to='/director-message'
-                      className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'
-                    >
-                      Director Manager Message
-                    </NavLink>
-                    <NavLink
-                      to='/acting-director-message'
-                      className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'
-                    >
-                      Acting Director General Message
-                    </NavLink>
-                    <NavLink
-                      to='/school-fees'
-                      className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'
-                    >
-                      School Fees
-                    </NavLink>
-                    <NavLink
-                      to='/recruitment'
-                      className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'
-                    >
-                      Recruitment
-                    </NavLink>
-                    <NavLink
-                      to='/faqs'
-                      className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'
-                    >
-                      FAQs
-                    </NavLink>
+                    <NavLink to='/about-tamakon' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>About Tamakon</NavLink>
+                    <NavLink to='/team' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>Team</NavLink>
+                    <NavLink to='/director-message' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>Director Manager Message</NavLink>
+                    <NavLink to='/acting-director-message' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>Acting Director General Message</NavLink>
+                    <NavLink to='/school-fees' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>School Fees</NavLink>
+                    <NavLink to='/recruitment' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>Recruitment</NavLink>
+                    <NavLink to='/faqs' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>FAQs</NavLink>
                   </div>
                 )}
 
                 {link.name === 'Services' && (
                   <div className='font-semibold text-[15px] absolute left-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100  invisible group-hover:visible transition-all duration-300 origin-top z-50'>
-                    <NavLink
-                      to='/academy-services'
-                      className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'
-                    >
-                      Academic Services
-                    </NavLink>
-                    <NavLink
-                      to='/public-relations'
-                      className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'
-                    >
-                      Public Relations Department
-                    </NavLink>
+                    <NavLink to='/academy-services' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>Academic Services</NavLink>
+                    <NavLink to='/public-relations' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>Public Relations Department</NavLink>
 
                     {/* Parent hover: Speech & Language Therapy */}
                     <div className='relative group/submenu'>
@@ -140,46 +95,18 @@ export default function Navbar () {
                       </button>
 
                       {/* Dropdown 1 */}
-                      <div
-                        className='absolute top-0 right-full mr-1 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 
-        opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible 
-        group-hover/submenu:visible transition-all duration-300 origin-top-right z-50'
-                      >
-                        <NavLink
-                          to='/speech-therapy'
-                          className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'
-                        >
-                          Speech & Language Therapy
-                        </NavLink>
-                        <NavLink
-                          to='/vocational-rehabilitation'
-                          className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'
-                        >
-                          Vocational & Physical Rehabilitation Department
-                        </NavLink>
+                      <div className='absolute top-0 right-full mr-1 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50'>
+                        <NavLink to='/speech-therapy' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>Speech & Language Therapy</NavLink>
+                        <NavLink to='/vocational-rehabilitation' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>Vocational & Physical Rehabilitation Department</NavLink>
                       </div>
 
                       {/* Dropdown 2 (Nursing Department) */}
-                      <div
-                        className='absolute top-14 left-[-615px] w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 
-        opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible 
-        group-hover/submenu:visible transition-all duration-300 origin-top-right z-50'
-                      >
-                        <NavLink
-                          to='/nursing-department'
-                          className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'
-                        >
-                          Nursing Department
-                        </NavLink>
+                      <div className='absolute top-14 left-[-615px] w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50'>
+                        <NavLink to='/nursing-department' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>Nursing Department</NavLink>
                       </div>
                     </div>
 
-                    <NavLink
-                      to='/financial-affairs'
-                      className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'
-                    >
-                      Financial & Administrative Affairs
-                    </NavLink>
+                    <NavLink to='/financial-affairs' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>Financial & Administrative Affairs</NavLink>
                   </div>
                 )}
               </li>
@@ -236,36 +163,10 @@ export default function Navbar () {
 
                 {profileOpen && (
                   <div className='absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-50 animate-fadeIn'>
-                    <NavLink
-                      to='/my-profile'
-                      className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'
-                    >
-                      My Profile
-                    </NavLink>
-                    {profile?.role === 'admin' && (
-                      <NavLink
-                        to='/admincomplain'
-                        className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'
-                      >
-                        Admin Dashboard
-                      </NavLink>
-                    )}
-                    {profile?.role === 'teacher' && (
-                      <NavLink
-                        to='/teacherdocuments'
-                        className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'
-                      >
-                        Teacher Dashboard
-                      </NavLink>
-                    )}
-                    {profile?.role === 'User' && (
-                      <NavLink
-                        to='/stcomplaints'
-                        className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'
-                      >
-                        Student Dashboard
-                      </NavLink>
-                    )}
+                    <NavLink to='/my-profile' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>My Profile</NavLink>
+                    {profile?.role === 'admin' && <NavLink to='/admincomplain' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>Admin Dashboard</NavLink>}
+                    {profile?.role === 'teacher' && <NavLink to='/teacherdocuments' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>Teacher Dashboard</NavLink>}
+                    {profile?.role === 'User' && <NavLink to='/stcomplaints' className='block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700'>Student Dashboard</NavLink>}
                     <button
                       onClick={handleLogout}
                       disabled={isLoading}
@@ -277,16 +178,16 @@ export default function Navbar () {
                 )}
               </>
             )}
-          </div>
+          </li>
+        </ul>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2 rounded bg-indigo-900/70 hover:bg-indigo-800 transition"
-            onClick={() => setIsOpen(true)}
-          >
-            <FaBars className="text-indigo-200 text-2xl" />
-          </button>
-        </div>
+        {/* Mobile Menu Button */}
+        <button
+          className="lg:hidden p-2 rounded bg-indigo-900/70 hover:bg-indigo-800 transition"
+          onClick={() => setIsOpen(true)}
+        >
+          <FaBars className="text-indigo-200 text-2xl" />
+        </button>
       </div>
 
       {/* Mobile Sidebar */}
