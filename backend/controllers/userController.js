@@ -368,16 +368,15 @@ export const allUsers = async (req, res) => {
 
 export const updateUserRole = async (req, res) => {
   try {
-    const { userId, role } = req.body;
-
-    if (!userId || !role) {
+    const { id, role } = req.body;
+    if (!id || !role) {
       return res
         .status(400)
         .json({ message: "User ID and role are required." });
     }
 
     const updateUserRole = await User.findByIdAndUpdate(
-      userId,
+      {_id:id},
       { role },
       { new: true }
     );
