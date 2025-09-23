@@ -80,8 +80,19 @@ export default function Navbar() {
                 )}
 
                 {link.name === 'Services' && (
-                  <div className="font-semibold text-[15px] absolute left-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50">
-                    <NavLink to="/academy-services" className="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700">Academic Services</NavLink>
+                  <div className="font-semibold text-[15px]  absolute left-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50">
+                      <div className="relative group/submenu">
+                    <button className="w-full text-left px-4 py-2 hover:overflow-hidden hover:bg-indigo-50 hover:text-indigo-700 flex justify-between items-center">
+                      Academic Services <span className="ml-2">▸</span>
+                    </button>
+                       <div className="absolute top-10 right-full  hover:overflow-hidden mr-1 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50">
+                        <NavLink to="/middle-unit" className="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700">Middle and High Unit for Multiple Intelligences and Talents (Boys)</NavLink>
+                        <NavLink to="/primary-unit" className="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700">Primary Unit for Multiple Intelligences and Talents – Boys and Girls</NavLink>
+
+                         <NavLink to="/specilaized-unit" className="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700">Specialized Education Unit</NavLink>
+                         
+                      </div>
+                  </div>
                     <NavLink to="/public-relations" className="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700">Public Relations Department</NavLink>
 
                     {/* Parent hover: Speech & Language Therapy */}
@@ -91,13 +102,13 @@ export default function Navbar() {
                       </button>
 
                       {/* Dropdown 1 */}
-                      <div className="absolute top-0 right-full mr-1 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50">
+                      <div className="absolute top-0 right-full hover:overflow-hidden mr-1 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50">
                         <NavLink to="/speech-therapy" className="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700">Speech & Language Therapy</NavLink>
                         <NavLink to="/vocational-rehabilitation" className="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700">Vocational & Physical Rehabilitation Department</NavLink>
                       </div>
 
                       {/* Dropdown 2 */}
-                      <div className="absolute top-14 left-[-615px] w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50">
+                      <div className="absolute top-14 hover:overflow-hidden left-[-615px] w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50">
                         <NavLink to="/nursing-department" className="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700">Nursing Department</NavLink>
                       </div>
                     </div>
