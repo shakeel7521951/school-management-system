@@ -27,7 +27,7 @@ import { Toaster } from 'react-hot-toast'
 import StudentNavbar from './components/Studentdashboard/common/StudentNavbar'
 import StudentSidebar from './components/Studentdashboard/common/StudentSidebar'
 // import StSettings from './pages/StudentDashboard/StSettings'
-import StOverview from './pages/StudentDashboard/StOverview'
+// import StOverview from './pages/StudentDashboard/StOverview'
 // import StNotifications from './pages/StudentDashboard/StNotifications'
 import TeacherNavbar from './components/teacherDashboard/common/TeacherNavbar'
 import TeacherSideBar from './components/teacherDashboard/common/TeacherSideBar'
@@ -50,8 +50,6 @@ import OtpVerify from './pages/OtpVerify'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import ProfilePage from './pages/ProfilePage'
-import Navbar from './components/common/Navbar'
-// import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
   return (
