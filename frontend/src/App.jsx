@@ -1,5 +1,6 @@
 import './App.css'
-import Footer from './components/common/Footer'
+import Footer from './pages/Footer'
+import Navbar from './components/common/Navbar'
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
 import Home from './pages/Home'
 import Event from './pages/Event'
