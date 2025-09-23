@@ -6,7 +6,6 @@ import { selectUserProfile, clearProfile } from '../../redux/slices/UserSlice'
 import { useLogoutMutation } from '../../redux/slices/UserApi'
 
 export default function Navbar() {
-export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [profileOpen, setProfileOpen] = useState(false)
   const profile = useSelector(selectUserProfile)
@@ -192,16 +191,7 @@ export default function Navbar() {
             )}
           </li>
         </ul>
-          </li>
-        </ul>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="lg:hidden p-2 rounded bg-indigo-900/70 hover:bg-indigo-800 transition"
-          onClick={() => setIsOpen(true)}
-        >
-          <FaBars className="text-indigo-200 text-2xl" />
-        </button>
         {/* Mobile Menu Button */}
         <button
           className="lg:hidden p-2 rounded bg-indigo-900/70 hover:bg-indigo-800 transition"
