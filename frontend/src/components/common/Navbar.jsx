@@ -42,7 +42,7 @@ export default function Navbar() {
     { name: 'Home', path: '/' },
     { name: 'Tamakon', path: '/tamakon', dropdown: true },
     { name: 'Services', path: '/services', dropdown: true },
-    { name: 'Media', path: '/media' },
+    { name: 'Media', path: '/media' ,dropdown:true },
     { name: 'Contact Us', path: '/contact-us' }
   ]
 
@@ -191,6 +191,15 @@ export default function Navbar() {
                       <NavLink to='/financial-affairs' className='block px-4 py-2 hover:text-indigo-700'>
                         Financial & Administrative Affairs
                       </NavLink>
+                    </div>
+                  )}
+
+                  {link.name === 'Media' && (
+                    <div className='absolute text-[15px] overflow-hidden left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50'>
+                      <NavLink to='/news' className='block px-4 py-2 hover:text-indigo-700'>News</NavLink>
+                      <NavLink to='/gallery' className='block px-4 py-2 hover:text-indigo-700'>Gallery</NavLink>
+                   
+                     
                     </div>
                   )}
                 </li>
@@ -438,6 +447,17 @@ export default function Navbar() {
                       <NavLink to="/middle-unit" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm">Middle and High Unit for Multiple Intelligences (Boys)</NavLink>
                       <NavLink to="/primary-unit" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm">Primary Unit for Multiple Intelligences – Boys & Girls</NavLink>
                       <NavLink to="/educational-unit" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm">Specialized Education Unit</NavLink>
+                    </div>
+                  )}
+
+
+
+                   {link.name === "Media" && openDropdown === "Media" && (
+                    <div className="ml-4 mt-1 flex flex-col gap-1">
+                      <NavLink to="/news" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm">News</NavLink>
+                      <NavLink to="/gallery" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm">Gallery</NavLink>
+                      
+                      
                     </div>
                   )}
                 </div>
