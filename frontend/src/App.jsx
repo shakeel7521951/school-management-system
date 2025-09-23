@@ -97,7 +97,7 @@ const router = createBrowserRouter([
     element: <MainFunction />,
     children: [
       { path: '/', element: <Home /> },
-      { path: '/tamakon', element: <AboutUs /> },
+      { path: '/about-tamakon', element: <AboutUs /> },
       { path: '/services', element: <Event /> },
       { path: '/media', element: <Complaints /> },
       { path: '/contact-us', element: <ContactUs /> },

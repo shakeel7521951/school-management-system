@@ -468,31 +468,31 @@ export default function Navbar() {
                     to="/my-profile"
                     className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
                     onClick={() => {
-                      setProfileOpen(false);
-                      setIsOpen(false);
+                      setProfileOpen(false)
+                      setIsOpen(false)
                     }}
                   >
                     My Profile
                   </NavLink>
-                  {profile?.role === "admin" && (
+                  {profile?.role === 'admin' && (
                     <NavLink
                       to="/admincomplain"
                       className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
                       onClick={() => {
-                        setProfileOpen(false);
-                        setIsOpen(false);
+                        setProfileOpen(false)
+                        setIsOpen(false)
                       }}
                     >
                       Admin Dashboard
                     </NavLink>
                   )}
-                  {profile?.role === "teacher" && (
+                  {profile?.role === 'teacher' && (
                     <NavLink
                       to="/teacherdocuments"
                       className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
                       onClick={() => {
-                        setProfileOpen(false);
-                        setIsOpen(false);
+                        setProfileOpen(false)
+                        setIsOpen(false)
                       }}
                     >
                       Teacher Dashboard
@@ -503,8 +503,8 @@ export default function Navbar() {
                       to="/stcomplaints"
                       className="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition"
                       onClick={() => {
-                        setProfileOpen(false);
-                        setIsOpen(false);
+                        setProfileOpen(false)
+                        setIsOpen(false)
                       }}
                     >
                       Student Dashboard
@@ -515,7 +515,7 @@ export default function Navbar() {
                     disabled={isLoading}
                     className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition"
                   >
-                    {isLoading ? "Logging out..." : "Logout"}
+                    {isLoading ? 'Logging out...' : 'Logout'}
                   </button>
                 </div>
               )}
