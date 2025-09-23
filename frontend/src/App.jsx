@@ -10,7 +10,6 @@ import Signup from './pages/Signup'
 import Sidebaar from './components/dashboard/common/Sidebaar'
 import Navbarr from './components/dashboard/common/Navbar'
 // import Overview from './pages/dashboard/Overview'
-import AboutUs from './pages/AboutUs'
 import Complaints from './pages/Complaints'
 import ComplaintForm from './components/complaints/ComplaintForm'
 import Users from './pages/dashboard/Users'
@@ -50,6 +49,10 @@ import OtpVerify from './pages/OtpVerify'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import ProfilePage from './pages/ProfilePage'
+import TeamSection from './components/Tamakon/team/TeamSection'
+import AboutUs from './pages/Tamakon/AboutUs'
+import Team from './pages/Tamakon/Team'
+// import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
   return (
@@ -97,6 +100,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/about-tamakon', element: <AboutUs /> },
+      { path: "/tamakon-team", element: <Team /> },
       { path: '/services', element: <Event /> },
       { path: '/media', element: <Complaints /> },
       { path: '/contact-us', element: <ContactUs /> },

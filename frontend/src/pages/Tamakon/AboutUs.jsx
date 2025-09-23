@@ -1,10 +1,10 @@
 import React from "react";
-import HeroSection from "../components/about/HeroSection";
-import Section from "../components/about/Section";
-import InlineImage from "../components/about/InlineImage";
-import VisionMission from "../components/about/VisionMission";
-const  AboutUs=()=> {
- return (
+import Section from "../../components/Tamakon/about/Section";
+import InlineImage from "../../components/Tamakon/about/InlineImage";
+import VisionMission from "../../components/Tamakon/about/VisionMission";
+import HeroSection from "../../components/Tamakon/about/HeroSection";
+const AboutUs = () => {
+  return (
     <div className="font-sans text-gray-800">
       {/* Hero Section */}
       <HeroSection />
