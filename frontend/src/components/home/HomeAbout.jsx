@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function StudyResearch() {
+export default function HomeAbout() {
     return (
         <div className="py-16 bg-gradient-to-br from-[#2d6dc65c] to-[#eff3fa79] relative">
             <div className="container sm:w-11/12 mx-auto px-4 flex flex-wrap lg:flex-nowrap items-center gap-12">
@@ -21,9 +21,9 @@ export default function StudyResearch() {
                             rehabilitation services for males and females across all academic
                             levels.
                         </p>
-                        <button className="px-6 py-3 font-semibold bg-gradient-to-r from-[#273C66] to-[#1A4480] text-white rounded-full shadow-md hover:scale-105 transition">
+                        <Link to="/contact-us" className="px-4 py-3 text-[18px] font-semibold bg-gradient-to-r from-[#273C66] to-[#1A4480] text-white rounded-full shadow-md hover:scale-105 transition">
                             Contact Us Now
-                        </button>
+                        </Link>
                     </div>
                 </section>
 
