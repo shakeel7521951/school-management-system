@@ -52,6 +52,11 @@ import ProfilePage from './pages/ProfilePage'
 import TeamSection from './components/Tamakon/team/TeamSection'
 import AboutUs from './pages/Tamakon/AboutUs'
 import Team from './pages/Tamakon/Team'
+import DirectorManagerMessage from './pages/Tamakon/DirectorManagerMessage'
+import ActingDirectorGeneralMessage from './pages/Tamakon/ActingDirectorGeneralMessage'
+import SchoolFee from './pages/Tamakon/SchoolFee'
+import Recruitment from './pages/Tamakon/Recruitment'
+import FAQs from './pages/Tamakon/FAQs'
 // import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
@@ -101,6 +106,14 @@ const router = createBrowserRouter([
       { path: '/', element: <Home /> },
       { path: '/about-tamakon', element: <AboutUs /> },
       { path: "/tamakon-team", element: <Team /> },
+      { path: "/director-message", element: <DirectorManagerMessage /> },
+      { path: "/acting-director-message", element: <ActingDirectorGeneralMessage /> },
+      { path: "/school-fees", element: <SchoolFee /> },
+      { path: "/recruitment", element: <Recruitment /> },
+      { path: "/faqs", element: <FAQs /> },
+
+      
+      
       { path: '/services', element: <Event /> },
       { path: '/media', element: <Complaints /> },
       { path: '/contact-us', element: <ContactUs /> },
