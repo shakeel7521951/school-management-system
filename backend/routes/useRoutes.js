@@ -1,8 +1,6 @@
 import express from "express";
 import {
   allUsers,
-  appLogin,
-  appVerifyUser,
   forgotPasswordOTP,
   login,
   logout,
@@ -18,17 +16,16 @@ import {
 import auth from "../middlewares/AuthMiddleWare.js";
 const router = express.Router();
 import upload from "../middlewares/multerConfig.js";
+import IsAuthenticated from "../middlewares/isAuthenticated.js";
 
-router.post("/login", login); //for web
-router.post("/app-login", appLogin); //for app
+router.post("/login", login);
 router.post("/sign-up", register);
-router.post("/verify-user", verifyUser); // for web
-router.post("/app-verify-user", appVerifyUser); // for app
+router.post("/verify-user", verifyUser);
 router.post("/logout", auth, logout);
 router.get("/my-profile", auth, myProfile);
 router.put("/update-password", auth, updatePassword);
-router.get("/all-users", allUsers);
-router.put("/update-user-role", updateUserRole);
+router.get("/all-users", auth, IsAuthenticated(["User"]), allUsers);
+router.put("/update-user-role", auth, updateUserRole);
 router.post("/forgot-password-otp", forgotPasswordOTP);
 router.post("/verify-otp", verifyOTP);
 router.put("/reset-password", resetPassword);
