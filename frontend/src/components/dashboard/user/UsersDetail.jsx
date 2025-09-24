@@ -1,28 +1,42 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Search } from "lucide-react";
 import { useAllUsersQuery, useUpdateUserRoleMutation } from "../../../redux/slices/UserApi";
+import { toast } from "react-toastify";
 
 const UsersDetail = () => {
-    const { data: allUsers = [], isLoading, isError } = useAllUsersQuery();
+    const { data: allUsers = [], isLoading, isError, error, refetch } = useAllUsersQuery();
     const [updateUserRole] = useUpdateUserRoleMutation();
-
     const [search, setSearch] = useState("");
 
     const handleRoleChange = async (id, newRole) => {
         try {
             await updateUserRole({ id, role: newRole }).unwrap();
-            console.log(`Role updated for user ${id} → ${newRole}`);
+            toast(`✅ Role updated for user ${id} → ${newRole}`);
+            refetch()
         } catch (err) {
+            alert(`❌ Failed to update role: ${err?.data?.message || err.message}`);
             console.error("Failed to update role:", err);
         }
     };
 
     const handleDelete = (id) => {
-        console.log("Delete user", id);
+        try {
+            console.log("Delete user", id);
+            // TODO: Hook delete mutation here
+        } catch (err) {
+            alert(`❌ Failed to delete user: ${err?.message}`);
+            console.error("Delete error:", err);
+        }
     };
 
     const handleVerificationChange = (id, status) => {
-        console.log("Change verification", id, status);
+        try {
+            console.log("Change verification", id, status);
+            // TODO: Hook verify mutation here
+        } catch (err) {
+            alert(`❌ Failed to change verification: ${err?.message}`);
+            console.error("Verification error:", err);
+        }
     };
 
     const filteredUsers = allUsers.filter(
@@ -55,11 +69,11 @@ const UsersDetail = () => {
             </div>
 
             {/* Loader / Error State */}
-            {isLoading && (
-                <p className="text-center text-gray-500">Loading users...</p>
-            )}
+            {isLoading && <p className="text-center text-gray-500">Loading users...</p>}
             {isError && (
-                <p className="text-center text-red-500">Failed to load users.</p>
+                <p className="text-center text-red-500">
+                    {error?.data?.message || "❌ Failed to fetch users. Please try again."}
+                </p>
             )}
 
             {/* Table for md+ screens */}
@@ -86,9 +100,7 @@ const UsersDetail = () => {
                                         <td className="p-4 border-b">{index + 1}</td>
                                         <td className="p-4 border-b">{user.name}</td>
                                         <td className="p-4 border-b">{user.email}</td>
-                                        <td className="p-4 border-b text-[#1446b3] font-bold">
-                                            {user.role}
-                                        </td>
+                                        <td className="p-4 border-b text-[#1446b3] font-bold">{user.role}</td>
                                         <td className="p-4 border-b">
                                             {user.status === "verified" ? (
                                                 <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">
@@ -106,7 +118,8 @@ const UsersDetail = () => {
                                                 onChange={(e) => {
                                                     const [action, value] = e.target.value.split("-");
                                                     if (action === "role") handleRoleChange(user._id, value);
-                                                    if (action === "verify") handleVerificationChange(user._id, value === "true");
+                                                    if (action === "verify")
+                                                        handleVerificationChange(user._id, value === "true");
                                                     if (action === "delete") handleDelete(user._id);
                                                     e.target.value = "";
                                                 }}
@@ -145,13 +158,11 @@ const UsersDetail = () => {
                             className="bg-white rounded-xl shadow-md p-4 border border-gray-200"
                         >
                             <div className="flex justify-between items-center mb-2">
-                                <h3 className="text-lg font-semibold text-[#1446b3]">
-                                    {user.name}
-                                </h3>
+                                <h3 className="text-lg font-semibold text-[#1446b3]">{user.name}</h3>
                                 <span
                                     className={`text-xs font-semibold px-2 py-1 rounded-full ${user.status === "verified"
-                                        ? "bg-green-100 text-green-800"
-                                        : "bg-red-100 text-red-800"
+                                            ? "bg-green-100 text-green-800"
+                                            : "bg-red-100 text-red-800"
                                         }`}
                                 >
                                     {user.status === "verified" ? "Verified" : "Unverified"}
@@ -187,9 +198,7 @@ const UsersDetail = () => {
                         </div>
                     ))
                 ) : (
-                    <p className="text-center text-gray-500 col-span-2">
-                        No users found.
-                    </p>
+                    <p className="text-center text-gray-500 col-span-2">No users found.</p>
                 )}
             </div>
         </div>

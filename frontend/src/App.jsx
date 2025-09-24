@@ -56,6 +56,8 @@ import ActingDirectorGeneralMessage from './pages/Tamakon/ActingDirectorGeneralM
 import SchoolFee from './pages/Tamakon/SchoolFee'
 import Recruitment from './pages/Tamakon/Recruitment'
 import FAQs from './pages/Tamakon/FAQs'
+import MiddleAndHighUnit from './pages/AcademicServices/MiddleAndHighUnit'
+import PrimaryUnit from './pages/AcademicServices/PrimaryUnit'
 import Team from './pages/Tamakon/Team'
 import PersonalProfile from './pages/Tamakon/PersonalProfile'
 // import MyProfile from './pages/MyProfile'
@@ -110,9 +112,11 @@ const router = createBrowserRouter([
       { path: "/tamakon-team/:id", element: <PersonalProfile /> },
       { path: "/director-message", element: <DirectorManagerMessage /> },
       { path: "/acting-director-message", element: <ActingDirectorGeneralMessage /> },
-      { path: "/school-fees", element: <SchoolFee /> },
-      { path: "/recruitment", element: <Recruitment /> },
+      // { path: "/school-fees", element: <SchoolFee /> },
+      // { path: "/recruitment", element: <Recruitment /> },
       { path: "/faqs", element: <FAQs /> },
+      { path: "/middle-unit", element: <MiddleAndHighUnit/> },
+      { path: "/primary-unit", element: <PrimaryUnit /> },
 
 
 

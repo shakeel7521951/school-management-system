@@ -19,7 +19,7 @@ export default function DirectorManagerMessage() {
           transition={{ duration: 1 }}
           className="relative z-10 text-center text-white px-4 sm:px-6"
         >
-          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold mb-4 drop-shadow-xl tracking-wide">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-4xl font-bold mb-4 drop-shadow-xl tracking-wide">
             Director Manager Message
           </h1>
           <p className="text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-gray-100 drop-shadow">
