@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 
-const PrimaryUnit = () => {
+const MiddleAndHighUnit = () => {
   return (
     <div className="w-full text-gray-800">
       {/* Hero Banner */}
@@ -51,4 +51,4 @@ const PrimaryUnit = () => {
   )
 }
 
-export default PrimaryUnit
+export default MiddleAndHighUnit

@@ -60,6 +60,8 @@ import MiddleAndHighUnit from './pages/AcademicServices/MiddleAndHighUnit'
 import PrimaryUnit from './pages/AcademicServices/PrimaryUnit'
 import Team from './pages/Tamakon/Team'
 import PersonalProfile from './pages/Tamakon/PersonalProfile'
+import PublicRelations from './pages/PublicRelations'
+import FinancialAndAdministrativeAffairs from './pages/FinancialAndAdministrativeAffairs'
 // import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
@@ -115,8 +117,10 @@ const router = createBrowserRouter([
       // { path: "/school-fees", element: <SchoolFee /> },
       // { path: "/recruitment", element: <Recruitment /> },
       { path: "/faqs", element: <FAQs /> },
-      { path: "/middle-unit", element: <MiddleAndHighUnit/> },
+      { path: "/middle-unit", element: <MiddleAndHighUnit /> },
       { path: "/primary-unit", element: <PrimaryUnit /> },
+      { path: "/public-relations", element: <PublicRelations /> },
+      {path: "/financial-affairs", element: <FinancialAndAdministrativeAffairs />},
 
 
 
