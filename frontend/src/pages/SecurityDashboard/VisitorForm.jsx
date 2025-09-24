@@ -17,12 +17,12 @@ const VisitorForm = ({ onAddVisitor }) => {
   }
 
   return (
-    <div className="relative py-2 flex items-center justify-center min-h-screen bg-gradient-to-br from-[#f0f4f9] to-[#dce7f3] px-4">
+    <div className="relative py-4 flex items-center justify-center min-h-screen bg-gradient-to-br from-[#f0f4f9] to-[#dce7f3] px-4">
       {/* Background Card */}
       <div className="absolute w-96 h-96 bg-[#104c80]/10 rounded-3xl blur-2xl"></div>
 
       {/* Main Form Card */}
-      <section className="relative mt-20 z-10 max-w-lg w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+      <section className="relative mt-8 z-10 max-w-lg w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 lg:ml-[250px]">
         {/* Form Header */}
         <div className="bg-gradient-to-r from-[#104c80] to-[#0d3a62] px-6 py-5">
           <h2 className="text-lg font-bold text-white tracking-wide">

@@ -8,6 +8,13 @@ export default function TeamSection() {
     const [activeCategory, setActiveCategory] = useState("all");
     const navigate = useNavigate();
 
+    // ✅ Slugify helper
+    const slugify = (text) =>
+        text
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-") // replace spaces & special chars with -
+            .replace(/^-+|-+$/g, ""); // trim - from start/end
+
     const filteredTeam =
         activeCategory === "all"
             ? TeamMembers
@@ -17,7 +24,7 @@ export default function TeamSection() {
         <section className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
             {/* ✅ Hero Section */}
             <section
-                className="relative w-full h-[65vh] bg-cover bg-center flex items-center justify-center"
+                className="relative w-full h-[50vh] bg-cover bg-center flex items-center justify-center"
                 style={{ backgroundImage: "url('/images/about-cover.jpg')" }}
             >
                 <div className="absolute inset-0 bg-[#104c80]/70"></div>
@@ -29,16 +36,10 @@ export default function TeamSection() {
                 >
                     <h1 className="text-4xl md:text-5xl font-extrabold mt-14 mb-4">Team</h1>
                     <p className="text-lg text-indigo-200 mb-6">
-                        مدرسة التمكن الشاملة &gt; Managers &gt;{" "}
-                        <span className="font-semibold text-white">Dr. Hind Al-Rabah</span>
+                        مدرسة التمكن الشاملة / Team
+                        
                     </p>
-                    <div className="mt-6 w-[400px] bg-white text-gray-800 rounded-xl shadow-lg p-6 inline-block">
-                        <h2 className="text-2xl font-bold">Dr. Hind Al-Rabah</h2>
-                        <p className="text-sm text-gray-500">Director General</p>
-                        <p className="text-sm text-center text-gray-600 mt-1">
-                            د. هند الرباح – المدير العام بالإنابة
-                        </p>
-                    </div>
+                    
                 </motion.div>
             </section>
 
@@ -67,10 +68,11 @@ export default function TeamSection() {
                         <button
                             key={category.id}
                             onClick={() => setActiveCategory(category.id)}
-                            className={`px-6 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${activeCategory === category.id
-                                ? "bg-gradient-to-r from-[#0C3570] to-[#3471b3] text-white shadow-lg"
-                                : "bg-white text-gray-700 border border-gray-200 hover:border-indigo-300 hover:text-[#3471b3]"
-                                }`}
+                            className={`px-6 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
+                                activeCategory === category.id
+                                    ? "bg-gradient-to-r from-[#0C3570] to-[#3471b3] text-white shadow-lg"
+                                    : "bg-white text-gray-700 border border-gray-200 hover:border-indigo-300 hover:text-[#3471b3]"
+                            }`}
                         >
                             {category.name}{" "}
                             <span className="ml-2 bg-white/20 px-2 py-1 rounded-full text-sm">
@@ -89,14 +91,16 @@ export default function TeamSection() {
                         >
                             {/* Department Color Bar */}
                             <div
-                                className={`h-2 bg-gradient-to-r ${departmentColors[member.department] || "from-gray-500 to-gray-700"
-                                    }`}
+                                className={`h-2 bg-gradient-to-r ${
+                                    departmentColors[member.department] ||
+                                    "from-gray-500 to-gray-700"
+                                }`}
                             ></div>
 
                             <div className="p-6">
                                 {/* Avatar */}
                                 <div className="flex flex-col justify-center items-center mb-4">
-                                    <div className="w-40 h-40    border-2 border-gray-200 shadow-lg rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
+                                    <div className="w-40 h-40 border-2 border-gray-200 shadow-lg rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
                                         {member.photo ? (
                                             <img
                                                 src={member.photo}
@@ -126,7 +130,6 @@ export default function TeamSection() {
                                     </div>
                                 </div>
 
-
                                 {/* English Title */}
                                 <p className="text-gray-700 font-medium mb-4 text-center bg-gradient-to-r from-gray-100 to-gray-200 py-2 rounded-lg">
                                     {member.titleEn}
@@ -135,7 +138,9 @@ export default function TeamSection() {
                                 {/* ✅ View Profile Button */}
                                 <div className="text-center">
                                     <button
-                                        onClick={() => navigate(`/tamakon-team/${member.id}`)}
+                                        onClick={() =>
+                                            navigate(`/tamakon-team/${slugify(member.nameEn)}`)
+                                        }
                                         className="px-5 py-2 rounded-lg bg-gradient-to-r from-[#0C3570] to-[#3471b3] text-white font-medium shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
                                     >
                                         View Profile

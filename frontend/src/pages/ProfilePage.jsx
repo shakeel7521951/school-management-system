@@ -62,17 +62,17 @@ const ProfilePage = () => {
         <div className="mt-20 px-6 pb-8">
           {/* User Name - Prominent */}
           <h2 className="text-3xl font-extrabold text-gray-900">
-            {profile?.name || "John Doe"}
+            {profile?.name }
           </h2>
 
           {/* Role */}
           <p className="text-[#104c80] font-medium text-sm mt-1">
-            {profile?.role || "Frontend Developer"}
+            {profile?.role }
           </p>
 
           {/* Email & Phone */}
           <p className="text-gray-600 text-sm mt-2">
-            {profile?.email || "john.doe@example.com"}
+            {profile?.email}
           </p>
           <p className="text-gray-600 text-sm">{profile?.phone || "+1 234 567 890"}</p>
 

@@ -12,7 +12,7 @@ const ContactUs = () => {
   return (
     <div className='overflow-hidden'>
       <ContactPage />
-      <OfficeHours />
+      {/* <OfficeHours /> */}
       <ContactMap />
     </div>
   )

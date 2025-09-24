@@ -1,0 +1,104 @@
+import { useState } from "react";
+import { Eye } from "lucide-react";
+import VisitorViewModal from "../../components/dashboard/visitorTable/VisitorViewModal";
+
+const VisitorStatus = () => {
+  const [selectedVisitor, setSelectedVisitor] = useState(null);
+
+  // Dummy Data
+  const visitors = [
+    { id: 1, name: "Ali Khan", badge: "CNIC-12345", reason: "Meeting", host: "ahmed@company.com", time: "2025-09-19 09:30 AM", status: "Approved" },
+    { id: 2, name: "Sara Ahmed", badge: "EMP-9087", reason: "Interview", host: "hr@company.com", time: "2025-09-19 10:15 AM", status: "Rejected" },
+    { id: 3, name: "John Doe", badge: "DLV-5678", reason: "Delivery", host: "ops@company.com", time: "2025-09-19 11:00 AM", status: "Pending" },
+  ];
+
+  const [filter, setFilter] = useState("All");
+
+  const filteredVisitors =
+    filter === "All" ? visitors : visitors.filter((v) => v.status === filter);
+
+  return (
+    <div className="lg:ml-64 min-h-screen bg-gradient-to-br from-[#f5f9ff] to-[#e8f0fa] p-4 sm:p-6 lg:p-8">
+      {/* Page Title */}
+      <h1 className="text-2xl md:text-3xl font-bold text-[#104c80] text-center mb-6">
+        Visitor Status
+      </h1>
+
+      {/* Filters */}
+      <div className="flex justify-center gap-3 mb-6">
+        {["All", "Approved", "Rejected", "Pending"].map((status) => (
+          <button
+            key={status}
+            onClick={() => setFilter(status)}
+            className={`px-4 py-1.5 rounded-md text-sm font-medium border transition ${
+              filter === status
+                ? "bg-[#104c80] text-white border-[#104c80]"
+                : "bg-white text-slate-600 border-slate-300 hover:bg-slate-50"
+            }`}
+          >
+            {status}
+          </button>
+        ))}
+      </div>
+
+      {/* Table */}
+      <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
+        <table className="w-full text-sm text-left table-auto">
+          <thead className="bg-slate-100 text-[#104c80] uppercase text-xs font-semibold">
+            <tr>
+              <th className="px-3 py-2">Name</th>
+              <th className="px-3 py-2">Badge</th>
+              <th className="px-3 py-2">Reason</th>
+              <th className="px-3 py-2">Host</th>
+              <th className="px-3 py-2">Check-in</th>
+              <th className="px-3 py-2">Status</th>
+              <th className="px-3 py-2 text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredVisitors.map((v) => (
+              <tr key={v.id} className="border-t hover:bg-slate-50 transition">
+                <td className="px-3 py-2 font-medium">{v.name}</td>
+                <td className="px-3 py-2">{v.badge}</td>
+                <td className="px-3 py-2">{v.reason}</td>
+                <td className="px-3 py-2">{v.host}</td>
+                <td className="px-3 py-2">{v.time}</td>
+                <td className="px-3 py-2">
+                  <span
+                    className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                      v.status === "Approved"
+                        ? "bg-green-100 text-green-700"
+                        : v.status === "Rejected"
+                        ? "bg-red-100 text-red-700"
+                        : "bg-yellow-100 text-yellow-700"
+                    }`}
+                  >
+                    {v.status}
+                  </span>
+                </td>
+                <td className="px-3 py-2 text-center">
+                  <button
+                    onClick={() => setSelectedVisitor(v)}
+                    className="inline-flex items-center gap-1 px-3 py-1 rounded-md bg-blue-50 text-blue-600 hover:bg-blue-100 transition text-xs font-medium"
+                  >
+                    <Eye size={14} /> View
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Modal */}
+      {selectedVisitor && (
+        <VisitorViewModal
+          visitor={selectedVisitor}
+          onClose={() => setSelectedVisitor(null)}
+        />
+      )}
+    </div>
+  );
+};
+
+export default VisitorStatus;

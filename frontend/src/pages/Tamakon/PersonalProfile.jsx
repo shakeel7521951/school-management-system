@@ -5,8 +5,17 @@ import { TeamMembers } from "../../components/Tamakon/team/teamData";
 import { FaEnvelope, FaPhone, FaBuilding } from "react-icons/fa";
 
 export default function PersonalProfile() {
-    const { id } = useParams();
-    const member = TeamMembers.find((m) => m.id === parseInt(id));
+    const { slug } = useParams();
+
+    // ✅ Slugify helper (must match what you use in TeamSection.jsx)
+    const slugify = (text) =>
+        text
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-+|-+$/g, "");
+
+    // ✅ Find member by slug instead of ID
+    const member = TeamMembers.find((m) => slugify(m.nameEn) === slug);
 
     if (!member) {
         return (

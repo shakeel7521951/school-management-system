@@ -40,7 +40,6 @@ import EditorPage from './pages/dashboard/EditorPage'
 import FormViewer from './pages/dashboard/FormViewer'
 import ResponseForm from './pages/TeacherDashboard/TeacherDocuments'
 import VisitorTable from './pages/dashboard/VisitorsTable'
-import VisitorForm from './pages/VisitorForm'
 import { useProfileQuery } from './redux/slices/UserApi'
 import { useEffect } from 'react'
 import { clearProfile, setProfile } from './redux/slices/UserSlice'
@@ -63,6 +62,13 @@ import PersonalProfile from './pages/Tamakon/PersonalProfile'
 import PublicRelations from './pages/PublicRelations'
 import FinancialAndAdministrativeAffairs from './pages/FinancialAndAdministrativeAffairs'
 import SpecializedEducationalUnit from './pages/AcademicServices/SpecializedEducationalUnit'
+import SpeechAndLanguageTherapy from './pages/SpeechTherapy/SpeechAndLanguageTherapy'
+import VocationalAndPhysicalDepartment from './pages/SpeechTherapy/VocationalAndPhysicalDepartment'
+import NursingDepartment from './pages/SpeechTherapy/NursingDepartment'
+import VisitorForm from './pages/SecurityDashboard/VisitorForm'
+import SecurityNavbar from './components/securityDashboard/common/SecurityNavbar'
+import SecuritySidebar from './components/securityDashboard/common/SecuritySidebar'
+import VisitorStatus from './pages/SecurityDashboard/VisitorStatus'
 // import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
@@ -104,6 +110,16 @@ const TeacherRoute = () => {
     </div>
   )
 }
+const SecurityRoute = () => {
+  return (
+    <div>
+      <SecurityNavbar />
+      <SecuritySidebar />
+      <Outlet />
+    </div>
+  )
+}
+
 
 const router = createBrowserRouter([
   {
@@ -112,7 +128,7 @@ const router = createBrowserRouter([
       { path: '/', element: <Home /> },
       { path: '/about-tamakon', element: <AboutUs /> },
       { path: "/tamakon-team", element: <Team /> },
-      { path: "/tamakon-team/:id", element: <PersonalProfile /> },
+      { path: "/tamakon-team/:slug", element: <PersonalProfile /> },
       { path: "/director-message", element: <DirectorManagerMessage /> },
       { path: "/acting-director-message", element: <ActingDirectorGeneralMessage /> },
       // { path: "/school-fees", element: <SchoolFee /> },
@@ -123,6 +139,9 @@ const router = createBrowserRouter([
       { path: "/public-relations", element: <PublicRelations /> },
       {path: "/financial-affairs", element: <FinancialAndAdministrativeAffairs />},
       { path: "/educational-unit", element: <SpecializedEducationalUnit /> },
+      { path: "/speech-therapy", element: <SpeechAndLanguageTherapy /> },
+      { path: "/vocational-rehabilitation", element: <VocationalAndPhysicalDepartment /> },
+      { path: "/nursing-department", element: <NursingDepartment /> },
 
 
 
@@ -131,7 +150,6 @@ const router = createBrowserRouter([
       { path: '/contact-us', element: <ContactUs /> },
       { path: '/complainform', element: <ComplaintForm /> },
       { path: '/complainstatus', element: <ComplaintForm /> },
-      { path: '/visitor', element: <VisitorForm /> },
       { path: '/my-profile', element: <ProfilePage /> },
     ]
   },
@@ -173,6 +191,15 @@ const router = createBrowserRouter([
       // { path: '/teachercomplaints', element: <TeacherComplaints /> },
       // { path: '/teachernotifications', element: <TeacherNotifications /> },
       // { path: '/teacherprofile', element: <TeacherProfile /> }
+    ]
+  },
+   {
+    element: <SecurityRoute />,
+    children: [
+   
+      { path: '/visitor', element: <VisitorForm /> },
+      { path: '/visitor-status', element: <VisitorStatus /> },
+      
     ]
   },
   { path: "/form-editor", element: <EditorPage /> },
