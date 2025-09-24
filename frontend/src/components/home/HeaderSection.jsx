@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 
 const HeaderSection = () => {
   return (
-    <div className="relative mt-10">
+    <div className="relative ">
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
         spaceBetween={0}

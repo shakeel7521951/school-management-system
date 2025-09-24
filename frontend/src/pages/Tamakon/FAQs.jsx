@@ -77,7 +77,7 @@ export default function FAQs() {
           transition={{ duration: 1 }}
           className="relative z-10 text-center text-white px-4"
         >
-          <h1 className="text-2xl md:text-6xl font-extrabold mb-4 drop-shadow-xl tracking-wide">
+          <h1 className="text-2xl md:text-4xl font-bold mb-4 drop-shadow-xl tracking-wide">
             FAQ
           </h1>
           <p className="text-lg md:text-2xl font-medium text-gray-100 drop-shadow">
