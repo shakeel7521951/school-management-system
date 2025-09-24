@@ -59,6 +59,7 @@ import Recruitment from './pages/Tamakon/Recruitment'
 import FAQs from './pages/Tamakon/FAQs'
 import MiddleAndHighUnit from './pages/AcademicServices/MiddleAndHighUnit'
 import PrimaryUnit from './pages/AcademicServices/PrimaryUnit'
+import SpecializedEducationalUnit from './pages/AcademicServices/SpecializedEducationalUnit'
 // import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
@@ -115,6 +116,7 @@ const router = createBrowserRouter([
       { path: "/faqs", element: <FAQs /> },
       { path: "/middle-unit", element: <MiddleAndHighUnit/> },
       { path: "/primary-unit", element: <PrimaryUnit /> },
+      { path: "/educational-unit", element: <SpecializedEducationalUnit /> },
 
       
       
