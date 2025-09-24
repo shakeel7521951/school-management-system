@@ -49,9 +49,8 @@ import OtpVerify from './pages/OtpVerify'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import ProfilePage from './pages/ProfilePage'
-import TeamSection from './components/Tamakon/team/TeamSection'
+// import TeamSection from './components/Tamakon/team/TeamSection'
 import AboutUs from './pages/Tamakon/AboutUs'
-import Team from './pages/Tamakon/Team'
 import DirectorManagerMessage from './pages/Tamakon/DirectorManagerMessage'
 import ActingDirectorGeneralMessage from './pages/Tamakon/ActingDirectorGeneralMessage'
 import SchoolFee from './pages/Tamakon/SchoolFee'
@@ -59,6 +58,10 @@ import Recruitment from './pages/Tamakon/Recruitment'
 import FAQs from './pages/Tamakon/FAQs'
 import MiddleAndHighUnit from './pages/AcademicServices/MiddleAndHighUnit'
 import PrimaryUnit from './pages/AcademicServices/PrimaryUnit'
+import Team from './pages/Tamakon/Team'
+import PersonalProfile from './pages/Tamakon/PersonalProfile'
+import PublicRelations from './pages/PublicRelations'
+import FinancialAndAdministrativeAffairs from './pages/FinancialAndAdministrativeAffairs'
 import SpecializedEducationalUnit from './pages/AcademicServices/SpecializedEducationalUnit'
 // import MyProfile from './pages/MyProfile'
 
@@ -109,17 +112,20 @@ const router = createBrowserRouter([
       { path: '/', element: <Home /> },
       { path: '/about-tamakon', element: <AboutUs /> },
       { path: "/tamakon-team", element: <Team /> },
+      { path: "/tamakon-team/:id", element: <PersonalProfile /> },
       { path: "/director-message", element: <DirectorManagerMessage /> },
       { path: "/acting-director-message", element: <ActingDirectorGeneralMessage /> },
       // { path: "/school-fees", element: <SchoolFee /> },
       // { path: "/recruitment", element: <Recruitment /> },
       { path: "/faqs", element: <FAQs /> },
-      { path: "/middle-unit", element: <MiddleAndHighUnit/> },
+      { path: "/middle-unit", element: <MiddleAndHighUnit /> },
       { path: "/primary-unit", element: <PrimaryUnit /> },
+      { path: "/public-relations", element: <PublicRelations /> },
+      {path: "/financial-affairs", element: <FinancialAndAdministrativeAffairs />},
       { path: "/educational-unit", element: <SpecializedEducationalUnit /> },
 
-      
-      
+
+
       { path: '/services', element: <Event /> },
       { path: '/media', element: <Complaints /> },
       { path: '/contact-us', element: <ContactUs /> },
