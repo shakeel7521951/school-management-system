@@ -8,7 +8,7 @@ import { useLogoutMutation } from '../../redux/slices/UserApi'
 // Mock search data - replace with your actual data or API calls
 const searchData = [
   { id: 1, title: 'About Tamakon', path: '/about-tamakon', category: 'Tamakon' },
-  { id: 2, title: 'Our Team', path: '/team', category: 'Tamakon' },
+  { id: 2, title: 'Our Team', path: '/tamakon-team', category: 'Tamakon' },
   { id: 3, title: 'Director Message', path: '/director-message', category: 'Tamakon' },
   { id: 4, title: 'Academic Services', path: '/academy-services', category: 'Services' },
   { id: 5, title: 'Speech Therapy', path: '/speech-therapy', category: 'Services' },
@@ -427,7 +427,7 @@ export default function Navbar() {
                   {link.name === "Tamakon" && openDropdown === "Tamakon" && (
                     <div className="ml-4 mt-1 flex flex-col gap-1">
                       <NavLink to="/about-tamakon" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm">About Tamakon</NavLink>
-                      <NavLink to="/team" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm">Team</NavLink>
+                      <NavLink to="/tamakon-team" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm">Team</NavLink>
                       <NavLink to="/director-message" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm">Director Manager Message</NavLink>
                       <NavLink to="/acting-director-message" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm">Acting Director General Message</NavLink>
                       <NavLink to="/school-fees" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm">School Fees</NavLink>

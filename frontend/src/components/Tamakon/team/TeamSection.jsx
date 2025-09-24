@@ -68,8 +68,8 @@ export default function TeamSection() {
                             key={category.id}
                             onClick={() => setActiveCategory(category.id)}
                             className={`px-6 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${activeCategory === category.id
-                                    ? "bg-gradient-to-r from-[#0C3570] to-[#3471b3] text-white shadow-lg"
-                                    : "bg-white text-gray-700 border border-gray-200 hover:border-indigo-300 hover:text-[#3471b3]"
+                                ? "bg-gradient-to-r from-[#0C3570] to-[#3471b3] text-white shadow-lg"
+                                : "bg-white text-gray-700 border border-gray-200 hover:border-indigo-300 hover:text-[#3471b3]"
                                 }`}
                         >
                             {category.name}{" "}
@@ -96,7 +96,7 @@ export default function TeamSection() {
                             <div className="p-6">
                                 {/* Avatar */}
                                 <div className="flex flex-col justify-center items-center mb-4">
-                                    <div className="w-40 h-40 border-2 border-[#3471b3] rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
+                                    <div className="w-40 h-40    border-2 border-gray-200 shadow-lg rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
                                         {member.photo ? (
                                             <img
                                                 src={member.photo}
@@ -135,7 +135,7 @@ export default function TeamSection() {
                                 {/* ✅ View Profile Button */}
                                 <div className="text-center">
                                     <button
-                                        onClick={() => navigate(`/team/${member.id}`)}
+                                        onClick={() => navigate(`/tamakon-team/${member.id}`)}
                                         className="px-5 py-2 rounded-lg bg-gradient-to-r from-[#0C3570] to-[#3471b3] text-white font-medium shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
                                     >
                                         View Profile
