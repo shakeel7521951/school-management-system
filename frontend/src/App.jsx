@@ -65,10 +65,9 @@ import SpecializedEducationalUnit from './pages/AcademicServices/SpecializedEduc
 import SpeechAndLanguageTherapy from './pages/SpeechTherapy/SpeechAndLanguageTherapy'
 import VocationalAndPhysicalDepartment from './pages/SpeechTherapy/VocationalAndPhysicalDepartment'
 import NursingDepartment from './pages/SpeechTherapy/NursingDepartment'
-import VisitorForm from './pages/SecurityDashboard/VisitorForm'
 import SecurityNavbar from './components/securityDashboard/common/SecurityNavbar'
 import SecuritySidebar from './components/securityDashboard/common/SecuritySidebar'
-import VisitorStatus from './pages/SecurityDashboard/VisitorStatus'
+import VisitorPage from './pages/SecurityDashboard/VisitorPage'
 // import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
@@ -197,8 +196,7 @@ const router = createBrowserRouter([
     element: <SecurityRoute />,
     children: [
    
-      { path: '/visitor', element: <VisitorForm /> },
-      { path: '/visitor-status', element: <VisitorStatus /> },
+      { path: '/visitor', element: <VisitorPage /> },
       
     ]
   },

@@ -55,8 +55,7 @@ const SecuritySidebar = () => {
         {/* Menu Items */}
         <nav className="mt-8 flex flex-col gap-3 px-3 flex-grow">
           {[
-            { label: "Visitor", icon: <User size={20} />, path: "/visitor" },
-            { label: "Visitor Status", icon: <Users size={20} />, path: "/visitor-status" },
+            { label: "Visitors", icon: <User size={20} />, path: "/visitor" },
           ].map((item, index) => (
             <Link
               key={index}

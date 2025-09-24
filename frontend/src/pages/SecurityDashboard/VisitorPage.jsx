@@ -1,28 +1,71 @@
 import { useState } from "react";
-import { Eye } from "lucide-react";
-import VisitorViewModal from "../../components/dashboard/visitorTable/VisitorViewModal";
-
-const VisitorStatus = () => {
-  const [selectedVisitor, setSelectedVisitor] = useState(null);
-
-  // Dummy Data
-  const visitors = [
-    { id: 1, name: "Ali Khan", badge: "CNIC-12345", reason: "Meeting", host: "ahmed@company.com", time: "2025-09-19 09:30 AM", status: "Approved" },
-    { id: 2, name: "Sara Ahmed", badge: "EMP-9087", reason: "Interview", host: "hr@company.com", time: "2025-09-19 10:15 AM", status: "Rejected" },
-    { id: 3, name: "John Doe", badge: "DLV-5678", reason: "Delivery", host: "ops@company.com", time: "2025-09-19 11:00 AM", status: "Pending" },
-  ];
+import { Eye, Plus, X } from "lucide-react";
+import VisitorViewModal from "../../components/securityDashboard/VisitorViewModal";
+import VisitorForm from "../../components/securityDashboard/VisitorForm";
+const VisitorPage = () => {
+  const [visitors, setVisitors] = useState([
+    {
+      id: 1,
+      name: "Ali Khan",
+      badge: "CNIC-12345",
+      reason: "Meeting",
+      host: "ahmed@company.com",
+      time: "2025-09-19 09:30 AM",
+      status: "Approved",
+    },
+    {
+      id: 2,
+      name: "Sara Ahmed",
+      badge: "EMP-9087",
+      reason: "Interview",
+      host: "hr@company.com",
+      time: "2025-09-19 10:15 AM",
+      status: "Rejected",
+    },
+    {
+      id: 3,
+      name: "John Doe",
+      badge: "DLV-5678",
+      reason: "Delivery",
+      host: "ops@company.com",
+      time: "2025-09-19 11:00 AM",
+      status: "Pending",
+    },
+  ]);
 
   const [filter, setFilter] = useState("All");
+  const [selectedVisitor, setSelectedVisitor] = useState(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const filteredVisitors =
     filter === "All" ? visitors : visitors.filter((v) => v.status === filter);
 
+  // Add visitor function
+  const handleAddVisitor = (newVisitor) => {
+    const visitorWithMeta = {
+      ...newVisitor,
+      id: visitors.length + 1,
+      time: new Date().toLocaleString(),
+      status: "Pending",
+    };
+    setVisitors([...visitors, visitorWithMeta]);
+    setIsFormOpen(false);
+  };
+
   return (
     <div className="lg:ml-64 min-h-screen bg-gradient-to-br from-[#f5f9ff] to-[#e8f0fa] p-4 sm:p-6 lg:p-8">
       {/* Page Title */}
-      <h1 className="text-2xl md:text-3xl font-bold text-[#104c80] text-center mb-6">
-        Visitor Status
-      </h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold text-[#104c80]">
+          Visitor Management
+        </h1>
+        <button
+          onClick={() => setIsFormOpen(true)}
+          className="flex items-center gap-2 px-4 py-2 rounded-md bg-[#104c80] text-white font-medium shadow-md hover:shadow-lg transition"
+        >
+          <Plus size={18} /> Add Visitor
+        </button>
+      </div>
 
       {/* Filters */}
       <div className="flex justify-center gap-3 mb-6">
@@ -57,7 +100,10 @@ const VisitorStatus = () => {
           </thead>
           <tbody>
             {filteredVisitors.map((v) => (
-              <tr key={v.id} className="border-t hover:bg-slate-50 transition">
+              <tr
+                key={v.id}
+                className="border-t hover:bg-slate-50 transition"
+              >
                 <td className="px-3 py-2 font-medium">{v.name}</td>
                 <td className="px-3 py-2">{v.badge}</td>
                 <td className="px-3 py-2">{v.reason}</td>
@@ -90,15 +136,30 @@ const VisitorStatus = () => {
         </table>
       </div>
 
-      {/* Modal */}
+      {/* View Modal */}
       {selectedVisitor && (
         <VisitorViewModal
           visitor={selectedVisitor}
           onClose={() => setSelectedVisitor(null)}
         />
       )}
+
+      {/* Form Modal */}
+      {isFormOpen && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="relative bg-white rounded-xl shadow-xl w-full max-w-lg">
+            <button
+              onClick={() => setIsFormOpen(false)}
+              className="absolute top-3 right-3 text-slate-500 hover:text-slate-700"
+            >
+              <X size={20} />
+            </button>
+            <VisitorForm onAddVisitor={handleAddVisitor} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default VisitorStatus;
+export default VisitorPage;

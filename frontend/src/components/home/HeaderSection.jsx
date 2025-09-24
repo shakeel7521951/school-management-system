@@ -1,76 +1,147 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, Pagination, Navigation, EffectFade } from "swiper/modules";
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import "swiper/css/effect-fade";
 
-const HeaderSection = () => {
+const floatingVariants = {
+  animate: {
+    y: [0, -20, 0],
+    x: [0, 10, 0],
+    transition: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+  },
+};
+
+export default function HeaderSection() {
   return (
-    <div className="relative ">
+    <div className="relative overflow-hidden">
+      {/* Floating Background Shapes */}
+      <motion.div
+        className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-pink-500/40 to-purple-500/40 rounded-full blur-3xl"
+        variants={floatingVariants}
+        animate="animate"
+      />
+      <motion.div
+        className="absolute bottom-20 right-20 w-40 h-40 bg-gradient-to-r from-blue-400/30 to-cyan-400/30 rounded-full blur-2xl"
+        variants={floatingVariants}
+        animate="animate"
+      />
+
       <Swiper
-        modules={[Autoplay, Pagination, Navigation]}
+        modules={[Autoplay, Pagination, Navigation, EffectFade]}
+        effect="fade"
+        fadeEffect={{ crossFade: true }}
         spaceBetween={0}
         slidesPerView={1}
-        loop={true}
-        autoplay={{ delay: 4000, disableOnInteraction: false }}
-        pagination={{ clickable: true }}
-        navigation={true}
-        className="w-full h-[90vh]"
+        loop
+        autoplay={{ delay: 6000, disableOnInteraction: false }}
+        pagination={{
+          clickable: true,
+          bulletClass: "swiper-pagination-bullet !bg-white/60",
+          bulletActiveClass: "swiper-pagination-bullet-active !bg-white",
+        }}
+        navigation={{ nextEl: ".custom-next", prevEl: ".custom-prev" }}
+        className="w-full h-[90vh] group relative z-10"
       >
-        {/* ---------- Slide 1 ---------- */}
+        {/* Slide 1 */}
         <SwiperSlide>
           <div className="relative w-full h-full">
-            <img
+            <motion.img
               src="./images/hero-bg.jpeg"
-              alt="Slide 1"
+              alt="Admission"
               className="w-full h-full object-cover"
+              initial={{ scale: 1.2 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 6, ease: "easeOut" }}
             />
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/50 flex items-center justify-center">
-              <div className="text-center text-white max-w-4xl px-6">
-                <h1 className="text-3xl md:text-5xl font-extrabold mb-8">
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40 flex items-center justify-center">
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+                className="text-center text-white max-w-3xl px-6"
+              >
+                <h1 className="text-4xl md:text-5xl md:w-[750px] font-bold mb-6">
                   Admission Now Open 2025-2026
                 </h1>
-                <p className="text-lg md:text-2xl text-gray-100 font-semibold mb-8">
-                  Registration is now open for the academic year 2025-2026 with an exclusive early registration offer. Register as soon as possible to take advantage of the discount for all educational levels. 
+                <p className="text-lg md:text-xl text-gray-200 mb-8">
+                  Registration is now open for the academic year 2025-2026 with an exclusive early registration offer.Register as soon as possible to take advantage of the discount for all the educational levels.
                 </p>
-                <button className="px-7 py-4 bg-gradient-to-r from-[#2E2C7E] to-[#2E2C7E] rounded-lg text-white font-semibold shadow-lg hover:scale-105 transition">
+                <motion.button
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 bg-gradient-to-r from-[#2E2C7E] to-[#1E1C5A] rounded-lg text-white text-lg font-semibold shadow-lg"
+                >
                   APPLY NOW
-                </button>
-              </div>
+                </motion.button>
+              </motion.div>
             </div>
           </div>
         </SwiperSlide>
 
-        {/* ---------- Slide 2 ---------- */}
+        {/* Slide 2 */}
         <SwiperSlide>
           <div className="relative w-full h-full">
-            <img
+            <motion.img
               src="./images/about-cover.jpg"
-              alt="Slide 2"
+              alt="Employee Incentive"
               className="w-full h-full object-cover"
+              initial={{ scale: 1.2 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 6, ease: "easeOut" }}
             />
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#224182]/50 to-[#224182]/50 flex items-center justify-center">
-              <div className="text-center text-white max-w-5xl px-6">
-                <h1 className="text-3xl md:text-5xl font-bold mb-8  mt-10">
+            <div className="absolute inset-0 bg-[#224182]/70 flex items-center justify-center">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1 }}
+                className="text-center text-white max-w-3xl px-6"
+              >
+                <h1 className="text-4xl md:text-5xl font-bold mb-6">
                   Employee Incentive Project
                 </h1>
-                <p className="text-lg md:text-2xl font-semibold text-gray-200 mb-6">
-                  Various organisations and institution growth, sustainability, and ensuring their continuity.The success of these organisations is fulfilling their roles depends on a set of resources, with the most important being human resources. In order for the latter to perform their tasks with a high level of efficiency, they need motivation and the desire to accomplish these tasks . This is where the organisation's role comes in, to stimulate these motivations and guide the behaviour of employees towards achieving the goals it has outlined
+                <p className="text-lg md:text-xl mb-8 text-gray-200">
+                 Organizations and institutions strive for growth, sustainability, and continuity. Their success depends greatly on human resources, who must be motivated to work with efficiency. To achieve this, organizations play a key role in inspiring, guiding, and directing employees. This ensures that efforts align with the goals set out for long-term success.
                 </p>
-                <button className="px-12 py-3 text-xl bg-transparent border-2 border-white/80 rounded-lg text-white font-semibold shadow-lg hover:scale-105 transition mt-4">
-                   MORE
-                </button>
-              </div>
+                <motion.button
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-12 py-3 text-lg border-2 border-white rounded-lg text-white"
+                >
+                  MORE
+                </motion.button>
+              </motion.div>
             </div>
           </div>
         </SwiperSlide>
       </Swiper>
+
+      {/* Navigation Arrows */}
+      <div className="absolute top-1/2 -translate-y-1/2 left-6 z-20 hidden md:flex">
+        <div className="custom-prev cursor-pointer bg-gradient-to-r from-[#2E2C7E] to-[#1E1C5A] w-14 h-14 rounded-full flex items-center justify-center shadow-xl">
+          <ChevronLeft className="text-white w-7 h-7" />
+        </div>
+      </div>
+      <div className="absolute top-1/2 -translate-y-1/2 right-6 z-20 hidden md:flex">
+        <div className="custom-next cursor-pointer bg-gradient-to-r from-[#2E2C7E] to-[#1E1C5A] w-14 h-14 rounded-full flex items-center justify-center shadow-xl">
+          <ChevronRight className="text-white w-7 h-7" />
+        </div>
+      </div>
+
+      {/* Progress Bar */}
+      <div className="absolute top-0 left-0 w-full h-[4px] bg-white/30 z-20">
+        <motion.div
+          initial={{ width: "0%" }}
+          animate={{ width: "100%" }}
+          transition={{ duration: 6, ease: "linear", repeat: Infinity }}
+          className="h-full bg-gradient-to-r from-yellow-400 to-pink-500"
+        />
+      </div>
     </div>
   );
-};
-
-export default HeaderSection;
+}
