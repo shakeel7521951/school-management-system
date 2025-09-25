@@ -68,6 +68,8 @@ import NursingDepartment from './pages/SpeechTherapy/NursingDepartment'
 import SecurityNavbar from './components/securityDashboard/common/SecurityNavbar'
 import SecuritySidebar from './components/securityDashboard/common/SecuritySidebar'
 import VisitorPage from './pages/SecurityDashboard/VisitorPage'
+import NewsPage from './pages/News'
+import NewsDetail from './components/news/NewsDetail'
 // import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
@@ -144,11 +146,13 @@ const router = createBrowserRouter([
 
 
 
-      { path: '/services', element: <Event /> },
-      { path: '/media', element: <Complaints /> },
+      // { path: '/services', element: <Event /> },
       { path: '/contact-us', element: <ContactUs /> },
-      { path: '/complainform', element: <ComplaintForm /> },
-      { path: '/complainstatus', element: <ComplaintForm /> },
+      { path: '/news', element: <NewsPage /> },
+       {path: "/news/:slug",element:<NewsDetail />},
+
+      // { path: '/complainform', element: <ComplaintForm /> },
+      // { path: '/complainstatus', element: <ComplaintForm /> },
       { path: '/my-profile', element: <ProfilePage /> },
     ]
   },

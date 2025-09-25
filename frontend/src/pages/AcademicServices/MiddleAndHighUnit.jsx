@@ -19,7 +19,7 @@ const MiddleAndHighUnit = () => {
           transition={{ duration: 1 }}
           className="relative z-10 text-center text-white px-6"
         >
-          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 drop-shadow-2xl tracking-wide leading-15">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 drop-shadow-2xl tracking-wide md:leading-15 leading-10">
            Middle and High Unit for Multiple Intelligences and Talents (Boys)
           </h1>
           <p className="text-base sm:text-lg md:text-lg font-medium text-gray-100 max-w-3xl mx-auto leading-relaxed">
