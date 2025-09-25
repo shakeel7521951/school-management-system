@@ -24,7 +24,7 @@ router.post("/verify-user", verifyUser);
 router.post("/logout", auth, logout);
 router.get("/my-profile", auth, myProfile);
 router.put("/update-password", auth, updatePassword);
-router.get("/all-users", auth, IsAuthenticated(["User"]), allUsers);
+router.get("/all-users", auth, allUsers);
 router.put("/update-user-role", auth, updateUserRole);
 router.post("/forgot-password-otp", forgotPasswordOTP);
 router.post("/verify-otp", verifyOTP);

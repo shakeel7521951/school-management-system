@@ -71,6 +71,8 @@ import VisitorPage from './pages/SecurityDashboard/VisitorPage'
 import GallerySection from './pages/Tamakon/GallerySection'
 import RegistrationForm from './pages/RegistrationForm'
 import BackToTopButton from './pages/BackToTopButton'
+import NewsPage from './pages/News'
+import NewsDetail from './components/news/NewsDetail'
 // import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
@@ -151,11 +153,13 @@ const router = createBrowserRouter([
 
 
 
-      { path: '/services', element: <Event /> },
-      { path: '/media', element: <Complaints /> },
+      // { path: '/services', element: <Event /> },
       { path: '/contact-us', element: <ContactUs /> },
-      { path: '/complainform', element: <ComplaintForm /> },
-      { path: '/complainstatus', element: <ComplaintForm /> },
+      { path: '/news', element: <NewsPage /> },
+       {path: "/news/:slug",element:<NewsDetail />},
+
+      // { path: '/complainform', element: <ComplaintForm /> },
+      // { path: '/complainstatus', element: <ComplaintForm /> },
       { path: '/my-profile', element: <ProfilePage /> },
     ]
   },

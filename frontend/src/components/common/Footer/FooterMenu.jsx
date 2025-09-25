@@ -5,8 +5,8 @@ import { FaArrowRight } from "react-icons/fa";
 export default function FooterMenu({ sectionVariants }) {
   const menuLinks = [
     { name: "News", path: "/news" },
-    { name: "Team", path: "/team" },
-    { name: "FAQ", path: "/faq" },
+    { name: "Team", path: "/tamakon-team" },
+    { name: "FAQ", path: "/faqs" },
     { name: "Contact Us", path: "/contact-us" },
   ];
 
