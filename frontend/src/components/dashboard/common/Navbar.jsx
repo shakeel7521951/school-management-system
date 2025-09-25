@@ -45,17 +45,7 @@ const Navbar = ({
 
       {/* Right Section */}
       <div className="flex items-center space-x-3 sm:space-x-4">
-        {/* Notifications */}
-        <div className="relative">
-          <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 hover:bg-indigo-200 transition-all">
-            <Bell size={20} />
-            {notificationsCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center shadow-sm">
-                {notificationsCount}
-              </span>
-            )}
-          </button>
-        </div>
+        
 
         {/* User Profile */}
         <div className="relative">
@@ -83,17 +73,9 @@ const Navbar = ({
                 <p className="text-sm font-medium text-gray-800">{userName}</p>
                 <p className="text-xs text-gray-500">{userRole}</p>
               </div>
+              
               <a
-                href="#"
-                className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg"
-              >
-                <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-blue-100 text-blue-600 mr-2">
-                  <Settings size={16} />
-                </div>
-                Settings
-              </a>
-              <a
-                href="#"
+                href="/my-profile"
                 className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg"
               >
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-600 mr-2">

@@ -47,7 +47,8 @@ const ComplaintTable = ({
 }) => {
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-      <div className="overflow-x-auto">
+      {/* --- TABLE VIEW (hidden on small screens) --- */}
+      <div className="hidden md:block overflow-x-auto">
         <table className="w-full border-collapse rounded-lg overflow-hidden shadow-sm">
           <thead>
             <tr className="bg-[#10448c] text-white text-sm">
@@ -60,7 +61,7 @@ const ComplaintTable = ({
                 { key: "severity", label: "Severity", width: "w-28" },
                 { key: "impact", label: "Impact", width: "w-28" },
                 { key: "action", label: "Expected Action", width: "w-32" },
-                { key: "status", label: "Status", width: "w-28" }, // new column
+                { key: "status", label: "Status", width: "w-28" },
                 { key: "Action", label: "Action", width: "w-28" },
               ].map(({ key, label, width }) => (
                 <th
@@ -98,134 +99,112 @@ const ComplaintTable = ({
             {paginatedComplaints.map((c, i) => (
               <tr
                 key={c._id}
-                className={`${
-                  i % 2 === 0 ? "bg-white" : "bg-gray-50"
-                } hover:bg-gray-100 transition text-sm`}
+                className={`${i % 2 === 0 ? "bg-white" : "bg-gray-50"
+                  } hover:bg-gray-100 transition text-sm`}
               >
-                {/* Name */}
-                <td className="px-3 py-2">
-                  <div className="flex items-center gap-3">
-                    <div className="bg-indigo-100 p-2 rounded-full">
-                      <FaUser className="text-indigo-600 text-sm" />
-                    </div>
-                    <div>
-                      <div className="text-sm text-nowrap font-medium text-gray-900">
-                        {c.name}
-                      </div>
-                    </div>
+                <td className="px-3 py-2 flex items-center gap-3">
+                  <div className="bg-indigo-100 p-2 rounded-full">
+                    <FaUser className="text-indigo-600 text-sm" />
                   </div>
+                  <span className="font-medium">{c.name}</span>
                 </td>
-
-                {/* Class */}
-                <td className="px-3 py-2 text-center text-gray-700">
-                  {c.studentClass}
-                </td>
-
-                {/* Age */}
-                <td className="px-3 py-2 text-center text-gray-700">{c.age}</td>
-
-                {/* Date */}
-                <td className="px-3 py-2 text-center text-gray-600">
+                <td className="px-3 py-2 text-center">{c.studentClass}</td>
+                <td className="px-3 py-2 text-center">{c.age}</td>
+                <td className="px-3 py-2 text-center">
                   {c.date ? new Date(c.date).toLocaleDateString() : "-"}
                 </td>
-
-                {/* Type */}
                 <td className="px-2 py-2 text-center">
-                  <span
-                    className={`px-2 py-1 text-xs font-medium rounded-full ${
-                      typeColors[c.type] ||
-                      "bg-gray-100 text-gray-700 border border-gray-200"
-                    }`}
-                  >
+                  <span className={`px-2 py-1 text-xs rounded-full ${typeColors[c.type] || "bg-gray-100 text-gray-700"}`}>
                     {c.type}
                   </span>
                 </td>
-
-                {/* Severity */}
                 <td className="px-3 py-2 text-center">
-                  <span
-                    className={`px-2 py-1 text-xs font-medium rounded-full ${
-                      severityColors[c.severity?.toLowerCase()] ||
-                      "bg-gray-100 text-gray-700 border border-gray-200"
-                    }`}
-                  >
+                  <span className={`px-2 py-1 text-xs rounded-full ${severityColors[c.severity?.toLowerCase()] || "bg-gray-100 text-gray-700"}`}>
                     {c.severity}
                   </span>
                 </td>
-
-                {/* Impact */}
-                <td className="px-3 py-2 text-center text-gray-700">{c.impact}</td>
-
-                {/* Expected Action */}
+                <td className="px-3 py-2 text-center">{c.impact}</td>
                 <td className="px-3 py-2 text-center">
                   <span
-                    className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                      c.action === "resolve"
+                    className={`px-2 py-1 text-xs font-semibold rounded-full ${c.action === "resolve"
                         ? "bg-green-100 text-green-700"
                         : c.action === "pending"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-red-100 text-red-700"
-                    }`}
+                          ? "bg-yellow-100 text-yellow-700"
+                          : "bg-red-100 text-red-700"
+                      }`}
                   >
                     {c.action}
                   </span>
                 </td>
-
-                {/* Status */}
                 <td className="px-3 py-2 text-center">
-                  <span
-                    className={`px-2 py-1 text-xs font-semibold rounded-full text-nowrap ${
-                      statusColors[c.status?.toLowerCase()] ||
-                      "bg-gray-100 text-gray-700 border border-gray-200"
-                    }`}
-                  >
+                  <span className={`px-2 py-1 text-xs font-semibold rounded-full ${statusColors[c.status?.toLowerCase()]}`}>
                     {c.status}
                   </span>
                 </td>
-
-                {/* Action buttons */}
                 <td className="px-3 py-2 text-center">
                   <div className="flex justify-center gap-2">
-                    <button
-                      onClick={() => setViewModal({ ...c })}
-                      className="text-indigo-600 hover:bg-indigo-50 p-2 rounded-full transition"
-                      title="View details"
-                    >
+                    <button onClick={() => setViewModal({ ...c })} className="text-indigo-600 hover:bg-indigo-50 p-2 rounded-full">
                       <FaEye />
                     </button>
-                    <button
-                      onClick={() => setEditModal({ ...c })}
-                      className="text-green-600 hover:bg-green-50 p-2 rounded-full transition"
-                      title="Edit complaint"
-                    >
+                    <button onClick={() => setEditModal({ ...c })} className="text-green-600 hover:bg-green-50 p-2 rounded-full">
                       <FaEdit />
                     </button>
-                    <button
-                      onClick={() => setDeleteModal({ ...c })}
-                      className="text-red-600 hover:bg-red-50 p-2 rounded-full transition"
-                      title="Delete complaint"
-                    >
+                    <button onClick={() => setDeleteModal({ ...c })} className="text-red-600 hover:bg-red-50 p-2 rounded-full">
                       <FaTrash />
                     </button>
                   </div>
                 </td>
               </tr>
             ))}
-
-            {/* No complaints found */}
             {filteredComplaints.length === 0 && (
               <tr>
-                <td
-                  colSpan="11"
-                  className="px-4 py-6 text-center text-gray-400 text-sm"
-                >
+                <td colSpan="11" className="px-4 py-6 text-center text-gray-400 text-sm">
                   <FaExclamationTriangle className="mx-auto text-2xl mb-2" />
-                  No complaints found. Try adjusting your filters.
+                  No complaints found.
                 </td>
               </tr>
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* --- CARD VIEW (visible only on small screens) --- */}
+      <div className="block md:hidden p-4 space-y-4">
+        {paginatedComplaints.length > 0 ? (
+          paginatedComplaints.map((c) => (
+            <div key={c._id} className="border rounded-lg shadow p-4 bg-gray-50">
+              <div className="flex items-center gap-2 mb-2">
+                <FaUser className="text-indigo-600" />
+                <h3 className="font-semibold text-gray-900">{c.name}</h3>
+              </div>
+              <p><b>Class:</b> {c.studentClass}</p>
+              <p><b>Age:</b> {c.age}</p>
+              <p><b>Date:</b> {c.date ? new Date(c.date).toLocaleDateString() : "-"}</p>
+              <p><b>Type:</b> <span className={`px-2 py-1 text-xs rounded-full ${typeColors[c.type] || "bg-gray-100 text-gray-700"}`}>{c.type}</span></p>
+              <p><b>Severity:</b> <span className={`px-2 py-1 text-xs rounded-full ${severityColors[c.severity?.toLowerCase()] || "bg-gray-100 text-gray-700"}`}>{c.severity}</span></p>
+              <p><b>Impact:</b> {c.impact}</p>
+              <p><b>Expected Action:</b> {c.action}</p>
+              <p><b>Status:</b> <span className={`px-2 py-1 text-xs rounded-full ${statusColors[c.status?.toLowerCase()]}`}>{c.status}</span></p>
+
+              <div className="flex gap-3 mt-3">
+                <button onClick={() => setViewModal({ ...c })} className="text-indigo-600">
+                  <FaEye />
+                </button>
+                <button onClick={() => setEditModal({ ...c })} className="text-green-600">
+                  <FaEdit />
+                </button>
+                <button onClick={() => setDeleteModal({ ...c })} className="text-red-600">
+                  <FaTrash />
+                </button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="text-center text-gray-400">
+            <FaExclamationTriangle className="mx-auto text-2xl mb-2" />
+            No complaints found.
+          </div>
+        )}
       </div>
     </div>
   );
