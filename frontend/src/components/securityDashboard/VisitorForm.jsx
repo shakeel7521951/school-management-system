@@ -1,24 +1,33 @@
 import { useState } from "react";
 import { User, IdCard, Mail, ClipboardList, CheckCircle2 } from "lucide-react";
+import { useAddVisitorMutation } from "../../redux/slices/VisitorApi";
 
-const VisitorForm = ({ onAddVisitor }) => {
+const VisitorForm = ({ onClose }) => {
   const [form, setForm] = useState({
     name: "",
-    id: "",
+    governmentId: "",
     reason: "Meeting (Host)",
-    host: "",
+    hostEmail: "",
   });
 
-  function handleSubmit(e) {
+  const [addVisitor, { isLoading }] = useAddVisitorMutation();
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    if (!form.name || !form.id) return alert("Please enter name and ID");
-    onAddVisitor({ ...form });
-    setForm({ name: "", id: "", reason: "Meeting (Host)", host: "" });
+    if (!form.name || !form.governmentId) {
+      return alert("Please enter name and ID");
+    }
+    try {
+      await addVisitor(form).unwrap();
+      onClose(); // ✅ close modal after success
+    } catch (err) {
+      console.error("Add visitor failed:", err);
+      alert("Failed to add visitor");
+    }
   }
 
   return (
     <div className="p-6">
-      {/* Form Header */}
       <div className="mb-4">
         <h2 className="text-lg font-bold text-[#104c80]">Visitor Check-in</h2>
         <p className="text-sm text-slate-500">
@@ -26,8 +35,8 @@ const VisitorForm = ({ onAddVisitor }) => {
         </p>
       </div>
 
-      {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Name */}
         <div>
           <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
             <User size={16} className="text-[#104c80]" /> Full name
@@ -41,22 +50,26 @@ const VisitorForm = ({ onAddVisitor }) => {
           />
         </div>
 
+        {/* Government ID */}
         <div>
           <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
             <IdCard size={16} className="text-[#104c80]" /> Government ID / Badge
           </label>
           <input
-            value={form.id}
-            onChange={(e) => setForm({ ...form, id: e.target.value })}
+            value={form.governmentId}
+            onChange={(e) =>
+              setForm({ ...form, governmentId: e.target.value })
+            }
             required
             placeholder="e.g. CNIC, Employee Badge"
             className="mt-2 w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#104c80] outline-none transition"
           />
         </div>
 
+        {/* Reason */}
         <div>
           <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
-            <ClipboardList size={16} className="text-[#104c80]" /> Reason for visit
+            <ClipboardList size={16} className="text-[#104c80]" /> Reason
           </label>
           <select
             value={form.reason}
@@ -71,23 +84,25 @@ const VisitorForm = ({ onAddVisitor }) => {
           </select>
         </div>
 
+        {/* Host */}
         <div>
           <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
-            <Mail size={16} className="text-[#104c80]" /> Host employee email or name
+            <Mail size={16} className="text-[#104c80]" /> Host email
           </label>
           <input
-            value={form.host}
-            onChange={(e) => setForm({ ...form, host: e.target.value })}
-            placeholder="Enter host's email or name"
+            value={form.hostEmail}
+            onChange={(e) => setForm({ ...form, hostEmail: e.target.value })}
+            placeholder="Enter host's email"
             className="mt-2 w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#104c80] outline-none transition"
           />
         </div>
 
         <button
           type="submit"
-          className="w-full py-3 flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#104c80] to-[#0d3a62] text-white font-semibold shadow-md hover:shadow-lg transition"
+          disabled={isLoading}
+          className="w-full py-3 flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#104c80] to-[#0d3a62] text-white font-semibold shadow-md hover:shadow-lg transition disabled:opacity-50"
         >
-          <CheckCircle2 size={20} /> Check in
+          <CheckCircle2 size={20} /> {isLoading ? "Submitting..." : "Check in"}
         </button>
       </form>
     </div>

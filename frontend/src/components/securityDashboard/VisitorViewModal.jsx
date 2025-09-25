@@ -1,6 +1,8 @@
 import { X } from "lucide-react";
 
 const VisitorViewModal = ({ visitor, onClose }) => {
+  if (!visitor) return null;
+
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="relative bg-white rounded-xl shadow-xl w-full max-w-md p-6">
@@ -21,24 +23,25 @@ const VisitorViewModal = ({ visitor, onClose }) => {
             <span className="font-medium">Name:</span> {visitor.name}
           </p>
           <p>
-            <span className="font-medium">Badge:</span> {visitor.badge}
+            <span className="font-medium">Badge:</span> {visitor.governmentId}
           </p>
           <p>
             <span className="font-medium">Reason:</span> {visitor.reason}
           </p>
           <p>
-            <span className="font-medium">Host:</span> {visitor.host}
+            <span className="font-medium">Host:</span> {visitor.hostEmail}
           </p>
           <p>
-            <span className="font-medium">Check-in Time:</span> {visitor.time}
+            <span className="font-medium">Check-in Time:</span>{" "}
+            {new Date(visitor.createdAt).toLocaleString()}
           </p>
           <p>
             <span className="font-medium">Status:</span>{" "}
             <span
               className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                visitor.status === "Approved"
+                visitor.status === "approved"
                   ? "bg-green-100 text-green-700"
-                  : visitor.status === "Rejected"
+                  : visitor.status === "rejected"
                   ? "bg-red-100 text-red-700"
                   : "bg-yellow-100 text-yellow-700"
               }`}

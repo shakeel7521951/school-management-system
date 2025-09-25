@@ -68,6 +68,9 @@ import NursingDepartment from './pages/SpeechTherapy/NursingDepartment'
 import SecurityNavbar from './components/securityDashboard/common/SecurityNavbar'
 import SecuritySidebar from './components/securityDashboard/common/SecuritySidebar'
 import VisitorPage from './pages/SecurityDashboard/VisitorPage'
+import GallerySection from './pages/Tamakon/GallerySection'
+import RegistrationForm from './pages/RegistrationForm'
+import BackToTopButton from './pages/BackToTopButton'
 import NewsPage from './pages/News'
 import NewsDetail from './components/news/NewsDetail'
 // import MyProfile from './pages/MyProfile'
@@ -78,6 +81,7 @@ const MainFunction = () => {
       <Navbar />
       <Outlet />
       <Footer />
+      <BackToTopButton />,
     </div>
   )
 }
@@ -88,6 +92,7 @@ const AdminRoute = () => {
       <Navbarr />
       <Sidebaar />
       <Outlet />
+
     </div>
   )
 }
@@ -138,11 +143,13 @@ const router = createBrowserRouter([
       { path: "/middle-unit", element: <MiddleAndHighUnit /> },
       { path: "/primary-unit", element: <PrimaryUnit /> },
       { path: "/public-relations", element: <PublicRelations /> },
-      {path: "/financial-affairs", element: <FinancialAndAdministrativeAffairs />},
+      { path: "/financial-affairs", element: <FinancialAndAdministrativeAffairs /> },
       { path: "/educational-unit", element: <SpecializedEducationalUnit /> },
       { path: "/speech-therapy", element: <SpeechAndLanguageTherapy /> },
       { path: "/vocational-rehabilitation", element: <VocationalAndPhysicalDepartment /> },
       { path: "/nursing-department", element: <NursingDepartment /> },
+      { path: "/gallery", element: <GallerySection /> },
+      { path: "/registration-form", element: <RegistrationForm /> },
 
 
 
@@ -196,12 +203,12 @@ const router = createBrowserRouter([
       // { path: '/teacherprofile', element: <TeacherProfile /> }
     ]
   },
-   {
+  {
     element: <SecurityRoute />,
     children: [
-   
+
       { path: '/visitor', element: <VisitorPage /> },
-      
+
     ]
   },
   { path: "/form-editor", element: <EditorPage /> },
