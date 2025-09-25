@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, EffectFade } from "swiper/modules";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -72,13 +73,15 @@ export default function HeaderSection() {
                 <p className="text-lg md:text-xl text-gray-200 mb-8">
                   Registration is now open for the academic year 2025-2026 with an exclusive early registration offer.Register as soon as possible to take advantage of the discount for all the educational levels.
                 </p>
-                <motion.button
-                  whileHover={{ scale: 1.08 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-gradient-to-r from-[#224182] to-[#3b63bb] rounded-lg text-white text-lg font-semibold shadow-lg"
-                >
-                  APPLY NOW
-                </motion.button>
+                <Link to="/registration-form">
+                  <motion.button
+                    whileHover={{ scale: 1.08 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-8 py-4 bg-gradient-to-r from-[#224182] to-[#3b63bb] rounded-lg text-white text-lg font-semibold shadow-lg"
+                  >
+                    APPLY NOW
+                  </motion.button>
+                </Link>
               </motion.div>
             </div>
           </div>
@@ -108,13 +111,15 @@ export default function HeaderSection() {
                 <p className="text-lg md:text-xl mb-8 text-gray-200">
                   Organizations and institutions strive for growth, sustainability, and continuity. Their success depends greatly on human resources, who must be motivated to work with efficiency. To achieve this, organizations play a key role in inspiring, guiding, and directing employees. This ensures that efforts align with the goals set out for long-term success.
                 </p>
-                <motion.button
-                  whileHover={{ scale: 1.08 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-12 py-4 text-lg bg-gradient-to-r from-[#224182] to-[#3b63bb] rounded-lg"
-                >
-                  MORE
-                </motion.button>
+                <Link to="/tamakon-team">
+                  <motion.button
+                    whileHover={{ scale: 1.08 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-12 py-4 text-lg bg-gradient-to-r from-[#224182] to-[#3b63bb] rounded-lg"
+                  >
+                    MORE
+                  </motion.button>
+                </Link>
               </motion.div>
             </div>
           </div>
@@ -123,12 +128,12 @@ export default function HeaderSection() {
 
       {/* Navigation Arrows */}
       <div className="absolute top-1/2 -translate-y-1/2 left-6 z-20 hidden md:flex">
-        <div className="custom-prev cursor-pointer bg-gradient-to-r from-[#2E2C7E] to-[#1E1C5A] w-14 h-14 rounded-full flex items-center justify-center shadow-xl">
+        <div className="custom-prev cursor-pointer bg-gradient-to-r from-[#224182] to-[#3b63bb] w-14 h-14 rounded-full flex items-center justify-center shadow-xl">
           <ChevronLeft className="text-white w-7 h-7" />
         </div>
       </div>
       <div className="absolute top-1/2 -translate-y-1/2 right-6 z-20 hidden md:flex">
-        <div className="custom-next cursor-pointer bg-gradient-to-r from-[#2E2C7E] to-[#1E1C5A] w-14 h-14 rounded-full flex items-center justify-center shadow-xl">
+        <div className="custom-next cursor-pointer bg-gradient-to-r from-[#224182] to-[#3b63bb] w-14 h-14 rounded-full flex items-center justify-center shadow-xl">
           <ChevronRight className="text-white w-7 h-7" />
         </div>
       </div>

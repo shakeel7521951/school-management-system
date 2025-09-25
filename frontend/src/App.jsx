@@ -69,6 +69,10 @@ import SecurityNavbar from './components/securityDashboard/common/SecurityNavbar
 import SecuritySidebar from './components/securityDashboard/common/SecuritySidebar'
 import VisitorPage from './pages/SecurityDashboard/VisitorPage'
 import GallerySection from './pages/Tamakon/GallerySection'
+import RegistrationForm from './pages/RegistrationForm'
+import BackToTopButton from './pages/BackToTopButton'
+import NewsPage from './pages/News'
+import NewsDetail from './components/news/NewsDetail'
 // import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
@@ -77,6 +81,7 @@ const MainFunction = () => {
       <Navbar />
       <Outlet />
       <Footer />
+      <BackToTopButton />,
     </div>
   )
 }
@@ -87,6 +92,7 @@ const AdminRoute = () => {
       <Navbarr />
       <Sidebaar />
       <Outlet />
+
     </div>
   )
 }
@@ -143,14 +149,17 @@ const router = createBrowserRouter([
       { path: "/vocational-rehabilitation", element: <VocationalAndPhysicalDepartment /> },
       { path: "/nursing-department", element: <NursingDepartment /> },
       { path: "/gallery", element: <GallerySection /> },
+      { path: "/registration-form", element: <RegistrationForm /> },
 
 
 
-      { path: '/services', element: <Event /> },
-      { path: '/media', element: <Complaints /> },
+      // { path: '/services', element: <Event /> },
       { path: '/contact-us', element: <ContactUs /> },
-      { path: '/complainform', element: <ComplaintForm /> },
-      { path: '/complainstatus', element: <ComplaintForm /> },
+      { path: '/news', element: <NewsPage /> },
+       {path: "/news/:slug",element:<NewsDetail />},
+
+      // { path: '/complainform', element: <ComplaintForm /> },
+      // { path: '/complainstatus', element: <ComplaintForm /> },
       { path: '/my-profile', element: <ProfilePage /> },
     ]
   },
