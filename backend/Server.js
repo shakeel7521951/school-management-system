@@ -11,6 +11,7 @@ import userRoutes from "./routes/useRoutes.js";
 import formRoutes from './routes/FormRoutes.js';
 import formSubmissionRoutes from "./routes/FormSubmissionRoutes.js";
 import stComplaintRoutes from "./routes/stComplaintRoutes.js";
+import visitorRoutes from "./routes/VisitorRoutes.js";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -35,5 +36,6 @@ app.use(userRoutes)
 app.use(formRoutes)
 app.use(formSubmissionRoutes)
 app.use(stComplaintRoutes)
+app.use(visitorRoutes);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
