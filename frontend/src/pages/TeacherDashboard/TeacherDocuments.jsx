@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Bell, PlusCircle, FileText, Edit, Trash2, Eye, Download, Printer } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const ResponseForm = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const ResponseForm = () => {
   const fetchForms = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/getForms');
+      const response = await fetch(`${BACKEND_URL}/getForms`);
       if (!response.ok) {
         throw new Error('Failed to fetch forms');
       }
