@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Bell, PlusCircle, FileText, Edit, Trash2, Eye, Download, Printer } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const ResponseForm = () => {
   const navigate = useNavigate();
@@ -17,22 +18,16 @@ const ResponseForm = () => {
   const fetchForms = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/getForms');
-      if (!response.ok) {
-        throw new Error('Failed to fetch forms');
-      }
-      const data = await response.json();
-      setForms(data);
+      const response = await axios.get(`${BACKEND_URL}/getForms`, { withCredentials: true });
+      setForms(response.data);
       setError(null);
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.message || err.message);
       console.error('Error fetching forms:', err);
     } finally {
       setLoading(false);
     }
   };
-
- 
 
   const handleDownloadHTML = (form) => {
     const blob = new Blob([form.html], { type: 'text/html' });
@@ -50,8 +45,8 @@ const ResponseForm = () => {
     const printWindow = window.open('', '_blank');
     printWindow.document.write(form.html);
     printWindow.document.close();
-    
-    printWindow.onload = function() {
+
+    printWindow.onload = function () {
       printWindow.focus();
       printWindow.print();
     };
@@ -101,7 +96,7 @@ const ResponseForm = () => {
         {error && (
           <div className="mb-6 p-4 bg-red-100 border border-red-300 text-red-700 rounded-lg">
             <p>Error: {error}</p>
-            <button 
+            <button
               onClick={fetchForms}
               className="mt-2 px-3 py-1 bg-red-600 text-white rounded text-sm"
             >
@@ -140,9 +135,8 @@ const ResponseForm = () => {
                   {forms.map((form, i) => (
                     <tr
                       key={form._id}
-                      className={`transition ${
-                        i % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-                      } hover:bg-blue-50/60`}
+                      className={`transition ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                        } hover:bg-blue-50/60`}
                     >
                       <td className='px-6 py-4 text-gray-800 font-semibold'>
                         {form.title}
@@ -150,11 +144,10 @@ const ResponseForm = () => {
                       <td className='px-6 py-4 text-gray-700'>{formatDate(form.createdAt)}</td>
                       <td className='px-6 py-4 text-gray-700'>{formatDate(form.updatedAt)}</td>
                       <td className='px-6 py-4'>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          form.isPublished 
-                            ? 'bg-green-100 text-green-800' 
-                            : 'bg-yellow-100 text-yellow-800'
-                        }`}>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${form.isPublished
+                          ? 'bg-green-100 text-green-800'
+                          : 'bg-yellow-100 text-yellow-800'
+                          }`}>
                           {form.isPublished ? 'Published' : 'Draft'}
                         </span>
                       </td>
@@ -167,7 +160,7 @@ const ResponseForm = () => {
                           >
                             <Eye className="w-4 h-4" />
                           </button>
-                         
+
                           <button
                             onClick={() => handleDownloadHTML(form)}
                             className="p-2 text-purple-600 hover:bg-purple-100 rounded-full transition"
@@ -182,7 +175,7 @@ const ResponseForm = () => {
                           >
                             <Printer className="w-4 h-4" />
                           </button>
-                        
+
                         </div>
                       </td>
                     </tr>
@@ -202,11 +195,10 @@ const ResponseForm = () => {
                     <h3 className='font-semibold text-gray-800 flex items-center gap-2'>
                       <FileText className='w-4 h-4 text-[#104c80]' /> {form.title}
                     </h3>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      form.isPublished 
-                        ? 'bg-green-100 text-green-800' 
-                        : 'bg-yellow-100 text-yellow-800'
-                    }`}>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${form.isPublished
+                      ? 'bg-green-100 text-green-800'
+                      : 'bg-yellow-100 text-yellow-800'
+                      }`}>
                       {form.isPublished ? 'Published' : 'Draft'}
                     </span>
                   </div>

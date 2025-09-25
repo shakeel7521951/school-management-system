@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { selectUserProfile } from "../redux/slices/UserSlice";
 import { useLogoutMutation } from "../redux/slices/UserApi";
 import { useNavigate } from "react-router-dom";
-import { FaUserCircle, FaLock, FaTimes, FaSignOutAlt } from "react-icons/fa";
+import { FaUserCircle, FaLock, FaTimes, FaSignOutAlt, FaCamera } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
 const ProfilePage = () => {
@@ -17,6 +17,9 @@ const ProfilePage = () => {
     newPassword: "",
     confirmPassword: "",
   });
+
+  // Local state for image preview
+  const [profileImage, setProfileImage] = useState(profile?.profilePic || null);
 
   const handleLogout = async () => {
     try {
@@ -38,47 +41,74 @@ const ProfilePage = () => {
     setPasswords({ oldPassword: "", newPassword: "", confirmPassword: "" });
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageURL = URL.createObjectURL(file);
+      setProfileImage(imageURL);
+
+      // 🔹 TODO: send file to backend via API (upload to server or cloud)
+      console.log("Profile picture selected:", file);
+    }
+  };
+
   return (
-    <div className="min-h-screen mt-10 px-4 flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen px-4 flex items-center justify-center bg-gray-100">
       {/* Card Container */}
-      <div className="relative  bg-white shadow-xl rounded-3xl w-full max-w-lg text-center overflow-hidden">
+      <div className="relative bg-white shadow-xl rounded-3xl w-full max-w-lg text-center overflow-hidden">
         {/* Gradient Header */}
         <div className="h-36 bg-[#104c80]"></div>
 
-        {/* Profile Image */}
+        {/* Profile Image with Edit */}
         <div className="absolute top-16 left-1/2 transform -translate-x-1/2">
-          {profile?.profilePic ? (
-            <img
-              src={profile.profilePic}
-              alt="Profile"
-              className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-lg"
+          <div className="relative group">
+            {profileImage ? (
+              <img
+                src={profileImage}
+                alt="Profile"
+                className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-lg"
+              />
+            ) : (
+              <FaUserCircle className="w-28 h-28 text-gray-300 bg-gray-200 rounded-full border-4 border-white shadow-lg" />
+            )}
+
+            {/* Camera Icon for Upload */}
+            <label
+              htmlFor="profile-upload"
+              className="absolute bottom-1 right-1 bg-[#104c80] text-white p-2 rounded-full 
+                         cursor-pointer shadow-md hover:bg-[#08345d] transition"
+            >
+              <FaCamera size={14} />
+            </label>
+            <input
+              type="file"
+              id="profile-upload"
+              accept="image/*"
+              className="hidden"
+              onChange={handleImageUpload}
             />
-          ) : (
-            <FaUserCircle className="w-28 h-28 text-white bg-gray-200 rounded-full border-4 border-white shadow-lg" />
-          )}
+          </div>
         </div>
 
         {/* Content */}
         <div className="mt-20 px-6 pb-8">
-          {/* User Name - Prominent */}
+          {/* User Name */}
           <h2 className="text-3xl font-extrabold text-gray-900">
-            {profile?.name }
+            {profile?.name}
           </h2>
 
           {/* Role */}
           <p className="text-[#104c80] font-medium text-sm mt-1">
-            {profile?.role }
+            {profile?.role}
           </p>
 
           {/* Email & Phone */}
-          <p className="text-gray-600 text-sm mt-2">
-            {profile?.email}
-          </p>
+          <p className="text-gray-600 text-sm mt-2">{profile?.email}</p>
           <p className="text-gray-600 text-sm">{profile?.phone || "+1 234 567 890"}</p>
 
           {/* Action Buttons */}
           <div className="mt-8 flex flex-col gap-3 items-center">
-            {/* Smaller Change Password Button */}
+            {/* Change Password */}
             <button
               onClick={() => setShowModal(true)}
               className="bg-[#104c80] text-white px-5 py-2 rounded-full font-medium shadow hover:bg-[#08345d] transition w-auto"
@@ -86,7 +116,7 @@ const ProfilePage = () => {
               Change Password
             </button>
 
-            {/* Better Logout Button */}
+            {/* Logout */}
             <button
               onClick={handleLogout}
               className="flex items-center gap-2 text-sm text-red-600 font-medium border border-red-500 px-5 py-2 rounded-full hover:bg-red-50 transition"

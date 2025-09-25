@@ -38,20 +38,20 @@ const RegistrationForm = () => {
                     </div>
 
                     <div>
-                        <label className="block font-semibold mb-1">Nationality</label>
+                        <label className="block font-semibold mb-1">Personal ID Number</label>
                         <input
                             type="text"
-                            name="nationality"
+                            name="id_number"
                             className="w-full border border-gray-300 p-3 rounded-md focus:ring-2 focus:ring-[#1c60a3] outline-none"
                         />
                     </div>
 
-                    {/* Contact Info */}
+
                     <div>
-                        <label className="block font-semibold mb-1">Home Phone</label>
+                        <label className="block font-semibold mb-1">Father’s Name</label>
                         <input
-                            type="tel"
-                            name="home_phone"
+                            type="text"
+                            name="father_name"
                             className="w-full border border-gray-300 p-3 rounded-md focus:ring-2 focus:ring-[#1c60a3] outline-none"
                         />
                     </div>
@@ -66,34 +66,6 @@ const RegistrationForm = () => {
                     </div>
 
                     <div>
-                        <label className="block font-semibold mb-1">Mother’s Mobile</label>
-                        <input
-                            type="tel"
-                            name="mother_mobile"
-                            className="w-full border border-gray-300 p-3 rounded-md focus:ring-2 focus:ring-[#1c60a3] outline-none"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block font-semibold mb-1">Personal ID Number</label>
-                        <input
-                            type="text"
-                            name="id_number"
-                            className="w-full border border-gray-300 p-3 rounded-md focus:ring-2 focus:ring-[#1c60a3] outline-none"
-                        />
-                    </div>
-
-                    {/* Parent Info */}
-                    <div>
-                        <label className="block font-semibold mb-1">Father’s Name</label>
-                        <input
-                            type="text"
-                            name="father_name"
-                            className="w-full border border-gray-300 p-3 rounded-md focus:ring-2 focus:ring-[#1c60a3] outline-none"
-                        />
-                    </div>
-
-                    <div>
                         <label className="block font-semibold mb-1">Father’s Occupation</label>
                         <input
                             type="text"
@@ -102,11 +74,22 @@ const RegistrationForm = () => {
                         />
                     </div>
 
+
+
                     <div>
                         <label className="block font-semibold mb-1">Mother’s Name</label>
                         <input
                             type="text"
                             name="mother_name"
+                            className="w-full border border-gray-300 p-3 rounded-md focus:ring-2 focus:ring-[#1c60a3] outline-none"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block font-semibold mb-1">Mother’s Mobile</label>
+                        <input
+                            type="tel"
+                            name="mother_mobile"
                             className="w-full border border-gray-300 p-3 rounded-md focus:ring-2 focus:ring-[#1c60a3] outline-none"
                         />
                     </div>
@@ -119,6 +102,38 @@ const RegistrationForm = () => {
                             className="w-full border border-gray-300 p-3 rounded-md focus:ring-2 focus:ring-[#1c60a3] outline-none"
                         />
                     </div>
+
+
+
+
+                    <div>
+                        <label className="block font-semibold mb-1">Home Phone</label>
+                        <input
+                            type="tel"
+                            name="home_phone"
+                            className="w-full border border-gray-300 p-3 rounded-md focus:ring-2 focus:ring-[#1c60a3] outline-none"
+                        />
+                    </div>
+
+
+                    <div>
+                        <label className="block font-semibold mb-1">Nationality</label>
+                        <input
+                            type="text"
+                            name="nationality"
+                            className="w-full border border-gray-300 p-3 rounded-md focus:ring-2 focus:ring-[#1c60a3] outline-none"
+                        />
+                    </div>
+
+
+
+
+
+
+
+
+
+
 
                     {/* School Info */}
                     <div className="md:col-span-2">

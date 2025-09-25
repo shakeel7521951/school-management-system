@@ -314,7 +314,7 @@ export default function Navbar() {
                       {profile?.role === 'admin' && <NavLink to='/admincomplain' className='block px-4 py-2 hover:text-indigo-700'>Admin Dashboard</NavLink>}
                       {profile?.role === 'teacher' && <NavLink to='/teacherdocuments' className='block px-4 py-2 hover:text-indigo-700'>Teacher Dashboard</NavLink>}
                       {profile?.role === 'visitor' && <NavLink to='/visitor' className='block px-4 py-2 hover:text-indigo-700'>Visitor Dashboard</NavLink>}
-                      {profile?.role?.toLowerCase() === 'user' && <NavLink to='/stcomplaints' className='block px-4 py-2 hover:text-indigo-700'>Student Dashboard</NavLink>}
+                      {profile?.role?.toLowerCase() === 'student' && <NavLink to='/stcomplaints' className='block px-4 py-2 hover:text-indigo-700'>Student Dashboard</NavLink>}
                       <button
                         onClick={handleLogout}
                         disabled={isLoading}
@@ -532,7 +532,7 @@ export default function Navbar() {
                       Teacher Dashboard
                     </NavLink>
                   )}
-                  {profile?.role?.toLowerCase() === "user" && (
+                  {profile?.role?.toLowerCase() === "student" && (
                     <NavLink
                       to="/stcomplaints"
                       className="block px-4 py-2 text-gray-700 hover:text-indigo-700 transition"

@@ -1,27 +1,18 @@
 import React, { useState } from "react";
-import { Bell, Search, Menu, Pencil } from "lucide-react";
+import { Bell, Search, Menu } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const TeacherNavbar = () => {
+const StudentNavbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [profileImage, setProfileImage] = useState(null);
-  const [userName] = useState("Daniya"); // Later fetch from API
+  const [userName] = useState("Sara"); // Later fetch from API
 
   // Get first letter of name
   const initial = userName ? userName.charAt(0).toUpperCase() : "?";
 
-  // Handle image upload
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const imageURL = URL.createObjectURL(file);
-      setProfileImage(imageURL);
-    }
-  };
-
   return (
     <nav
       className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm 
-                 px-4 py-3 flex items-center justify-between md:ml-64 transition-all"
+                 px-4 py-3 flex items-center justify-between md:ml-20 lg:ml-64 transition-all"
     >
       {/* Left: Hamburger on Mobile + Search on Desktop */}
       <div className="flex items-center gap-4 flex-1">
@@ -49,58 +40,20 @@ const TeacherNavbar = () => {
 
       {/* Right: Actions */}
       <div className="flex items-center gap-6">
-        {/* Notifications */}
-        <button className="relative hover:scale-110 transition-transform hidden sm:block">
-          <Bell size={22} className="text-gray-600 hover:text-[#104C80]" />
-          <span
-            className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 
-                       flex items-center justify-center rounded-full shadow"
+        {/* Profile + Name (Linked to Profile Page) */}
+        <Link
+          to="/my-profile"
+          className="flex items-center gap-3 cursor-pointer hover:opacity-90 transition"
+        >
+          <div
+            className="w-10 h-10 flex items-center justify-center rounded-full 
+                       bg-gradient-to-r from-[#104C80] to-[#1e64a9] 
+                       text-white font-semibold shadow-lg text-base"
           >
-            3
-          </span>
-        </button>
-
-        {/* Profile + Name (Grouped) */}
-        <div className="flex items-center gap-3 cursor-pointer group">
-          <label htmlFor="teacher-profile-upload" className="block relative">
-            {/* Avatar */}
-            {profileImage ? (
-              <img
-                src={profileImage}
-                alt="Profile"
-                className="w-10 h-10 rounded-full object-cover shadow-lg"
-              />
-            ) : (
-              <div
-                className="w-10 h-10 flex items-center justify-center rounded-full 
-                           bg-gradient-to-r from-[#104C80] to-[#1e64a9] 
-                           text-white font-semibold shadow-lg text-base"
-              >
-                {initial}
-              </div>
-            )}
-
-            {/* Overlay with Pencil (hover effect) */}
-            <div
-              className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center 
-                         rounded-full opacity-0 group-hover:opacity-100 transition"
-            >
-              <Pencil size={16} className="text-white" />
-            </div>
-          </label>
-
-          {/* User name */}
+            {initial}
+          </div>
           <span className="text-sm font-medium text-gray-700">{userName}</span>
-
-          {/* Hidden file input */}
-          <input
-            type="file"
-            id="teacher-profile-upload"
-            accept="image/*"
-            className="hidden"
-            onChange={handleImageUpload}
-          />
-        </div>
+        </Link>
       </div>
 
       {/* Mobile Slide Menu */}
@@ -110,7 +63,7 @@ const TeacherNavbar = () => {
                      flex flex-col p-6 gap-6 md:hidden animate-slide-in"
         >
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-[#104C80]">Teacher Menu</h2>
+            <h2 className="text-lg font-semibold text-[#104C80]">Menu</h2>
             <button
               className="text-gray-400 hover:text-[#104C80]"
               onClick={() => setMenuOpen(false)}
@@ -141,32 +94,24 @@ const TeacherNavbar = () => {
           </button>
 
           {/* Profile in mobile menu */}
-          <label
-            htmlFor="teacher-profile-upload"
+          <Link
+            to="/my-profile"
             className="flex items-center gap-3 cursor-pointer bg-gray-50 
                        hover:bg-gray-100 p-3 rounded-xl transition"
           >
-            {profileImage ? (
-              <img
-                src={profileImage}
-                alt="Profile"
-                className="w-10 h-10 rounded-full object-cover shadow-lg"
-              />
-            ) : (
-              <div
-                className="w-10 h-10 flex items-center justify-center rounded-full 
-                           bg-gradient-to-r from-[#104C80] to-[#1e64a9] 
-                           text-white font-semibold shadow-lg text-base"
-              >
-                {initial}
-              </div>
-            )}
+            <div
+              className="w-10 h-10 flex items-center justify-center rounded-full 
+                         bg-gradient-to-r from-[#104C80] to-[#1e64a9] 
+                         text-white font-semibold shadow-lg text-base"
+            >
+              {initial}
+            </div>
             <span className="text-sm font-medium text-gray-700">{userName}</span>
-          </label>
+          </Link>
         </div>
       )}
     </nav>
   );
 };
 
-export default TeacherNavbar;
+export default StudentNavbar;
