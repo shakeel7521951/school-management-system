@@ -2,116 +2,90 @@ import React from "react";
 
 const RegistrationForm = () => {
     return (
-        <div className="w-full bg-gradient-to-r from-blue-50/50 to-pink-50/50 px-4 sm:px-6 lg:px-8 xl:px-12 py-8">
-            <div className="max-w-6xl mx-auto bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center text-[#1c60a3] mb-8">
-                    Student Registration Form | استمارة تسجيل طالب
+        <div className="w-full bg-gradient-to-r from-blue-50 via-white to-pink-50 px-4 sm:px-6 lg:px-8 py-12">
+            <div className="max-w-4xl mx-auto bg-white p-8 sm:p-10 md:p-12 rounded-2xl shadow-2xl border border-gray-100">
+                {/* Title */}
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-center text-[#1c60a3] mb-10">
+                    Student Registration Form
                 </h2>
 
+                {/* Form */}
                 <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* English Column */}
-                    <div>
-                        {[
-                            { label: "Registration Date", type: "date", name: "registration_date" },
-                            { label: "Child’s Name", type: "text", name: "child_name_en" },
-                            { label: "Age", type: "number", name: "age" },
-                            { label: "Nationality", type: "text", name: "nationality" },
-                            { label: "Date of Birth", type: "date", name: "dob" },
-                            { label: "Home Phone", type: "tel", name: "home_phone" },
-                            { label: "Mother’s Mobile", type: "tel", name: "mother_mobile" },
-                            { label: "Father’s Mobile", type: "tel", name: "father_mobile" },
-                            { label: "Personal ID Number", type: "text", name: "id_number" },
-                            { label: "Father’s Name", type: "text", name: "father_name" },
-                            { label: "Mother’s Name", type: "text", name: "mother_name" },
-                            { label: "Father’s Occupation", type: "text", name: "father_job" },
-                            { label: "Mother’s Occupation", type: "text", name: "mother_job" },
-                            { label: "Previous School", type: "text", name: "previous_school" },
-                        ].map((field, index) => (
-                            <div key={index} className={index !== 0 ? "mt-3" : ""}>
-                                <label className="block font-semibold mb-1">{field.label}</label>
-                                <input
-                                    type={field.type}
-                                    name={field.name}
-                                    className="w-full border border-gray-300 p-2 rounded-md"
-                                />
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Arabic Column */}
-                    <div className="text-right">
-                        {[
-                            { label: "تاريخ التسجيل", type: "date", name: "registration_date_ar" },
-                            { label: "اسم الطفل", type: "text", name: "child_name_ar" },
-                            { label: "العمر", type: "number", name: "age_ar" },
-                            { label: "الجنسية", type: "text", name: "nationality_ar" },
-                            { label: "تاريخ الميلاد", type: "date", name: "dob_ar" },
-                            { label: "هاتف المنزل", type: "tel", name: "home_phone_ar" },
-                            { label: "جوال الأم", type: "tel", name: "mother_mobile_ar" },
-                            { label: "جوال الأب", type: "tel", name: "father_mobile_ar" },
-                            { label: "الرقم الشخصي", type: "text", name: "id_number_ar" },
-                            { label: "اسم الأب", type: "text", name: "father_name_ar" },
-                            { label: "اسم الأم", type: "text", name: "mother_name_ar" },
-                            { label: "عمل الأب", type: "text", name: "father_job_ar" },
-                            { label: "عمل الأم", type: "text", name: "mother_job_ar" },
-                            { label: "المدرسة السابقة", type: "text", name: "previous_school_ar" },
-                        ].map((field, index) => (
-                            <div key={index} className={index !== 0 ? "mt-3" : ""}>
-                                <label className="block font-semibold mb-1">{field.label}</label>
-                                <input
-                                    type={field.type}
-                                    name={field.name}
-                                    className="w-full border border-gray-300 p-2 rounded-md"
-                                />
-                            </div>
-                        ))}
-                    </div>
+                    {[
+                        { label: "Registration Date", type: "date", name: "registration_date" },
+                        { label: "Child’s Name", type: "text", name: "child_name" },
+                        { label: "Age", type: "number", name: "age" },
+                        { label: "Nationality", type: "text", name: "nationality" },
+                        { label: "Date of Birth", type: "date", name: "dob" },
+                        { label: "Home Phone", type: "tel", name: "home_phone" },
+                        { label: "Mother’s Mobile", type: "tel", name: "mother_mobile" },
+                        { label: "Father’s Mobile", type: "tel", name: "father_mobile" },
+                        { label: "Personal ID Number", type: "text", name: "id_number" },
+                        { label: "Father’s Name", type: "text", name: "father_name" },
+                        { label: "Mother’s Name", type: "text", name: "mother_name" },
+                        { label: "Father’s Occupation", type: "text", name: "father_job" },
+                        { label: "Mother’s Occupation", type: "text", name: "mother_job" },
+                        { label: "Previous School", type: "text", name: "previous_school" },
+                    ].map((field, index) => (
+                        <div key={index}>
+                            <label className="block font-semibold text-gray-700 mb-2">
+                                {field.label}
+                            </label>
+                            <input
+                                type={field.type}
+                                name={field.name}
+                                placeholder={`Enter ${field.label}`}
+                                className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#1c60a3] focus:border-[#1c60a3] outline-none transition"
+                            />
+                        </div>
+                    ))}
 
                     {/* Medical Section */}
                     <div className="col-span-1 md:col-span-2">
-                        <label className="block font-semibold mb-1">
-                            Does your child suffer from any medical condition? | هل يعاني طفلك من أي حالة مرضية؟
+                        <label className="block font-semibold text-gray-700 mb-2">
+                            Does your child suffer from any medical condition?
                         </label>
                         <select
                             name="medical_condition"
-                            className="w-full border border-gray-300 p-2 rounded-md"
+                            className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#1c60a3] focus:border-[#1c60a3] outline-none transition"
                         >
-                            <option value="no">No | لا</option>
-                            <option value="yes">Yes | نعم</option>
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
                         </select>
                         <textarea
                             name="medical_details"
-                            className="w-full border border-gray-300 p-2 rounded-md mt-2"
-                            placeholder="If yes, please explain and attach reports | إذا كانت الإجابة نعم يرجى البيان وإرفاق التقرير الطبي"
+                            className="w-full border border-gray-300 px-4 py-3 rounded-lg mt-3 focus:ring-2 focus:ring-[#1c60a3] focus:border-[#1c60a3] outline-none transition"
+                            placeholder="If yes, please explain and attach reports"
+                            rows="4"
                         ></textarea>
                     </div>
 
                     {/* Declaration */}
                     <div className="col-span-1 md:col-span-2">
-                        <label className="block font-semibold mb-1">
-                            I hereby confirm the above information is correct | أقر بصحة البيانات السابقة
+                        <label className="block font-semibold text-gray-700 mb-2">
+                            I hereby confirm the above information is correct
                         </label>
                         <input
                             type="text"
                             name="declarer_name"
-                            placeholder="Full Name | الاسم"
-                            className="w-full border border-gray-300 p-2 rounded-md mt-2"
+                            placeholder="Full Name"
+                            className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#1c60a3] focus:border-[#1c60a3] outline-none transition mb-3"
                         />
                         <input
                             type="text"
                             name="signature"
-                            placeholder="Signature | التوقيع"
-                            className="w-full border border-gray-300 p-2 rounded-md mt-2"
+                            placeholder="Signature"
+                            className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#1c60a3] focus:border-[#1c60a3] outline-none transition"
                         />
                     </div>
 
-                    {/* Submit */}
-                    <div className="col-span-1 md:col-span-2 text-center">
+                    {/* Submit Button */}
+                    <div className="col-span-1 md:col-span-2 text-center mt-6">
                         <button
                             type="submit"
-                            className="bg-[#336294] hover:bg-[#386ca3] text-[#ebad39] font-bold px-6 py-3 rounded-md w-full sm:w-auto"
+                            className="w-full sm:w-auto bg-gradient-to-r from-[#1c60a3] to-[#3b82f6] hover:from-[#184a7d] hover:to-[#2563eb] text-white font-bold px-8 py-4 rounded-lg shadow-lg transition-transform transform hover:scale-105"
                         >
-                            Submit | إرسال
+                            Submit Registration
                         </button>
                     </div>
                 </form>
