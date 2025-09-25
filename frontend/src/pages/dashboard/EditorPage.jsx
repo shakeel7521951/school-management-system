@@ -27,6 +27,7 @@ import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 // --- Custom node: input field ---
@@ -521,43 +522,31 @@ export default function EditorPage() {
   };
 
   // Load form data when component mounts or when id changes
-  useEffect(() => {
-    const loadForm = async () => {
-      if (id) {
-        try {
-          const response = await fetch(`${BACKEND_URL}/single-form/${id}`);
+useEffect(() => {
+  const loadForm = async () => {
+    if (id) {
+      try {
+        const response = await axios.get(`${BACKEND_URL}/single-form/${id}`, {
+          withCredentials: true,
+        });
 
-          if (!response.ok) {
-            throw new Error('Failed to fetch form');
-          }
-
-          const contentType = response.headers.get('content-type');
-          if (contentType && contentType.includes('application/json')) {
-            const formData = await response.json();
-
-            // Set the form title from the loaded data
-            if (formData.title) {
-              setFormTitle(formData.title);
-            }
-
-            // Set the editor content
-            if (editor && formData.content) {
-              editor.commands.setContent(formData.content);
-            }
-          } else {
-            const textData = await response.text();
-            console.error('Expected JSON but got:', textData.substring(0, 200));
-            throw new Error('Server returned non-JSON response');
-          }
-        } catch (error) {
-          console.error('Error loading form:', error);
-          alert('Failed to load form. Please try again.');
+        const formData = response.data;
+        if (formData.title) {
+          setFormTitle(formData.title);
         }
+        if (editor && formData.content) {
+          editor.commands.setContent(formData.content);
+        }
+      } catch (error) {
+        console.error("Error loading form:", error);
+        alert("Failed to load form. Please try again.");
       }
-    };
+    }
+  };
 
-    loadForm();
-  }, [editor, id]);
+  loadForm();
+}, [editor, id]);
+
 
   const printForm = () => {
     const htmlContent = generateHTML();
