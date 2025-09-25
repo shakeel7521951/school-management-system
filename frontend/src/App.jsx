@@ -214,9 +214,7 @@ const router = createBrowserRouter([
   {
     element: <SecurityRoute />,
     children: [
-
       { path: '/visitor', element: <VisitorPage /> },
-
     ]
   },
   { path: "/form-editor", element: <EditorPage /> },
