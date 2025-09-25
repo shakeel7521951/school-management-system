@@ -11,14 +11,14 @@ import {
 const Gallery = () => {
     // School gallery images (replace with actual school photos)
     const images = [
-        { src: "/images/gallery1.jpg", title: "School Campus", description: "Our state-of-the-art campus designed for optimal learning environment", category: "campus", date: "2024-01-15" },
-        { src: "/images/gallery2.jpg", title: "Classroom Activities", description: "Interactive learning sessions in our modern classrooms", category: "academics", date: "2024-01-10" },
-        { src: "/images/gallery3.jpg", title: "Sports Day", description: "Annual sports competition showcasing student athleticism", category: "sports", date: "2024-01-08" },
-        { src: "/images/gallery4.jpg", title: "Science Lab", description: "Hands-on experiments in our fully equipped laboratories", category: "facilities", date: "2024-01-05" },
-        { src: "/images/gallery5.jpg", title: "Art Exhibition", description: "Student artwork displayed in our annual art showcase", category: "arts", date: "2023-12-20" },
-        { src: "/images/gallery6.jpg", title: "Graduation Ceremony", description: "Celebrating our graduates' achievements and success", category: "events", date: "2023-12-15" },
-        { src: "/images/gallery7.jpg", title: "Library", description: "Extensive collection of books and digital resources", category: "facilities", date: "2023-12-10" },
-        { src: "/images/gallery8.jpg", title: "Cultural Event", description: "Multicultural celebrations and performances", category: "events", date: "2023-12-05" },
+        { src: "/images/img1.jpg" },
+        { src: "/images/img2.jpg" },
+        { src: "/images/img3.jpg" },
+        { src: "/images/img4.jpg" },
+        { src: "/images/img6.jpg" },
+        { src: "/images/img8.jpg" },
+        { src: "/images/img5.jpg" },
+        { src: "/images/img7.jpg" },
     ];
 
     const categories = ["all", "campus", "academics", "sports", "arts", "events", "facilities"];
@@ -66,11 +66,10 @@ const Gallery = () => {
             <section
                 className="relative w-full h-[50vh] min-h-[400px] bg-cover bg-center flex items-center justify-center"
                 style={{
-                    backgroundImage:
-                        "url('https://tamakon.edu.qa/wp-content/uploads/2023/10/div2.png')",
+                    backgroundImage: "url('/images/about-cover.jpg')",
                 }}
             >
-                <div className="absolute inset-0 bg-gradient-to-b from-[#104c80]/90 to-[#0a3255]/80"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-[#104c80]/70 to-[#0a3255]/80"></div>
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -87,22 +86,7 @@ const Gallery = () => {
             </section>
 
             {/* Category Filters */}
-            <div className="max-w-7xl mx-auto px-4 lg:px-6 py-12">
-                <div className="flex flex-wrap justify-center gap-3 mb-12">
-                    {categories.map((category) => (
-                        <button
-                            key={category}
-                            onClick={() => setSelectedCategory(category)}
-                            className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 capitalize ${selectedCategory === category
-                                    ? "bg-[#104c80] text-white shadow-lg transform scale-105"
-                                    : "bg-white text-gray-700 hover:bg-gray-100 shadow-md hover:shadow-lg"
-                                }`}
-                        >
-                            {category}
-                        </button>
-                    ))}
-                </div>
-
+            <div className="max-w-7xl mx-auto px-4 lg:px-6 py-16">
                 {/* Gallery Layout: 3 cols (3 | 2 | 3) */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Left Column */}
@@ -237,6 +221,20 @@ const Gallery = () => {
                     </motion.div>
                 )}
             </AnimatePresence>
+
+            {/* Bottom Action Buttons */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:flex md:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-10 mt-12 mb-12 px-4">
+                {/* Load More Button */}
+                <button className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-[#104c80] to-[#3471b3] text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:scale-105 transform transition duration-300">
+                    Load More
+                </button>
+
+                {/* Instagram Button */}
+                <button className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold rounded-full shadow-md hover:shadow-lg hover:scale-105 transform transition duration-300">
+                    <FaInstagram className="text-lg" />
+                    <span>Follow on Instagram</span>
+                </button>
+            </div>
         </div>
     );
 };

@@ -69,6 +69,7 @@ import SecurityNavbar from './components/securityDashboard/common/SecurityNavbar
 import SecuritySidebar from './components/securityDashboard/common/SecuritySidebar'
 import VisitorPage from './pages/SecurityDashboard/VisitorPage'
 import GallerySection from './pages/Tamakon/GallerySection'
+import RegistrationForm from './pages/RegistrationForm'
 // import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
@@ -143,6 +144,7 @@ const router = createBrowserRouter([
       { path: "/vocational-rehabilitation", element: <VocationalAndPhysicalDepartment /> },
       { path: "/nursing-department", element: <NursingDepartment /> },
       {path: "/gallery", element: <GallerySection />},
+      {path: "/registration-form", element: <RegistrationForm />},
 
 
 
