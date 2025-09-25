@@ -42,7 +42,7 @@ import ResponseForm from './pages/TeacherDashboard/TeacherDocuments'
 import VisitorTable from './pages/dashboard/VisitorsTable'
 import { useProfileQuery } from './redux/slices/UserApi'
 import { useEffect } from 'react'
-import { clearProfile, setProfile } from './redux/slices/UserSlice'
+import { clearProfile, setLoading, setProfile } from './redux/slices/UserSlice'
 import { useDispatch } from 'react-redux';
 import OtpVerify from './pages/OtpVerify'
 import ForgotPassword from './pages/ForgotPassword'
@@ -73,6 +73,7 @@ import RegistrationForm from './pages/RegistrationForm'
 import BackToTopButton from './pages/BackToTopButton'
 import NewsPage from './pages/News'
 import NewsDetail from './components/news/NewsDetail'
+import RoleRoute from './RoleRoute'
 // import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
@@ -89,10 +90,11 @@ const MainFunction = () => {
 const AdminRoute = () => {
   return (
     <div>
-      <Navbarr />
-      <Sidebaar />
-      <Outlet />
-
+      <RoleRoute allowedRoles={["admin"]}>
+        <Navbarr />
+        <Sidebaar />
+        <Outlet />
+      </RoleRoute>
     </div>
   )
 }
@@ -100,9 +102,11 @@ const AdminRoute = () => {
 const StudentRoute = () => {
   return (
     <div>
-      <StudentNavbar />
-      <StudentSidebar />
-      <Outlet />
+      <RoleRoute allowedRoles={["student"]}>
+        <StudentNavbar />
+        <StudentSidebar />
+        <Outlet />
+      </RoleRoute>
     </div>
   )
 }
@@ -110,18 +114,22 @@ const StudentRoute = () => {
 const TeacherRoute = () => {
   return (
     <div>
-      <TeacherNavbar />
-      <TeacherSideBar />
-      <Outlet />
+      <RoleRoute allowedRoles={["teacher"]}>
+        <TeacherNavbar />
+        <TeacherSideBar />
+        <Outlet />
+      </RoleRoute>
     </div>
   )
 }
 const SecurityRoute = () => {
   return (
     <div>
-      <SecurityNavbar />
-      <SecuritySidebar />
-      <Outlet />
+      <RoleRoute allowedRoles={["guard"]}>
+        <SecurityNavbar />
+        <SecuritySidebar />
+        <Outlet />
+      </RoleRoute>
     </div>
   )
 }
@@ -156,7 +164,7 @@ const router = createBrowserRouter([
       // { path: '/services', element: <Event /> },
       { path: '/contact-us', element: <ContactUs /> },
       { path: '/news', element: <NewsPage /> },
-       {path: "/news/:slug",element:<NewsDetail />},
+      { path: "/news/:slug", element: <NewsDetail /> },
 
       // { path: '/complainform', element: <ComplaintForm /> },
       // { path: '/complainstatus', element: <ComplaintForm /> },
@@ -218,31 +226,35 @@ const router = createBrowserRouter([
 
 function App() {
   const dispatch = useDispatch();
-  const { data: profileData } = useProfileQuery();
+  const { data: profileData, isLoading } = useProfileQuery();
+
   useEffect(() => {
-    if (profileData) {
-      dispatch(setProfile(profileData.user));
-    } else {
-      dispatch(clearProfile());
+    dispatch(setLoading(true));
+    if (!isLoading) {
+      if (profileData?.user) {
+        dispatch(setProfile(profileData.user));
+      } else {
+        dispatch(clearProfile());
+      }
     }
-  }, [profileData, dispatch]);
+  }, [profileData, isLoading, dispatch]);
 
   return (
     <>
       <RouterProvider router={router} />
       <Toaster
-        position='top-right'
+        position="top-right"
         toastOptions={{
           style: {
-            background: '#333',
-            color: '#fff',
-            borderRadius: '8px',
-            padding: '12px 16px'
-          }
+            background: "#333",
+            color: "#fff",
+            borderRadius: "8px",
+            padding: "12px 16px",
+          },
         }}
       />
     </>
-  )
+  );
 }
 
 export default App
