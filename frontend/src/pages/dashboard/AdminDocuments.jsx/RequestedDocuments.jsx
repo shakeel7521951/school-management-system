@@ -92,7 +92,7 @@ const handleDeleteForm = async (id) => {
   }
 
   return (
-    <div className='p-6 md:ml-20 lg:ml-64 md:p-10 bg-gradient-to-br from-gray-100 via-blue-50 to-gray-200 min-h-screen font-sans'>
+    <div className='p-6 lg:ml-64 md:p-10 bg-gradient-to-br from-gray-100 via-blue-50 to-gray-200 min-h-screen font-sans'>
       <div className='bg-white rounded-2xl shadow-xl p-8 border border-gray-100'>
         {/* Header */}
         <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4'>

@@ -15,7 +15,7 @@ const  Section=({ title, children, direction = "left" })=> {
       viewport={{ once: true }}
       className="space-y-6"
     >
-      <h2 className="text-3xl font-bold mb-6 text-[#104c80] relative inline-block">
+      <h2 className="md:text-3xl text-xl font-bold mb-6 text-[#104c80] relative inline-block">
         {title}
         <motion.span
           initial={{ width: 0 }}

@@ -4,7 +4,7 @@ import UsersDetail from "../../components/dashboard/user/UsersDetail";
 
 const Users = () => {
   return (
-    <div className="lg:ml-64 md:ml-20 p-4 sm:p-6 md:p-8">
+    <div className="lg:ml-64 p-4 sm:p-6 md:p-8">
       <UsersHeader />
       <UsersDetail />
     </div>
