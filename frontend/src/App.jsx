@@ -70,6 +70,7 @@ import SecuritySidebar from './components/securityDashboard/common/SecuritySideb
 import VisitorPage from './pages/SecurityDashboard/VisitorPage'
 import GallerySection from './pages/Tamakon/GallerySection'
 import RegistrationForm from './pages/RegistrationForm'
+import BackToTopButton from './pages/BackToTopButton'
 // import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
@@ -78,6 +79,7 @@ const MainFunction = () => {
       <Navbar />
       <Outlet />
       <Footer />
+      <BackToTopButton />,
     </div>
   )
 }
@@ -88,6 +90,7 @@ const AdminRoute = () => {
       <Navbarr />
       <Sidebaar />
       <Outlet />
+
     </div>
   )
 }
@@ -143,8 +146,8 @@ const router = createBrowserRouter([
       { path: "/speech-therapy", element: <SpeechAndLanguageTherapy /> },
       { path: "/vocational-rehabilitation", element: <VocationalAndPhysicalDepartment /> },
       { path: "/nursing-department", element: <NursingDepartment /> },
-      {path: "/gallery", element: <GallerySection />},
-      {path: "/registration-form", element: <RegistrationForm />},
+      { path: "/gallery", element: <GallerySection /> },
+      { path: "/registration-form", element: <RegistrationForm /> },
 
 
 
