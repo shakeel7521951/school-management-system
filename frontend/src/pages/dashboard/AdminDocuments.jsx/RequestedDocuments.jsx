@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Bell, PlusCircle, FileText, Edit, Trash2, Eye, Download, Printer } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+import axios from "axios";
 
 const FormManagement = () => {
   const navigate = useNavigate();
@@ -18,39 +19,30 @@ const FormManagement = () => {
   const fetchForms = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${BACKEND_URL}/getForms`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch forms');
-      }
-      const data = await response.json();
-      setForms(data);
+      const response = await axios.get(`${BACKEND_URL}/getForms`, { withCredentials: true });
+      setForms(response.data);
       setError(null);
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.message || err.message);
       console.error('Error fetching forms:', err);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleDeleteForm = async (id) => {
-    try {
-      const response = await fetch(`${BACKEND_URL}/delete-form/${id}`, {
-        method: 'DELETE'
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to delete form');
-      }
-      
-      // Remove the form from the local state
-      setForms(forms.filter(form => form._id !== id));
-      setDeleteConfirm(null);
-    } catch (err) {
-      setError(err.message);
-      console.error('Error deleting form:', err);
-    }
-  };
+
+const handleDeleteForm = async (id) => {
+  try {
+    await axios.delete(`${BACKEND_URL}/delete-form/${id}`, { withCredentials: true });
+    setForms(forms.filter(form => form._id !== id));
+    setDeleteConfirm(null);
+    setError(null);
+  } catch (err) {
+    setError(err.response?.data?.message || err.message);
+    console.error('Error deleting form:', err);
+  }
+};
+
 
   const handleDownloadHTML = (form) => {
     const blob = new Blob([form.html], { type: 'text/html' });
@@ -68,8 +60,8 @@ const FormManagement = () => {
     const printWindow = window.open('', '_blank');
     printWindow.document.write(form.html);
     printWindow.document.close();
-    
-    printWindow.onload = function() {
+
+    printWindow.onload = function () {
       printWindow.focus();
       printWindow.print();
     };
@@ -119,7 +111,7 @@ const FormManagement = () => {
         {error && (
           <div className="mb-6 p-4 bg-red-100 border border-red-300 text-red-700 rounded-lg">
             <p>Error: {error}</p>
-            <button 
+            <button
               onClick={fetchForms}
               className="mt-2 px-3 py-1 bg-red-600 text-white rounded text-sm"
             >
@@ -158,9 +150,8 @@ const FormManagement = () => {
                   {forms.map((form, i) => (
                     <tr
                       key={form._id}
-                      className={`transition ${
-                        i % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-                      } hover:bg-blue-50/60`}
+                      className={`transition ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                        } hover:bg-blue-50/60`}
                     >
                       <td className='px-6 py-4 text-gray-800 font-semibold'>
                         {form.title}
@@ -168,11 +159,10 @@ const FormManagement = () => {
                       <td className='px-6 py-4 text-gray-700'>{formatDate(form.createdAt)}</td>
                       <td className='px-6 py-4 text-gray-700'>{formatDate(form.updatedAt)}</td>
                       <td className='px-6 py-4'>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          form.isPublished 
-                            ? 'bg-green-100 text-green-800' 
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${form.isPublished
+                            ? 'bg-green-100 text-green-800'
                             : 'bg-yellow-100 text-yellow-800'
-                        }`}>
+                          }`}>
                           {form.isPublished ? 'Published' : 'Draft'}
                         </span>
                       </td>
@@ -232,11 +222,10 @@ const FormManagement = () => {
                     <h3 className='font-semibold text-gray-800 flex items-center gap-2'>
                       <FileText className='w-4 h-4 text-[#104c80]' /> {form.title}
                     </h3>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      form.isPublished 
-                        ? 'bg-green-100 text-green-800' 
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${form.isPublished
+                        ? 'bg-green-100 text-green-800'
                         : 'bg-yellow-100 text-yellow-800'
-                    }`}>
+                      }`}>
                       {form.isPublished ? 'Published' : 'Draft'}
                     </span>
                   </div>
