@@ -1,110 +1,82 @@
 import React, { useState } from "react";
-import { Search, CheckCircle, XCircle } from "lucide-react";
-import {
-  useAllUsersQuery,
-  useUpdateUserRoleMutation, // 👈 single mutation
-} from "../../../redux/slices/UserApi";
+import { Search } from "lucide-react";
+import { useAllUsersQuery, useUpdateUserRoleMutation } from "../../../redux/slices/UserApi";
 import { toast } from "react-toastify";
 
 const UsersDetail = () => {
-  const { data: users, isLoading ,refetch} = useAllUsersQuery();
+  const { data: users, isLoading, error ,refetch} = useAllUsersQuery();
   const [updateUser] = useUpdateUserRoleMutation();
-  const [searchTerm, setSearchTerm] = useState("");
+  const [search, setSearch] = useState("");
 
-  // ✅ Handle all actions with single mutation
-  const handleAction = async (userId, action, value) => {
+  // ✅ Define all available roles here
+  const roles = ["user", "admin", "teacher", "guard", "student"];
+
+  const handleRoleChange = async (userId, newRole) => {
     try {
-      if (action === "role") {
-        await updateUser({ id: userId, role: value }).unwrap();
-        toast.success(`Role updated to ${value}`);
-        refetch()
-      } else if (action === "verify") {
-        await updateUser({ id: userId, verified: value === "true" }).unwrap();
-        toast.success(`User ${value === "true" ? "verified" : "unverified"}`);
-      } else if (action === "delete") {
-        await updateUser({ id: userId, deleted: true }).unwrap();
-        toast.success("User deleted successfully");
-      }
-    } catch (error) {
-      toast.error("Action failed");
+      await updateUser({ id: userId, role: newRole }).unwrap();
+      toast.success(`Role updated to ${newRole}`);
+      refetch()
+    } catch (err) {
+      toast.error("Failed to update role");
+      console.error(err);
     }
   };
 
-  // ✅ Filter users
-  const filteredUsers = users?.filter(
-    (u) =>
-      u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      u.email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredUsers =
+    users?.filter(
+      (u) =>
+        u.name.toLowerCase().includes(search.toLowerCase()) ||
+        u.email.toLowerCase().includes(search.toLowerCase())
+    ) || [];
 
-  if (isLoading) return <p className="text-center py-10">Loading users...</p>;
+  if (isLoading) return <p className="text-center py-6">Loading users...</p>;
+  if (error) return <p className="text-center text-red-600 py-6">Error loading users</p>;
 
   return (
-    <div className="p-4 md:p-6">
-      {/* 🔍 Search Bar */}
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-bold text-[#104c80]">Manage Users</h2>
-        <div className="relative w-64">
-          <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
+    <div className="p-6">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
+        <h2 className="text-xl font-bold text-[#104c80]">Users Management</h2>
+        <div className="relative w-full md:w-64">
+          <Search size={16} className="absolute left-3 top-3 text-gray-400" />
           <input
             type="text"
             placeholder="Search users..."
-            className="pl-10 pr-3 py-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-9 pr-3 py-2 border rounded-lg w-full text-sm focus:ring-2 focus:ring-[#104c80] focus:outline-none"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
       </div>
 
-      {/* ✅ Desktop Table */}
+      {/* Desktop Table */}
       <div className="hidden md:block overflow-x-auto">
-        <table className="min-w-full bg-white rounded-lg shadow border">
-          <thead className="bg-gray-100 text-sm">
+        <table className="min-w-full border border-gray-200 text-sm">
+          <thead className="bg-gray-50 text-gray-700 font-semibold">
             <tr>
               <th className="px-4 py-3 text-left">Name</th>
               <th className="px-4 py-3 text-left">Email</th>
               <th className="px-4 py-3 text-left">Role</th>
-              <th className="px-4 py-3 text-left">Verification</th>
-              <th className="px-4 py-3 text-left">Actions</th>
+              <th className="px-4 py-3 text-center">Actions</th>
             </tr>
           </thead>
-          <tbody className="text-sm">
-            {filteredUsers?.map((user) => (
-              <tr key={user._id} className="border-t hover:bg-gray-50">
+          <tbody className="divide-y divide-gray-200">
+            {filteredUsers.map((user) => (
+              <tr key={user._id}>
                 <td className="px-4 py-3">{user.name}</td>
                 <td className="px-4 py-3">{user.email}</td>
                 <td className="px-4 py-3 capitalize">{user.role}</td>
-                <td className="px-4 py-3">
-                  {user.status ? (
-                    <span className="flex items-center text-green-600">
-                      <CheckCircle size={14} className="mr-1" /> Verified
-                    </span>
-                  ) : (
-                    <span className="flex items-center text-red-600">
-                      <XCircle size={14} className="mr-1" /> Unverified
-                    </span>
-                  )}
-                </td>
-                <td className="px-4 py-3">
+                <td className="px-4 py-3 text-center">
                   <select
-                    className="border rounded-lg px-2 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                    onChange={(e) => {
-                      const [action, value] = e.target.value.split("-");
-                      handleAction(user._id, action, value);
-                      e.target.value = "";
-                    }}
-                    defaultValue=""
+                    defaultValue={user.role}
+                    onChange={(e) => handleRoleChange(user._id, e.target.value)}
+                    className="border rounded px-2 py-1 text-sm"
                   >
-                    <option value="" disabled>
-                      Manage
-                    </option>
-                    <option value="role-admin">Make Admin</option>
-                    <option value="role-user">Make User</option>
-                    <option value="role-student">Make Student</option>
-                    <option value="role-guard">Make Guard</option>
-                    <option value="verify-true">Verify</option>
-                    <option value="verify-false">Unverify</option>
-                    <option value="delete-any">Delete</option>
+                    {roles.map((role) => (
+                      <option key={role} value={role}>
+                        {role.charAt(0).toUpperCase() + role.slice(1)}
+                      </option>
+                    ))}
                   </select>
                 </td>
               </tr>
@@ -113,12 +85,12 @@ const UsersDetail = () => {
         </table>
       </div>
 
-      {/* ✅ Mobile Cards */}
+      {/* Mobile Cards */}
       <div className="md:hidden space-y-4">
-        {filteredUsers?.map((user) => (
+        {filteredUsers.map((user) => (
           <div
             key={user._id}
-            className="bg-white shadow rounded-lg p-4 border space-y-2"
+            className="border rounded-lg p-4 shadow-sm bg-white space-y-2"
           >
             <p>
               <span className="font-semibold">Name:</span> {user.name}
@@ -127,41 +99,19 @@ const UsersDetail = () => {
               <span className="font-semibold">Email:</span> {user.email}
             </p>
             <p>
-              <span className="font-semibold">Role:</span>{" "}
-              <span className="capitalize">{user.role}</span>
-            </p>
-            <p>
-              <span className="font-semibold">Verification:</span>{" "}
-              {user.verified ? (
-                <span className="flex items-center text-green-600">
-                  <CheckCircle size={14} className="mr-1" /> Verified
-                </span>
-              ) : (
-                <span className="flex items-center text-red-600">
-                  <XCircle size={14} className="mr-1" /> Unverified
-                </span>
-              )}
+              <span className="font-semibold">Role:</span> {user.role}
             </p>
             <div>
               <select
-                className="border rounded-lg px-2 py-1 text-gray-700 w-full mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                onChange={(e) => {
-                  const [action, value] = e.target.value.split("-");
-                  handleAction(user._id, action, value);
-                  e.target.value = "";
-                }}
-                defaultValue=""
+                defaultValue={user.role}
+                onChange={(e) => handleRoleChange(user._id, e.target.value)}
+                className="border rounded px-2 py-1 text-sm"
               >
-                <option value="" disabled>
-                  Manage
-                </option>
-                <option value="role-admin">Make Admin</option>
-                <option value="role-user">Make User</option>
-                <option value="role-student">Make Student</option>
-                <option value="role-guard">Make Guard</option>
-                <option value="verify-true">Verify</option>
-                <option value="verify-false">Unverify</option>
-                <option value="delete-any">Delete</option>
+                {roles.map((role) => (
+                  <option key={role} value={role}>
+                    {role.charAt(0).toUpperCase() + role.slice(1)}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
