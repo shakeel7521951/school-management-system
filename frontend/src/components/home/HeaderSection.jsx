@@ -59,7 +59,7 @@ export default function HeaderSection() {
               animate={{ scale: 1 }}
               transition={{ duration: 6, ease: "easeOut" }}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40 flex items-center justify-center">
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/70 flex items-center justify-center">
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -75,7 +75,7 @@ export default function HeaderSection() {
                 <motion.button
                   whileHover={{ scale: 1.08 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-gradient-to-r from-[#2E2C7E] to-[#1E1C5A] rounded-lg text-white text-lg font-semibold shadow-lg"
+                  className="px-8 py-4 bg-gradient-to-r from-[#224182] to-[#3b63bb] rounded-lg text-white text-lg font-semibold shadow-lg"
                 >
                   APPLY NOW
                 </motion.button>
@@ -88,14 +88,14 @@ export default function HeaderSection() {
         <SwiperSlide>
           <div className="relative w-full h-full">
             <motion.img
-              src="./images/about-cover.jpg"
+              src="./images/hero-bg.jpeg"
               alt="Employee Incentive"
               className="w-full h-full object-cover"
               initial={{ scale: 1.2 }}
               animate={{ scale: 1 }}
               transition={{ duration: 6, ease: "easeOut" }}
             />
-            <div className="absolute inset-0 bg-[#224182]/70 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -106,12 +106,12 @@ export default function HeaderSection() {
                   Employee Incentive Project
                 </h1>
                 <p className="text-lg md:text-xl mb-8 text-gray-200">
-                 Organizations and institutions strive for growth, sustainability, and continuity. Their success depends greatly on human resources, who must be motivated to work with efficiency. To achieve this, organizations play a key role in inspiring, guiding, and directing employees. This ensures that efforts align with the goals set out for long-term success.
+                  Organizations and institutions strive for growth, sustainability, and continuity. Their success depends greatly on human resources, who must be motivated to work with efficiency. To achieve this, organizations play a key role in inspiring, guiding, and directing employees. This ensures that efforts align with the goals set out for long-term success.
                 </p>
                 <motion.button
                   whileHover={{ scale: 1.08 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-12 py-3 text-lg border-2 border-white rounded-lg text-white"
+                  className="px-12 py-4 text-lg bg-gradient-to-r from-[#224182] to-[#3b63bb] rounded-lg"
                 >
                   MORE
                 </motion.button>

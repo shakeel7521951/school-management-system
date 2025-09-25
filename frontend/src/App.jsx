@@ -68,6 +68,7 @@ import NursingDepartment from './pages/SpeechTherapy/NursingDepartment'
 import SecurityNavbar from './components/securityDashboard/common/SecurityNavbar'
 import SecuritySidebar from './components/securityDashboard/common/SecuritySidebar'
 import VisitorPage from './pages/SecurityDashboard/VisitorPage'
+import GallerySection from './pages/Tamakon/GallerySection'
 // import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
@@ -141,6 +142,10 @@ const router = createBrowserRouter([
       { path: "/speech-therapy", element: <SpeechAndLanguageTherapy /> },
       { path: "/vocational-rehabilitation", element: <VocationalAndPhysicalDepartment /> },
       { path: "/nursing-department", element: <NursingDepartment /> },
+      {path: "/gallery", element: <GallerySection />},
+
+
+
       { path: '/services', element: <Event /> },
       { path: '/media', element: <Complaints /> },
       { path: '/contact-us', element: <ContactUs /> },
