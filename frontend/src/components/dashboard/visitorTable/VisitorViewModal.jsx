@@ -1,6 +1,6 @@
-import { X } from "lucide-react";
+import { X, CheckCircle, XCircle } from "lucide-react";
 
-const VisitorViewModal = ({ visitor, onClose }) => {
+const VisitorViewModal = ({ visitor, onClose, onApprove, onReject }) => {
   if (!visitor) return null;
 
   return (
@@ -18,34 +18,38 @@ const VisitorViewModal = ({ visitor, onClose }) => {
           Visitor Details
         </h2>
 
-        <div className="space-y-2 text-sm">
+        <div className="space-y-3 text-sm">
           <p>
             <span className="font-bold text-slate-700">Name:</span>{" "}
             {visitor.name}
           </p>
           <p>
-            <span className="font-bold text-slate-700">Badge:</span>{" "}
-            {visitor.badge}
+            <span className="font-bold text-slate-700">Host Email:</span>{" "}
+            {visitor.hostEmail}
+          </p>
+          <p>
+            <span className="font-bold text-slate-700">Government ID:</span>{" "}
+            {visitor.governmentId}
           </p>
           <p>
             <span className="font-bold text-slate-700">Reason:</span>{" "}
             {visitor.reason}
           </p>
           <p>
-            <span className="font-bold text-slate-700">Host:</span>{" "}
-            {visitor.host}
+            <span className="font-bold text-slate-700">Created At:</span>{" "}
+            {new Date(visitor.createdAt).toLocaleString()}
           </p>
           <p>
-            <span className="font-bold text-slate-700">Check-in:</span>{" "}
-            {visitor.time}
+            <span className="font-bold text-slate-700">Updated At:</span>{" "}
+            {new Date(visitor.updatedAt).toLocaleString()}
           </p>
           <p>
             <span className="font-bold text-slate-700">Status:</span>{" "}
             <span
               className={`px-2 py-0.5 rounded-md text-xs font-medium ${
-                visitor.status === "Approved"
+                visitor.status === "approved"
                   ? "bg-green-100 text-green-700"
-                  : visitor.status === "Rejected"
+                  : visitor.status === "rejected"
                   ? "bg-red-100 text-red-700"
                   : "bg-yellow-100 text-yellow-700"
               }`}
@@ -53,6 +57,22 @@ const VisitorViewModal = ({ visitor, onClose }) => {
               {visitor.status}
             </span>
           </p>
+        </div>
+
+        {/* ✅ Action Buttons */}
+        <div className="mt-6 flex justify-center gap-4">
+          <button
+            onClick={() => onApprove(visitor._id)}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-100 text-green-700 hover:bg-green-200 text-sm font-medium"
+          >
+            <CheckCircle size={14} /> Approve
+          </button>
+          <button
+            onClick={() => onReject(visitor._id)}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-100 text-red-700 hover:bg-red-200 text-sm font-medium"
+          >
+            <XCircle size={14} /> Reject
+          </button>
         </div>
       </div>
     </div>

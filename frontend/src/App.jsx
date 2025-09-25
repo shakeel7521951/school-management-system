@@ -136,14 +136,11 @@ const router = createBrowserRouter([
       { path: "/middle-unit", element: <MiddleAndHighUnit /> },
       { path: "/primary-unit", element: <PrimaryUnit /> },
       { path: "/public-relations", element: <PublicRelations /> },
-      {path: "/financial-affairs", element: <FinancialAndAdministrativeAffairs />},
+      { path: "/financial-affairs", element: <FinancialAndAdministrativeAffairs /> },
       { path: "/educational-unit", element: <SpecializedEducationalUnit /> },
       { path: "/speech-therapy", element: <SpeechAndLanguageTherapy /> },
       { path: "/vocational-rehabilitation", element: <VocationalAndPhysicalDepartment /> },
       { path: "/nursing-department", element: <NursingDepartment /> },
-
-
-
       { path: '/services', element: <Event /> },
       { path: '/media', element: <Complaints /> },
       { path: '/contact-us', element: <ContactUs /> },
@@ -192,12 +189,12 @@ const router = createBrowserRouter([
       // { path: '/teacherprofile', element: <TeacherProfile /> }
     ]
   },
-   {
+  {
     element: <SecurityRoute />,
     children: [
-   
+
       { path: '/visitor', element: <VisitorPage /> },
-      
+
     ]
   },
   { path: "/form-editor", element: <EditorPage /> },
