@@ -59,6 +59,7 @@ const Sidebar = () => {
     },
    { id: "visitortable", label: "Visitors", icon: BarChart2, color: "text-amber-500", hover: "hover:bg-amber-50" },
     { id: "users", label: "Users", icon: Users, color: "text-amber-500", hover: "hover:bg-amber-50" },
+    { id: "registration-data", label: "Registration Data", icon: Users, color: "text-amber-500", hover: "hover:bg-amber-50" },
 
 
     // { id: "reports", label: "Reports", icon: FileText, color: "text-purple-500", hover: "hover:bg-purple-50" },

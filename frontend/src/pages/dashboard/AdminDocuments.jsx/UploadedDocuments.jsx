@@ -78,7 +78,7 @@ const UploadedDocuments = () => {
   };
 
   return (
-    <div className="md:ml-20 lg:ml-64 p-4 md:p-6 bg-gray-50 min-h-screen">
+    <div className="lg:ml-64 p-4 md:p-6 bg-gray-50 min-h-screen">
       <div className="bg-white rounded-xl shadow-md p-4 md:p-6">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 pb-4 border-b border-gray-200">
