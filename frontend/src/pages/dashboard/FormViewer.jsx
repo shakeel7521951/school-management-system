@@ -60,7 +60,7 @@ const FormViewer = () => {
       );
 
       setSubmissionStatus("success");
-      setTimeout(() => setSubmissionStatus(null), 3000);
+      navigate(-1)
     } catch (err) {
       console.error("Error submitting form:", err);
       setSubmissionStatus("error");
