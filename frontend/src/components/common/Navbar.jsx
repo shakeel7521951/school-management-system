@@ -42,7 +42,7 @@ export default function Navbar() {
     { name: 'Home', path: '/' },
     { name: 'Tamakon', path: '/tamakon', dropdown: true },
     { name: 'Services', path: '/services', dropdown: true },
-    { name: 'Media', path: '/media' ,dropdown:true },
+    { name: 'Media', path: '/media', dropdown: true },
     { name: 'Contact Us', path: '/contact-us' }
   ]
 
@@ -198,8 +198,8 @@ export default function Navbar() {
                     <div className='absolute text-[15px] overflow-hidden left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50'>
                       <NavLink to='/news' className='block px-4 py-2 hover:text-indigo-700'>News</NavLink>
                       <NavLink to='/gallery' className='block px-4 py-2 hover:text-indigo-700'>Gallery</NavLink>
-                   
-                     
+
+
                     </div>
                   )}
                 </li>
@@ -404,20 +404,19 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <li key={link.name}>
               {!link.dropdown ? (
-                <NavLink 
-                  to={link.path} 
-                  onClick={() => setIsOpen(false)} 
+                <NavLink
+                  to={link.path}
+                  onClick={() => setIsOpen(false)}
                   className={({ isActive }) =>
-                    `block py-3 px-4 rounded-lg transition duration-300 ${
-                      isActive ? "bg-indigo-800 text-indigo-300 font-semibold" : "text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30"
+                    `block py-3 px-4 rounded-lg transition duration-300 ${isActive ? "bg-indigo-800 text-indigo-300 font-semibold" : "text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30"
                     }`}
                 >
                   {link.name}
                 </NavLink>
               ) : (
                 <div>
-                  <button 
-                    onClick={() => toggleDropdown(link.name)} 
+                  <button
+                    onClick={() => toggleDropdown(link.name)}
                     className="flex justify-between items-center w-full py-3 px-4 rounded-lg text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30"
                   >
                     <span>{link.name}</span>
@@ -453,12 +452,12 @@ export default function Navbar() {
 
 
 
-                   {link.name === "Media" && openDropdown === "Media" && (
+                  {link.name === "Media" && openDropdown === "Media" && (
                     <div className="ml-4 mt-1 flex flex-col gap-1">
                       <NavLink to="/news" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm">News</NavLink>
                       <NavLink to="/gallery" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm">Gallery</NavLink>
-                      
-                      
+
+
                     </div>
                   )}
                 </div>
