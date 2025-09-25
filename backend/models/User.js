@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema(
     phone:{type:String,required:true},
     password: { type: String, required: true },
     profilePic: { type: String },
-    role: { type: String, default: "User" },
+    role: { type: String, default: "user" },
     status: { type: String, default: "unverified" },
     otp: { type: String },
     otpExpires: { type: Date },

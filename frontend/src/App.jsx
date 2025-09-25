@@ -142,7 +142,7 @@ const router = createBrowserRouter([
       { path: "/speech-therapy", element: <SpeechAndLanguageTherapy /> },
       { path: "/vocational-rehabilitation", element: <VocationalAndPhysicalDepartment /> },
       { path: "/nursing-department", element: <NursingDepartment /> },
-      {path: "/gallery", element: <GallerySection />},
+      { path: "/gallery", element: <GallerySection /> },
 
 
 

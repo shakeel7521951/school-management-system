@@ -1,208 +1,174 @@
-import { useState } from "react";
-import { Search } from "lucide-react";
-import { useAllUsersQuery, useUpdateUserRoleMutation } from "../../../redux/slices/UserApi";
+import React, { useState } from "react";
+import { Search, CheckCircle, XCircle } from "lucide-react";
+import {
+  useAllUsersQuery,
+  useUpdateUserRoleMutation, // 👈 single mutation
+} from "../../../redux/slices/UserApi";
 import { toast } from "react-toastify";
 
 const UsersDetail = () => {
-    const { data: allUsers = [], isLoading, isError, error, refetch } = useAllUsersQuery();
-    const [updateUserRole] = useUpdateUserRoleMutation();
-    const [search, setSearch] = useState("");
+  const { data: users, isLoading ,refetch} = useAllUsersQuery();
+  const [updateUser] = useUpdateUserRoleMutation();
+  const [searchTerm, setSearchTerm] = useState("");
 
-    const handleRoleChange = async (id, newRole) => {
-        try {
-            await updateUserRole({ id, role: newRole }).unwrap();
-            toast(`✅ Role updated for user ${id} → ${newRole}`);
-            refetch()
-        } catch (err) {
-            alert(`❌ Failed to update role: ${err?.data?.message || err.message}`);
-            console.error("Failed to update role:", err);
-        }
-    };
+  // ✅ Handle all actions with single mutation
+  const handleAction = async (userId, action, value) => {
+    try {
+      if (action === "role") {
+        await updateUser({ id: userId, role: value }).unwrap();
+        toast.success(`Role updated to ${value}`);
+        refetch()
+      } else if (action === "verify") {
+        await updateUser({ id: userId, verified: value === "true" }).unwrap();
+        toast.success(`User ${value === "true" ? "verified" : "unverified"}`);
+      } else if (action === "delete") {
+        await updateUser({ id: userId, deleted: true }).unwrap();
+        toast.success("User deleted successfully");
+      }
+    } catch (error) {
+      toast.error("Action failed");
+    }
+  };
 
-    const handleDelete = (id) => {
-        try {
-            console.log("Delete user", id);
-            // TODO: Hook delete mutation here
-        } catch (err) {
-            alert(`❌ Failed to delete user: ${err?.message}`);
-            console.error("Delete error:", err);
-        }
-    };
+  // ✅ Filter users
+  const filteredUsers = users?.filter(
+    (u) =>
+      u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      u.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-    const handleVerificationChange = (id, status) => {
-        try {
-            console.log("Change verification", id, status);
-            // TODO: Hook verify mutation here
-        } catch (err) {
-            alert(`❌ Failed to change verification: ${err?.message}`);
-            console.error("Verification error:", err);
-        }
-    };
+  if (isLoading) return <p className="text-center py-10">Loading users...</p>;
 
-    const filteredUsers = allUsers.filter(
-        (user) =>
-            user.name?.toLowerCase().includes(search.toLowerCase()) ||
-            user.email?.toLowerCase().includes(search.toLowerCase())
-    );
-
-    return (
-        <div className="py-6 px-2 sm:px-10">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1a4480]">
-                    Users Management
-                </h1>
-                <div className="flex flex-col md:flex-row gap-4 w-full sm:w-auto">
-                    <div className="relative flex-1">
-                        <Search
-                            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                            size={18}
-                        />
-                        <input
-                            type="text"
-                            placeholder="Search users..."
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 border-2 border-[#1446b3] shadow-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                        />
-                    </div>
-                </div>
-            </div>
-
-            {/* Loader / Error State */}
-            {isLoading && <p className="text-center text-gray-500">Loading users...</p>}
-            {isError && (
-                <p className="text-center text-red-500">
-                    {error?.data?.message || "❌ Failed to fetch users. Please try again."}
-                </p>
-            )}
-
-            {/* Table for md+ screens */}
-            {!isLoading && !isError && (
-                <div className="hidden md:block overflow-x-auto bg-white rounded-xl shadow-lg">
-                    <table className="w-full border-collapse font-serif">
-                        <thead>
-                            <tr className="bg-[#1a4480] text-left text-white text-lg">
-                                <th className="p-4 border-b">#</th>
-                                <th className="p-4 border-b">Name</th>
-                                <th className="p-4 border-b">Email</th>
-                                <th className="p-4 border-b">Role</th>
-                                <th className="p-4 border-b">Status</th>
-                                <th className="p-4 border-b text-center">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredUsers.length > 0 ? (
-                                filteredUsers.map((user, index) => (
-                                    <tr
-                                        key={user._id}
-                                        className="hover:bg-[#1446b313] transition-colors duration-200"
-                                    >
-                                        <td className="p-4 border-b">{index + 1}</td>
-                                        <td className="p-4 border-b">{user.name}</td>
-                                        <td className="p-4 border-b">{user.email}</td>
-                                        <td className="p-4 border-b text-[#1446b3] font-bold">{user.role}</td>
-                                        <td className="p-4 border-b">
-                                            {user.status === "verified" ? (
-                                                <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">
-                                                    Verified
-                                                </span>
-                                            ) : (
-                                                <span className="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs font-semibold">
-                                                    Unverified
-                                                </span>
-                                            )}
-                                        </td>
-                                        <td className="p-4 border-b text-center">
-                                            <select
-                                                className="border rounded-lg px-2 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                                                onChange={(e) => {
-                                                    const [action, value] = e.target.value.split("-");
-                                                    if (action === "role") handleRoleChange(user._id, value);
-                                                    if (action === "verify")
-                                                        handleVerificationChange(user._id, value === "true");
-                                                    if (action === "delete") handleDelete(user._id);
-                                                    e.target.value = "";
-                                                }}
-                                                defaultValue=""
-                                            >
-                                                <option value="" disabled>
-                                                    Manage
-                                                </option>
-                                                <option value="role-Admin">Make Admin</option>
-                                                <option value="role-User">Make User</option>
-                                                <option value="verify-true">Verify</option>
-                                                <option value="verify-false">Unverify</option>
-                                                <option value="delete">Delete</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan="6" className="p-4 text-center text-gray-500">
-                                        No users found.
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
-            )}
-
-            {/* Cards for small screens */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
-                {filteredUsers.length > 0 ? (
-                    filteredUsers.map((user, index) => (
-                        <div
-                            key={user._id}
-                            className="bg-white rounded-xl shadow-md p-4 border border-gray-200"
-                        >
-                            <div className="flex justify-between items-center mb-2">
-                                <h3 className="text-lg font-semibold text-[#1446b3]">{user.name}</h3>
-                                <span
-                                    className={`text-xs font-semibold px-2 py-1 rounded-full ${user.status === "verified"
-                                            ? "bg-green-100 text-green-800"
-                                            : "bg-red-100 text-red-800"
-                                        }`}
-                                >
-                                    {user.status === "verified" ? "Verified" : "Unverified"}
-                                </span>
-                            </div>
-                            <p className="text-sm text-gray-600 mb-1">{user.email}</p>
-                            <p className="text-sm text-gray-700 mb-3">
-                                <span className="font-bold">Role:</span> {user.role}
-                            </p>
-                            <div className="flex justify-between items-center">
-                                <span className="text-sm text-gray-500">#{index + 1}</span>
-                                <select
-                                    className="border rounded-lg px-2 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition text-sm"
-                                    onChange={(e) => {
-                                        const [action, value] = e.target.value.split("-");
-                                        if (action === "role") handleRoleChange(user._id, value);
-                                        if (action === "verify") handleVerificationChange(user._id, value === "true");
-                                        if (action === "delete") handleDelete(user._id);
-                                        e.target.value = "";
-                                    }}
-                                    defaultValue=""
-                                >
-                                    <option value="" disabled>
-                                        Manage
-                                    </option>
-                                    <option value="role-Admin">Make Admin</option>
-                                    <option value="role-User">Make User</option>
-                                    <option value="verify-true">Verify</option>
-                                    <option value="verify-false">Unverify</option>
-                                    <option value="delete">Delete</option>
-                                </select>
-                            </div>
-                        </div>
-                    ))
-                ) : (
-                    <p className="text-center text-gray-500 col-span-2">No users found.</p>
-                )}
-            </div>
+  return (
+    <div className="p-4 md:p-6">
+      {/* 🔍 Search Bar */}
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-bold text-[#104c80]">Manage Users</h2>
+        <div className="relative w-64">
+          <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
+          <input
+            type="text"
+            placeholder="Search users..."
+            className="pl-10 pr-3 py-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
-    );
+      </div>
+
+      {/* ✅ Desktop Table */}
+      <div className="hidden md:block overflow-x-auto">
+        <table className="min-w-full bg-white rounded-lg shadow border">
+          <thead className="bg-gray-100 text-sm">
+            <tr>
+              <th className="px-4 py-3 text-left">Name</th>
+              <th className="px-4 py-3 text-left">Email</th>
+              <th className="px-4 py-3 text-left">Role</th>
+              <th className="px-4 py-3 text-left">Verification</th>
+              <th className="px-4 py-3 text-left">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="text-sm">
+            {filteredUsers?.map((user) => (
+              <tr key={user._id} className="border-t hover:bg-gray-50">
+                <td className="px-4 py-3">{user.name}</td>
+                <td className="px-4 py-3">{user.email}</td>
+                <td className="px-4 py-3 capitalize">{user.role}</td>
+                <td className="px-4 py-3">
+                  {user.status ? (
+                    <span className="flex items-center text-green-600">
+                      <CheckCircle size={14} className="mr-1" /> Verified
+                    </span>
+                  ) : (
+                    <span className="flex items-center text-red-600">
+                      <XCircle size={14} className="mr-1" /> Unverified
+                    </span>
+                  )}
+                </td>
+                <td className="px-4 py-3">
+                  <select
+                    className="border rounded-lg px-2 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                    onChange={(e) => {
+                      const [action, value] = e.target.value.split("-");
+                      handleAction(user._id, action, value);
+                      e.target.value = "";
+                    }}
+                    defaultValue=""
+                  >
+                    <option value="" disabled>
+                      Manage
+                    </option>
+                    <option value="role-admin">Make Admin</option>
+                    <option value="role-user">Make User</option>
+                    <option value="role-student">Make Student</option>
+                    <option value="role-guard">Make Guard</option>
+                    <option value="verify-true">Verify</option>
+                    <option value="verify-false">Unverify</option>
+                    <option value="delete-any">Delete</option>
+                  </select>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* ✅ Mobile Cards */}
+      <div className="md:hidden space-y-4">
+        {filteredUsers?.map((user) => (
+          <div
+            key={user._id}
+            className="bg-white shadow rounded-lg p-4 border space-y-2"
+          >
+            <p>
+              <span className="font-semibold">Name:</span> {user.name}
+            </p>
+            <p>
+              <span className="font-semibold">Email:</span> {user.email}
+            </p>
+            <p>
+              <span className="font-semibold">Role:</span>{" "}
+              <span className="capitalize">{user.role}</span>
+            </p>
+            <p>
+              <span className="font-semibold">Verification:</span>{" "}
+              {user.verified ? (
+                <span className="flex items-center text-green-600">
+                  <CheckCircle size={14} className="mr-1" /> Verified
+                </span>
+              ) : (
+                <span className="flex items-center text-red-600">
+                  <XCircle size={14} className="mr-1" /> Unverified
+                </span>
+              )}
+            </p>
+            <div>
+              <select
+                className="border rounded-lg px-2 py-1 text-gray-700 w-full mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={(e) => {
+                  const [action, value] = e.target.value.split("-");
+                  handleAction(user._id, action, value);
+                  e.target.value = "";
+                }}
+                defaultValue=""
+              >
+                <option value="" disabled>
+                  Manage
+                </option>
+                <option value="role-admin">Make Admin</option>
+                <option value="role-user">Make User</option>
+                <option value="role-student">Make Student</option>
+                <option value="role-guard">Make Guard</option>
+                <option value="verify-true">Verify</option>
+                <option value="verify-false">Unverify</option>
+                <option value="delete-any">Delete</option>
+              </select>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default UsersDetail;

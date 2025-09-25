@@ -313,6 +313,7 @@ export default function Navbar() {
                       <NavLink to='/my-profile' className='block px-4 py-2 hover:text-indigo-700'>My Profile</NavLink>
                       {profile?.role === 'admin' && <NavLink to='/admincomplain' className='block px-4 py-2 hover:text-indigo-700'>Admin Dashboard</NavLink>}
                       {profile?.role === 'teacher' && <NavLink to='/teacherdocuments' className='block px-4 py-2 hover:text-indigo-700'>Teacher Dashboard</NavLink>}
+                      {profile?.role === 'visitor' && <NavLink to='/visitor' className='block px-4 py-2 hover:text-indigo-700'>Visitor Dashboard</NavLink>}
                       {profile?.role?.toLowerCase() === 'user' && <NavLink to='/stcomplaints' className='block px-4 py-2 hover:text-indigo-700'>Student Dashboard</NavLink>}
                       <button
                         onClick={handleLogout}
