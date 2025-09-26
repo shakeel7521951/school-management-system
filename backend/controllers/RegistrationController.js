@@ -89,11 +89,12 @@ export const updateStatus = async (req, res) => {
     let mailOptions;
 
     if (status === "approved") {
-      const generatedPassword = Math.random().toString(36).slice(-8);
-
+      // Check if user already exists
       let user = await User.findOne({ email: registration.email });
 
       if (!user) {
+        // Create new user if not exist
+        const generatedPassword = Math.random().toString(36).slice(-8);
         user = new User({
           name: registration.child_name,
           email: registration.email,
@@ -102,19 +103,25 @@ export const updateStatus = async (req, res) => {
           role: "student",
           status: "active",
         });
+        await user.save();
+
+        mailOptions = registrationApprovedTemplate(
+          registration.child_name,
+          registration.email,
+          generatedPassword
+        );
       } else {
-        user.password = generatedPassword;
+        // User exists, just update role and status without changing password
         user.role = "student";
         user.status = "active";
+        await user.save();
+
+        mailOptions = registrationApprovedTemplate(
+          registration.child_name,
+          registration.email,
+          "Your existing password" // Tell user to use existing password
+        );
       }
-
-      await user.save();
-
-      mailOptions = registrationApprovedTemplate(
-        registration.child_name,
-        registration.email,
-        generatedPassword
-      );
     } else if (status === "rejected") {
       mailOptions = registrationRejectedTemplate(registration.child_name);
     }
@@ -123,7 +130,6 @@ export const updateStatus = async (req, res) => {
       await SendMail(
         registration.email,
         mailOptions.subject,
-        // mailOptions.text,
         mailOptions.html
       );
     }
