@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { User, Search, Menu, LogOut } from "lucide-react";
+import { User,Menu, LogOut } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUserProfile, clearProfile } from "../../../redux/slices/UserSlice";
 import { useNavigate } from "react-router-dom";
@@ -52,16 +52,7 @@ const Navbar = ({ onMenuClick }) => {
           <Menu size={20} className="text-gray-700" />
         </button>
 
-        {/* Search Bar */}
-        <div className="hidden md:flex items-center bg-gray-100 rounded-xl px-3 py-2 shadow-inner w-40 sm:w-56 md:w-64 lg:w-80">
-          <Search size={18} className="text-gray-400 mr-2" />
-          <input
-            type="text"
-            placeholder="Search..."
-            className="bg-transparent text-gray-700 placeholder-gray-400 outline-none w-full text-sm"
-            aria-label="Search"
-          />
-        </div>
+       
       </div>
 
       {/* Right Section */}
