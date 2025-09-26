@@ -1,28 +1,32 @@
-import dotenv from "dotenv";
-dotenv.config();
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
   auth: {
-    user: "bmxadventure8@gmail.com",
-    pass: "yoie uzhf crai ccks",
+    user: "bmxadventure8@gmail.com", 
+    pass: "yoieuzhfcraiccks", 
   },
-  secure: true,
-  timeout: 10000,
+  tls: {
+    rejectUnauthorized: false,    
+  },
+  connectionTimeout: 10000,        
 });
 
-const SendMail = async (email, subject, text) => {
+const SendMail = async (email, subject, html) => {
   try {
     const mailOptions = {
-      from: "bmxadventure8@gmail.com", 
-      to: email, 
-      subject: subject,
-      html: text,
+      from: `"Academy Team" <bmxadventure8@gmail.com>`,
+      to: email,
+      subject,
+      html,
     };
+
     await transporter.sendMail(mailOptions);
+    console.log(`✅ Email sent to ${email}`);
   } catch (error) {
-    console.error("❌ Email sending failed:", error);
+    console.error("❌ Email sending failed:", error.message);
     throw new Error("Failed to send mail");
   }
 };
