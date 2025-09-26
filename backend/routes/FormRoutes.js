@@ -3,11 +3,11 @@ import { createForm, deleteForm, getAllForms, getFormHTML, singleForm, updateFor
 import auth from "../middlewares/AuthMiddleWare.js";
 const router = express.Router();
 
-router.post("/createForm",auth, createForm);
-router.put("/update-form/:id",auth, updateForm);
-router.get("/getForms",auth, getAllForms);
-router.get("/html-form/:id",auth, getFormHTML);
-router.get("/single-form/:id",auth, singleForm);
-router.delete("/delete-form/:id",auth, deleteForm);
+router.post("/createForm", createForm);
+router.put("/update-form/:id", updateForm);
+router.get("/getForms", getAllForms);
+router.get("/html-form/:id", getFormHTML);
+router.get("/single-form/:id", singleForm);
+router.delete("/delete-form/:id", deleteForm);
 
 export default router;
