@@ -67,7 +67,7 @@ export default function HeaderSection() {
                 transition={{ duration: 1 }}
                 className="text-center text-white max-w-3xl px-6"
               >
-                <h1 className="text-4xl md:text-5xl md:w-[750px] font-bold mb-6">
+                <h1 className="text-4xl md:text-4xl md:w-[750px] font-bold mb-6">
                   Admission Now Open 2025-2026
                 </h1>
                 <p className="text-lg md:text-xl text-gray-200 mb-8">
