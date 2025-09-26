@@ -19,7 +19,6 @@ export const submittedFormApi = createApi({
   tagTypes: ["Submissions"],
 
   endpoints: (builder) => ({
-    //  Get all submissions (optionally filter by formId)
     allSubmittedForms: builder.query({
       query: (formId) => ({
         url: formId ? `/submissions?formId=${formId}` : "/submissions",
