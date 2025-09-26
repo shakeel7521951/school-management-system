@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FooterBottom from "../components/common/Footer/FooterBottom";
 import FooterBrand from "../components/common/Footer/FooterBrand";
@@ -6,6 +6,7 @@ import FooterContact from "../components/common/Footer/FooterContact";
 import FooterMenu from "../components/common/Footer/FooterMenu";
 import FooterSearch from "../components/common/Footer/FooterSearch";
 import OrbEffect from "../components/common/Footer/OrbEffect";
+
 export default function Footer() {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
@@ -19,15 +20,23 @@ export default function Footer() {
   ];
 
   const handleSearch = (e) => {
-    e.preventDefault();
+    e?.preventDefault();
+    if (!query.trim()) return;
+
     const filtered = menuLinks.filter((item) =>
       item.name.toLowerCase().includes(query.toLowerCase())
     );
     setResults(filtered);
-    if (filtered.length === 1) navigate(filtered[0].path);
+
+    if (filtered.length === 1) {
+      navigate(filtered[0].path);
+    } else {
+      navigate("/search", { state: { query, results: filtered } });
+    }
+
+    setQuery("");
   };
 
-  // shared animation
   const sectionVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
@@ -53,13 +62,12 @@ export default function Footer() {
               handleSearch={handleSearch}
               query={query}
               setQuery={setQuery}
+              results={results}
             />
           </div>
-
           <FooterBottom sectionVariants={sectionVariants} />
         </div>
       </div>
-
       <OrbEffect />
     </footer>
   );
