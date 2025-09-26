@@ -67,7 +67,7 @@ export default function HeaderSection() {
                 transition={{ duration: 1 }}
                 className="text-center text-white max-w-3xl px-6"
               >
-                <h1 className="text-4xl md:text-5xl md:w-[750px] font-bold mb-6">
+                <h1 className="text-4xl md:text-4xl md:w-[750px] font-bold mb-6">
                   Admission Now Open 2025-2026
                 </h1>
                 <p className="text-lg md:text-xl text-gray-200 mb-8">
@@ -127,12 +127,12 @@ export default function HeaderSection() {
       </Swiper>
 
       {/* Navigation Arrows */}
-      <div className="absolute top-1/2 -translate-y-1/2 left-6 z-20 hidden md:flex">
+      <div className="absolute top-1/2 -translate-y-1/2 left-6 z-20 hidden lg:flex">
         <div className="custom-prev cursor-pointer bg-gradient-to-r from-[#224182] to-[#3b63bb] w-14 h-14 rounded-full flex items-center justify-center shadow-xl">
           <ChevronLeft className="text-white w-7 h-7" />
         </div>
       </div>
-      <div className="absolute top-1/2 -translate-y-1/2 right-6 z-20 hidden md:flex">
+      <div className="absolute top-1/2 -translate-y-1/2 right-6 z-20 hidden lg:flex">
         <div className="custom-next cursor-pointer bg-gradient-to-r from-[#224182] to-[#3b63bb] w-14 h-14 rounded-full flex items-center justify-center shadow-xl">
           <ChevronRight className="text-white w-7 h-7" />
         </div>
