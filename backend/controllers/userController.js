@@ -212,32 +212,25 @@ export const myProfile = async (req, res) => {
   }
 };
 
-export const updatePassword = async (req, res, next) => {
+export const updatePassword = async (req, res) => {
   try {
     const { currentPassword, newPassword, confirmPassword } = req.body;
-
     if (!currentPassword || !newPassword || !confirmPassword) {
-      return next(new errorHandler("All fields are required", 400));
+      return res.status(400).json({ message: "All fields are required" });
     }
 
-    const user = await User.findById(req.user.id);
-    if (!user) {
-      return res.status(400).json("User not found!");
-    }
+    const user = await User.findById(req.user?.id);
+    if (!user) return res.status(404).json({ message: "User not found!" });
 
     const isMatch = await user.comparePassword(currentPassword);
-    if (!isMatch) {
-      return res.status(403).json("Old password is incorrect!");
-    }
+    if (!isMatch) return res.status(403).json({ message: "Old password is incorrect!" });
 
     if (currentPassword === newPassword) {
-      return res
-        .status(401)
-        .json({ message: "Old and New Password could not be same" });
+      return res.status(400).json({ message: "Old and New Password cannot be the same" });
     }
 
     if (newPassword !== confirmPassword) {
-      return res.status(401).json("Passwords do not match!");
+      return res.status(400).json({ message: "Passwords do not match!" });
     }
 
     user.password = newPassword;
@@ -248,9 +241,8 @@ export const updatePassword = async (req, res, next) => {
       message: "Password updated successfully",
     });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Internal server error! Please try again later" });
+    console.log(error);
+    res.status(500).json({ message: "Internal server error! Please try again later" });
   }
 };
 

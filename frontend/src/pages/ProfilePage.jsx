@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUserProfile } from "../redux/slices/UserSlice";
-import { useLogoutMutation } from "../redux/slices/UserApi";
+import { useLogoutMutation, useUpdatePasswordMutation } from "../redux/slices/UserApi";
 import { useNavigate } from "react-router-dom";
 import { FaUserCircle, FaLock, FaTimes, FaSignOutAlt, FaCamera } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "react-toastify";
 
 const ProfilePage = () => {
   const profile = useSelector(selectUserProfile);
   const [logout] = useLogoutMutation();
+  const [updatePassword] = useUpdatePasswordMutation();
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
   const [passwords, setPasswords] = useState({
-    oldPassword: "",
+    currentPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
@@ -24,21 +26,34 @@ const ProfilePage = () => {
   const handleLogout = async () => {
     try {
       await logout().unwrap();
+      toast("Logout successfull")
       navigate("/login");
     } catch (err) {
       console.error("Logout failed:", err);
     }
   };
 
-  const handlePasswordSubmit = (e) => {
+  const handlePasswordSubmit = async (e) => {
     e.preventDefault();
     if (passwords.newPassword !== passwords.confirmPassword) {
       alert("New passwords do not match!");
       return;
     }
-    console.log("Password change request:", passwords);
-    setShowModal(false);
-    setPasswords({ oldPassword: "", newPassword: "", confirmPassword: "" });
+
+    try {
+      await updatePassword({
+        currentPassword: passwords.currentPassword,
+        newPassword: passwords.newPassword,
+        confirmPassword:passwords.confirmPassword
+      }).unwrap();
+
+      toast("Password updated successfully!");
+      setShowModal(false);
+      setPasswords({ currentPassword: "", newPassword: "", confirmPassword: "" });
+    } catch (err) {
+      console.error("Password update failed:", err);
+      toast.error("Failed to update password. Please try again.");
+    }
   };
 
   const handleImageUpload = (e) => {
@@ -156,7 +171,7 @@ const ProfilePage = () => {
 
               <form onSubmit={handlePasswordSubmit} className="space-y-5">
                 {[
-                  { label: "Old Password", name: "oldPassword" },
+                  { label: "Old Password", name: "currentPassword" },
                   { label: "New Password", name: "newPassword" },
                   { label: "Confirm New Password", name: "confirmPassword" },
                 ].map((field, idx) => (
