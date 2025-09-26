@@ -63,3 +63,32 @@ Academy Team
     `,
   };
 };
+
+
+export const registrationSubmittedTemplate = (name) => {
+  return {
+    subject: "📬 Registration Submitted Successfully",
+    text: `Hello ${name},
+
+We have received your registration successfully! ✅
+
+Your application is now under review. You will be notified via email once the status is updated.
+
+Thank you for choosing our Academy!
+
+Best Regards,
+Academy Team
+    `,
+    html: `
+      <div style="font-family: Arial, sans-serif; line-height:1.6;">
+        <h2 style="color:#2c3e50;">📬 Registration Submitted</h2>
+        <p>Hello <b>${name}</b>,</p>
+        <p>We have received your registration successfully! ✅</p>
+        <p>Your application is now under review. You will be notified via email once the status is updated.</p>
+        <p>Thank you for choosing our Academy!</p>
+        <br>
+        <p>Best Regards,<br><b>Academy Team</b></p>
+      </div>
+    `,
+  };
+};
