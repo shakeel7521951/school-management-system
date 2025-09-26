@@ -1,103 +1,101 @@
-import React from "react";
-import { X, Download } from "lucide-react";
+import React, { useState } from "react";
+import { X, Download, ChevronDown, ChevronUp } from "lucide-react";
 
 const ViewDocumentModal = ({ selectedDoc, onClose, getStatusClass }) => {
+  const [formOpen, setFormOpen] = useState(true);
+
+  const renderValue = (value) => {
+    if (value === null || value === undefined) return "N/A";
+    if (Array.isArray(value)) return value.map((v) => renderValue(v)).join(", ");
+    if (typeof value === "object")
+      return Object.entries(value)
+        .map(([k, v]) => `${formatLabel(k)}: ${renderValue(v)}`)
+        .join(", ");
+    return String(value);
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl shadow-lg w-full max-w-md">
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 md:p-6 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-[#104c80]">
-            Submission Details
-          </h3>
+        <div className="flex items-center justify-between p-5 border-b border-gray-200">
+          <h3 className="text-xl font-semibold text-[#104c80]">Submission Details</h3>
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600 transition-colors"
           >
-            <X size={20} />
+            <X size={24} />
           </button>
         </div>
 
-        {/* Details */}
-        <div className="p-4 md:p-6 space-y-4">
-          {/* Dynamic Form Data */}
-          <div className="space-y-2">
-            <p className="text-sm font-medium text-gray-500">Form Data:</p>
-            <div className="bg-gray-50 p-3 rounded-md space-y-1">
-              {selectedDoc?.formData &&
-                Object.entries(selectedDoc.formData).map(([key, value]) => (
-                  <div
-                    key={key}
-                    className="flex justify-between border-b border-gray-100 pb-1"
-                  >
-                    <span className="text-sm font-medium text-gray-500">
-                      {formatLabel(key)}:
-                    </span>
-                    <span className="text-sm text-gray-900">{value}</span>
-                  </div>
-                ))}
+        {/* Body */}
+        <div className="p-5 space-y-6 max-h-[80vh] overflow-y-auto">
+          {/* Form Data */}
+          {selectedDoc.formData && (
+            <div className="bg-gray-50 rounded-lg shadow-sm border border-gray-200 p-4">
+              <div
+                className="flex justify-between items-center cursor-pointer"
+                onClick={() => setFormOpen(!formOpen)}
+              >
+                <h4 className="text-md font-semibold text-gray-700">Form Data</h4>
+                {formOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+              </div>
+              {formOpen && (
+                <div className="mt-3 space-y-2 text-sm text-gray-700">
+                  {Object.entries(selectedDoc.formData).map(([key, value]) => (
+                    <div key={key} className="flex justify-between border-b border-gray-100 pb-1">
+                      <span className="font-medium text-gray-500">{formatLabel(key)}:</span>
+                      <span className="text-gray-900">{renderValue(value)}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-          </div>
+          )}
 
           {/* Meta Info */}
-          <Detail
-            label="Form ID"
-            value={selectedDoc.formId || "N/A"}
-          />
-          <Detail
-            label="Submitted At"
-            value={new Date(selectedDoc.submittedAt).toLocaleString()}
-          />
-          <Detail
-            label="IP Address"
-            value={selectedDoc.ipAddress || "N/A"}
-          />
-          <Detail
-            label="User Agent"
-            value={selectedDoc.userAgent || "N/A"}
-          />
-
-          {/* Status */}
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-gray-500">Status:</span>
-            <span
-              className={`text-sm ${getStatusClass(
-                selectedDoc.status || "Pending"
-              )} px-2.5 py-0.5 rounded-full`}
-            >
-              {selectedDoc.status || "Pending"}
-            </span>
+          <div className="grid grid-cols-2 gap-4">
+            <Detail label="Form ID" value={selectedDoc.formId} />
+            <Detail label="Submitted At" value={new Date(selectedDoc.submittedAt).toLocaleString()} />
+            <Detail label="IP Address" value={selectedDoc.ipAddress} />
+            <Detail label="User Agent" value={selectedDoc.userAgent} />
+            <Detail
+              label="Status"
+              value={
+                <span
+                  className={`px-2.5 py-1 rounded-full text-sm font-medium ${getStatusClass(
+                    selectedDoc.status || "Pending"
+                  )}`}
+                >
+                  {selectedDoc.status || "Pending"}
+                </span>
+              }
+            />
           </div>
 
           {/* Rejection Note */}
           {selectedDoc.status === "Rejected" && (
-            <div className="pt-4 border-t border-gray-200">
-              <p className="text-sm font-medium text-gray-500 mb-1">
-                Rejection Note:
-              </p>
-              <p className="text-sm text-red-600 bg-red-50 p-3 rounded-md">
-                {selectedDoc.note || "No note provided"}
-              </p>
+            <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded-lg">
+              <h4 className="font-semibold mb-1">Rejection Note</h4>
+              <p className="text-sm">{selectedDoc.note || "No note provided"}</p>
             </div>
           )}
         </div>
 
         {/* Footer */}
-        <div className="flex justify-end gap-3 p-4 md:p-6 border-t border-gray-200">
-          {/* If in future you store fileUrl in submission */}
+        <div className="flex justify-end items-center gap-3 p-5 border-t border-gray-200">
           {selectedDoc.fileUrl && (
             <a
               href={selectedDoc.fileUrl}
               download
-              className="flex items-center gap-1.5 text-sm text-[#104c80] hover:text-[#0d3a66] font-medium"
+              className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
             >
-              <Download size={16} />
-              Download
+              <Download size={16} /> Download
             </a>
           )}
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-[#104c80] text-white text-sm font-medium rounded-md hover:bg-[#0d3a66] transition-colors"
+            className="px-4 py-2 bg-[#104c80] text-white rounded-md font-medium hover:bg-[#0d3a66] transition-colors"
           >
             Close
           </button>
@@ -108,13 +106,12 @@ const ViewDocumentModal = ({ selectedDoc, onClose, getStatusClass }) => {
 };
 
 const Detail = ({ label, value }) => (
-  <div className="flex items-center justify-between">
-    <span className="text-sm font-medium text-gray-500">{label}:</span>
-    <span className="text-sm text-gray-900">{value}</span>
+  <div className="flex justify-between items-center text-sm">
+    <span className="font-medium text-gray-500">{label}:</span>
+    <span className="text-gray-900">{value ?? "N/A"}</span>
   </div>
 );
 
-// Helper to make keys look nice
 const formatLabel = (key) =>
   key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 

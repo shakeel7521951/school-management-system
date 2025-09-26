@@ -17,7 +17,7 @@ const UploadedDocuments = () => {
   const [showRejectModal, setShowRejectModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
 
-  // 🔄 Transform backend data into table format
+  // Transform backend data into table format
   const uploads = useMemo(
     () =>
       submissions.map((item) => ({
@@ -29,12 +29,15 @@ const UploadedDocuments = () => {
         date: item.submittedAt,
         status: item.status || "Pending",
         note: item.note || "",
-        raw: item, // keep original for modals
+        formData: item.formData || {},
+        fileUrl: item.fileUrl || null,
+        ipAddress: item.ipAddress || null,
+        userAgent: item.userAgent || null,
       })),
     [submissions]
   );
 
-  // ✅ Approve
+  // Approve
   const handleApprove = async (id) => {
     try {
       await updateStatus({ id, status: "Resolved" }).unwrap();
@@ -44,7 +47,7 @@ const UploadedDocuments = () => {
     }
   };
 
-  // ✅ Reject
+  // Reject
   const handleRejectSubmit = async () => {
     if (!rejectNote.trim() || !selectedDoc) return;
     try {
@@ -63,7 +66,7 @@ const UploadedDocuments = () => {
     }
   };
 
-  // ✅ Status badge
+  // Status badge
   const getStatusClass = (status) => {
     switch (status) {
       case "Pending":
@@ -113,7 +116,7 @@ const UploadedDocuments = () => {
       {/* Modals */}
       {showViewModal && selectedDoc && (
         <ViewDocumentModal
-          selectedDoc={selectedDoc.raw}
+          selectedDoc={selectedDoc} // ← pass the doc directly
           onClose={() => setShowViewModal(false)}
           getStatusClass={getStatusClass}
         />
@@ -121,7 +124,7 @@ const UploadedDocuments = () => {
 
       {showRejectModal && selectedDoc && (
         <RejectDocumentModal
-          selectedDoc={selectedDoc.raw}
+          selectedDoc={selectedDoc} // ← pass the doc directly
           rejectNote={rejectNote}
           setRejectNote={setRejectNote}
           onClose={() => {
