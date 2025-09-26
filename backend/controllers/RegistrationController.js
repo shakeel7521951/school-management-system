@@ -1,4 +1,7 @@
 import Registration from "../models/Registration.js";
+import User from "../models/User.js";
+import { registrationApprovedTemplate, registrationRejectedTemplate } from "../utils/emailTemplates.js";
+import SendMail from "../utils/SendMail.js";
 
 export const newRegistration = async (req, res) => {
   try {
@@ -51,9 +54,36 @@ export const updateStatus = async (req, res) => {
       { status },
       { new: true }
     );
-
+    console.log("registration.......",registration)
     if (!registration) {
       return res.status(404).json({ success: false, message: "Not found" });
+    }
+    let mailOptions;
+
+    if (status === "approved") {
+      const generatedPassword = Math.random().toString(36).slice(-8);
+
+      const newUser = new User({
+        name: registration.name,
+        email: registration.email,
+        phone: registration.phone,
+        password: generatedPassword, 
+        role: "student",
+        status: "active",
+      });
+      await newUser.save();
+
+      mailOptions = registrationApprovedTemplate(
+        registration.name,
+        registration.email,
+        generatedPassword
+      );
+    } else if (status === "rejected") {
+      mailOptions = registrationRejectedTemplate(registration.name);
+    }
+
+    if (mailOptions) {
+      await SendMail(registration.email, mailOptions.subject, mailOptions.text, mailOptions.html);
     }
 
     res.status(200).json({
@@ -62,6 +92,7 @@ export const updateStatus = async (req, res) => {
       data: registration,
     });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ success: false, message: error.message });
   }
 };
