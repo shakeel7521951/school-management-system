@@ -6,9 +6,7 @@ import ComplaintModals from "./ComplaintModals";
 import ComplaintStats from "./ComplaintStats";
 
 import {
-  useCreateStComplaintMutation,
   useGetAllStComplaintsQuery,
-  useGetStComplaintByIdQuery,
   useDeleteStComplaintMutation,
   useChangeStComplaintStatusMutation,
 } from "../../../redux/slices/StComplaintApi";
@@ -44,7 +42,7 @@ const AdminComplain = () => {
       await changeStatus({ id, status: newStatus }).unwrap();
       showToast("Status updated successfully", "success");
       setEditModal(null);
-    } catch (error) {
+    } catch {
       showToast("Failed to update status", "error");
     }
   };
@@ -55,7 +53,7 @@ const AdminComplain = () => {
       await deleteComplaint(id).unwrap();
       showToast("Complaint deleted successfully", "success");
       setDeleteModal(null);
-    } catch (error) {
+    } catch {
       showToast("Failed to delete complaint", "error");
     }
   };
@@ -178,45 +176,16 @@ const AdminComplain = () => {
         setCurrentPage={setCurrentPage}
       />
 
-      {/* ✅ Table View */}
-      <div className="hidden md:block">
-        <ComplaintTable
-          paginatedComplaints={paginatedComplaints}
-          filteredComplaints={filteredComplaints}
-          sortConfig={sortConfig}
-          handleSort={handleSort}
-          setViewModal={setViewModal}
-          setEditModal={setEditModal}
-          setDeleteModal={setDeleteModal}
-        />
-      </div>
-
-      {/* ✅ Mobile Card View */}
-      <div className="grid gap-4 md:hidden">
-        {paginatedComplaints.map((c) => (
-          <div key={c._id} className="bg-white p-4 rounded-xl shadow-md border border-gray-200">
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="font-bold text-gray-800">{c.fullName}</h3>
-                <p className="text-sm text-gray-500">
-                  {c.complaintType} • {new Date(c.date).toLocaleDateString()}
-                </p>
-              </div>
-              <button
-                onClick={() => setViewModal(c)}
-                className="text-[#1a4480] text-sm font-medium hover:underline"
-              >
-                View
-              </button>
-            </div>
-            <p className="mt-2 text-gray-700 text-sm">{c.detail}</p>
-            <div className="mt-3 flex flex-wrap gap-2 text-xs">
-              <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full">{c.severity}</span>
-              <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full">{c.expectedAction}</span>
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* ✅ Table + Mobile Cards (handled in one component) */}
+      <ComplaintTable
+        paginatedComplaints={paginatedComplaints}
+        filteredComplaints={filteredComplaints}
+        sortConfig={sortConfig}
+        handleSort={handleSort}
+        setViewModal={setViewModal}
+        setEditModal={setEditModal}
+        setDeleteModal={setDeleteModal}
+      />
 
       {/* ✅ Pagination */}
       {pageCount > 1 && (

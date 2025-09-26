@@ -315,6 +315,7 @@ export default function Navbar() {
                       {profile?.role === 'teacher' && <NavLink to='/teacherdocuments' className='block px-4 py-2 hover:text-indigo-700'>Teacher Dashboard</NavLink>}
                       {profile?.role === 'visitor' && <NavLink to='/visitor' className='block px-4 py-2 hover:text-indigo-700'>Visitor Dashboard</NavLink>}
                       {profile?.role?.toLowerCase() === 'student' && <NavLink to='/stcomplaints' className='block px-4 py-2 hover:text-indigo-700'>Student Dashboard</NavLink>}
+                       {profile?.role?.toLowerCase() === 'guard' && <NavLink to='/visitor' className='block px-4 py-2 hover:text-indigo-700'>Security Dashboard</NavLink>}
                       <button
                         onClick={handleLogout}
                         disabled={isLoading}
