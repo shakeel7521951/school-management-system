@@ -13,31 +13,31 @@ const FinancialAndAdministrativeAffairs = () => {
   const sections = [
     {
       title: "Technological Infrastructure",
-      desc: "The person responsible for student enrollment, registration, transfer, withdrawal, and tracking the updating of student data.",
+      desc: "Responsible for student enrollment, registration, transfer, withdrawal, and tracking the updating of student data.",
       icon: <FaCogs className="text-4xl text-[#104c80]" />,
       image: "/images/students.png",
     },
     {
       title: "Financial Affairs Department",
-      desc: "This department is responsible for implementing and enforcing financial policies and regulations related to administrative decisions, students, and employees. It also prepares budget estimates and financial reports for senior management and relevant external entities.",
+      desc: "Implements financial policies, prepares budgets, and reports for senior management and relevant external entities.",
       icon: <FaMoneyBillWave className="text-4xl text-[#104c80]" />,
       image: "/images/statistics.png",
     },
     {
       title: "Human Resources Department",
-      desc: "We provide regular technical monitoring services to ensure that systems and devices are operating smoothly in accordance with the standard benchmarks.",
+      desc: "Ensures smooth operations and staff support in line with standard benchmarks.",
       icon: <FaUsersCog className="text-4xl text-[#104c80]" />,
       image: "/images/talent-search.png",
     },
     {
       title: "Services Department",
-      desc: "This department is responsible for student transportation and all matters related to school building maintenance.",
+      desc: "Responsible for student transportation and school maintenance.",
       icon: <FaTools className="text-4xl text-[#104c80]" />,
       image: "/images/service.png",
     },
     {
       title: "IT and Networking Department",
-      desc: "This department is responsible for everything related to devices, their components, and the technological infrastructure of the school.",
+      desc: "Handles all devices, components, and technological infrastructure of the school.",
       icon: <FaNetworkWired className="text-4xl text-[#104c80]" />,
       image: "/images/technology.png",
     },
@@ -45,7 +45,7 @@ const FinancialAndAdministrativeAffairs = () => {
 
   return (
     <div className="w-full text-gray-800">
-      {/* ✅ Hero Banner */}
+      {/* Hero Banner */}
       <section
         className="relative w-full h-[55vh] bg-cover bg-center flex items-center justify-center"
         style={{ backgroundImage: "url('/images/about-cover.jpg')" }}
@@ -66,76 +66,43 @@ const FinancialAndAdministrativeAffairs = () => {
         </motion.div>
       </section>
 
-      {/* ✅ Main Content */}
+      {/* Main Content */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 1 }}
         viewport={{ once: true }}
-        className="max-w-7xl mx-auto px-6 lg:px-12 py-20 space-y-20"
+        className="max-w-7xl mx-auto px-6 lg:px-12 py-20 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
       >
-        {/* Intro */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#104c80] mb-4">
-            Welcome to Financial and Administrative Affairs
-          </h2>
-          <p className="text-gray-600 max-w-3xl mx-auto text-lg">
-            Our departments ensure smooth operations, financial transparency,
-            and excellent support for students and staff.
-          </p>
-        </motion.div>
-
-        {/* Loop Through Sections */}
         {sections.map((sec, idx) => (
           <motion.div
             key={idx}
-            initial={{ opacity: 0, x: idx % 2 === 0 ? -80 : 80 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: idx * 0.2 }}
             viewport={{ once: true }}
-            className={`grid md:grid-cols-2 gap-1 items-center ${
-              idx % 2 === 1 ? "md:flex-row-reverse" : ""
-            }`}
+            whileHover={{ scale: 1.03 }}
+            className="bg-white rounded-xl shadow-md hover:shadow-lg overflow-hidden transition-all duration-300"
           >
-            {/* Image with framed card */}
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              className="flex justify-center"
-            >
-              <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-4 flex justify-center items-center w-64 md:w-72 lg:w-80">
-                <motion.img
-                  whileHover={{ scale: 1.05, rotate: 1 }}
-                  transition={{ duration: 0.3 }}
-                  src={sec.image}
-                  alt={sec.title}
-                  className="w-full h-auto object-contain"
-                />
-              </div>
-            </motion.div>
+            {/* Image */}
+            <div className="w-full h-56 md:h-64 lg:h-72 overflow-hidden">
+              <img
+                src={sec.image}
+                alt={sec.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
 
-            {/* Text Card */}
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition duration-300"
-            >
+            {/* Content */}
+            <div className="p-6">
               <div className="flex items-center gap-3 mb-4">
                 {sec.icon}
                 <h3 className="text-xl md:text-2xl font-bold text-[#104c80]">
                   {sec.title}
                 </h3>
               </div>
-              <p className="text-gray-700 leading-relaxed text-justify">
-                {sec.desc}
-              </p>
-            </motion.div>
+              <p className="text-gray-700 leading-relaxed">{sec.desc}</p>
+            </div>
           </motion.div>
         ))}
       </motion.div>
