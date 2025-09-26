@@ -1,8 +1,9 @@
+// userSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   profile: null,
-  loading: true, // start with loading true
+  loading: true,
 };
 
 const userSlice = createSlice({
@@ -14,7 +15,7 @@ const userSlice = createSlice({
       state.loading = false;
     },
     clearProfile: (state) => {
-      state.profile = null;
+      state.profile = null; // <-- clear user info & token
       state.loading = false;
     },
     setLoading: (state, action) => {
