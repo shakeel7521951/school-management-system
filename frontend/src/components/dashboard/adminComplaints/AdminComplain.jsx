@@ -4,6 +4,7 @@ import ComplaintTable from "./ComplaintTable";
 import ComplaintFilters from "./ComplaintFilters";
 import ComplaintModals from "./ComplaintModals";
 import ComplaintStats from "./ComplaintStats";
+import DeleteModal from "./DeleteModal";
 
 import {
   useGetAllStComplaintsQuery,
@@ -19,7 +20,7 @@ const AdminComplain = () => {
   const [changeStatus] = useChangeStComplaintStatusMutation();
 
   const [filterStatus, setFilterStatus] = useState("all");
-  const [filterPriority, setFilterPriority] = useState("all");
+  const [filterImpact, setFilterImpact] = useState("all"); // ✅ replaced priority with impact
   const [filterType, setFilterType] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "ascending" });
@@ -47,49 +48,58 @@ const AdminComplain = () => {
     }
   };
 
-  // ✅ Delete Complaint
-  const confirmDelete = async (id) => {
-    try {
-      await deleteComplaint(id).unwrap();
-      showToast("Complaint deleted successfully", "success");
-      setDeleteModal(null);
-    } catch {
-      showToast("Failed to delete complaint", "error");
-    }
-  };
+  // Delete complaint
+const confirmDelete = async (id) => {
+  console.log("Deleting complaint with ID:", id);
+  try {
+    await deleteComplaint(id).unwrap();
+    showToast("Complaint deleted successfully", "success");
+    setDeleteModal(null);
+  } catch (err) {
+    console.error("Delete failed:", err);
+    showToast("Failed to delete complaint", "error");
+  }
+};
+
 
   // ✅ Filtering + Sorting
-  const filteredComplaints = useMemo(
-    () =>
-      (complaints || [])
-        .filter((c) => {
-          const statusMatch = filterStatus === "all" || c.status === filterStatus;
-          const priorityMatch = filterPriority === "all" || c.priority === filterPriority;
-          const typeMatch = filterType === "all" || c.complaintType === filterType;
-          const q = searchTerm.trim().toLowerCase();
-          const searchMatch =
-            !q ||
-            c.fullName.toLowerCase().includes(q) ||
-            c.detail.toLowerCase().includes(q) ||
-            c.complaintType.toLowerCase().includes(q);
-          return statusMatch && priorityMatch && typeMatch && searchMatch;
-        })
-        .sort((a, b) => {
-          if (!sortConfig.key) return 0;
-          const aKey = a[sortConfig.key];
-          const bKey = b[sortConfig.key];
-          if (aKey == null && bKey == null) return 0;
-          if (aKey == null) return sortConfig.direction === "ascending" ? -1 : 1;
-          if (bKey == null) return sortConfig.direction === "ascending" ? 1 : -1;
-          if (sortConfig.key === "id") {
-            return sortConfig.direction === "ascending" ? aKey - bKey : bKey - aKey;
-          }
-          if (aKey < bKey) return sortConfig.direction === "ascending" ? -1 : 1;
-          if (aKey > bKey) return sortConfig.direction === "ascending" ? 1 : -1;
-          return 0;
-        }),
-    [complaints, filterStatus, filterPriority, filterType, searchTerm, sortConfig]
-  );
+  const filteredComplaints = useMemo(() => {
+    const q = searchTerm.trim().toLowerCase();
+
+    return (complaints || [])
+      .filter((c) => {
+        // normalize values for consistent matching
+        const statusValue = c.status?.toLowerCase().replace(/\s+/g, "-");
+        const impactValue = c.impact?.toLowerCase();
+        const typeValue = c.type?.toLowerCase();
+
+        const statusMatch = filterStatus === "all" || statusValue === filterStatus;
+        const impactMatch = filterImpact === "all" || impactValue === filterImpact;
+        const typeMatch = filterType === "all" || typeValue === filterType;
+
+        const searchMatch =
+          !q ||
+          [c.name, c.fullName, c.detail, c.impact, c.type, c.status]
+            .filter(Boolean)
+            .some((field) => field.toLowerCase().includes(q));
+
+        return statusMatch && impactMatch && typeMatch && searchMatch;
+      })
+      .sort((a, b) => {
+        if (!sortConfig.key) return 0;
+        const aKey = a[sortConfig.key];
+        const bKey = b[sortConfig.key];
+        if (aKey == null && bKey == null) return 0;
+        if (aKey == null) return sortConfig.direction === "ascending" ? -1 : 1;
+        if (bKey == null) return sortConfig.direction === "ascending" ? 1 : -1;
+        if (sortConfig.key === "id") {
+          return sortConfig.direction === "ascending" ? aKey - bKey : bKey - aKey;
+        }
+        if (aKey < bKey) return sortConfig.direction === "ascending" ? -1 : 1;
+        if (aKey > bKey) return sortConfig.direction === "ascending" ? 1 : -1;
+        return 0;
+      });
+  }, [complaints, filterStatus, filterImpact, filterType, searchTerm, sortConfig]);
 
   const pageCount = Math.max(1, Math.ceil(filteredComplaints.length / itemsPerPage));
   const paginatedComplaints = useMemo(() => {
@@ -107,7 +117,7 @@ const AdminComplain = () => {
 
   const resetFilters = () => {
     setFilterStatus("all");
-    setFilterPriority("all");
+    setFilterImpact("all");
     setFilterType("all");
     setSearchTerm("");
     setSortConfig({ key: null, direction: "ascending" });
@@ -163,8 +173,8 @@ const AdminComplain = () => {
       <ComplaintFilters
         filterStatus={filterStatus}
         setFilterStatus={setFilterStatus}
-        filterPriority={filterPriority}
-        setFilterPriority={setFilterPriority}
+        filterImpact={filterImpact}
+        setFilterImpact={setFilterImpact}
         filterType={filterType}
         setFilterType={setFilterType}
         searchTerm={searchTerm}
@@ -176,7 +186,7 @@ const AdminComplain = () => {
         setCurrentPage={setCurrentPage}
       />
 
-      {/* ✅ Table + Mobile Cards (handled in one component) */}
+      {/* ✅ Table */}
       <ComplaintTable
         paginatedComplaints={paginatedComplaints}
         filteredComplaints={filteredComplaints}
@@ -231,6 +241,13 @@ const AdminComplain = () => {
         showToast={showToast}
         toast={toast}
       />
+
+      {/* ✅ Add this line to actually show DeleteModal */}
+<DeleteModal
+  deleteModal={deleteModal}
+  setDeleteModal={setDeleteModal}
+  confirmDelete={confirmDelete}
+/>
     </div>
   );
 };

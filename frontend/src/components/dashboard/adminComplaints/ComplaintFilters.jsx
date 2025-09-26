@@ -4,8 +4,8 @@ import { FaFilter, FaFileExport, FaSearch } from "react-icons/fa";
 const ComplaintFilters = ({
     filterStatus,
     setFilterStatus,
-    filterPriority,
-    setFilterPriority,
+    filterImpact,
+    setFilterImpact,
     filterType,
     setFilterType,
     searchTerm,
@@ -19,6 +19,7 @@ const ComplaintFilters = ({
 }) => {
     return (
         <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
+            {/* Header */}
             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-4">
                 <h2 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
                     <FaFilter className="text-gray-500" /> Filters
@@ -31,13 +32,15 @@ const ComplaintFilters = ({
                 </button>
             </div>
 
+            {/* Filters */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* Search */}
                 <div className="flex flex-col">
                     <label className="text-sm font-medium text-gray-700 mb-1">Search</label>
                     <div className="relative">
                         <input
                             type="text"
-                            placeholder="Search complaints..."
+                            placeholder="Search by name, impact, type..."
                             value={searchTerm}
                             onChange={(e) => {
                                 setSearchTerm(e.target.value);
@@ -68,21 +71,22 @@ const ComplaintFilters = ({
                     </select>
                 </div>
 
-                {/* Priority */}
+                {/* Impact */}
                 <div className="flex flex-col">
-                    <label className="text-sm font-medium text-gray-700 mb-1">Priority</label>
+                    <label className="text-sm font-medium text-gray-700 mb-1">Impact</label>
                     <select
-                        value={filterPriority}
+                        value={filterImpact}
                         onChange={(e) => {
-                            setFilterPriority(e.target.value);
+                            setFilterImpact(e.target.value);
                             setCurrentPage(1);
                         }}
                         className="border border-gray-300 px-3 py-2.5 rounded-lg shadow-sm focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
                     >
-                        <option value="all">All Priority</option>
-                        <option value="High">High</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Low">Low</option>
+                        <option value="all">All Impact</option>
+                        <option value="physical">Physical</option>
+                        <option value="psychological">Psychological</option>
+                        <option value="social">Social</option>
+                        <option value="academic">Academic</option>
                     </select>
                 </div>
 
@@ -98,19 +102,21 @@ const ComplaintFilters = ({
                         className="border border-gray-300 px-3 py-2.5 rounded-lg shadow-sm focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
                     >
                         <option value="all">All Types</option>
-                        <option value="physical safety">Physical Safety</option>
-                        <option value="Emotions">Emotions</option>
+                        <option value="bullying">Physical Safety</option>
+                        <option value="bullying">Emotions</option>
+
                         <option value="bullying">Bullying</option>
                         <option value="staff">Staff</option>
-                        <option value="Learning">Learning</option>
-                        <option value="Facilities">Facilities</option>
-                        <option value="Bus">Bus</option>
-                        <option value="Rights">Rights</option>
+                        <option value="learning">Learning</option>
+                        <option value="facilities">Facilities</option>
+                        <option value="bus">Bus</option>
+                        <option value="rights">Rights</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
             </div>
 
+            {/* Footer */}
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mt-6">
                 <div className="text-sm text-gray-700 text-center sm:text-left">
                     Showing {filteredComplaints.length} complaints
