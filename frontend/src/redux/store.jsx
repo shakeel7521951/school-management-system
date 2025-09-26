@@ -4,6 +4,7 @@ import userReducer from "./slices/UserSlice";
 import { stComplaintApi } from "./slices/StComplaintApi";
 import { submittedFormApi } from "./slices/SubmittedFormsApi";
 import { VisitorApi } from "./slices/VisitorApi";
+import { RegistrationApi } from "./slices/RegistrationApi";
 
 export const store = configureStore({
   reducer: {
@@ -11,9 +12,10 @@ export const store = configureStore({
     [stComplaintApi.reducerPath]: stComplaintApi.reducer,
     [submittedFormApi.reducerPath]: submittedFormApi.reducer,
     [VisitorApi.reducerPath]:VisitorApi.reducer,
+    [RegistrationApi.reducerPath]:RegistrationApi.reducer,
     user: userReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(userApi.middleware, stComplaintApi.middleware, submittedFormApi.middleware,VisitorApi.middleware),
+    getDefaultMiddleware().concat(userApi.middleware, stComplaintApi.middleware, submittedFormApi.middleware,VisitorApi.middleware,RegistrationApi.middleware),
   devTools: process.env.NODE_ENV !== "production",
 });
