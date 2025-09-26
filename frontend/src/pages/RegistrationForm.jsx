@@ -17,6 +17,7 @@ const RegistrationForm = () => {
     home_phone: "",
     nationality: "",
     previous_school: "",
+    email: "", // ✅ Added Email field
     medical_condition: "no",
     medical_details: "",
     declarer_name: "",
@@ -34,9 +35,19 @@ const RegistrationForm = () => {
   // Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // ✅ Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
     try {
       await createRegistration(formData).unwrap();
       toast.success("Registration submitted successfully");
+
+      // Reset form after submission
       setFormData({
         child_name: "",
         dob: "",
@@ -51,6 +62,7 @@ const RegistrationForm = () => {
         home_phone: "",
         nationality: "",
         previous_school: "",
+        email: "", // reset email
         medical_condition: "no",
         medical_details: "",
         declarer_name: "",
@@ -72,7 +84,7 @@ const RegistrationForm = () => {
           onSubmit={handleSubmit}
           className="grid grid-cols-1 md:grid-cols-2 gap-6"
         >
-          {/* Personal Info */}
+          {/* Child Info */}
           <div>
             <label className="block font-semibold mb-1">Child’s Name</label>
             <input
@@ -84,6 +96,21 @@ const RegistrationForm = () => {
               required
             />
           </div>
+
+          {/* ✅ Email */}
+          <div>
+            <label className="block font-semibold mb-1">Email Address</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="example@email.com"
+              className="w-full border border-gray-300 p-3 rounded-md focus:ring-2 focus:ring-[#1c60a3] outline-none"
+              required
+            />
+          </div>
+
 
           <div>
             <label className="block font-semibold mb-1">Date of Birth</label>
@@ -110,7 +137,9 @@ const RegistrationForm = () => {
           </div>
 
           <div>
-            <label className="block font-semibold mb-1">Personal ID Number</label>
+            <label className="block font-semibold mb-1">
+              Personal ID Number
+            </label>
             <input
               type="text"
               name="id_number"
@@ -121,6 +150,8 @@ const RegistrationForm = () => {
             />
           </div>
 
+
+          {/* Father Info */}
           <div>
             <label className="block font-semibold mb-1">Father’s Name</label>
             <input
@@ -146,7 +177,9 @@ const RegistrationForm = () => {
           </div>
 
           <div>
-            <label className="block font-semibold mb-1">Father’s Occupation</label>
+            <label className="block font-semibold mb-1">
+              Father’s Occupation
+            </label>
             <input
               type="text"
               name="father_job"
@@ -156,6 +189,7 @@ const RegistrationForm = () => {
             />
           </div>
 
+          {/* Mother Info */}
           <div>
             <label className="block font-semibold mb-1">Mother’s Name</label>
             <input
@@ -181,7 +215,9 @@ const RegistrationForm = () => {
           </div>
 
           <div>
-            <label className="block font-semibold mb-1">Mother’s Occupation</label>
+            <label className="block font-semibold mb-1">
+              Mother’s Occupation
+            </label>
             <input
               type="text"
               name="mother_job"
@@ -191,6 +227,7 @@ const RegistrationForm = () => {
             />
           </div>
 
+          {/* Home & Nationality */}
           <div>
             <label className="block font-semibold mb-1">Home Phone</label>
             <input
@@ -214,7 +251,7 @@ const RegistrationForm = () => {
             />
           </div>
 
-          {/* School Info */}
+          {/* Previous School */}
           <div className="md:col-span-2">
             <label className="block font-semibold mb-1">Previous School</label>
             <input
@@ -226,7 +263,7 @@ const RegistrationForm = () => {
             />
           </div>
 
-          {/* Medical Section */}
+          {/* Medical Info */}
           <div className="md:col-span-2">
             <label className="block font-semibold mb-1">
               Does your child suffer from any medical condition?
