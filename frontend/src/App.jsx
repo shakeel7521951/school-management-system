@@ -226,21 +226,18 @@ const router = createBrowserRouter([
 
 function App() {
   const dispatch = useDispatch();
-  const { data: profileData, isLoading, isError } = useProfileQuery();
+  const { data: profileData, isLoading } = useProfileQuery();
 
   useEffect(() => {
     dispatch(setLoading(true));
-
-    // Check if profileData exists
     if (!isLoading) {
       if (profileData?.user) {
         dispatch(setProfile(profileData.user));
       } else {
-        // If error or no data, clear profile
         dispatch(clearProfile());
       }
     }
-  }, [profileData, isLoading, isError, dispatch]);
+  }, [profileData, isLoading, dispatch]);
 
   return (
     <>
@@ -259,6 +256,5 @@ function App() {
     </>
   );
 }
-
 
 export default App

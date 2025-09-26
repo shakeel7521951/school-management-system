@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectUserProfile } from "../redux/slices/UserSlice";
 import { useLogoutMutation, useUpdatePasswordMutation } from "../redux/slices/UserApi";
 import { useNavigate } from "react-router-dom";
@@ -9,10 +9,9 @@ import { toast } from "react-toastify";
 
 const ProfilePage = () => {
   const profile = useSelector(selectUserProfile);
+  const [logout] = useLogoutMutation();
   const [updatePassword] = useUpdatePasswordMutation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [logoutMutation] = useLogoutMutation();
 
   const [showModal, setShowModal] = useState(false);
   const [passwords, setPasswords] = useState({
@@ -26,13 +25,11 @@ const ProfilePage = () => {
 
   const handleLogout = async () => {
     try {
-      await logoutMutation().unwrap(); // call backend logout
-      dispatch(clearProfile());         // clear Redux user state
-      toast.success("Logout successful");
+      await logout().unwrap();
+      toast("Logout successfull")
       navigate("/login");
     } catch (err) {
       console.error("Logout failed:", err);
-      toast.error("Logout failed. Try again.");
     }
   };
 
@@ -47,7 +44,7 @@ const ProfilePage = () => {
       await updatePassword({
         currentPassword: passwords.currentPassword,
         newPassword: passwords.newPassword,
-        confirmPassword: passwords.confirmPassword
+        confirmPassword:passwords.confirmPassword
       }).unwrap();
 
       toast("Password updated successfully!");
