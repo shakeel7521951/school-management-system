@@ -10,7 +10,6 @@ export const register = async (req, res) => {
     user = new User({ name, email,phone, password, status: "unverified" });
 
     const otp = await user.generateOTP();
-
     await user.save();
 
     const subject = "Verify Your Email - Car Rental Service";

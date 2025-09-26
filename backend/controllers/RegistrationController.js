@@ -1,19 +1,28 @@
 import Registration from "../models/Registration.js";
 import User from "../models/User.js";
-import { registrationApprovedTemplate, registrationRejectedTemplate } from "../utils/emailTemplates.js";
+import { registrationApprovedTemplate, registrationRejectedTemplate, registrationSubmittedTemplate } from "../utils/emailTemplates.js";
 import SendMail from "../utils/SendMail.js";
 
 export const newRegistration = async (req, res) => {
   try {
     const registration = new Registration(req.body);
     await registration.save();
+
+    const mailOptions = registrationSubmittedTemplate(registration.child_name);
+    await SendMail(
+      registration.email,
+      mailOptions.subject,
+      // mailOptions.text,
+      mailOptions.html
+    );
+
     res.status(201).json({
       success: true,
       message: "Registration submitted successfully",
       data: registration,
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
@@ -54,36 +63,51 @@ export const updateStatus = async (req, res) => {
       { status },
       { new: true }
     );
-    console.log("registration.......",registration)
+
     if (!registration) {
       return res.status(404).json({ success: false, message: "Not found" });
     }
+
     let mailOptions;
 
     if (status === "approved") {
       const generatedPassword = Math.random().toString(36).slice(-8);
 
-      const newUser = new User({
-        name: registration.name,
-        email: registration.email,
-        phone: registration.phone,
-        password: generatedPassword, 
-        role: "student",
-        status: "active",
-      });
-      await newUser.save();
+      let user = await User.findOne({ email: registration.email });
+
+      if (!user) {
+        user = new User({
+          name: registration.child_name,
+          email: registration.email,
+          phone: registration.father_mobile,
+          password: generatedPassword,
+          role: "student",
+          status: "active",
+        });
+      } else {
+        user.password = generatedPassword;
+        user.role = "student";
+        user.status = "active";
+      }
+
+      await user.save();
 
       mailOptions = registrationApprovedTemplate(
-        registration.name,
+        registration.child_name,
         registration.email,
         generatedPassword
       );
     } else if (status === "rejected") {
-      mailOptions = registrationRejectedTemplate(registration.name);
+      mailOptions = registrationRejectedTemplate(registration.child_name);
     }
 
     if (mailOptions) {
-      await SendMail(registration.email, mailOptions.subject, mailOptions.text, mailOptions.html);
+      await SendMail(
+        registration.email,
+        mailOptions.subject,
+        // mailOptions.text,
+        mailOptions.html
+      );
     }
 
     res.status(200).json({
@@ -92,7 +116,7 @@ export const updateStatus = async (req, res) => {
       data: registration,
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
