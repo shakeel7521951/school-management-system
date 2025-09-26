@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { Bell, User, Search, Menu, Settings, LogOut } from "lucide-react";
+import { User, Search, Menu, LogOut } from "lucide-react";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUserProfile, clearProfile } from "../../../redux/slices/UserSlice";
+import { useNavigate } from "react-router-dom";
+import { useLogoutMutation } from "../../../redux/slices/UserApi";
 
-const Navbar = ({
-  onMenuClick,
-  userName = "Admin User",
-  userRole = "Administrator",
-}) => {
+const Navbar = ({ onMenuClick }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [notificationsCount, setNotificationsCount] = useState(3);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // Close dropdown on Esc key
+  // Redux user profile
+  const userProfile = useSelector(selectUserProfile);
+
+  const userName = userProfile?.name || "Guest User";
+  const userRole = userProfile?.role || "User";
+  const initial = userName ? userName.charAt(0).toUpperCase() : "?";
+
+  // RTK Query logout mutation
+  const [logout, { isLoading }] = useLogoutMutation();
+
+  // Close dropdown on Esc
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") setIsProfileOpen(false);
@@ -18,11 +29,21 @@ const Navbar = ({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await logout().unwrap(); // call API
+      dispatch(clearProfile()); // clear redux store
+      navigate("/login"); // redirect to login
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
   return (
     <header className="md:ml-20 lg:ml-64 flex items-center justify-between bg-white border-b border-gray-200 shadow-sm px-4 md:px-6 py-3 sticky top-0 h-16 z-50">
       {/* Left Section */}
       <div className="flex items-center flex-1">
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu */}
         <button
           className="md:hidden p-2 rounded-lg mr-3 bg-gray-100 hover:bg-gray-200 transition-all"
           onClick={onMenuClick}
@@ -45,60 +66,74 @@ const Navbar = ({
 
       {/* Right Section */}
       <div className="flex items-center space-x-3 sm:space-x-4">
-        
-
-        {/* User Profile */}
         <div className="relative">
           <button
             className="flex items-center space-x-2 p-1 rounded-lg hover:bg-gray-50 transition-all"
             onClick={() => setIsProfileOpen(!isProfileOpen)}
             aria-expanded={isProfileOpen}
           >
-            {/* Hide name/role on mobile */}
+            {/* User Info (name + role) */}
             <div className="hidden sm:block text-right">
               <p className="text-sm font-semibold text-gray-800 truncate max-w-[100px] lg:max-w-none">
                 {userName}
               </p>
               <p className="text-xs text-gray-500">{userRole}</p>
             </div>
-            <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-600 border border-gray-300">
-              <User size={20} />
-            </div>
+
+            {/* Avatar (image or initial fallback) */}
+            {userProfile?.image ? (
+              <img
+                src={userProfile.image}
+                alt="Profile"
+                className="w-10 h-10 rounded-full object-cover shadow-md border"
+              />
+            ) : (
+              <div
+                className="w-10 h-10 flex items-center justify-center rounded-full 
+                           bg-gradient-to-r from-[#104C80] to-[#1e64a9] 
+                           text-white font-semibold shadow-md"
+              >
+                {initial}
+              </div>
+            )}
           </button>
 
-          {/* Profile Dropdown */}
+          {/* Dropdown */}
           {isProfileOpen && (
             <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-lg py-1 border border-gray-100 z-50">
               <div className="px-4 py-2 border-b border-gray-100">
                 <p className="text-sm font-medium text-gray-800">{userName}</p>
                 <p className="text-xs text-gray-500">{userRole}</p>
               </div>
-              
-              <a
-                href="/my-profile"
-                className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg"
+
+              <button
+                onClick={() => navigate("/my-profile")}
+                className="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg"
               >
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-600 mr-2">
                   <User size={16} />
                 </div>
-                Profile
-              </a>
+                My Profile
+              </button>
+
               <div className="border-t border-gray-100 my-1"></div>
-              <a
-                href="#"
-                className="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg"
+
+              <button
+                onClick={handleLogout}
+                disabled={isLoading}
+                className="w-full flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg disabled:opacity-50"
               >
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 text-red-600 mr-2">
                   <LogOut size={16} />
                 </div>
-                Logout
-              </a>
+                {isLoading ? "Logging out..." : "Logout"}
+              </button>
             </div>
           )}
         </div>
       </div>
 
-      {/* Overlay for dropdown */}
+      {/* Overlay */}
       {isProfileOpen && (
         <div
           className="fixed inset-0 z-40"

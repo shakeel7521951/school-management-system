@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import { Bell, Search, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUserProfile } from "../../../redux/slices/UserSlice";
 
-const StudentNavbar = () => {
+const TeacherNavbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [userName] = useState("Sara"); // Later fetch from API
 
-  // Get first letter of name
+  // Get user profile from Redux
+  const userProfile = useSelector(selectUserProfile);
+
+  // Get name (fallback: Guest)
+  const userName = userProfile?.name || "Guest Teacher";
+
+  // First letter for avatar fallback
   const initial = userName ? userName.charAt(0).toUpperCase() : "?";
 
   return (
@@ -38,20 +45,28 @@ const StudentNavbar = () => {
         </div>
       </div>
 
-      {/* Right: Actions */}
+      {/* Right: Profile + Name */}
       <div className="flex items-center gap-6">
-        {/* Profile + Name (Linked to Profile Page) */}
         <Link
           to="/my-profile"
           className="flex items-center gap-3 cursor-pointer hover:opacity-90 transition"
         >
-          <div
-            className="w-10 h-10 flex items-center justify-center rounded-full 
-                       bg-gradient-to-r from-[#104C80] to-[#1e64a9] 
-                       text-white font-semibold shadow-lg text-base"
-          >
-            {initial}
-          </div>
+          {/* Avatar (image or initial fallback) */}
+          {userProfile?.image ? (
+            <img
+              src={userProfile.image}
+              alt="Profile"
+              className="w-10 h-10 rounded-full object-cover shadow-lg"
+            />
+          ) : (
+            <div
+              className="w-10 h-10 flex items-center justify-center rounded-full 
+                         bg-gradient-to-r from-[#104C80] to-[#1e64a9] 
+                         text-white font-semibold shadow-lg text-base"
+            >
+              {initial}
+            </div>
+          )}
           <span className="text-sm font-medium text-gray-700">{userName}</span>
         </Link>
       </div>
@@ -93,19 +108,27 @@ const StudentNavbar = () => {
             </span>
           </button>
 
-          {/* Profile in mobile menu */}
+          {/* Profile inside mobile menu */}
           <Link
             to="/my-profile"
             className="flex items-center gap-3 cursor-pointer bg-gray-50 
                        hover:bg-gray-100 p-3 rounded-xl transition"
           >
-            <div
-              className="w-10 h-10 flex items-center justify-center rounded-full 
-                         bg-gradient-to-r from-[#104C80] to-[#1e64a9] 
-                         text-white font-semibold shadow-lg text-base"
-            >
-              {initial}
-            </div>
+            {userProfile?.image ? (
+              <img
+                src={userProfile.image}
+                alt="Profile"
+                className="w-10 h-10 rounded-full object-cover shadow-lg"
+              />
+            ) : (
+              <div
+                className="w-10 h-10 flex items-center justify-center rounded-full 
+                           bg-gradient-to-r from-[#104C80] to-[#1e64a9] 
+                           text-white font-semibold shadow-lg text-base"
+              >
+                {initial}
+              </div>
+            )}
             <span className="text-sm font-medium text-gray-700">{userName}</span>
           </Link>
         </div>
@@ -114,4 +137,4 @@ const StudentNavbar = () => {
   );
 };
 
-export default StudentNavbar;
+export default TeacherNavbar;
