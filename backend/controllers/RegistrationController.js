@@ -3,19 +3,37 @@ import User from "../models/User.js";
 import { registrationApprovedTemplate, registrationRejectedTemplate, registrationSubmittedTemplate } from "../utils/emailTemplates.js";
 import SendMail from "../utils/SendMail.js";
 
+// export const newRegistration = async (req, res) => {
+//   try {
+//     const registration = new Registration(req.body);
+//     await registration.save();
+
+//     const mailOptions = registrationSubmittedTemplate(registration.child_name);
+//     await SendMail(
+//       registration.email,
+//       mailOptions.subject,
+//       // mailOptions.text,
+//       mailOptions.html
+//     );
+
+//     res.status(201).json({
+//       success: true,
+//       message: "Registration submitted successfully",
+//       data: registration,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ success: false, message: error.message });
+//   }
+// };
+
 export const newRegistration = async (req, res) => {
   try {
+    // Create new registration
     const registration = new Registration(req.body);
     await registration.save();
 
-    const mailOptions = registrationSubmittedTemplate(registration.child_name);
-    await SendMail(
-      registration.email,
-      mailOptions.subject,
-      // mailOptions.text,
-      mailOptions.html
-    );
-
+    // Respond success (no email sending)
     res.status(201).json({
       success: true,
       message: "Registration submitted successfully",
