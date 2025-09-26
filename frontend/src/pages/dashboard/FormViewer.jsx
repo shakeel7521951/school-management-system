@@ -9,6 +9,8 @@ import {
   CheckCircle,
   XCircle,
 } from "lucide-react";
+import axios from "axios";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const FormViewer = () => {
   const { id } = useParams();
@@ -22,45 +24,50 @@ const FormViewer = () => {
     const fetchFormHTML = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:5000/html-form/${id}`);
-        if (!response.ok) throw new Error("Failed to fetch form");
+        const response = await axios.get(`${BACKEND_URL}/html-form/${id}`, {
+          responseType: "text",
+          withCredentials: true
+        });
 
-        const html = await response.text();
-        setHtmlContent(html);
+        setHtmlContent(response.data); 
         setError(null);
       } catch (error) {
         setError("Failed to load form. Please try again later.");
+        console.error("Error fetching HTML form:", error);
       } finally {
         setLoading(false);
       }
     };
 
+
     fetchFormHTML();
   }, [id]);
-
-  // 🔹 Handle Form Submission
   const handleSubmitForm = async (data) => {
     try {
       setSubmissionStatus("submitting");
-      const response = await fetch("http://localhost:5000/submitForm", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+
+      await axios.post(
+        `${BACKEND_URL}/submitForm`,
+        {
           formId: id,
           formData: data,
           submittedAt: new Date().toISOString(),
-        }),
-      });
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true, 
+        }
+      );
 
-      if (response.ok) {
-        setSubmissionStatus("success");
-        setTimeout(() => setSubmissionStatus(null), 3000);
-      } else throw new Error("Submission failed");
-    } catch {
+      setSubmissionStatus("success");
+      navigate(-1)
+    } catch (err) {
+      console.error("Error submitting form:", err);
       setSubmissionStatus("error");
       setTimeout(() => setSubmissionStatus(null), 3000);
     }
   };
+
 
   const handleDownload = () => {
     const blob = new Blob([htmlContent], { type: "text/html" });
