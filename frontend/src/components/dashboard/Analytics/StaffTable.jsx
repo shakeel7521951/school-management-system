@@ -25,50 +25,51 @@ const StaffTable = () => {
             </h2>
 
             {/* ---------- Desktop Table ---------- */}
-            <div className="hidden md:block rounded-xl border" style={{ borderColor: "#E2E8F0" }}>
-                <table className="w-full table-auto border-collapse">
-                    <thead>
-                        <tr style={{ backgroundColor: `${COLORS.primary}10` }}>
-                            <th className="py-1 px-2 text-left font-semibold text-sm md:text-base" style={{ color: COLORS.primary }}>
-                                Staff Member
-                            </th>
-                            <th className="py-3 px-2 md:px-4 text-center font-semibold text-sm md:text-base" style={{ color: COLORS.primary }}>
-                                Approvals
-                            </th>
-                            <th className="py-3 px-2 md:px-4 text-center font-semibold text-sm md:text-base" style={{ color: COLORS.primary }}>
-                                Rejections
-                            </th>
-                            <th className="py-3 px-2 md:px-4 text-center font-semibold text-sm md:text-base" style={{ color: COLORS.primary }}>
-                                Avg Time (hrs)
-                            </th>
-                            <th className="py-3 px-2 md:px-4 text-center font-semibold text-sm md:text-base" style={{ color: COLORS.primary }}>
-                                Efficiency
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {staffData.map((staff, index) => (
-                            <tr key={index} className="border-t hover:bg-gray-50 transition-colors" style={{ borderColor: "#E2E8F0" }}>
-                                <td className="py-3 px-4 font-medium text-sm md:text-base" style={{ color: COLORS.text }}>
-                                    {staff.name}
-                                </td>
-                                <td className="py-3 px-2 md:px-4 text-center font-semibold text-sm md:text-base" style={{ color: COLORS.success }}>
-                                    {staff.approvals}
-                                </td>
-                                <td className="py-3 px-2 md:px-4 text-center font-semibold text-sm md:text-base" style={{ color: COLORS.danger }}>
-                                    {staff.rejections}
-                                </td>
-                                <td className="py-3 px-2 md:px-4 text-center text-sm md:text-base" style={{ color: COLORS.primary }}>
-                                    {staff.avgTime}
-                                </td>
-                                <td className="py-3 px-2 md:px-4 text-center">
-                                    <EfficiencyBar efficiency={staff.efficiency} />
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+<div className="hidden md:block rounded-xl border overflow-x-auto" style={{ borderColor: "#E2E8F0" }}>
+    <table className="w-full min-w-max table-auto border-collapse">
+        <thead>
+            <tr style={{ backgroundColor: `${COLORS.primary}10` }}>
+                <th className="py-1 px-2 text-left font-semibold text-sm md:text-base" style={{ color: COLORS.primary }}>
+                    Staff Member
+                </th>
+                <th className="py-3 px-2 md:px-4 text-center font-semibold text-sm md:text-base" style={{ color: COLORS.primary }}>
+                    Approvals
+                </th>
+                <th className="py-3 px-2 md:px-4 text-center font-semibold text-sm md:text-base" style={{ color: COLORS.primary }}>
+                    Rejections
+                </th>
+                <th className="py-3 px-2 md:px-4 text-center font-semibold text-sm md:text-base" style={{ color: COLORS.primary }}>
+                    Avg Time (hrs)
+                </th>
+                <th className="py-3 px-2 md:px-4 text-center font-semibold text-sm md:text-base" style={{ color: COLORS.primary }}>
+                    Efficiency
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {staffData.map((staff, index) => (
+                <tr key={index} className="border-t hover:bg-gray-50 transition-colors" style={{ borderColor: "#E2E8F0" }}>
+                    <td className="py-3 px-4 font-medium text-sm md:text-base" style={{ color: COLORS.text }}>
+                        {staff.name}
+                    </td>
+                    <td className="py-3 px-2 md:px-4 text-center font-semibold text-sm md:text-base" style={{ color: COLORS.success }}>
+                        {staff.approvals}
+                    </td>
+                    <td className="py-3 px-2 md:px-4 text-center font-semibold text-sm md:text-base" style={{ color: COLORS.danger }}>
+                        {staff.rejections}
+                    </td>
+                    <td className="py-3 px-2 md:px-4 text-center text-sm md:text-base" style={{ color: COLORS.primary }}>
+                        {staff.avgTime}
+                    </td>
+                    <td className="py-3 px-2 md:px-4 text-center">
+                        <EfficiencyBar efficiency={staff.efficiency} />
+                    </td>
+                </tr>
+            ))}
+        </tbody>
+    </table>
+</div>
+
 
             {/* ---------- Mobile Cards ---------- */}
             <div className="grid grid-cols-1 gap-4 md:hidden">

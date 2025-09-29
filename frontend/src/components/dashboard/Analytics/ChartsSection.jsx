@@ -49,34 +49,10 @@ const ChartsSection = ({ totalApprovals, totalRejections }) => {
                         <Bar dataKey="rejections" fill={DANGER} radius={[4, 4, 0, 0]} />
                     </BarChart>
                 </ResponsiveContainer>
+
             </div>
 
-            {/* Line Chart */}
-            <div className="rounded-2xl p-4 sm:p-6 shadow-lg" style={{ backgroundColor: CARD_BG }}>
-                <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6" style={{ color: PRIMARY }}>
-                    Average Decision Time
-                </h2>
-                <ResponsiveContainer width="100%" height={250} minHeight={200}>
-                    <LineChart data={staffData}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
-                        <XAxis dataKey="name" tick={{ fill: TEXT_LIGHT, fontSize: 12 }} />
-                        <YAxis tick={{ fill: TEXT_LIGHT, fontSize: 12 }} />
-                        <Tooltip content={<CustomTooltip />} />
-                        <Line
-                            type="monotone"
-                            dataKey="avgTime"
-                            stroke={PRIMARY}
-                            strokeWidth={3}
-                            dot={{ fill: PRIMARY_LIGHT, stroke: PRIMARY, r: 4 }}
-                            activeDot={{ r: 6, fill: PRIMARY_LIGHT }}
-                        />
-                    </LineChart>
-                </ResponsiveContainer>
-            </div>
-
-            {/* Pie Chart + Staff Table */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 xl:col-span-2">
-                {/* Pie Chart */}
+             {/* Pie Chart */}
                 <div className="rounded-2xl p-4 sm:p-6 shadow-lg" style={{ backgroundColor: CARD_BG }}>
                     <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6" style={{ color: PRIMARY }}>
                         Request Distribution
@@ -106,6 +82,37 @@ const ChartsSection = ({ totalApprovals, totalRejections }) => {
                         </PieChart>
                     </ResponsiveContainer>
                 </div>
+
+         
+
+            {/* Pie Chart + Staff Table */}
+            <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 sm:gap-8 xl:col-span-2">
+               
+
+
+
+                   {/* Line Chart */}
+            <div className="rounded-2xl p-4 sm:p-6 shadow-lg" style={{ backgroundColor: CARD_BG }}>
+                <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6" style={{ color: PRIMARY }}>
+                    Average Decision Time
+                </h2>
+                <ResponsiveContainer width="100%" height={250} minHeight={200}>
+                    <LineChart data={staffData}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
+                        <XAxis dataKey="name" tick={{ fill: TEXT_LIGHT, fontSize: 12 }} />
+                        <YAxis tick={{ fill: TEXT_LIGHT, fontSize: 12 }} />
+                        <Tooltip content={<CustomTooltip />} />
+                        <Line
+                            type="monotone"
+                            dataKey="avgTime"
+                            stroke={PRIMARY}
+                            strokeWidth={3}
+                            dot={{ fill: PRIMARY_LIGHT, stroke: PRIMARY, r: 4 }}
+                            activeDot={{ r: 6, fill: PRIMARY_LIGHT }}
+                        />
+                    </LineChart>
+                </ResponsiveContainer>
+            </div>
 
                 {/* Staff Table */}
                 <div>
