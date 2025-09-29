@@ -53,7 +53,7 @@ const AnalyticsPage = () => {
                     style={{ color: COLORS.primary }}
                 >
                     Analytics 
-                    Analytics
+                
                 </h1>
                 <p className="text-lg" style={{ color: COLORS.textLight }}>
                     Track staff decision-making behavior and performance metrics
