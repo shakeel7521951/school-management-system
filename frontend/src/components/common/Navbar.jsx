@@ -72,10 +72,7 @@ const searchData = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [showResults, setShowResults] = useState(false);
+
   const [openDropdown, setOpenDropdown] = useState(null);
 
   const profile = useSelector(selectUserProfile);
@@ -92,43 +89,7 @@ export default function Navbar() {
     { name: "Contact Us", path: "/contact-us" },
   ];
 
-  // Search functionality (live filter)
-  useEffect(() => {
-    if (searchQuery.trim() === "") {
-      setSearchResults([]);
-      setShowResults(false);
-      return;
-    }
-
-    const filteredResults = searchData.filter(
-      (item) =>
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.category.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    setSearchResults(filteredResults);
-    setShowResults(true);
-  }, [searchQuery]);
-
-  const handleSearch = (e) => {
-    e?.preventDefault();
-    if (searchQuery.trim()) {
-      navigate("/search", {
-        state: { query: searchQuery, results: searchResults },
-      });
-      setSearchQuery("");
-      setShowResults(false);
-      setSearchOpen(false);
-    }
-  };
-
-  const handleSearchItemClick = (path) => {
-    navigate(path);
-    setSearchQuery("");
-    setShowResults(false);
-    setSearchOpen(false);
-    setIsOpen(false);
-  };
+ 
 
   const handleLogout = async () => {
     try {
@@ -296,13 +257,8 @@ export default function Navbar() {
                           </NavLink>
                         </div>
 
-                        <div className=" absolute top-8 left-[-615px] w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50">
-                          <NavLink
-                            to="/nursing-department"
-                            className="block px-4 py-2 hover:text-indigo-700"
-                          >
-                            Nursing Department
-                          </NavLink>
+                        <div className=' absolute top-8 left-[-550px] w-56 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50'>
+                          <NavLink to='/nursing-department' className='block px-4 py-2 hover:text-indigo-700'>Nursing Department</NavLink>
                         </div>
                       </div>
 
@@ -350,67 +306,14 @@ export default function Navbar() {
               )
             )}
           </ul>
+            <GoogleTranslate />
+
 
           {/* Right Section - Search and Login/Profile */}
           <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
-            {/* Search Bar - Desktop & Tablet */}
-            <div className="hidden sm:flex items-center">
-              <div className="relative">
-                <form onSubmit={handleSearch} className="flex items-center">
-                  <input
-                    type="text"
-                    placeholder="Search pages, services..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onFocus={() => setShowResults(true)}
-                    className="px-3 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent w-40 md:w-48 lg:w-56 transition-all duration-300 text-sm md:text-base"
-                  />
-                  <button
-                    type="submit"
-                    className="absolute right-3 text-gray-200 hover:text-indigo-300 transition"
-                  >
-                    <FaSearch className="text-lg" />
-                  </button>
-                </form>
+           
 
-                {/* Search Results Dropdown (desktop/tablet) */}
-                {showResults && searchResults.length > 0 && (
-                  <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-50 max-h-80 overflow-y-auto">
-                    {searchResults.map((result) => (
-                      <button
-                        key={result.id}
-                        onClick={() => handleSearchItemClick(result.path)}
-                        className="w-full text-left px-4 py-3 transition duration-200 border-b border-gray-100 last:border-b-0 hover:bg-gray-50"
-                      >
-                        <div className="font-medium text-gray-800">
-                          {result.title}
-                        </div>
-                        <div className="text-sm text-gray-500 mt-1">
-                          in {result.category}
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                )}
-
-                {/* No Results Message */}
-                {showResults && searchQuery && searchResults.length === 0 && (
-                  <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-50">
-                    <div className="px-4 py-3 text-gray-500 text-center">
-                      No results found for "{searchQuery}"
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Search Icon - Mobile */}
-            <button
-              className="sm:hidden text-gray-200 hover:text-indigo-300 transition p-2"
-              onClick={() => setSearchOpen(!searchOpen)}
-            >
-              <FaSearch className="text-lg" />
-            </button>
+           
 
             {/* Login/Profile - Desktop & Tablet */}
             <div className="hidden md:block">
@@ -504,7 +407,6 @@ export default function Navbar() {
                 </div>
               )}
             </div>
-            <GoogleTranslate />
 
             {/* Mobile Menu Button */}
             <button
@@ -515,59 +417,8 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Mobile Search Bar (full width on small screens) */}
-          {searchOpen && (
-            <div className="absolute top-full left-0 right-0 bg-gradient-to-r from-[#1A3570] via-[#1A4480] to-[#2E3A87] p-3 shadow-lg sm:hidden z-50 border-t border-indigo-400">
-              <form
-                onSubmit={handleSearch}
-                className="flex items-center gap-2 mb-2"
-              >
-                <input
-                  type="text"
-                  placeholder="Search pages, services..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 px-4 py-2 bg-white/10 text-white placeholder-gray-300 border border-white/30 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
-                  autoFocus
-                />
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-indigo-500 rounded-full text-white hover:bg-indigo-600 transition"
-                >
-                  <FaSearch />
-                </button>
-              </form>
-
-              {/* Mobile Search Results */}
-              {searchResults.length > 0 && (
-                <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden max-h-60 overflow-y-auto">
-                  {searchResults.map((result) => (
-                    <button
-                      key={result.id}
-                      onClick={() => handleSearchItemClick(result.path)}
-                      className="w-full text-left px-4 py-3 transition duration-200 border-b border-gray-100 last:border-b-0 hover:bg-gray-50"
-                    >
-                      <div className="font-medium text-gray-800">
-                        {result.title}
-                      </div>
-                      <div className="text-sm text-gray-500 mt-1">
-                        in {result.category}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* No Results Message - Mobile */}
-              {searchQuery && searchResults.length === 0 && (
-                <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
-                  <div className="px-4 py-3 text-gray-500 text-center">
-                    No results found for "{searchQuery}"
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
+          
+        
         </div>
       </nav>
 
@@ -857,13 +708,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Overlay for search results (so clicking outside closes suggestions) */}
-      {showResults && searchResults.length > 0 && (
-        <div
-          className="fixed inset-0 z-30 bg-black/20"
-          onClick={() => setShowResults(false)}
-        />
-      )}
+    
 
       {/* Spacer to prevent content from being hidden behind fixed navbar */}
       <div className="h-[70px] sm:h-[80px] md:h-[90px]"></div>
