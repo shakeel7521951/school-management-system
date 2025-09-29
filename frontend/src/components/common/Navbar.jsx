@@ -183,7 +183,7 @@ export default function Navbar() {
                           <NavLink to='/vocational-rehabilitation' className='block px-4 py-2 hover:text-indigo-700'>Vocational & Physical Rehabilitation Department</NavLink>
                         </div>
 
-                        <div className=' absolute top-8 left-[-615px] w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50'>
+                        <div className=' absolute top-8 left-[-550px] w-56 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50'>
                           <NavLink to='/nursing-department' className='block px-4 py-2 hover:text-indigo-700'>Nursing Department</NavLink>
                         </div>
                       </div>
