@@ -11,6 +11,8 @@ import {
   ChevronDown,
   School,
 } from "lucide-react";
+import { FaChartLine } from "react-icons/fa";
+
 import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
@@ -43,23 +45,24 @@ const Sidebar = () => {
       id: "/admincomplain", 
       label: "Complaints", 
       icon: MessageCircle, 
-      color: "text-pink-500", 
+      color: "text-[#3B82F6]", 
       hover: "hover:bg-pink-50" 
     },
     {
       id: "documents",
       label: "Documents",
       icon: FileText,
-      color: "text-green-500",
+      color: "text-[#3B82F6]", 
       hover: "hover:bg-green-50",
       dropdown: [
         { id: "/documents/requests", label: "Requested Documents" },
         { id: "/documents/uploaded", label: "Uploaded Documents" },
       ],
     },
-   { id: "visitortable", label: "Visitors", icon: BarChart2, color: "text-amber-500", hover: "hover:bg-amber-50" },
-    { id: "users", label: "Users", icon: Users, color: "text-amber-500", hover: "hover:bg-amber-50" },
-    { id: "registration-data", label: "Registration Data", icon: Users, color: "text-amber-500", hover: "hover:bg-amber-50" },
+   { id: "visitortable", label: "Visitors", icon: BarChart2, color: "text-[#3B82F6]", hover: "hover:bg-amber-50" },
+    { id: "users", label: "Users", icon: Users, color: "text-[#3B82F6]", hover: "hover:bg-amber-50" },
+    { id: "registration-data", label: "Registration Data", icon: Users, color: "text-[#3B82F6]", hover: "hover:bg-amber-50" },
+    { id: "analytics", label: "Analytics", icon: FaChartLine, color: "text-[#3B82F6]", hover: "hover:bg-amber-50" },
 
 
     // { id: "reports", label: "Reports", icon: FileText, color: "text-purple-500", hover: "hover:bg-purple-50" },

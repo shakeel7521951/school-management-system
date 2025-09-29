@@ -75,6 +75,7 @@ import NewsPage from './pages/News'
 import NewsDetail from './components/news/NewsDetail'
 import RoleRoute from './RoleRoute'
 import RegistrationData from './pages/dashboard/RegistrationData'
+import AnalyticsPage from './pages/dashboard/AnayticsPage'
 // import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
@@ -159,6 +160,7 @@ const router = createBrowserRouter([
       { path: "/nursing-department", element: <NursingDepartment /> },
       { path: "/gallery", element: <GallerySection /> },
       { path: "/registration-form", element: <RegistrationForm /> },
+      
 
 
 
@@ -189,6 +191,7 @@ const router = createBrowserRouter([
       // { path: 'overview', element: <Overview /> },
       { path: 'users', element: <Users /> },
       { path: 'registration-data', element: <RegistrationData /> },
+      { path: "/analytics", element: <AnalyticsPage /> },
       // { path: 'reports', element: <Reports /> }
     ]
   },
