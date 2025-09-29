@@ -126,7 +126,7 @@ const AnalyticsPage = () => {
                     <div className="flex flex-col sm:flex-row gap-3 w-[150px] md:w-[420px]">
                         <button
                             onClick={exportExcel}
-                            className=" md:w-[140px] flex items-center justify-center gap-4 sm:w-auto px-3 py-3 sm:px-4 md:px-2 md:py-3 rounded-xl text-xs sm:text-sm md:text-base font-semibold text-white transition-colors duration-200"
+                            className=" md:w-full flex items-center justify-center gap-4 sm:w-auto px-3 py-3 sm:px-4 md:px-2 md:py-3 rounded-xl text-xs sm:text-sm md:text-base font-semibold text-white transition-colors duration-200"
                             style={{ backgroundColor: COLORS.secondary }}
                         >
                             <FaClipboardList className="text-base sm:text-lg md:text-xl" />
@@ -135,7 +135,7 @@ const AnalyticsPage = () => {
 
                         <button
                             onClick={exportPDF}
-                            className="md:w-[100px] flex items-center justify-center gap-4 sm:w-auto px-3 sm:px-4 md:px-2 py-3 md:py-2 rounded-xl text-xs sm:text-sm md:text-sm font-semibold text-white transition-colors duration-200"
+                            className="md:w-full flex items-center justify-center gap-4 sm:w-auto px-3 sm:px-4 md:px-2 py-3 md:py-2 rounded-xl text-xs sm:text-sm md:text-sm font-semibold text-white transition-colors duration-200"
                             style={{ backgroundColor: COLORS.primary }}
                         >
                             <FaChartLine className="text-base sm:text-lg md:text-xl" />
