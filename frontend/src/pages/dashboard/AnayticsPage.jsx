@@ -52,6 +52,7 @@ const AnalyticsPage = () => {
                     className="md:text-4xl text-3xl font-extrabold mb-2"
                     style={{ color: COLORS.primary }}
                 >
+                    Analytics 
                     Analytics
                 </h1>
                 <p className="text-lg" style={{ color: COLORS.textLight }}>
