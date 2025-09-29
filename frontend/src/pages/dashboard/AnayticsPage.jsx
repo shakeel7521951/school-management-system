@@ -1,21 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import ChartsSection from "../../components/dashboard/Analytics/ChartsSection";
-import { staffData, COLORS } from "../../components/dashboard/Analytics/constants";
-import { FaClipboardList, FaCheckCircle, FaClock, FaChartLine } from "react-icons/fa";
+import { COLORS } from "../../components/dashboard/Analytics/constants";
+import {
+    FaClipboardList,
+    FaCheckCircle,
+    FaClock,
+    FaTimesCircle,
+    FaChartLine,
+} from "react-icons/fa";
+import { useGetRegistrationsQuery } from "../../redux/slices/RegistrationApi";
 
 const AnalyticsPage = () => {
     const [timeRange] = useState("monthly");
 
+    // ✅ Fetch from backend
+    const { data, isLoading, isError } = useGetRegistrationsQuery();
+
+    // ✅ Extract real array from { success, data: [] }
+    const registrations = Array.isArray(data?.data) ? data.data : [];
+
+    // ✅ Metrics (Approved, Rejected, Pending, Total)
+    const { totalRequests, totalApprovals, totalRejections, totalPending } =
+        useMemo(() => {
+            if (registrations.length === 0) {
+                return {
+                    totalRequests: 0,
+                    totalApprovals: 0,
+                    totalRejections: 0,
+                    totalPending: 0,
+                };
+            }
+
+            const approvals = registrations.filter((r) => r.status === "approved").length;
+            const rejections = registrations.filter((r) => r.status === "rejected").length;
+            const pending = registrations.filter((r) => r.status === "pending").length;
+
+            return {
+                totalRequests: registrations.length,
+                totalApprovals: approvals,
+                totalRejections: rejections,
+                totalPending: pending,
+            };
+        }, [registrations]);
+
+    // ✅ Export to Excel
     const exportExcel = () => {
-        const worksheet = XLSX.utils.json_to_sheet(staffData);
+        const worksheet = XLSX.utils.json_to_sheet(registrations);
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "Analytics");
         XLSX.writeFile(workbook, "AnalyticsReport.xlsx");
     };
 
+    // ✅ Export to PDF
     const exportPDF = () => {
         const input = document.getElementById("analyticsReport");
         html2canvas(input).then((canvas) => {
@@ -28,17 +67,13 @@ const AnalyticsPage = () => {
         });
     };
 
-    // Metrics
-    const totalRequests = staffData.reduce((sum, s) => sum + s.approvals + s.rejections, 0);
-    const totalApprovals = staffData.reduce((sum, s) => sum + s.approvals, 0);
-    const totalRejections = staffData.reduce((sum, s) => sum + s.rejections, 0);
-    const approvalRate = ((totalApprovals / totalRequests) * 100).toFixed(1);
-    const avgDecisionTime = (
-        staffData.reduce((sum, s) => sum + s.avgTime, 0) / staffData.length
-    ).toFixed(2);
-    const avgEfficiency = (
-        staffData.reduce((sum, s) => sum + s.efficiency, 0) / staffData.length
-    ).toFixed(1);
+    if (isLoading) {
+        return <div className="p-8">Loading analytics...</div>;
+    }
+
+    if (isError) {
+        return <div className="p-8 text-red-500">Failed to load analytics data.</div>;
+    }
 
     return (
         <div
@@ -52,11 +87,10 @@ const AnalyticsPage = () => {
                     className="md:text-4xl text-3xl font-extrabold mb-2"
                     style={{ color: COLORS.primary }}
                 >
-                    Analytics 
-                
+                    Analytics
                 </h1>
                 <p className="text-lg" style={{ color: COLORS.textLight }}>
-                    Track staff decision-making behavior and performance metrics
+                    Track registration requests and statuses
                 </p>
             </div>
 
@@ -69,34 +103,34 @@ const AnalyticsPage = () => {
                     color={COLORS.primary}
                 />
                 <KpiCard
-                    label="Approval Rate"
-                    value={`${approvalRate}%`}
+                    label="Approved"
+                    value={totalApprovals}
                     icon={<FaCheckCircle size={26} />}
-                    color={COLORS.primary}
+                    color="green"
                 />
                 <KpiCard
-                    label="Avg Decision Time"
-                    value={`${avgDecisionTime}h`}
+                    label="Rejected"
+                    value={totalRejections}
+                    icon={<FaTimesCircle size={26} />}
+                    color="red"
+                />
+                <KpiCard
+                    label="Pending"
+                    value={totalPending}
                     icon={<FaClock size={26} />}
-                    color={COLORS.primary}
-                />
-                <KpiCard
-                    label="Avg Efficiency"
-                    value={`${avgEfficiency}%`}
-                    icon={<FaChartLine size={26} />}
-                    color={COLORS.primary}
+                    color="orange"
                 />
             </div>
 
             {/* Charts Section */}
             <div className="px-8 mb-10">
                 <ChartsSection
+                    registrations={registrations}
                     totalApprovals={totalApprovals}
                     totalRejections={totalRejections}
+                    totalPending={totalPending}
                 />
             </div>
-
-
 
             {/* Export Section */}
             <div className="px-4 sm:px-6 md:px-8 pb-8 md:pb-10">
@@ -107,7 +141,7 @@ const AnalyticsPage = () => {
                         boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)",
                     }}
                 >
-                    {/* Left Side: Heading */}
+                    {/* Left Side */}
                     <div className="text-center md:text-left">
                         <h3
                             className="text-base sm:text-lg md:text-xl font-semibold mb-1"
@@ -127,7 +161,7 @@ const AnalyticsPage = () => {
                     <div className="flex flex-col sm:flex-row gap-3 w-[150px] md:w-[420px]">
                         <button
                             onClick={exportExcel}
-                            className=" md:w-full flex items-center justify-center gap-4 sm:w-auto px-3 py-3 sm:px-4 md:px-2 md:py-3 rounded-xl text-xs sm:text-sm md:text-base font-semibold text-white transition-colors duration-200"
+                            className="md:w-full flex items-center justify-center gap-4 sm:w-auto px-3 py-3 sm:px-4 md:px-2 md:py-3 rounded-xl text-xs sm:text-sm md:text-base font-semibold text-white transition-colors duration-200"
                             style={{ backgroundColor: COLORS.secondary }}
                         >
                             <FaClipboardList className="text-base sm:text-lg md:text-xl" />
@@ -145,7 +179,6 @@ const AnalyticsPage = () => {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 };
