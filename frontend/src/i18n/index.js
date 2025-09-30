@@ -22,7 +22,7 @@ import team_ar from "./ar/Team.json"
 const resources = {
   en: {
     home: home_en,
-    contact:contact_en
+    contact:contact_en,
     aboutUs:aboutUs_en,
     directorManager:directorManager_en,
     actingDirector:actingDirector_en,
@@ -31,7 +31,7 @@ const resources = {
   },
   ar: {
     home: home_ar,
-    contact:contact_ar
+    contact:contact_ar,
     aboutUs:aboutUs_ar,
     directorManager:directorManager_ar,
     actingDirector:actingDirector_ar,
