@@ -4,70 +4,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUserProfile, clearProfile } from "../../redux/slices/UserSlice";
 import { useLogoutMutation } from "../../redux/slices/UserApi";
-import GoogleTranslate from "./GoogleTranslator";
-
-// Mock search data - replace with your actual data or API calls
-const searchData = [
-  {
-    id: 1,
-    title: "About Tamakon",
-    path: "/about-tamakon",
-    category: "Tamakon",
-  },
-  { id: 2, title: "Our Team", path: "/tamakon-team", category: "Tamakon" },
-  {
-    id: 3,
-    title: "Director Message",
-    path: "/director-message",
-    category: "Tamakon",
-  },
-  {
-    id: 4,
-    title: "Academic Services",
-    path: "/academy-services",
-    category: "Services",
-  },
-  {
-    id: 5,
-    title: "Speech Therapy",
-    path: "/speech-therapy",
-    category: "Services",
-  },
-  {
-    id: 6,
-    title: "Nursing Department",
-    path: "/nursing-department",
-    category: "Services",
-  },
-  { id: 7, title: "Media Gallery", path: "/media", category: "Media" },
-  {
-    id: 8,
-    title: "Contact Information",
-    path: "/contact-us",
-    category: "Contact",
-  },
-  { id: 9, title: "School Fees", path: "/school-fees", category: "Tamakon" },
-  { id: 10, title: "Recruitment", path: "/recruitment", category: "Tamakon" },
-  { id: 11, title: "FAQs", path: "/faqs", category: "Tamakon" },
-  {
-    id: 12,
-    title: "Public Relations",
-    path: "/public-relations",
-    category: "Services",
-  },
-  {
-    id: 13,
-    title: "Financial Affairs",
-    path: "/financial-affairs",
-    category: "Services",
-  },
-  {
-    id: 14,
-    title: "Vocational Rehabilitation",
-    path: "/vocational-rehabilitation",
-    category: "Services",
-  },
-];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -88,8 +24,6 @@ export default function Navbar() {
     { name: "Media", path: "/media", dropdown: true },
     { name: "Contact Us", path: "/contact-us" },
   ];
-
- 
 
   const handleLogout = async () => {
     try {
@@ -293,10 +227,9 @@ export default function Navbar() {
                   <NavLink
                     to={link.path}
                     className={({ isActive }) =>
-                      `relative pb-1 transition duration-300 px-3 py-2 ${
-                        isActive
-                          ? "text-indigo-300 font-semibold after:w-full"
-                          : "text-gray-200 hover:text-indigo-300 after:w-0 hover:after:w-full"
+                      `relative pb-1 transition duration-300 px-3 py-2 ${isActive
+                        ? "text-indigo-300 font-semibold after:w-full"
+                        : "text-gray-200 hover:text-indigo-300 after:w-0 hover:after:w-full"
                       } after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-gradient-to-r after:from-indigo-400 after:to-purple-400 after:transition-all after:duration-300`
                     }
                   >
@@ -306,15 +239,10 @@ export default function Navbar() {
               )
             )}
           </ul>
-            <GoogleTranslate />
 
 
           {/* Right Section - Search and Login/Profile */}
           <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
-           
-
-           
-
             {/* Login/Profile - Desktop & Tablet */}
             <div className="hidden md:block">
               {!profile ? (
@@ -416,9 +344,6 @@ export default function Navbar() {
               <FaBars className="text-indigo-200 text-lg" />
             </button>
           </div>
-
-          
-        
         </div>
       </nav>
 
@@ -432,9 +357,8 @@ export default function Navbar() {
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 max-w-full bg-gradient-to-b from-[#1A3570] to-[#2E3A87] border-l border-indigo-400 shadow-2xl transform transition-transform duration-300 z-50 p-4 sm:p-6 ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 right-0 h-full w-80 max-w-full bg-gradient-to-b from-[#1A3570] to-[#2E3A87] border-l border-indigo-400 shadow-2xl transform transition-transform duration-300 z-50 p-4 sm:p-6 ${isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
@@ -456,10 +380,9 @@ export default function Navbar() {
                   to={link.path}
                   onClick={() => setIsOpen(false)}
                   className={({ isActive }) =>
-                    `block py-3 px-4 rounded-lg transition duration-300 ${
-                      isActive
-                        ? "bg-indigo-800 text-indigo-300 font-semibold"
-                        : "text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30"
+                    `block py-3 px-4 rounded-lg transition duration-300 ${isActive
+                      ? "bg-indigo-800 text-indigo-300 font-semibold"
+                      : "text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30"
                     }`
                   }
                 >
@@ -670,6 +593,18 @@ export default function Navbar() {
                       Admin Dashboard
                     </NavLink>
                   )}
+                  {profile?.role === "guard" && (
+                    <NavLink
+                      to="/visitor"
+                      className="block px-4 py-2 text-gray-700 hover:text-indigo-700 transition"
+                      onClick={() => {
+                        setProfileOpen(false);
+                        setIsOpen(false);
+                      }}
+                    >
+                      Visitor Dashboard
+                    </NavLink>
+                  )}
                   {profile?.role === "teacher" && (
                     <NavLink
                       to="/teacherdocuments"
@@ -707,9 +642,6 @@ export default function Navbar() {
           )}
         </div>
       </div>
-
-    
-
       {/* Spacer to prevent content from being hidden behind fixed navbar */}
       <div className="h-[70px] sm:h-[80px] md:h-[90px]"></div>
     </>

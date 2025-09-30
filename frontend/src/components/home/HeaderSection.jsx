@@ -4,6 +4,7 @@ import { Autoplay, Pagination, Navigation, EffectFade } from "swiper/modules";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -19,6 +20,7 @@ const floatingVariants = {
 };
 
 export default function HeaderSection() {
+  const { t } = useTranslation("home");
   return (
     <div className="relative overflow-hidden">
       {/* Floating Background Shapes */}

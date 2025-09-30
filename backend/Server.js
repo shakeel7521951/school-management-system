@@ -13,6 +13,7 @@ import formSubmissionRoutes from "./routes/FormSubmissionRoutes.js";
 import stComplaintRoutes from "./routes/stComplaintRoutes.js";
 import visitorRoutes from "./routes/VisitorRoutes.js";
 import registrationRoutes from "./routes/registrationRoutes.js";
+import teacherComplaint from "./routes/TeacherComplaitRoutes.js";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

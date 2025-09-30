@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { FaExclamationTriangle, FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import ComplaintTable from "./ComplaintTable";
 import ComplaintFilters from "./ComplaintFilters";
@@ -43,23 +43,24 @@ const StudentComplain = () => {
       await changeStatus({ id, status: newStatus }).unwrap();
       showToast("Status updated successfully", "success");
       setEditModal(null);
-    } catch {
-      showToast("Failed to update status", "error");
+    } catch (error){
+      console.log(isError)
+      // showToast("Failed to update status", error);
     }
   };
 
   // Delete complaint
-const confirmDelete = async (id) => {
-  console.log("Deleting complaint with ID:", id);
-  try {
-    await deleteComplaint(id).unwrap();
-    showToast("Complaint deleted successfully", "success");
-    setDeleteModal(null);
-  } catch (err) {
-    console.error("Delete failed:", err);
-    showToast("Failed to delete complaint", "error");
-  }
-};
+  const confirmDelete = async (id) => {
+    console.log("Deleting complaint with ID:", id);
+    try {
+      await deleteComplaint(id).unwrap();
+      showToast("Complaint deleted successfully", "success");
+      setDeleteModal(null);
+    } catch (err) {
+      console.error("Delete failed:", err);
+      showToast("Failed to delete complaint", "error");
+    }
+  };
 
 
   // ✅ Filtering + Sorting
@@ -243,11 +244,11 @@ const confirmDelete = async (id) => {
       />
 
       {/* ✅ Add this line to actually show DeleteModal */}
-<DeleteModal
-  deleteModal={deleteModal}
-  setDeleteModal={setDeleteModal}
-  confirmDelete={confirmDelete}
-/>
+      <DeleteModal
+        deleteModal={deleteModal}
+        setDeleteModal={setDeleteModal}
+        confirmDelete={confirmDelete}
+      />
     </div>
   );
 };
