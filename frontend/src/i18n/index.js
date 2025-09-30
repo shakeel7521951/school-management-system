@@ -5,13 +5,17 @@ import LanguageDetector from "i18next-browser-languagedetector";
 // Import translations statically
 import home_en from "./en/Home.json";
 import home_ar from "./ar/Home.json";
+import contact_en from "./en/Contact.json";
+import contact_ar from "./ar/Contact.json";
 
 const resources = {
   en: {
     home: home_en,
+    contact:contact_en
   },
   ar: {
     home: home_ar,
+    contact:contact_ar
   },
 };
 
