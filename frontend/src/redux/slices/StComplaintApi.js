@@ -17,6 +17,8 @@ export const stComplaintApi = createApi({
     credentials: "include",
   }),
 
+  tagTypes: ["StComplaint"],
+
   endpoints: (builder) => ({
 
     // Create Complaint
@@ -26,6 +28,7 @@ export const stComplaintApi = createApi({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["StComplaint"],
     }),
 
     // Get All Complaints
@@ -34,6 +37,7 @@ export const stComplaintApi = createApi({
         url: "/get-all-st-complaints",
         method: "GET",
       }),
+      providesTags: ["StComplaint"],
     }),
 
     // Get Single Complaint
@@ -42,6 +46,7 @@ export const stComplaintApi = createApi({
         url: `/simple-st-complaint/${id}`,
         method: "GET",
       }),
+      invalidatesTags: ["StComplaint"],
     }),
 
     // Delete Complaint
@@ -50,15 +55,16 @@ export const stComplaintApi = createApi({
         url: `/delete-st-complaint/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["StComplaint"],
     }),
 
-    // Change Complaint Status
     changeStComplaintStatus: builder.mutation({
       query: ({ id, status }) => ({
         url: `/st-complaint-status/${id}`,
         method: "PATCH",
         body: { status },
       }),
+      invalidatesTags: ["StComplaint"],
     }),
 
   }),
