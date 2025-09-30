@@ -20,7 +20,8 @@ const floatingVariants = {
 };
 
 export default function HeaderSection() {
-  const { t } = useTranslation("home");
+  const { t } = useTranslation("home"); // namespace "home"
+
   return (
     <div className="relative overflow-hidden">
       {/* Floating Background Shapes */}
@@ -70,10 +71,10 @@ export default function HeaderSection() {
                 className="text-center text-white max-w-3xl px-6"
               >
                 <h1 className="text-4xl md:text-4xl md:w-[750px] font-bold mb-6">
-                  Admission Now Open 2025-2026
+                  {t("slide1.title")}
                 </h1>
                 <p className="text-lg md:text-xl text-gray-200 mb-8">
-                  Registration is now open for the academic year 2025-2026 with an exclusive early registration offer.Register as soon as possible to take advantage of the discount for all the educational levels.
+                  {t("slide1.description")}
                 </p>
                 <Link to="/registration-form">
                   <motion.button
@@ -81,7 +82,7 @@ export default function HeaderSection() {
                     whileTap={{ scale: 0.95 }}
                     className="px-8 py-4 bg-gradient-to-r from-[#224182] to-[#3b63bb] rounded-lg text-white text-lg font-semibold shadow-lg"
                   >
-                    APPLY NOW
+                    {t("slide1.button")}
                   </motion.button>
                 </Link>
               </motion.div>
@@ -108,10 +109,10 @@ export default function HeaderSection() {
                 className="text-center text-white max-w-3xl px-6"
               >
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  Employee Incentive Project
+                  {t("slide2.title")}
                 </h1>
                 <p className="text-lg md:text-xl mb-8 text-gray-200">
-                  Organizations and institutions strive for growth, sustainability, and continuity. Their success depends greatly on human resources, who must be motivated to work with efficiency. To achieve this, organizations play a key role in inspiring, guiding, and directing employees. This ensures that efforts align with the goals set out for long-term success.
+                  {t("slide2.description")}
                 </p>
                 <Link to="/tamakon-team">
                   <motion.button
@@ -119,7 +120,7 @@ export default function HeaderSection() {
                     whileTap={{ scale: 0.95 }}
                     className="px-12 py-4 text-lg bg-gradient-to-r from-[#224182] to-[#3b63bb] rounded-lg"
                   >
-                    MORE
+                    {t("slide2.button")}
                   </motion.button>
                 </Link>
               </motion.div>

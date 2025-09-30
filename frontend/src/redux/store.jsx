@@ -6,6 +6,7 @@ import { submittedFormApi } from "./slices/SubmittedFormsApi";
 import { VisitorApi } from "./slices/VisitorApi";
 import { RegistrationApi } from "./slices/RegistrationApi";
 import { teacherComplaintApi } from "./slices/TeacherComplaints";
+import languageReducer from "./slices/languageSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     [RegistrationApi.reducerPath]: RegistrationApi.reducer,
     [teacherComplaintApi.reducerPath]: RegistrationApi.reducer,
     user: userReducer,
+     language: languageReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(userApi.middleware, stComplaintApi.middleware, submittedFormApi.middleware, VisitorApi.middleware, RegistrationApi.middleware, teacherComplaintApi.middleware),

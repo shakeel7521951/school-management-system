@@ -4,16 +4,19 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUserProfile, clearProfile } from "../../redux/slices/UserSlice";
 import { useLogoutMutation } from "../../redux/slices/UserApi";
+import { useTranslation } from "react-i18next";
+import { toggleLanguage } from "../../redux/slices/languageSlice";
 
 export default function Navbar() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const { language } = useSelector((state) => state.language);
 
   const [openDropdown, setOpenDropdown] = useState(null);
 
   const profile = useSelector(selectUserProfile);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [logout, { isLoading }] = useLogoutMutation();
 
@@ -240,9 +243,16 @@ export default function Navbar() {
             )}
           </ul>
 
-
           {/* Right Section - Search and Login/Profile */}
           <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
+            {/* Language Toggle Button - Desktop */}
+            <button
+              onClick={() => dispatch(toggleLanguage())}
+              className="hidden md:flex px-3 py-2 border border-white/30 rounded-full text-white text-sm font-medium hover:bg-white/10 transition duration-300 whitespace-nowrap"
+            >
+              {language === "en" ? "عربي" : "English"}
+            </button>
+
             {/* Login/Profile - Desktop & Tablet */}
             <div className="hidden md:block">
               {!profile ? (
@@ -537,6 +547,7 @@ export default function Navbar() {
               )}
             </li>
           ))}
+
         </ul>
 
         {/* Mobile Login/Profile (inside sidebar) */}
@@ -640,6 +651,12 @@ export default function Navbar() {
               )}
             </div>
           )}
+          <button
+            onClick={() => dispatch(toggleLanguage())}
+            className="px-3 py-2 border rounded"
+          >
+            {language === "en" ? "عربي" : "English"}
+          </button>
         </div>
       </div>
       {/* Spacer to prevent content from being hidden behind fixed navbar */}

@@ -8,5 +8,69 @@
     "title": "Employee Incentive Project",
     "description": "Organizations and institutions strive for growth, sustainability, and continuity. Their success depends greatly on human resources, who must be motivated to work with efficiency. To achieve this, organizations play a key role in inspiring, guiding, and directing employees. This ensures that efforts align with the goals set out for long-term success.",
     "button": "MORE"
+  },
+  "homeAbout": {
+    "title": "Why Tamakon School?",
+    "description": "The Comprehensive Tamakon School was established in 2008 to meet the growing societal need for comprehensive services for students with multiple intelligences and capabilities. It was licensed as the first specialized private school for students with these abilities in Qatar, offering educational and therapeutic rehabilitation services for males and females across all academic levels.",
+    "button": "Contact Us Now",
+    "imageAlt": "Digital School System"
+  },
+  "features": {
+    "heading": {
+      "title": "Our Key Services",
+      "description": "At Tamakon Comprehensive School, we combine advanced teaching, therapeutic care, and modern resources to empower every student to reach their highest potential."
+    },
+    "items": [
+      {
+        "title": "Speech and Language Therapy",
+        "desc": "Daily, weekly, and monthly sessions."
+      },
+      {
+        "title": "Outstanding Education",
+        "desc": "Motivating students to achieve their highest potential."
+      },
+      {
+        "title": "Modern Technologies",
+        "desc": "Advanced educational resources to enhance learning."
+      },
+      {
+        "title": "A Bright Future",
+        "desc": "Building strong foundations for future success."
+      }
+    ]
+  },
+  "tamakonSection": {
+    "heading": "Tamakon Comprehensive School",
+    "contact": "Contact Us",
+    "infoBlocks": [
+      {
+        "title": "Comprehensive Curriculum",
+        "description": "A curriculum designed to nurture multiple intelligences and creativity in all students."
+      },
+      {
+        "title": "Qualified Teachers",
+        "description": "Experienced and dedicated faculty committed to student growth and learning excellence."
+      },
+      {
+        "title": "Global Standards",
+        "description": "Internationally certified education and CIS membership ensuring world-class quality."
+      },
+      {
+        "title": "Student Development",
+        "description": "Programs tailored for personal, academic, and social growth of each learner."
+      },
+      {
+        "title": "Modern Facilities",
+        "description": "State-of-the-art infrastructure and learning resources for a complete educational experience."
+      },
+      {
+        "title": "Inclusive Learning",
+        "description": "Bilingual and accessible education for every child, fostering diversity and inclusion."
+      }
+    ],
+    "loginSection": {
+      "title": "Login for Staff and Parents",
+      "button": "LOGIN"
+    }
   }
 }
