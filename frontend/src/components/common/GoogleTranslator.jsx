@@ -14,7 +14,10 @@ const GoogleTranslate = () => {
       const select = document.querySelector(".goog-te-combo");
       if (select) {
         Array.from(select.options).forEach((option) => {
-          if (!["en", "ar"].includes(option.value) && option.value !== "") {
+          if (
+            !["ar", "en"].includes(option.value) && // keep English, French, Swahili
+            option.value !== ""
+          ) {
             option.remove();
           }
         });
@@ -38,8 +41,6 @@ const GoogleTranslate = () => {
         { pageLanguage: "en" },
         "google_translate_element"
       );
-
-      setTimeout(filterLanguages, 1000);
 
       const observer = new MutationObserver(filterLanguages);
       observer.observe(document.body, {

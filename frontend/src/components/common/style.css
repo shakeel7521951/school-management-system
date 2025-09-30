@@ -12,7 +12,13 @@
   font-size: 0 !important; /* hide default text */
   color: transparent !important;
 }
-
+.VIpgJd-ZVi9od-ORHb-OEVmcd {
+  display: none;
+}
+body {
+  top: 0 !important;
+  position: static !important;
+}
 /* Wrapper */
 .translate-wrapper {
   display: inline-block;
@@ -103,6 +109,10 @@
     "Helvetica Neue", Arial, sans-serif;
   line-height: 1.5;
 }
+/* 
+.skiptranslate{
+    display: none;  
+} */
 
 /* Additional refinements for professional look */
 .goog-te-combo::-ms-expand {
