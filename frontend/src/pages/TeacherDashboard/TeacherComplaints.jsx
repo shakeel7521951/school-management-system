@@ -128,7 +128,7 @@ const TeacherComplaints = () => {
        
         <button
           onClick={() => setShowModal(true)}
-          className='px-4 py-2 sm:px-5 sm:py-2.5 bg-[#104c80] text-white rounded-lg shadow-md hover:bg-[#0d3a63] transition font-medium'
+          className='lg:px-4 lg:py-2 px-4 py-3 md:px-2 md:py-2 sm:px-5 sm:py-2.5 bg-[#104c80] text-white rounded-lg shadow-md hover:bg-[#0d3a63] transition font-medium '
         >
           + Submit Complaint
         </button>

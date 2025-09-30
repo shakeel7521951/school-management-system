@@ -12,14 +12,13 @@ import {
 
 // Colors
 const typeColors = {
-  Bullying: "bg-indigo-100 text-indigo-700",
-  "Physical Safety": "bg-red-100 text-red-700",
-  Staff: "bg-orange-100 text-orange-700",
-  Learning: "bg-green-100 text-green-700",
-  Facilities: "bg-purple-100 text-purple-700",
-  Bus: "bg-cyan-100 text-cyan-700",
-  Emotions: "bg-pink-100 text-pink-700",
-  Rights: "bg-blue-100 text-blue-700",
+  "Safety at Work": "bg-indigo-100 text-indigo-700",
+  "Work Environment": "bg-red-100 text-red-700",
+  Colleagues: "bg-orange-100 text-orange-700",
+  Management: "bg-green-100 text-green-700",
+  Rights: "bg-purple-100 text-purple-700",
+  Stress: "bg-cyan-100 text-cyan-700",
+  
 };
 
 const severityColors = {
@@ -36,7 +35,7 @@ const statusColors = {
   rejected: "bg-red-100 text-red-700",
 };
 
-const ComplaintTable = ({
+const TeacherComplaintTable = ({
   paginatedComplaints,
   filteredComplaints,
   sortConfig,
@@ -53,14 +52,14 @@ const ComplaintTable = ({
           <thead>
             <tr className="bg-[#10448c] text-white text-sm">
               {[
-                { key: "name", label: "Name", width: "w-40" },
-                { key: "studentClass", label: "Class", width: "w-20" },
-                { key: "age", label: "Age", width: "w-20" },
+                { key: "name", label: "Employee Name", width: "w-40" },
+                { key: "title", label: "Job Title", width: "w-40" },
+                { key: "department", label: "Department", width: "w-20" },
                 { key: "date", label: "Date", width: "w-28" },
-                { key: "type", label: "Type", width: "w-32" },
+                { key: "type", label: "Type", width: "w-32"  },
                 { key: "severity", label: "Severity", width: "w-28" },
                 { key: "impact", label: "Impact", width: "w-28" },
-                { key: "action", label: "Expected Action", width: "w-32" },
+                { key: "action", label: "Expected Action", width: "w-40"  },
                 { key: "status", label: "Status", width: "w-28" },
                 { key: "Action", label: "Action", width: "w-28" },
               ].map(({ key, label, width }) => (
@@ -72,7 +71,7 @@ const ComplaintTable = ({
                     key !== "Action" &&
                     handleSort(key)
                   }
-                  className={`${width} px-1 py-4 text-center font-semibold uppercase tracking-wide cursor-pointer`}
+                  className={`${width} py-1 px-1 text-center text-[12px] font-semibold uppercase tracking-wide cursor-pointer`}
                 >
                   <div className="flex items-center justify-center gap-1">
                     {label}
@@ -123,7 +122,7 @@ const ComplaintTable = ({
                 </td>
                 <td className="px-3 py-2 text-center">
                   <span
-                    className={`px-2 py-1 text-xs rounded-full ${
+                    className={`px-1 py-1 text-xs rounded-full ${
                       severityColors[c.severity?.toLowerCase()] ||
                       "bg-gray-100 text-gray-700"
                     }`}
@@ -307,4 +306,4 @@ const ComplaintTable = ({
   );
 };
 
-export default ComplaintTable;
+export default TeacherComplaintTable;
