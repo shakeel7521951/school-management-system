@@ -10,7 +10,6 @@ export default function PersonalProfile() {
       const {t}=useTranslation("team")
     
 
-    // ✅ Slugify helper (must match what you use in TeamSection.jsx)
     const slugify = (text) =>
         text
             .toLowerCase()
