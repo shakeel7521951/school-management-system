@@ -20,7 +20,7 @@ const floatingVariants = {
 };
 
 export default function HeaderSection() {
-  const { t } = useTranslation("home"); // namespace "home"
+  const { t } = useTranslation("home"); 
 
   return (
     <div className="relative overflow-hidden">

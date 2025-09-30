@@ -1,0 +1,51 @@
+{
+  "heroSection": {
+    "title": "اتصل بنا",
+    "subtitle": "مدرسة تمكّن الشاملة / اتصل بنا",
+    "backgroundImageAlt": "صورة الغلاف"
+  },
+  "secondaryHeading": {
+    "title": "ابقَ على تواصل",
+    "description": "هل لديك بعض الاقتراحات أو ترغب فقط في قول مرحباً؟ فريق الدعم لدينا جاهز لمساعدتك على مدار الساعة طوال أيام الأسبوع."
+  },
+  "contactCards": {
+    "address": {
+      "title": "العنوان",
+      "details": "عين خالد، أم سنيم، شارع السماك 392، المنطقة 56، مبنى 41",
+      "iconAlt": "الموقع"
+    },
+    "phone": {
+      "title": "رقم الهاتف",
+      "details": "+974 4466 0466",
+      "iconAlt": "الهاتف"
+    },
+    "email": {
+      "title": "البريد الإلكتروني",
+      "details": "info@tamakon.org",
+      "iconAlt": "البريد الإلكتروني"
+    }
+  },
+  "formSection": {
+    "fields": {
+      "fullName": {
+        "label": "الاسم الكامل *",
+        "placeholder": "اسمك"
+      },
+      "email": {
+        "label": "البريد الإلكتروني *",
+        "placeholder": "بريدك الإلكتروني"
+      },
+      "phone": {
+        "label": "رقم الهاتف",
+        "placeholder": "رقم هاتفك"
+      },
+      "message": {
+        "label": "الرسالة *",
+        "placeholder": "اكتب رسالتك هنا"
+      }
+    },
+    "button": "إرسال الرسالة",
+    "successMessage": "تم إرسال الرسالة بنجاح!",
+    "errorMessage": "فشل في الإرسال: "
+  }
+}

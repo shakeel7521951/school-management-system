@@ -1,0 +1,51 @@
+{
+  "heroSection": {
+    "title": "Contact Us",
+    "subtitle": "Tamakon Comprehensive School / Contact Us",
+    "backgroundImageAlt": "About Cover Image"
+  },
+  "secondaryHeading": {
+    "title": "Keep in Touch",
+    "description": "Do you have some suggestions or just want to say hello? Our support team is ready to help you 24/7."
+  },
+  "contactCards": {
+    "address": {
+      "title": "Address",
+      "details": "Ain Khaled, Umm Saneem, Al-Sammak Street 392, Area 56, Building 41",
+      "iconAlt": "Location"
+    },
+    "phone": {
+      "title": "Phone Number",
+      "details": "+974 4466 0466",
+      "iconAlt": "Phone"
+    },
+    "email": {
+      "title": "Email Address",
+      "details": "info@tamakon.org",
+      "iconAlt": "Email"
+    }
+  },
+  "formSection": {
+    "fields": {
+      "fullName": {
+        "label": "Full Name *",
+        "placeholder": "Your Name"
+      },
+      "email": {
+        "label": "Email *",
+        "placeholder": "Your Email"
+      },
+      "phone": {
+        "label": "Phone",
+        "placeholder": "Your Phone Number"
+      },
+      "message": {
+        "label": "Message *",
+        "placeholder": "Write your message here"
+      }
+    },
+    "button": "Submit Message",
+    "successMessage": "Message sent successfully!",
+    "errorMessage": "Failed to send: "
+  }
+}
