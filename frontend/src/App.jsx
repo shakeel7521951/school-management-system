@@ -35,7 +35,6 @@ import TeacherSideBar from './components/teacherDashboard/common/TeacherSideBar'
 import TeacherComplaints from './pages/TeacherDashboard/TeacherComplaints'
 // import TeacherProfile from './pages/TeacherDashboard/TeacherProfile'
 // import TeacherNotifications from './pages/TeacherDashboard/TeacherNotifications'
-import AdminComplain from './components/dashboard/adminComplaints/AdminComplain'
 import EditorPage from './pages/dashboard/EditorPage'
 import FormViewer from './pages/dashboard/FormViewer'
 import ResponseForm from './pages/TeacherDashboard/TeacherDocuments'
@@ -76,6 +75,8 @@ import NewsDetail from './components/news/NewsDetail'
 import RoleRoute from './RoleRoute'
 import RegistrationData from './pages/dashboard/RegistrationData'
 import AnalyticsPage from './pages/dashboard/AnayticsPage'
+import AdminStudentComplain from './pages/dashboard/AdminComplaints/AdminStudentComplain'
+import AdminTeacherComplain from './pages/dashboard/AdminComplaints/AdminTeacherComplain'
 
 // import MyProfile from './pages/MyProfile'
 
@@ -183,7 +184,8 @@ const router = createBrowserRouter([
   {
     element: <AdminRoute />,
     children: [
-      { path: 'admincomplain', element: <AdminComplain /> },
+      { path: 'studentcomplain', element:<AdminStudentComplain/> },
+      { path: 'teachercomplain', element:<AdminTeacherComplain/> },
       { path: 'visitortable', element: <VisitorTable /> },
 
       { path: 'documents/uploaded', element: <UploadedDocuments /> },

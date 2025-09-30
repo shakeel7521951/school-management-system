@@ -14,7 +14,7 @@ import {
 
 const USER_ROLE = "manager";
 
-const AdminComplain = () => {
+const StudentComplain = () => {
   const { data: complaints = [], isLoading, isError } = useGetAllStComplaintsQuery();
   const [deleteComplaint] = useDeleteStComplaintMutation();
   const [changeStatus] = useChangeStComplaintStatusMutation();
@@ -159,10 +159,10 @@ const AdminComplain = () => {
     <div className="lg:ml-[270px] max-w-8xl bg-gray-50 py-4 px-4 sm:px-6 lg:px-10 flex flex-col gap-8 min-h-screen">
       <header>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1a4480]">
-          Complaint Management
+        Students Complaint Management
         </h1>
         <p className="text-gray-500 mt-1 text-sm sm:text-base">
-          Manage and resolve all system complaints efficiently
+          Manage and resolve students complaints efficiently
         </p>
         <hr className="mt-4 border-gray-200" />
       </header>
@@ -253,4 +253,4 @@ const AdminComplain = () => {
   );
 };
 
-export default AdminComplain;
+export default StudentComplain;

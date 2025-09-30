@@ -43,13 +43,17 @@ const Sidebar = () => {
     // { id: "/overview", label: "Overview", icon: Users, color: "text-indigo-500", hover: "hover:bg-indigo-50" },
 
      { id: "analytics", label: "Analytics", icon: FaChartLine, color: "text-[#3B82F6]", hover: "hover:bg-amber-50" },
-    { 
-      id: "/admincomplain", 
-      label: "Complaints", 
-      icon: MessageCircle, 
-      color: "text-[#3B82F6]", 
-      hover: "hover:bg-pink-50" 
-    },
+    {
+    id: "complaints",
+    label: "Complaints",
+    icon: MessageCircle,
+    color: "text-[#3B82F6]",
+    hover: "hover:bg-pink-50",
+    dropdown: [
+      { id: "/studentcomplain", label: "Student Complaints" },
+      { id: "/teachercomplain", label: "Teacher Complaints" },
+    ],
+  },
     {
       id: "documents",
       label: "Documents",
