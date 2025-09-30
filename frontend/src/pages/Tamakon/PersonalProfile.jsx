@@ -3,9 +3,12 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { TeamMembers } from "../../components/Tamakon/team/teamData";
 import { FaEnvelope, FaPhone, FaBuilding } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 export default function PersonalProfile() {
     const { slug } = useParams();
+      const {t}=useTranslation("team")
+    
 
     // ✅ Slugify helper (must match what you use in TeamSection.jsx)
     const slugify = (text) =>

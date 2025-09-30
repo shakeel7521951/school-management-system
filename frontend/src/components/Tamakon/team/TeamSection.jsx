@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import { TeamMembers, departmentColors, teamCategories } from "./teamData";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function TeamSection() {
+  const {t}=useTranslation("team")
   const [activeCategory, setActiveCategory] = useState("all");
   const navigate = useNavigate();
 

@@ -1,0 +1,39 @@
+{
+  "heroSection": {
+    "title": "About Tamakon",
+    "subtitle": "Tamakon Comprehensive School / About Tamakon",
+    "backgroundImage": "/images/about-cover.jpg"
+  },
+  "sections": {
+    "whoWeAre": {
+      "title": "Who We Are",
+      "content": "Al Tamkon Comprehensive School was established in 2008 to meet the growing community needs for comprehensive services for students with Multiple Intelligences and Talents, as it was licensed as the first specialized private school for students with Multiple Intelligences and Talents in Qatar, providing comprehensive therapeutic education and rehabilitation services for males and females of all educational levels."
+    },
+    "ourHistory": {
+      "title": "Our History",
+      "content1": "In 2014, Al-Tamkon Inclusive School witnessed a significant transformation as it relocated to its new building in the Ain Khaled area near Doha. This move was a strategic step aimed at accommodating a larger number of students and providing comprehensive educational and rehabilitation services that cater to the needs of the served communities.",
+      "content2": "By the end of the 2022/2023 academic year, the school had exceeded 235 male and female students. In order to deliver the highest level of quality in educational and rehabilitation services, more than 135 highly qualified and globally experienced staff were employed."
+    },
+    "achievements": {
+      "title": "Achievements & Accreditation",
+      "content1": "The school distinguished itself by obtaining national school accreditation according to the Qatari curriculum from the Ministry of Education and Higher Education in May 2019. Furthermore, it received a license from the Ministry of Public Health in October of the same year, making it the first and only specialized private school in Qatar to hold both educational and healthcare accreditation simultaneously.",
+      "content2": "The school actively seeks international accreditation (CIS) as part of its ongoing efforts towards excellence. This pursuit reflects its commitment to continuous improvement and its desire to provide a world-class educational environment for its students."
+    },
+    "campus": {
+      "title": "Our Campus",
+      "content": "Al-Tamken Inclusive School is located in the Ain Khaled area in the southern part of Doha, occupying a land area of approximately 15,000 square meters. The campus includes three main buildings with classrooms, therapy rooms, enrichment spaces, a theater, library, cafeteria, and recreational areas. Specialized facilities include sensory integration, physical therapy, occupational therapy, speech and language therapy, and vocational rehabilitation units."
+    },
+    "individualizedCare": {
+      "title": "Individualized Care",
+      "content": "Each student receives individualized educational plans based on assessments by a multidisciplinary team, including psychologists, therapists, special educators, and subject teachers. Services include adaptive behavior assessments, individualized therapies, and enrichment activities. A high staff-to-student ratio ensures personalized education and rehabilitation."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "content": "The leading school in empowering multiple intelligences and capabilities, providing specialized educational and comprehensive rehabilitative services with professional competencies, in accordance with national and international standards, in commitment to Qatar’s vision 2030."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "content": "Al Tamakon Comprehensive School is a leader in enabling multiple intelligences and capabilities, where we provide comprehensive educational and rehabilitative services with high professional competencies. We apply national and international standards to ensure distinguished education that enhances students’ development in all academic and social aspects, with a focus on innovation and global citizenship, in commitment to Qatar’s vision 2030."
+    }
+  }
+}
