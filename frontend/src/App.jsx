@@ -32,7 +32,7 @@ import TeacherNavbar from './components/teacherDashboard/common/TeacherNavbar'
 import TeacherSideBar from './components/teacherDashboard/common/TeacherSideBar'
 // import TeacherOverview from './pages/TeacherDashboard/TeacherOverview'
 // import TeacherDocuments from './pages/TeacherDashboard/TeacherDocuments'
-// import TeacherComplaints from './pages/TeacherDashboard/TeacherComplaints'
+import TeacherComplaints from './pages/TeacherDashboard/TeacherComplaints'
 // import TeacherProfile from './pages/TeacherDashboard/TeacherProfile'
 // import TeacherNotifications from './pages/TeacherDashboard/TeacherNotifications'
 import AdminComplain from './components/dashboard/adminComplaints/AdminComplain'
@@ -76,6 +76,7 @@ import NewsDetail from './components/news/NewsDetail'
 import RoleRoute from './RoleRoute'
 import RegistrationData from './pages/dashboard/RegistrationData'
 import AnalyticsPage from './pages/dashboard/AnayticsPage'
+
 // import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
@@ -211,7 +212,7 @@ const router = createBrowserRouter([
     children: [
       // { path: '/teacheroverview', element: <TeacherOverview /> },
       { path: '/teacherdocuments', element: <ResponseForm /> },
-      // { path: '/teachercomplaints', element: <TeacherComplaints /> },
+      { path: '/teachercomplaints', element: <TeacherComplaints /> },
       // { path: '/teachernotifications', element: <TeacherNotifications /> },
       // { path: '/teacherprofile', element: <TeacherProfile /> }
     ]

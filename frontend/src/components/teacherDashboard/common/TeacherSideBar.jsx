@@ -67,7 +67,7 @@ const TeacherSidebar = () => {
           {[
             // { label: "Overview", icon: <LayoutDashboard size={20} />, path: "/teacheroverview" },
             { label: "Documents", icon: <FileText size={20} />, path: "/teacherdocuments" },
-            // { label: "Complaints", icon: <ClipboardList size={20} />, path: "/teachercomplaints" },
+            { label: "Complaints", icon: <ClipboardList size={20} />, path: "/teachercomplaints" },
             // { label: "Notifications", icon: <Bell size={20} />, path: "/teachernotifications" },
             // { label: "Profile", icon: <User size={20} />, path: "/teacherprofile" },
           ].map((item, index) => (
