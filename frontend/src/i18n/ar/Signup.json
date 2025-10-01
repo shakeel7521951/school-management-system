@@ -1,0 +1,44 @@
+
+{
+  "card": {
+    "header": {
+      "title": "اصنع الأمل اليوم",
+      "subtitle": "سجل الآن لبدء رحلتك"
+    },
+    "form": {
+      "fields": {
+        "name": {
+          "label": "الاسم الكامل",
+          "placeholder": "أدخل اسمك الكامل"
+        },
+        "email": {
+          "label": "البريد الإلكتروني",
+          "placeholder": "أدخل بريدك الإلكتروني"
+        },
+        "phone": {
+          "label": "رقم الهاتف",
+          "placeholder": "أدخل رقم هاتفك"
+        },
+        "password": {
+          "label": "كلمة المرور",
+          "placeholder": "أدخل كلمة المرور"
+        },
+        "confirmPassword": {
+          "label": "تأكيد كلمة المرور",
+          "placeholder": "أدخل كلمة المرور مرة أخرى"
+        }
+      },
+      "button": {
+        "text": "إنشاء حساب",
+        "loadingText": "جاري إنشاء الحساب..."
+      },
+      "messages": {
+        "passwordMismatch": "كلمتا المرور غير متطابقتين!",
+        "error": "فشل التسجيل",
+        "success": "تم التسجيل بنجاح!"
+      },
+      "loginText": "هل لديك حساب بالفعل؟",
+      "loginButton": "تسجيل الدخول"
+    }
+  }
+}

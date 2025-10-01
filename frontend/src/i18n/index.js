@@ -18,7 +18,11 @@ import faq_en from "./en/FAQs.json"
 import faq_ar from "./ar/FAQs.json"
 import team_en from "./en/Team.json"
 import team_ar from "./ar/Team.json"
- 
+import login_en from "./en/Login.json"
+import login_ar from "./ar/Login.json"
+import signup_en from "./en/Signup.json"
+import signup_ar from "./ar/Signup.json"
+
 const resources = {
   en: {
     home: home_en,
@@ -27,7 +31,9 @@ const resources = {
     directorManager:directorManager_en,
     actingDirector:actingDirector_en,
     faq:faq_en,
-    team:team_en
+    team:team_en,
+    login:login_en,
+    signup:signup_en,
   },
   ar: {
     home: home_ar,
@@ -36,7 +42,9 @@ const resources = {
     directorManager:directorManager_ar,
     actingDirector:actingDirector_ar,
     faq:faq_ar,
-    team:team_ar
+    team:team_ar,
+    login:login_ar,
+    signup:signup_ar,
 
 
   },
