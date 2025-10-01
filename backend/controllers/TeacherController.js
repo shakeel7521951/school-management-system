@@ -2,7 +2,14 @@ import TeacherComplaint from "../models/TeacherComplaint.js";
 
 export const createComplaint = async (req, res) => {
   try {
-    const complaint = new TeacherComplaint(req.body);
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ message: "You must be logged in to submit a complaint" });
+    }
+    const complaint = new TeacherComplaint({
+      ...req.body,
+      teacherId: req.user.id,
+      status: 'Pending'
+    });
     await complaint.save();
 
     return res.status(201).json({
@@ -23,6 +30,27 @@ export const getComplaints = async (req, res) => {
   } catch (error) {
     console.error("Error fetching complaints:", error);
     return res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+export const teacherComplaints = async (req, res) => {
+  try {
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ message: "You are not logged in. Please login first" });
+    }
+    console.log(req.user);
+
+    const { id } = req.user;
+    const complaints = await TeacherComplaint.find({ teacherId: id });
+    console.log(complaints)
+    if (!complaints || complaints.length === 0) {
+      return res.status(404).json({ message: "No Complaint Found!" });
+    }
+
+    return res.status(200).json({ complaints });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -67,10 +95,6 @@ export const updateComplaint = async (req, res) => {
 export const updateComplaintStatus = async (req, res) => {
   try {
     const { status } = req.body;
-
-    if (!["Pending", "Reviewed", "Resolved"].includes(status)) {
-      return res.status(400).json({ success: false, message: "Invalid status value" });
-    }
 
     const complaint = await TeacherComplaint.findByIdAndUpdate(
       req.params.id,
