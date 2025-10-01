@@ -298,7 +298,7 @@ export default function Navbar() {
                       </NavLink>
                       {profile?.role === "admin" && (
                         <NavLink
-                          to="/studentcomplain"
+                          to="/analytics"
                           className="block px-4 py-2 hover:text-indigo-700"
                         >
                           {t("navbar.profile.adminDashboard")}
@@ -629,7 +629,7 @@ export default function Navbar() {
 
                   {profile?.role === "admin" && (
                     <NavLink
-                      to="/studentcomplain"
+                      to="/analytics"
                       className="block px-4 py-2 text-gray-700 hover:text-indigo-700 transition"
                       onClick={() => {
                         setProfileOpen(false);

@@ -1,0 +1,68 @@
+{
+  "app": {
+    "name": "Al Tamakon",
+    "slogan": "Empowering Education Digitally",
+    "logo": {
+      "icon": "School",
+      "color": "text-blue-600",
+      "bg": "bg-blue-100"
+    }
+  },
+  "systemStatus": {
+    "status": "Operational",
+    "color": "bg-green-500"
+  },
+  "menuItems": [
+    {
+      "id": "analytics",
+      "label": "Analytics",
+      "icon": "FaChartLine",
+      "color": "text-[#3B82F6]",
+      "hover": "hover:bg-amber-50"
+    },
+    {
+      "id": "complaints",
+      "label": "Complaints",
+      "icon": "MessageCircle",
+      "color": "text-[#3B82F6]",
+      "hover": "hover:bg-pink-50",
+      "dropdown": [
+        { "id": "/studentcomplain", "label": "Student Complaints" },
+        { "id": "/teachercomplain", "label": "Teacher Complaints" }
+      ]
+    },
+    {
+      "id": "documents",
+      "label": "Documents",
+      "icon": "FileText",
+      "color": "text-[#3B82F6]",
+      "hover": "hover:bg-green-50",
+      "dropdown": [
+        { "id": "/documents/requests", "label": "Requested Documents" },
+        { "id": "/documents/uploaded", "label": "Uploaded Documents" }
+      ]
+    },
+    {
+      "id": "visitortable",
+      "label": "Visitors",
+      "icon": "BarChart2",
+      "color": "text-[#3B82F6]",
+      "hover": "hover:bg-amber-50"
+    },
+    {
+      "id": "users",
+      "label": "Users",
+      "icon": "Users",
+      "color": "text-[#3B82F6]",
+      "hover": "hover:bg-amber-50"
+    },
+    {
+      "id": "registration-data",
+      "label": "Registration Data",
+      "icon": "Users",
+      "color": "text-[#3B82F6]",
+      "hover": "hover:bg-amber-50"
+    }
+  ],
+  "logout": "Logout"
+}

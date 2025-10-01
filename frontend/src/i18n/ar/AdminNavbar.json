@@ -1,0 +1,19 @@
+{
+  "navbar": {
+    "aria": {
+      "toggle_menu": "تبديل القائمة"
+    },
+    "user": {
+      "default_name": "مستخدم ضيف",
+      "default_role": "مستخدم",
+      "profile_button": "ملفي الشخصي",
+      "logout_button": "تسجيل الخروج",
+      "logout_loading": "جارٍ تسجيل الخروج..."
+    },
+    "dropdown": {
+      "profile_heading": "الملف الشخصي",
+      "name_label": "الاسم",
+      "role_label": "الدور"
+    }
+  }
+}
