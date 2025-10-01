@@ -1,10 +1,12 @@
 import { FaUser, FaLock, FaEnvelope, FaEye, FaEyeSlash, FaMobile } from "react-icons/fa";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useUserRegistrationMutation } from "../redux/slices/UserApi" // adjust path
+import { useUserRegistrationMutation } from "../redux/slices/UserApi"; // adjust path
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 export default function Signup() {
+  const { t } = useTranslation("signup");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ export default function Signup() {
     confirmPassword: "",
   });
 
-  const [registerUser, { isLoading, isError, error, isSuccess, data }] =
+  const [registerUser, { isLoading, isError, error, isSuccess }] =
     useUserRegistrationMutation();
 
   const handleChange = (e) => {
@@ -26,9 +28,8 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (formData.password !== formData.confirmPassword) {
-      toast.error("Passwords do not match!");
+      toast.error(t("card.form.messages.passwordMismatch"));
       return;
     }
 
@@ -40,27 +41,24 @@ export default function Signup() {
         password: formData.password,
       }).unwrap();
 
-      toast.success(response?.message || "Signup successful!");
+      toast.success(response?.message || t("card.form.messages.success"));
       navigate("/OtpVerify", { state: { email: formData.email } });
-
     } catch (err) {
-      toast.error(err?.data?.message || "Signup failed");
+      toast.error(err?.data?.message || t("card.form.messages.error"));
     }
   };
 
-
   return (
     <div className="min-h-screen flex items-center justify-center px-4 sm:px-8 md:px-12 lg:px-16 py-16 bg-gradient-to-br from-[#104c80] via-[#0d3a63] to-[#082845]">
-      {/* Glassmorphism Card */}
       <div className="w-full max-w-3xl bg-white/15 backdrop-blur-2xl shadow-2xl rounded-2xl overflow-hidden border border-white/20">
 
         {/* Header */}
         <div className="bg-gradient-to-r from-[#104c80] to-[#0d3a63] py-6 px-4 sm:px-8 text-center shadow-md">
           <h1 className="text-white font-serif text-2xl sm:text-3xl font-bold tracking-wide">
-            Create Hope Today
+            {t("card.header.title")}
           </h1>
           <p className="text-white/80 text-sm mt-1">
-            Sign up to start your journey
+            {t("card.header.subtitle")}
           </p>
         </div>
 
@@ -71,19 +69,16 @@ export default function Signup() {
             {/* Full Name */}
             <div>
               <label className="block text-white/90 font-semibold mb-2">
-                Full Name
+                {t("card.form.fields.name.label")}
               </label>
               <div className="relative">
-                <FaUser
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/80"
-                  size={18}
-                />
+                <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/80" size={18} />
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Enter your full name"
+                  placeholder={t("card.form.fields.name.placeholder")}
                   className="w-full pl-10 pr-4 py-2 border border-white/30 rounded-lg bg-white/20 backdrop-blur-md text-white placeholder-white/60 focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] transition-all duration-200 outline-none"
                   required
                 />
@@ -93,63 +88,57 @@ export default function Signup() {
             {/* Email */}
             <div>
               <label className="block text-white/90 font-semibold mb-2">
-                Email Address
+                {t("card.form.fields.email.label")}
               </label>
               <div className="relative">
-                <FaEnvelope
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/80"
-                  size={18}
-                />
+                <FaEnvelope className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/80" size={18} />
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Enter your email"
+                  placeholder={t("card.form.fields.email.placeholder")}
                   className="w-full pl-10 pr-4 py-2 border border-white/30 rounded-lg bg-white/20 backdrop-blur-md text-white placeholder-white/60 focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] transition-all duration-200 outline-none"
                   required
                 />
               </div>
             </div>
           </div>
+
+          {/* Phone */}
           <div>
             <label className="block text-white/90 font-semibold mb-2">
-              Phone
+              {t("card.form.fields.phone.label")}
             </label>
             <div className="relative">
-              <FaMobile
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/80"
-                size={18}
-              />
+              <FaMobile className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/80" size={18} />
               <input
                 type="number"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="Enter your phone number"
+                placeholder={t("card.form.fields.phone.placeholder")}
                 className="w-full pl-10 pr-4 py-2 border border-white/30 rounded-lg bg-white/20 backdrop-blur-md text-white placeholder-white/60 focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] transition-all duration-200 outline-none"
                 required
               />
             </div>
           </div>
+
           {/* Password + Confirm Password */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
             {/* Password */}
             <div>
               <label className="block text-white/90 font-semibold mb-2">
-                Password
+                {t("card.form.fields.password.label")}
               </label>
               <div className="relative">
-                <FaLock
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/80"
-                  size={18}
-                />
+                <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/80" size={18} />
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  placeholder="Enter your password"
+                  placeholder={t("card.form.fields.password.placeholder")}
                   className="w-full pl-10 pr-10 py-2 border border-white/30 rounded-lg bg-white/20 backdrop-blur-md text-white placeholder-white/60 focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] transition-all duration-200 outline-none"
                   required
                 />
@@ -166,27 +155,22 @@ export default function Signup() {
             {/* Confirm Password */}
             <div>
               <label className="block text-white/90 font-semibold mb-2">
-                Confirm Password
+                {t("card.form.fields.confirmPassword.label")}
               </label>
               <div className="relative">
-                <FaLock
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/80"
-                  size={18}
-                />
+                <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/80" size={18} />
                 <input
                   type={showConfirmPassword ? "text" : "password"}
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  placeholder="Confirm your password"
+                  placeholder={t("card.form.fields.confirmPassword.placeholder")}
                   className="w-full pl-10 pr-10 py-2 border border-white/30 rounded-lg bg-white/20 backdrop-blur-md text-white placeholder-white/60 focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] transition-all duration-200 outline-none"
                   required
                 />
                 <button
                   type="button"
-                  onClick={() =>
-                    setShowConfirmPassword(!showConfirmPassword)
-                  }
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-[#0d3a63] transition-colors"
                 >
                   {showConfirmPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
@@ -202,30 +186,19 @@ export default function Signup() {
               disabled={isLoading}
               className="w-[200px] bg-gradient-to-r from-[#104c80] to-[#0d3a63] text-white font-bold py-3 px-4 rounded-lg transform hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-[#104c80]/40 disabled:opacity-50"
             >
-              {isLoading ? "Signing Up..." : "Sign Up"}
+              {isLoading ? t("card.form.button.loadingText") : t("card.form.button.text")}
             </button>
           </div>
 
           {/* Error / Success */}
-          {isError && (
-            <p className="text-red-400 text-center mt-4">
-              {error?.data?.message || "Signup failed"}
-            </p>
-          )}
-          {isSuccess && (
-            <p className="text-green-400 text-center mt-4">
-              Signup successful!
-            </p>
-          )}
+          {isError && <p className="text-red-400 text-center mt-4">{error?.data?.message || t("card.form.messages.error")}</p>}
+          {isSuccess && <p className="text-green-400 text-center mt-4">{t("card.form.messages.success")}</p>}
 
           {/* Login Link */}
           <div className="mt-6 text-center text-white/80 cursor-pointer">
-            <span>Already have an account? </span>
-            <Link
-              to="/login"
-              className="text-white hover:text-white/80 hover:underline font-medium transition-colors"
-            >
-              Login
+            <span>{t("card.form.loginText")} </span>
+            <Link to="/login" className="text-white hover:text-white/80 hover:underline font-medium transition-colors">
+              {t("card.form.loginButton")}
             </Link>
           </div>
         </form>
