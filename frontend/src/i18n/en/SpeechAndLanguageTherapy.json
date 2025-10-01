@@ -1,0 +1,51 @@
+{
+  "hero": {
+    "title": "Speech and Language Therapy",
+    "subtitle": "Altamakon Comprehensive School / Speech and Language Therapy",
+    "backgroundImage": "/images/about-cover.jpg"
+  },
+  "intro": {
+    "heading": "Speech and Language Therapy Department at Altamakon Comprehensive School",
+    "text": "Our department strives to understand and meet the needs of students facing challenges in the areas of language and communication."
+  },
+  "features": [
+    {
+      "title": "Comprehensive Assessment",
+      "desc": "Each student is carefully assessed to determine their individual language needs.",
+      "img": "./images/medical-team.png"
+    },
+    {
+      "title": "Specialized Team",
+      "desc": "Our team of experienced speech and pronunciation specialists work diligently to help students improve their skills.",
+      "img": "./images/medical-check.png"
+    },
+    {
+      "title": "Customized Programs",
+      "desc": "We offer tailored educational and therapeutic programs to meet the needs of each student.",
+      "img": "./images/healthcare.png"
+    }
+  ],
+  "disorders": {
+    "title": "Disorders We Support",
+    "image": "./images/medicine-uniform.jpg",
+    "list": [
+      "Developmental Language Disorders",
+      "Acquired Language Disorders",
+      "Specific Language Impairments",
+      "Language disorders related to Autism Spectrum Disorder, Down Syndrome, and other neurological conditions"
+    ]
+  },
+  "vision": {
+    "title": "Our Vision",
+    "text": "We aspire to be the ideal destination for providing support and care for students who need to develop their speech and pronunciation skills, through an educational environment that encourages growth and development."
+  },
+  "healthcare": {
+    "title": "Comprehensive Healthcare",
+    "text": "We provide effective support and supervision to ensure the development of language and communication skills for all our students. Please contact us for more information and inquiries."
+  },
+  "closing": {
+    "title": "Commitment to Success",
+    "text": "We look forward to collaborating with you to ensure the success of our students and the achievement of their goals in the world of language and communication.",
+    "signature": "Dr. Amira Al-Tahawi"
+  }
+}

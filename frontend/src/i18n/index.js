@@ -9,6 +9,19 @@ import contact_en from "./en/Contact.json";
 import contact_ar from "./ar/Contact.json";
 import gallery_en from "./en/Gallery.json";
 import gallery_ar from "./ar/Gallery.json";
+import middleandhighunit_en from "./en/MiddleAndHighUnit.json";
+import middleandhighunit_ar from "./ar/MiddleAndHighUnit.json";
+import primaryunit_en from "./en/PrimaryUnit.json";
+import primaryunit_ar from "./ar/PrimaryUnit.json";
+import specializededucationalunit_en from "./en/SpecializedEducationalUnit.json";
+import specializededucationalunit_ar from "./en/SpecializedEducationalUnit.json";
+import speechandlanguagetherapy_en from "./en/SpeechAndLanguageTherapy.json";
+import speechandlanguagetherapy_ar from "./en/SpeechAndLanguageTherapy.json";
+import vocationalandphysicaldepartment_en from "./en/VocationalAndPhysicalDepartment.json";
+import vocationalandphysicaldepartment_ar from "./ar/VocationalAndPhysicalDepartment.json";
+
+import nursingdepartment_en from "./en/NursingDepartment.json";
+import nursingdepartment_ar from "./en/NursingDepartment.json";
 
 import aboutUs_en from "./en/AboutUs.json"
 import aboutUs_ar from "./ar/AboutUs.json"
@@ -40,6 +53,12 @@ const resources = {
     home: home_en,
     contact:contact_en,
     gallery:gallery_en,
+    middleandhighunit:middleandhighunit_en,
+    primaryunit:primaryunit_en,
+    specializededucationalunit:specializededucationalunit_en,
+    speechandlanguagetherapy:speechandlanguagetherapy_en,
+    vocationalandphysicaldepartment:vocationalandphysicaldepartment_en,
+    nursingdepartment:nursingdepartment_en,
     aboutUs:aboutUs_en,
     directorManager:directorManager_en,
     actingDirector:actingDirector_en,
@@ -57,6 +76,12 @@ const resources = {
     home: home_ar,
     contact:contact_ar,
     gallery:gallery_ar,
+    middleandhighunit:middleandhighunit_ar,
+    primaryunit:primaryunit_ar,
+    specializededucationalunit:specializededucationalunit_ar,
+    speechandlanguagetherap:speechandlanguagetherapy_ar,
+    vocationalandphysicaldepartment:vocationalandphysicaldepartment_ar,
+    nursingdepartment:nursingdepartment_ar,
     aboutUs:aboutUs_ar,
     directorManager:directorManager_ar,
     actingDirector:actingDirector_ar,
