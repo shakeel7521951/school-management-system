@@ -1,0 +1,58 @@
+{
+  "navbar": {
+    "logoAlt": "Tamakon Logo",
+    "menuTitle": "Menu",
+    "navLinks": {
+      "home": "Home",
+      "tamakon": {
+        "title": "Tamakon",
+        "dropdown": {
+          "about": "About Tamakon",
+          "team": "Team",
+          "directorMessage": "Director Manager Message",
+          "actingDirectorMessage": "Acting Director General Message",
+          "schoolFees": "School Fees",
+          "recruitment": "Recruitment",
+          "faqs": "FAQs"
+        }
+      },
+      "services": {
+        "title": "Services",
+        "dropdown": {
+          "academicServices": "Academic Services",
+          "middleUnit": "Middle and High Unit for Multiple Intelligences and Talents (Boys)",
+          "primaryUnit": "Primary Unit for Multiple Intelligences and Talents – Boys and Girls",
+          "specializedUnit": "Specialized Education Unit",
+          "publicRelations": "Public Relations Department",
+          "speechTherapy": "Speech & Language Therapy",
+          "vocationalRehabilitation": "Vocational & Physical Rehabilitation Department",
+          "nursingDepartment": "Nursing Department",
+          "financialAffairs": "Financial & Administrative Affairs"
+        }
+      },
+      "media": {
+        "title": "Media",
+        "dropdown": {
+          "news": "News",
+          "gallery": "Gallery"
+        }
+      },
+      "contactUs": "Contact Us"
+    },
+    "profile": {
+      "login": "Login",
+      "myProfile": "My Profile",
+      "adminDashboard": "Admin Dashboard",
+      "teacherDashboard": "Teacher Dashboard",
+      "studentDashboard": "Student Dashboard",
+      "visitorDashboard": "Visitor Dashboard",
+      "securityDashboard": "Security Dashboard",
+      "logout": "Logout",
+      "loggingOut": "Logging out..."
+    },
+    "languageToggle": {
+      "en": "English",
+      "ar": "عربي"
+    }
+  }
+}
