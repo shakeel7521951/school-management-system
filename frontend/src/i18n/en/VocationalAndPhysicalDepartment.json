@@ -1,0 +1,44 @@
+{
+  "hero": {
+    "title": "Vocational and Physical Rehabilitation Department",
+    "subtitle": "مدرسة التمكن الشاملة / Vocational and Physical Rehabilitation Department",
+    "backgroundImage": "/images/about-cover.jpg"
+  },
+  "intro": {
+    "heading": "Welcome to Our Department",
+    "text": "At the Comprehensive Empowerment School, our Vocational and Physical Rehabilitation Department is dedicated to improving the quality of life for children, adults, and the elderly through specialized occupational and physical therapy programs."
+  },
+  "occupationalTherapy": {
+    "title": "What do we mean by Occupational Therapy?",
+    "text": "Occupational therapy is a healthcare profession that focuses on enhancing an individual’s health and well-being. It enables people of all ages to participate in meaningful activities by modifying the environment and creating strategies that support independence, functional performance, and social belonging.",
+    "categories": [
+      "Children with developmental delays affecting motor, cognitive, and sensory skills",
+      "Children with specific difficulties like ADHD or sensory processing disorders",
+      "Adults with impairments due to accidents, medical interventions, or chronic illness",
+      "Elderly individuals with compromised functional abilities",
+      "Children and adults with mental disabilities affecting daily performance"
+    ],
+    "goalsTitle": "Occupational Therapy Goals",
+    "goals": [
+      "Help patients acquire the skills they lack using tailored strategies.",
+      "Adapt environments to patient needs for greater independence.",
+      "Guide parents and families in supporting functional development.",
+      "Improve functional abilities, boost self-confidence, and promote independence."
+    ]
+  },
+  "physicalTherapy": {
+    "title": "Physical Therapy",
+    "text": "Pediatric physical therapy is a specialized field that focuses on providing care and treatment for children of all ages, from newborns to adolescents. It supports children facing challenges related to movement, motor development, muscular, skeletal, or neurological conditions.",
+    "points": [
+      "Assessment of the condition",
+      "Developing a treatment plan",
+      "Hands-on treatment techniques",
+      "Education and family guidance",
+      "Enhancing overall quality of life"
+    ]
+  },
+  "closing": {
+    "title": "Our Commitment",
+    "text": "We are committed to empowering individuals of all ages with the skills and confidence they need to thrive in daily life. Through occupational and physical therapy, we strive to build independence, restore ability, and promote lifelong well-being."
+  }
+}

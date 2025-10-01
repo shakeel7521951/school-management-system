@@ -1,14 +1,29 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaCheckCircle } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
+
+// Import json data
+import vocationalandphysicaldepartment_en from "../../i18n/en/VocationalAndPhysicalDepartment.json";
+import vocationalandphysicaldepartment_ar from "../../i18n/ar/VocationalAndPhysicalDepartment.json";
 
 const VocationalAndPhysicalDepartment = () => {
+  const { i18n } = useTranslation("vocationalandphysicaldepartment");
+
+  // Select dataset according to active language
+  const vocationalandphysicaldepartmentData =
+    i18n.language === "en"
+      ? vocationalandphysicaldepartment_ar
+      : vocationalandphysicaldepartment_en;
+
   return (
     <div className="w-full text-gray-800">
       {/* Hero Banner */}
       <section
         className="relative w-full h-[50vh] bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: "url('/images/about-cover.jpg')" }}
+        style={{
+          backgroundImage: `url(${vocationalandphysicaldepartmentData.hero.backgroundImage})`,
+        }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-[#104c80]/80 to-[#0a3255]/70"></div>
 
@@ -19,10 +34,10 @@ const VocationalAndPhysicalDepartment = () => {
           className="relative z-10 text-center text-white px-6"
         >
           <h1 className="text-3xl sm:text-4xl md:text-6xl md:w-[850px] font-bold mb-4 drop-shadow-2xl">
-            Vocational and Physical Rehabilitation Department
+            {vocationalandphysicaldepartmentData.hero.title}
           </h1>
           <p className="text-base sm:text-lg md:text-lg font-medium text-gray-100 max-w-3xl mx-auto">
-            مدرسة التمكن الشاملة / Vocational and Physical Rehabilitation Department
+            {vocationalandphysicaldepartmentData.hero.subtitle}
           </p>
         </motion.div>
       </section>
@@ -30,13 +45,10 @@ const VocationalAndPhysicalDepartment = () => {
       {/* Intro Section */}
       <section className="max-w-6xl mx-auto px-6 py-16 text-center">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#104c80] mb-6">
-          Welcome to Our Department
+          {vocationalandphysicaldepartmentData.intro.heading}
         </h2>
         <p className="text-gray-700 text-lg leading-relaxed max-w-4xl mx-auto">
-          At the Comprehensive Empowerment School, our Vocational and Physical
-          Rehabilitation Department is dedicated to improving the quality of life
-          for children, adults, and the elderly through specialized occupational
-          and physical therapy programs.
+          {vocationalandphysicaldepartmentData.intro.text}
         </p>
       </section>
 
@@ -44,65 +56,54 @@ const VocationalAndPhysicalDepartment = () => {
       <section className="bg-gray-50 py-16 px-6">
         <div className="max-w-6xl mx-auto text-center mb-12">
           <h2 className="text-3xl font-bold text-[#104c80] mb-4">
-            What do we mean by Occupational Therapy?
+            {vocationalandphysicaldepartmentData.occupationalTherapy.title}
           </h2>
           <p className="text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed">
-            Occupational therapy is a healthcare profession that focuses on
-            enhancing an individual’s health and well-being. It enables people
-            of all ages to participate in meaningful activities by modifying the
-            environment and creating strategies that support independence,
-            functional performance, and social belonging.
+            {vocationalandphysicaldepartmentData.occupationalTherapy.text}
           </p>
         </div>
 
         {/* Categories */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {[
-            "Children with developmental delays affecting motor, cognitive, and sensory skills",
-            "Children with specific difficulties like ADHD or sensory processing disorders",
-            "Adults with impairments due to accidents, medical interventions, or chronic illness",
-            "Elderly individuals with compromised functional abilities",
-            "Children and adults with mental disabilities affecting daily performance",
-          ].map((item, idx) => (
-            <motion.div
-              key={idx}
-              whileHover={{ y: -10, scale: 1.02 }}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: idx * 0.1 }}
-              className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 text-left"
-            >
-              <h3 className="flex items-start gap-3 text-gray-700">
-                <FaCheckCircle className="text-[#104c80] text-xl mt-1" />
-                {item}
-              </h3>
-            </motion.div>
-          ))}
+          {vocationalandphysicaldepartmentData.occupationalTherapy.categories.map(
+            (item, idx) => (
+              <motion.div
+                key={idx}
+                whileHover={{ y: -10, scale: 1.02 }}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: idx * 0.1 }}
+                className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 text-left"
+              >
+                <h3 className="flex items-start gap-3 text-gray-700">
+                  <FaCheckCircle className="text-[#104c80] text-xl mt-1" />
+                  {item}
+                </h3>
+              </motion.div>
+            )
+          )}
         </div>
 
         {/* Goals */}
         <div className="max-w-5xl mx-auto mt-16 text-center">
           <h2 className="text-2xl font-bold text-[#104c80] mb-6">
-            Occupational Therapy Goals
+            {vocationalandphysicaldepartmentData.occupationalTherapy.goalsTitle}
           </h2>
           <ul className="space-y-4 text-lg text-gray-700 text-left max-w-3xl mx-auto">
-            {[
-              "Help patients acquire the skills they lack using tailored strategies.",
-              "Adapt environments to patient needs for greater independence.",
-              "Guide parents and families in supporting functional development.",
-              "Improve functional abilities, boost self-confidence, and promote independence.",
-            ].map((goal, i) => (
-              <motion.li
-                key={i}
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: i * 0.2 }}
-                className="flex items-start gap-3"
-              >
-                <FaCheckCircle className="text-[#104c80] text-xl mt-1" />
-                {goal}
-              </motion.li>
-            ))}
+            {vocationalandphysicaldepartmentData.occupationalTherapy.goals.map(
+              (goal, i) => (
+                <motion.li
+                  key={i}
+                  initial={{ opacity: 0, x: -40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: i * 0.2 }}
+                  className="flex items-start gap-3"
+                >
+                  <FaCheckCircle className="text-[#104c80] text-xl mt-1" />
+                  {goal}
+                </motion.li>
+              )
+            )}
           </ul>
         </div>
       </section>
@@ -116,35 +117,27 @@ const VocationalAndPhysicalDepartment = () => {
           className="text-center"
         >
           <h2 className="text-3xl font-bold text-[#104c80] mb-6">
-            Physical Therapy
+            {vocationalandphysicaldepartmentData.physicalTherapy.title}
           </h2>
           <p className="text-lg text-gray-700 mb-8 max-w-4xl mx-auto leading-relaxed">
-            Pediatric physical therapy is a specialized field that focuses on
-            providing care and treatment for children of all ages, from newborns
-            to adolescents. It supports children facing challenges related to
-            movement, motor development, muscular, skeletal, or neurological
-            conditions.
+            {vocationalandphysicaldepartmentData.physicalTherapy.text}
           </p>
 
           <ul className="space-y-4 text-gray-700 text-left max-w-3xl mx-auto">
-            {[
-              "Assessment of the condition",
-              "Developing a treatment plan",
-              "Hands-on treatment techniques",
-              "Education and family guidance",
-              "Enhancing overall quality of life",
-            ].map((point, idx) => (
-              <motion.li
-                key={idx}
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: idx * 0.2 }}
-                className="flex items-start gap-3"
-              >
-                <FaCheckCircle className="text-[#104c80] text-xl mt-1" />
-                {point}
-              </motion.li>
-            ))}
+            {vocationalandphysicaldepartmentData.physicalTherapy.points.map(
+              (point, idx) => (
+                <motion.li
+                  key={idx}
+                  initial={{ opacity: 0, x: -40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: idx * 0.2 }}
+                  className="flex items-start gap-3"
+                >
+                  <FaCheckCircle className="text-[#104c80] text-xl mt-1" />
+                  {point}
+                </motion.li>
+              )
+            )}
           </ul>
         </motion.div>
       </section>
@@ -158,7 +151,7 @@ const VocationalAndPhysicalDepartment = () => {
             transition={{ duration: 0.8 }}
             className="text-3xl font-bold mb-6 text-white drop-shadow-lg"
           >
-            Our Commitment
+            {vocationalandphysicaldepartmentData.closing.title}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -166,10 +159,7 @@ const VocationalAndPhysicalDepartment = () => {
             transition={{ duration: 1 }}
             className="max-w-4xl mx-auto text-lg leading-relaxed text-gray-100"
           >
-            We are committed to empowering individuals of all ages with the
-            skills and confidence they need to thrive in daily life. Through
-            occupational and physical therapy, we strive to build independence,
-            restore ability, and promote lifelong well-being.
+            {vocationalandphysicaldepartmentData.closing.text}
           </motion.p>
         </div>
       </section>
