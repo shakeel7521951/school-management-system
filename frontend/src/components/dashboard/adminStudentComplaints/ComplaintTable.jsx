@@ -51,7 +51,7 @@ const ComplaintTable = ({
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full border-collapse rounded-lg overflow-hidden shadow-sm">
           <thead>
-            <tr className="bg-[#10448c] text-white text-sm">
+            <tr className="bg-[#10448c] text-white text-sm text-nowrap">
               {[
                 { key: "name", label: "Name", width: "w-40" },
                 { key: "studentClass", label: "Class", width: "w-20" },
@@ -105,16 +105,16 @@ const ComplaintTable = ({
                   <div className="bg-indigo-100 p-2 rounded-full">
                     <FaUser className="text-indigo-600 text-sm" />
                   </div>
-                  <span className="font-medium">{c.name}</span>
+                  <span className="font-medium text-nowrap">{c.name}</span>
                 </td>
-                <td className="px-3 py-2 text-center">{c.studentClass}</td>
-                <td className="px-3 py-2 text-center">{c.age}</td>
-                <td className="px-3 py-2 text-center">
+                <td className="px-3 py-2 text-center text-nowrap">{c.studentClass}</td>
+                <td className="px-3 py-2 text-center text-nowrap">{c.age}</td>
+                <td className="px-3 py-2 text-center text-nowrap">
                   {c.date ? new Date(c.date).toLocaleDateString() : "-"}
                 </td>
                 <td className="px-2 py-2 text-center">
                   <span
-                    className={`px-2 py-1 text-xs rounded-full ${
+                    className={`px-2 py-1 text-md rounded-full text-nowrap${
                       typeColors[c.type] || "bg-gray-100 text-gray-700"
                     }`}
                   >
@@ -123,7 +123,7 @@ const ComplaintTable = ({
                 </td>
                 <td className="px-3 py-2 text-center">
                   <span
-                    className={`px-1 py-1 text-xs rounded-full ${
+                    className={`px-1 py-1 text-md rounded-full text-nowrap ${
                       severityColors[c.severity?.toLowerCase()] ||
                       "bg-gray-100 text-gray-700"
                     }`}
@@ -131,10 +131,10 @@ const ComplaintTable = ({
                     {c.severity}
                   </span>
                 </td>
-                <td className="px-3 py-2 text-center">{c.impact}</td>
+                <td className="px-3 py-2 text-center text-nowrap">{c.impact}</td>
                 <td className="px-3 py-2 text-center">
                   <span
-                    className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                    className={`px-2 py-1 text-xs font-semibold rounded-full text-nowrap ${
                       c.action === "resolve"
                         ? "bg-green-100 text-green-700"
                         : c.action === "pending"
@@ -147,7 +147,7 @@ const ComplaintTable = ({
                 </td>
                 <td className="px-3 py-2 text-center">
                   <span
-                    className={`px-1 py-1 text-xs font-semibold rounded-full ${
+                    className={`px-1 py-1 text-xs font-semibold rounded-full text-nowrap ${
                       statusColors[c.status?.toLowerCase()]
                     }`}
                   >
