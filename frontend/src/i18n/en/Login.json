@@ -1,0 +1,31 @@
+{
+  "card": {
+    "header": {
+      "title": "Join The Movement",
+      "subtitle": "Access your account securely"
+    },
+    "form": {
+      "fields": {
+        "0": {
+          "label": "Email Address",
+          "placeholder": "Enter your email"
+        },
+        "1": {
+          "label": "Password",
+          "placeholder": "Enter your password"
+        }
+      },
+      "forgotPasswordText": "Forgot Password?",
+      "button": {
+        "text": "Login",
+        "loadingText": "Logging in..."
+      },
+      "messages": {
+        "error": "Login failed",
+        "success": "Login successful!"
+      },
+      "signupText": "Don't have an account?",
+      "signupButton": "Sign Up"
+    }
+  }
+}

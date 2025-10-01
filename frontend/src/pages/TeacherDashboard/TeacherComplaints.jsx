@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle2, Clock, AlertCircle, XCircle } from 'lucide-react'
 import ComplaintModal from '../../components/teacherDashboard/teacherComplaints/ComplaintModal'
@@ -8,7 +8,7 @@ import ComplaintKPICards from '../../components/teacherDashboard/teacherComplain
 
 import {
   useCreateComplaintMutation,
-  useGetComplaintsQuery,
+  useGetTeacherComplaintsQuery,
 } from '../../redux/slices/TeacherComplaints'
 
 const TeacherComplaints = () => {
@@ -16,9 +16,8 @@ const TeacherComplaints = () => {
   const [selectedComplaint, setSelectedComplaint] = useState(null)
 
   // ✅ API hooks
-  const { data, isLoading, isError } = useGetComplaintsQuery();
-  console.log("data......",data);
-  const complaints = data?.data || [];
+  const { data, isLoading, isError } = useGetTeacherComplaintsQuery();
+  const complaints = data?.complaints || [];
   const [createComplaint, { isLoading: isCreating }] = useCreateComplaintMutation()
 
   const [newComplaint, setNewComplaint] = useState({
@@ -41,7 +40,7 @@ const TeacherComplaints = () => {
     try {
       await createComplaint({
         ...newComplaint,
-        status: 'Submitted',
+        status: 'Pending',
       }).unwrap()
 
       setNewComplaint({
@@ -65,7 +64,7 @@ const TeacherComplaints = () => {
   const totalComplaints = complaints.length
   const rejectedComplaints = complaints.filter(c => c.status === 'Rejected').length
   const pendingComplaints = complaints.filter(
-    c => c.status === 'Submitted' || c.status === 'Under Review'
+    c => c.status === 'Pending' || c.status === 'pending'
   ).length
 
   const statusStyles = {
@@ -160,7 +159,9 @@ const TeacherComplaints = () => {
               <p className='text-gray-600 text-sm mb-1 text-nowrap'>{c.jobTitle}</p>
               <p className='text-gray-600 text-sm mb-1 text-nowrap'>{c.department}</p>
               <p className='text-gray-600 text-sm mb-1 text-nowrap'>{c.date}</p>
-              <p className='text-gray-600 text-sm text-nowrap'>{c.details}</p>
+              <td className="px-3 py-2 text-center whitespace-nowrap max-w-[120px] overflow-hidden text-ellipsis">
+                {c.details.split(' ').slice(0, 5).join(' ')}...
+              </td>
             </div>
           ))
         ) : (

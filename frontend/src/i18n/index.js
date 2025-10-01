@@ -18,6 +18,11 @@ import faq_en from "./en/FAQs.json"
 import faq_ar from "./ar/FAQs.json"
 import team_en from "./en/Team.json"
 import team_ar from "./ar/Team.json"
+import login_en from "./en/Login.json"
+import login_ar from "./ar/Login.json"
+import signup_en from "./en/Signup.json"
+import signup_ar from "./ar/Signup.json"
+
 import adminSidebar_ar from "./ar/AdminSidebar.json"
 import adminSidebar_en from "./en/AdminSidebar.json"
 import adminNavbar_en from "./en/AdminNavbar.json"
@@ -37,6 +42,9 @@ const resources = {
     actingDirector:actingDirector_en,
     faq:faq_en,
     team:team_en,
+    login:login_en,
+    signup:signup_en,
+    team:team_en,
     adminSidebar:adminSidebar_en,
     adminNavbar:adminNavbar_en,
     analytics:analytics_en,
@@ -50,6 +58,9 @@ const resources = {
     actingDirector:actingDirector_ar,
     faq:faq_ar,
     team:team_ar,
+    login:login_ar,
+    signup:signup_ar,
+    team:team_ar,
     adminSidebar:adminSidebar_ar,
     adminNavbar:adminNavbar_ar,
     analytics:analytics_ar,
@@ -57,6 +68,7 @@ const resources = {
 
 
   },
+  
 };
 
 i18n

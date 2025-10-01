@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { FaExclamationTriangle, FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import TeacherComplaintFilters from "./TeacherComplaintFilters";
 import TeacherComplaintModal from "./TeacherComplaintModal";
@@ -8,8 +8,6 @@ import TeacherDeleteModal from "./TeacherDeleteModal";
 import TeacherComplaintViewModal from "./TeacherComplaintViewModal";
 import {
   useGetComplaintsQuery,
-  useCreateComplaintMutation,
-  useUpdateComplaintMutation,
   useUpdateComplaintStatusMutation,
   useDeleteComplaintMutation,
 } from "../../../redux/slices/TeacherComplaints";
@@ -17,7 +15,7 @@ import {
 const USER_ROLE = "manager";
 
 const TeacherComplain = () => {
-  // 🔹 State
+  // Filters & UI states
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterImpact, setFilterImpact] = useState("all");
   const [filterType, setFilterType] = useState("all");
@@ -30,21 +28,26 @@ const TeacherComplain = () => {
   const [deleteModal, setDeleteModal] = useState(null);
   const [toast, setToast] = useState({ show: false, message: "", type: "" });
 
-  // 🔹 API Hooks
+  // API hooks
   const { data, isLoading, isError } = useGetComplaintsQuery();
   const complaints = data?.data || [];
-
-  const [createComplaint] = useCreateComplaintMutation();
-  const [updateComplaint] = useUpdateComplaintMutation();
   const [updateComplaintStatus] = useUpdateComplaintStatusMutation();
   const [deleteComplaint] = useDeleteComplaintMutation();
 
-  // ✅ Filtering + Searching
+  // Reset page when filters/search change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filterStatus, filterImpact, filterType, searchTerm]);
+
+  // Filtered complaints
   const filteredComplaints = useMemo(() => {
     return complaints.filter((c) => {
-      const matchesStatus = filterStatus === "all" || c.status === filterStatus;
-      const matchesImpact = filterImpact === "all" || c.impact === filterImpact;
-      const matchesType = filterType === "all" || c.type === filterType;
+      const matchesStatus =
+        filterStatus === "all" || (c.status?.toLowerCase() === filterStatus.toLowerCase());
+      const matchesImpact =
+        filterImpact === "all" || (c.impact?.toLowerCase() === filterImpact.toLowerCase());
+      const matchesType =
+        filterType === "all" || (c.type?.toLowerCase() === filterType.toLowerCase());
       const matchesSearch =
         c.employeeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         c.details.toLowerCase().includes(searchTerm.toLowerCase());
@@ -52,15 +55,32 @@ const TeacherComplain = () => {
     });
   }, [complaints, filterStatus, filterImpact, filterType, searchTerm]);
 
-  // ✅ Pagination
+  // Sorted complaints
+  const sortedComplaints = useMemo(() => {
+    if (!sortConfig.key) return filteredComplaints;
+    return [...filteredComplaints].sort((a, b) => {
+      const aValue = a[sortConfig.key] || "";
+      const bValue = b[sortConfig.key] || "";
+
+      if (typeof aValue === "string" && typeof bValue === "string") {
+        if (aValue.toLowerCase() < bValue.toLowerCase()) return sortConfig.direction === "ascending" ? -1 : 1;
+        if (aValue.toLowerCase() > bValue.toLowerCase()) return sortConfig.direction === "ascending" ? 1 : -1;
+        return 0;
+      } else {
+        return sortConfig.direction === "ascending" ? aValue - bValue : bValue - aValue;
+      }
+    });
+  }, [filteredComplaints, sortConfig]);
+
+  // Paginated complaints
   const paginatedComplaints = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
-    return filteredComplaints.slice(startIndex, startIndex + itemsPerPage);
-  }, [filteredComplaints, currentPage, itemsPerPage]);
+    return sortedComplaints.slice(startIndex, startIndex + itemsPerPage);
+  }, [sortedComplaints, currentPage, itemsPerPage]);
 
   const pageCount = Math.max(1, Math.ceil(filteredComplaints.length / itemsPerPage));
 
-  // ✅ Sorting
+  // Sorting handler
   const handleSort = (key) => {
     let direction = "ascending";
     if (sortConfig.key === key && sortConfig.direction === "ascending") {
@@ -69,7 +89,7 @@ const TeacherComplain = () => {
     setSortConfig({ key, direction });
   };
 
-  // ✅ Save Status Change
+  // Save status
   const saveStatus = async (id, newStatus) => {
     try {
       await updateComplaintStatus({ id, status: newStatus }).unwrap();
@@ -80,7 +100,7 @@ const TeacherComplain = () => {
     }
   };
 
-  // ✅ Confirm Delete
+  // Delete complaint
   const confirmDelete = async (id) => {
     try {
       await deleteComplaint(id).unwrap();
@@ -91,7 +111,7 @@ const TeacherComplain = () => {
     }
   };
 
-  // ✅ Access Control
+  // Access control
   if (!["manager", "protection_committee"].includes(USER_ROLE)) {
     return (
       <div className="flex justify-center items-center h-screen text-gray-500 text-xl font-medium bg-gray-50">
@@ -104,22 +124,8 @@ const TeacherComplain = () => {
     );
   }
 
-  // ✅ Loading & Error
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-gray-500 text-lg">Loading complaints...</p>
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-red-500 text-lg">Failed to load complaints</p>
-      </div>
-    );
-  }
+  if (isLoading) return <p className="text-center mt-20">Loading complaints...</p>;
+  if (isError) return <p className="text-center mt-20 text-red-500">Failed to load complaints</p>;
 
   return (
     <div className="lg:ml-[270px] max-w-8xl bg-gray-50 py-4 px-4 sm:px-6 lg:px-10 flex flex-col gap-8 min-h-screen">
@@ -166,7 +172,8 @@ const TeacherComplain = () => {
         setDeleteModal={setDeleteModal}
       />
 
-      {complaints.length > 0 && pageCount > 1 && (
+      {/* Pagination */}
+      {filteredComplaints.length > 0 && pageCount > 1 && (
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white p-4 rounded-2xl shadow-md border border-gray-100">
           <div className="text-sm text-gray-700">
             Showing {Math.min((currentPage - 1) * itemsPerPage + 1, filteredComplaints.length)} to{" "}

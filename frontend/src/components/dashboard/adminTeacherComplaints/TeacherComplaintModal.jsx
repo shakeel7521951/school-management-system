@@ -75,6 +75,7 @@ const TeacherComplaintModal = ({
             onChange={handleChange}
             placeholder="Employee Name"
             className="w-full border rounded px-3 py-2"
+            readOnly
           />
           <input
             type="text"
@@ -82,6 +83,7 @@ const TeacherComplaintModal = ({
             value={formData.jobTitle}
             onChange={handleChange}
             placeholder="Job Title"
+            readOnly
             className="w-full border rounded px-3 py-2"
           />
           <input
@@ -89,12 +91,14 @@ const TeacherComplaintModal = ({
             name="department"
             value={formData.department}
             onChange={handleChange}
+            readOnly
             placeholder="Department"
             className="w-full border rounded px-3 py-2"
           />
           <input
             type="date"
             name="date"
+            readOnly
             value={formData.date}
             onChange={handleChange}
             className="w-full border rounded px-3 py-2"
