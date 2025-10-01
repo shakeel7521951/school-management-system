@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { AlertCircle, X } from "lucide-react";
 
-const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint }) => {
+const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLoading }) => {
   return (
     <motion.div
       className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
@@ -197,7 +197,7 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint }) =>
             </div>
           </div>
 
-          {/* Complaint Details (full width) */}
+          {/* Complaint Details */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1">
               Complaint Details
@@ -226,10 +226,11 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint }) =>
             </button>
             <button
               type="submit"
+              disabled={isLoading}
               className="px-5 py-2 rounded-lg bg-gradient-to-r from-[#104c80] to-[#0d3a63] 
-                         text-white font-medium shadow-md hover:shadow-lg hover:opacity-90 transition"
+                         text-white font-medium shadow-md hover:shadow-lg hover:opacity-90 transition disabled:opacity-60"
             >
-              Submit
+              {isLoading ? "Submitting..." : "Submit"}
             </button>
           </div>
         </form>

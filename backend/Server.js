@@ -41,5 +41,6 @@ app.use(formSubmissionRoutes);
 app.use(stComplaintRoutes);
 app.use(visitorRoutes);
 app.use(registrationRoutes);
+app.use(teacherComplaint);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
