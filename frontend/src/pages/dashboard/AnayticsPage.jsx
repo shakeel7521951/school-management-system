@@ -12,41 +12,35 @@ import {
     FaChartLine,
 } from "react-icons/fa";
 import { useGetRegistrationsQuery } from "../../redux/slices/RegistrationApi";
+import { useTranslation } from "react-i18next";
 
 const AnalyticsPage = () => {
+    const { t } = useTranslation("analytics");
     const [timeRange] = useState("monthly");
 
-    // ✅ Fetch from backend
+    // Fetch registrations from backend
     const { data, isLoading, isError } = useGetRegistrationsQuery();
-
-    // ✅ Extract real array from { success, data: [] }
     const registrations = Array.isArray(data?.data) ? data.data : [];
 
-    // ✅ Metrics (Approved, Rejected, Pending, Total)
-    const { totalRequests, totalApprovals, totalRejections, totalPending } =
-        useMemo(() => {
-            if (registrations.length === 0) {
-                return {
-                    totalRequests: 0,
-                    totalApprovals: 0,
-                    totalRejections: 0,
-                    totalPending: 0,
-                };
-            }
+    // Metrics
+    const { totalRequests, totalApprovals, totalRejections, totalPending } = useMemo(() => {
+        if (!registrations.length) {
+            return { totalRequests: 0, totalApprovals: 0, totalRejections: 0, totalPending: 0 };
+        }
 
-            const approvals = registrations.filter((r) => r.status === "approved").length;
-            const rejections = registrations.filter((r) => r.status === "rejected").length;
-            const pending = registrations.filter((r) => r.status === "pending").length;
+        const approvals = registrations.filter(r => r.status === "approved").length;
+        const rejections = registrations.filter(r => r.status === "rejected").length;
+        const pending = registrations.filter(r => r.status === "pending").length;
 
-            return {
-                totalRequests: registrations.length,
-                totalApprovals: approvals,
-                totalRejections: rejections,
-                totalPending: pending,
-            };
-        }, [registrations]);
+        return {
+            totalRequests: registrations.length,
+            totalApprovals: approvals,
+            totalRejections: rejections,
+            totalPending: pending
+        };
+    }, [registrations]);
 
-    // ✅ Export to Excel
+    // Export Excel
     const exportExcel = () => {
         const worksheet = XLSX.utils.json_to_sheet(registrations);
         const workbook = XLSX.utils.book_new();
@@ -54,10 +48,10 @@ const AnalyticsPage = () => {
         XLSX.writeFile(workbook, "AnalyticsReport.xlsx");
     };
 
-    // ✅ Export to PDF
+    // Export PDF
     const exportPDF = () => {
         const input = document.getElementById("analyticsReport");
-        html2canvas(input).then((canvas) => {
+        html2canvas(input).then(canvas => {
             const pdf = new jsPDF("p", "mm", "a4");
             const imgData = canvas.toDataURL("image/png");
             const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -67,13 +61,8 @@ const AnalyticsPage = () => {
         });
     };
 
-    if (isLoading) {
-        return <div className="p-8">Loading analytics...</div>;
-    }
-
-    if (isError) {
-        return <div className="p-8 text-red-500">Failed to load analytics data.</div>;
-    }
+    if (isLoading) return <div className="p-8">{t("loading")}</div>;
+    if (isError) return <div className="p-8 text-red-500">{t("error")}</div>;
 
     return (
         <div
@@ -83,43 +72,20 @@ const AnalyticsPage = () => {
         >
             {/* Header */}
             <div className="pt-8 px-8 mb-8">
-                <h1
-                    className="md:text-4xl text-3xl font-extrabold mb-2"
-                    style={{ color: COLORS.primary }}
-                >
-                    Analytics
+                <h1 className="md:text-4xl text-3xl font-extrabold mb-2" style={{ color: COLORS.primary }}>
+                    {t("title")}
                 </h1>
                 <p className="text-lg" style={{ color: COLORS.textLight }}>
-                    Track registration requests and statuses
+                    {t("subtitle")}
                 </p>
             </div>
 
             {/* KPI Cards */}
             <div className="px-8 mb-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <KpiCard
-                    label="Total Requests"
-                    value={totalRequests}
-                    icon={<FaClipboardList size={26} />}
-                    color={COLORS.primary}
-                />
-                <KpiCard
-                    label="Approved"
-                    value={totalApprovals}
-                    icon={<FaCheckCircle size={26} />}
-                    color="green"
-                />
-                <KpiCard
-                    label="Rejected"
-                    value={totalRejections}
-                    icon={<FaTimesCircle size={26} />}
-                    color="red"
-                />
-                <KpiCard
-                    label="Pending"
-                    value={totalPending}
-                    icon={<FaClock size={26} />}
-                    color="orange"
-                />
+                <KpiCard label={t("kpi.total_requests")} value={totalRequests} icon={<FaClipboardList size={26} />} color={COLORS.primary} />
+                <KpiCard label={t("kpi.approved")} value={totalApprovals} icon={<FaCheckCircle size={26} />} color="green" />
+                <KpiCard label={t("kpi.rejected")} value={totalRejections} icon={<FaTimesCircle size={26} />} color="red" />
+                <KpiCard label={t("kpi.pending")} value={totalPending} icon={<FaClock size={26} />} color="orange" />
             </div>
 
             {/* Charts Section */}
@@ -138,22 +104,16 @@ const AnalyticsPage = () => {
                     className="flex flex-col md:flex-row justify-between items-center gap-4 p-4 sm:p-6 rounded-2xl"
                     style={{
                         backgroundColor: COLORS.card,
-                        boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)",
+                        boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)"
                     }}
                 >
                     {/* Left Side */}
                     <div className="text-center md:text-left">
-                        <h3
-                            className="text-base sm:text-lg md:text-xl font-semibold mb-1"
-                            style={{ color: COLORS.primary }}
-                        >
-                            Export Reports
+                        <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-1" style={{ color: COLORS.primary }}>
+                            {t("export.heading")}
                         </h3>
-                        <p
-                            className="text-xs sm:text-sm md:text-base"
-                            style={{ color: COLORS.textLight }}
-                        >
-                            Download comprehensive analytics in your preferred format
+                        <p className="text-xs sm:text-sm md:text-base" style={{ color: COLORS.textLight }}>
+                            {t("export.description")}
                         </p>
                     </div>
 
@@ -165,7 +125,7 @@ const AnalyticsPage = () => {
                             style={{ backgroundColor: COLORS.secondary }}
                         >
                             <FaClipboardList className="text-base sm:text-lg md:text-xl" />
-                            <span>Export Excel</span>
+                            <span>{t("export.excel_button")}</span>
                         </button>
 
                         <button
@@ -174,7 +134,7 @@ const AnalyticsPage = () => {
                             style={{ backgroundColor: COLORS.primary }}
                         >
                             <FaChartLine className="text-base sm:text-lg md:text-xl" />
-                            <span>Export PDF</span>
+                            <span>{t("export.pdf_button")}</span>
                         </button>
                     </div>
                 </div>
@@ -188,25 +148,15 @@ const KpiCard = ({ label, value, icon, color }) => (
         className="rounded-2xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all"
         style={{
             background: "linear-gradient(135deg, #fff, #F1F5F9)",
-            borderLeft: `4px solid ${color}`,
+            borderLeft: `4px solid ${color}`
         }}
     >
         <div className="flex items-center justify-between">
             <div>
-                <p
-                    className="text-sm font-medium mb-2"
-                    style={{ color: COLORS.textLight }}
-                >
-                    {label}
-                </p>
-                <p className="text-3xl font-bold" style={{ color }}>
-                    {value}
-                </p>
+                <p className="text-sm font-medium mb-2" style={{ color: COLORS.textLight }}>{label}</p>
+                <p className="text-3xl font-bold" style={{ color }}>{value}</p>
             </div>
-            <div
-                className="w-12 h-12 rounded-full flex items-center justify-center"
-                style={{ backgroundColor: `${color}15`, color }}
-            >
+            <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: `${color}15`, color }}>
                 {icon}
             </div>
         </div>
