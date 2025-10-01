@@ -1,0 +1,158 @@
+{
+  "heroSection": {
+    "title": "Team",
+    "subtitle": "Tamakon Comprehensive School / Team",
+    "backgroundImage": "/images/about-cover.jpg"
+  },
+  "councilSection": {
+    "heading": "Medical and Administrative Academic Council",
+    "description": "The Academic and Administrative Council is represented by the presence of all the major departments within the school. The council consists of department heads who meet weekly in scheduled meetings on a fixed day, time, and location. These meetings are one of the primary tools that contribute to guiding academic and administrative matters within the school."
+  },
+
+  "personalProfile": "Personal Profile",
+  "quickContact": "Quick Contact",
+  "department": "Department",
+  "experienceActivities": "Experience & Activities",
+  "profileNotFound": "Profile not found",
+  "teamMembers": [
+    {
+      "id": 1,
+      "name": "Mona Abdullah Al-Mulla",
+      "title": "General Director",
+      "department": "Leadership",
+      "category": "executive",
+      "bio": "Leading the strategic direction and overall management of Al Tamakon Comprehensive School with over 15 years of experience in special education leadership.",
+      "photo": "/images/avatar-1.jpg",
+      "button": "View Profile"
+    },
+    {
+      "id": 2,
+      "name": "Hind Al-Rabah",
+      "title": "Acting Director General",
+      "department": "Leadership",
+      "category": "executive",
+      "bio": "Overseeing daily operations and academic excellence initiatives with expertise in educational administration and student development programs.",
+      "photo": "/images/Al-Rabah.jpg",
+      "button": "View Profile"
+    },
+    {
+      "id": 3,
+      "name": "Eman Al-Saqour",
+      "title": "Deputy Director for Academic Affairs",
+      "department": "Academic Affairs",
+      "category": "academic",
+      "bio": "Managing academic programs and curriculum development across all educational levels, ensuring quality education for students with special needs.",
+      "photo": "/images/avatar-1.jpg",
+      "button": "View Profile"
+    },
+    {
+      "id": 4,
+      "name": "Mohammed Mustafa",
+      "title": "Deputy Director for Financial, Administrative and Student Affairs",
+      "department": "Administration",
+      "category": "administrative",
+      "bio": "Overseeing financial management, administrative operations, and student services with a focus on efficient resource allocation.",
+      "photo": "/images/Mustafa.jpg",
+      "button": "View Profile"
+    },
+    {
+      "id": 5,
+      "name": "Muhammad Ramez",
+      "title": "Director of the Technical Office",
+      "department": "Technology",
+      "category": "technical",
+      "bio": "Leading technology integration and digital transformation initiatives to enhance educational delivery and administrative efficiency.",
+      "photo": "/images/Ramez.jpeg",
+      "button": "View Profile"
+    },
+    {
+      "id": 6,
+      "name": "Firas Al-Omari",
+      "title": "Coordinator of Learning Difficulties Track - Preparatory and Secondary School for Boys",
+      "department": "Special Education",
+      "category": "academic",
+      "bio": "Specializing in learning difficulties programs for middle and high school boys, developing individualized education plans.",
+      "photo": "/images/Firas.jpg",
+      "button": "View Profile"
+    },
+    {
+      "id": 7,
+      "name": "Rawaan Mamdouh",
+      "title": "Coordinator of Learning Difficulties Track - Elementary School & Special Education Track Coordinator",
+      "department": "Special Education",
+      "category": "academic",
+      "bio": "Coordinating special education programs for elementary students and overall special education track management.",
+      "photo": "/images/avatar-1.jpg",
+      "button": "View Profile"
+    },
+    {
+      "id": 8,
+      "name": "Dr. Amira Al-Tahawi",
+      "title": "Head of Speech and Language Therapy Department",
+      "department": "Therapy",
+      "category": "therapeutic",
+      "bio": "Leading speech and language therapy services for students with special needs, implementing evidence-based therapeutic approaches.",
+      "photo": "/images/Amira.jpg",
+      "button": "View Profile"
+    },
+    {
+      "id": 9,
+      "name": "Maram Tahat",
+      "title": "Head of Vocational and Physical Rehabilitation Department",
+      "department": "Rehabilitation",
+      "category": "therapeutic",
+      "bio": "Managing vocational training and physical rehabilitation programs to enhance students' functional abilities and independence.",
+      "photo": "/images/avatar-1.jpg",
+      "button": "View Profile"
+    },
+    {
+      "id": 10,
+      "name": "Sakina Sousan",
+      "title": "Head of Public Relations Department",
+      "department": "Public Relations",
+      "category": "administrative",
+      "bio": "Managing school communications, community relations, and public outreach initiatives to strengthen community partnerships.",
+      "photo": "/images/Sakina.jpg",
+      "button": "View Profile"
+    },
+    {
+      "id": 11,
+      "name": "Mariam Al-Fadhli",
+      "title": "Human Resources Management",
+      "department": "Human Resources",
+      "category": "administrative",
+      "bio": "Overseeing human resources, staff development, and organizational culture to support a positive work environment.",
+      "photo": "/images/avatar-1.jpg",
+      "button": "View Profile"
+    },
+   {
+  "id": 12,
+  "name": "Hind Sabry Rashed",
+  "title": "Administrative Coordinator",
+  "department": "Administration",
+  "category": "administrative",
+  "bio": "Coordinating administrative operations and supporting school management with efficient organizational skills.",
+  "photo": "/images/Sabry.jpg",
+  "button": "View Profile"
+}
+  ],
+  "departmentColors": {
+    "Leadership": "from-[#204181] to-[#3471b3]",
+    "Academic Affairs": "from-[#204181] to-[#3471b3]",
+    "Administration": "from-[#204181] to-[#3471b3]",
+    "Technology": "from-[#204181] to-[#3471b3]",
+    "Special Education": "from-[#204181] to-[#3471b3]",
+    "Therapy": "from-[#204181] to-[#3471b3]",
+    "Rehabilitation": "from-[#204181] to-[#3471b3]",
+    "Public Relations": "from-[#204181] to-[#3471b3]",
+    "Human Resources": "from-[#204181] to-[#3471b3]"
+  },
+  "teamCategories": [
+    { "id": "all", "name": "All Team Members" },
+    { "id": "executive", "name": "Executive Leadership" },
+    { "id": "academic", "name": "Academic Team" },
+    { "id": "administrative", "name": "Administrative Staff" },
+    { "id": "therapeutic", "name": "Therapeutic Services" },
+    { "id": "technical", "name": "Technical Team" }
+  ]
+}

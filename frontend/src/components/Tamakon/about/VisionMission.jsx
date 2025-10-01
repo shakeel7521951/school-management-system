@@ -1,7 +1,10 @@
 import React from 'react'
 import {motion} from "framer-motion"
+import { useTranslation } from 'react-i18next'
+
 
 const VisionMission = () => {
+  const {t} = useTranslation("aboutUs")
   return (
      <div className="grid md:grid-cols-2 gap-10">
       {/* Vision */}
@@ -13,7 +16,7 @@ const VisionMission = () => {
         viewport={{ once: true }}
       >
         <h3 className="text-2xl font-semibold mb-3 text-[#104c80] relative inline-block">
-          Our Vision
+         {t("sections.vision.title")}
           <motion.span
             initial={{ width: 0 }}
             whileInView={{ width: "100%" }}
@@ -23,11 +26,7 @@ const VisionMission = () => {
           ></motion.span>
         </h3>
         <p className="leading-relaxed text-gray-700">
-          The leading school in empowering multiple intelligences and
-          capabilities, providing specialized educational and comprehensive
-          rehabilitative services with professional competencies, in accordance
-          with national and international standards, in commitment to Qatar’s
-          vision 2030.
+         {t("sections.vision.content")}
         </p>
       </motion.div>
 
@@ -40,7 +39,7 @@ const VisionMission = () => {
         viewport={{ once: true }}
       >
         <h3 className="text-2xl font-semibold mb-3 text-green-700 relative inline-block">
-          Our Mission
+         {t("sections.mission.title")}
           <motion.span
             initial={{ width: 0 }}
             whileInView={{ width: "100%" }}
@@ -50,14 +49,8 @@ const VisionMission = () => {
           ></motion.span>
         </h3>
         <p className="leading-relaxed text-gray-700">
-          Al Tamakon comprehensive School is a leader in enabling multiple
-          intelligences and capabilities, where we provide comprehensive
-          educational and rehabilitative services with high professional
-          competencies. We apply national and international standards to ensure
-          distinguished education that enhances students’ development in all
-          academic and social aspects, with a focus on innovation and global
-          citizenship, in commitment to Qatar’s vision 2030.
-        </p>
+          {t("sections.mission.content")}
+                 </p>
       </motion.div>
     </div>
   )

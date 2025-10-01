@@ -31,6 +31,12 @@ export const teacherComplaintApi = createApi({
 
     // ✅ Get all complaints
     getComplaints: builder.query({
+      query: () => "/get-all-teacher-complaints",
+      providesTags: ["TeacherComplaint"],
+    }),
+
+    // ✅ Get teaher complaints
+    getTeacherComplaints: builder.query({
       query: () => "/get-teacher-complaints",
       providesTags: ["TeacherComplaint"],
     }),
@@ -80,4 +86,5 @@ export const {
   useUpdateComplaintMutation,
   useUpdateComplaintStatusMutation,
   useDeleteComplaintMutation,
+  useGetTeacherComplaintsQuery
 } = teacherComplaintApi;

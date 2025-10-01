@@ -1,0 +1,22 @@
+{
+  "heroSection": {
+    "title": "Acting Director General Message",
+    "subtitle": "Tamakon Comprehensive School / Acting Director General Message",
+    "backgroundImage": "/images/about-cover.jpg"
+  },
+  "contentSection": {
+    "heading": "Welcome to Tamakon Comprehensive School",
+    "paragraphs": [
+      "Welcome to our wonderful school, where we embody our vision and mission of providing exceptional and supportive education for all our students. As the Acting General Manager, I am eagerly looking forward to working with the school team and parents to achieve our common goals.",
+      "During this transitional period, our school will remain committed to delivering high-quality education and individual support for students facing learning challenges. We believe in the importance of preparing students for a successful and stable future, and we are working diligently towards that.",
+      "Our website is your gateway to the world of Empower School. It contains detailed information about our educational programs, extracurricular activities, and the latest news and events at the school. We encourage you to explore it and use it as a valuable resource to learn more about what we offer.",
+      "Thank you for your continuous support and collaboration. Empower Comprehensive School is open for communication and interaction, and we are here to meet your needs and address your inquiries. Please do not hesitate to reach out to us if you have any questions or suggestions.",
+      "I wish everyone a successful and progressive academic year, and I look forward to continuous collaboration with all of you."
+    ],
+    "signature": {
+      "position": "Acting Director General",
+      "name": "Dr. Hind Alrabah",
+      "image": "/images/hind.jpg"
+    }
+  }
+}
