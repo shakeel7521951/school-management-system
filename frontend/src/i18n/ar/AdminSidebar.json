@@ -1,0 +1,68 @@
+{
+  "app": {
+    "name": "التمكن",
+    "slogan": "تمكين التعليم رقمياً",
+    "logo": {
+      "icon": "School",
+      "color": "text-blue-600",
+      "bg": "bg-blue-100"
+    }
+  },
+  "systemStatus": {
+    "status": "يعمل",
+    "color": "bg-green-500"
+  },
+  "menuItems": [
+    {
+      "id": "analytics",
+      "label": "التحليلات",
+      "icon": "FaChartLine",
+      "color": "text-[#3B82F6]",
+      "hover": "hover:bg-amber-50"
+    },
+    {
+      "id": "complaints",
+      "label": "الشكاوى",
+      "icon": "MessageCircle",
+      "color": "text-[#3B82F6]",
+      "hover": "hover:bg-pink-50",
+      "dropdown": [
+        { "id": "/studentcomplain", "label": "شكاوى الطلاب" },
+        { "id": "/teachercomplain", "label": "شكاوى المعلمين" }
+      ]
+    },
+    {
+      "id": "documents",
+      "label": "المستندات",
+      "icon": "FileText",
+      "color": "text-[#3B82F6]",
+      "hover": "hover:bg-green-50",
+      "dropdown": [
+        { "id": "/documents/requests", "label": "المستندات المطلوبة" },
+        { "id": "/documents/uploaded", "label": "المستندات المرفوعة" }
+      ]
+    },
+    {
+      "id": "visitortable",
+      "label": "الزوار",
+      "icon": "BarChart2",
+      "color": "text-[#3B82F6]",
+      "hover": "hover:bg-amber-50"
+    },
+    {
+      "id": "users",
+      "label": "المستخدمون",
+      "icon": "Users",
+      "color": "text-[#3B82F6]",
+      "hover": "hover:bg-amber-50"
+    },
+    {
+      "id": "registration-data",
+      "label": "بيانات التسجيل",
+      "icon": "Users",
+      "color": "text-[#3B82F6]",
+      "hover": "hover:bg-amber-50"
+    }
+  ],
+  "logout": "تسجيل الخروج"
+}

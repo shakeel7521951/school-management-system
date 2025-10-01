@@ -1,0 +1,28 @@
+{
+  "title": "Analytics",
+  "subtitle": "Track registration requests and statuses",
+  "kpi": {
+    "total_requests": "Total Requests",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "pending": "Pending"
+  },
+  "export": {
+    "heading": "Export Reports",
+    "description": "Download comprehensive analytics in your preferred format",
+    "excel_button": "Export Excel",
+    "pdf_button": "Export PDF"
+  },
+  "charts": {
+    "bar_title": "Requests by Status",
+    "pie_title": "Request Distribution",
+    "line_title": "Requests Over Time",
+    "requests": "Requests",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "pending": "Pending",
+    "percent_format": "{{name}}: {{percent}}%"
+  },
+  "loading": "Loading analytics...",
+  "error": "Failed to load analytics data."
+}

@@ -18,6 +18,20 @@ import faq_en from "./en/FAQs.json"
 import faq_ar from "./ar/FAQs.json"
 import team_en from "./en/Team.json"
 import team_ar from "./ar/Team.json"
+import login_en from "./en/Login.json"
+import login_ar from "./ar/Login.json"
+import signup_en from "./en/Signup.json"
+import signup_ar from "./ar/Signup.json"
+
+import adminSidebar_ar from "./ar/AdminSidebar.json"
+import adminSidebar_en from "./en/AdminSidebar.json"
+import adminNavbar_en from "./en/AdminNavbar.json"
+import adminNavbar_ar from "./ar/AdminNavbar.json"
+import analytics_en from "./en/Analytics.json"
+import analytics_ar from "./ar/Analytics.json"
+import adminStudentComplaints_en from "./en/AdminStudentComplaints.json"
+import adminStudentComplaints_ar from "./ar/AdminStudentComplaints.json"
+
  
 const resources = {
   en: {
@@ -27,7 +41,14 @@ const resources = {
     directorManager:directorManager_en,
     actingDirector:actingDirector_en,
     faq:faq_en,
-    team:team_en
+    team:team_en,
+    login:login_en,
+    signup:signup_en,
+    team:team_en,
+    adminSidebar:adminSidebar_en,
+    adminNavbar:adminNavbar_en,
+    analytics:analytics_en,
+    adminStudentComplaints:adminStudentComplaints_en
   },
   ar: {
     home: home_ar,
@@ -36,10 +57,18 @@ const resources = {
     directorManager:directorManager_ar,
     actingDirector:actingDirector_ar,
     faq:faq_ar,
-    team:team_ar
+    team:team_ar,
+    login:login_ar,
+    signup:signup_ar,
+    team:team_ar,
+    adminSidebar:adminSidebar_ar,
+    adminNavbar:adminNavbar_ar,
+    analytics:analytics_ar,
+    adminStudentComplaints:adminStudentComplaints_ar
 
 
   },
+  
 };
 
 i18n

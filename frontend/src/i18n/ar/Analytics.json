@@ -1,0 +1,28 @@
+{
+  "title": "التحليلات",
+  "subtitle": "تتبع طلبات التسجيل وحالاتها",
+  "kpi": {
+    "total_requests": "إجمالي الطلبات",
+    "approved": "موافق عليها",
+    "rejected": "مرفوضة",
+    "pending": "قيد الانتظار"
+  },
+  "export": {
+    "heading": "تصدير التقارير",
+    "description": "قم بتنزيل التحليلات الشاملة بصيغتك المفضلة",
+    "excel_button": "تصدير إكسل",
+    "pdf_button": "تصدير PDF"
+  },
+  "charts": {
+    "bar_title": "الطلبات حسب الحالة",
+    "pie_title": "توزيع الطلبات",
+    "line_title": "الطلبات مع مرور الوقت",
+    "requests": "الطلبات",
+    "approved": "موافق عليها",
+    "rejected": "مرفوضة",
+    "pending": "قيد الانتظار",
+    "percent_format": "{{name}}: {{percent}}%"
+  },
+  "loading": "جارٍ تحميل التحليلات...",
+  "error": "فشل في تحميل بيانات التحليلات."
+}

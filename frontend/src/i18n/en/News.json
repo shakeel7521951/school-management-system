@@ -1,0 +1,101 @@
+[
+  {
+    "id": 1,
+    "slug": "yousef-mohammed-win",
+    "date": "April 18, 2024",
+    "author": "admin",
+    "title": "Mazamer Al Daoud",
+    "content": "Student Yousef Mohammed’s win in first place in the learning difficulties category at the Mazamer Al Daoud competition held at the International Preparatory Academy.",
+    "images": ["/images/news-1.jpeg"]
+  },
+  {
+    "id": 2,
+    "slug": "ghursha-teela-event",
+    "date": "March 27, 2024",
+    "author": "admin",
+    "title": "An Event to Honor the Winning Students in the Individual Incentive System, ‘Ghursha and Teela,’ for the Week of March 24th, 2024.",
+    "content": "With pride and gratitude, the school honored the winning students as a testament to their perseverance and excellence. Al-Tamkan Inclusive School celebrated an event to recognize the outstanding students in the ‘Ghursha and Teela’ Individual Incentive System for the previous week. These exceptional students stood out with their creativity and remarkable achievements, their efforts were acknowledged, and they were motivated to continue excelling in the future.",
+    "images": ["/images/news-2.jpeg", "/images/news-2-1.jpeg", "/images/news-2-2.jpeg"]
+  },
+  {
+    "id": 3,
+    "slug": "garangao-festival",
+    "date": "March 27, 2024",
+    "author": "admin",
+    "title": "The Garangao Festival at Our School",
+    "content": "",
+    "images": ["/images/news-3.jpeg", "/images/news-3-1.jpeg", "/images/news-3-2.jpeg", "/images/news-3-4.jpeg"]
+  },
+  {
+    "id": 4,
+    "slug": "read-me-a-story",
+    "date": "March 27, 2024",
+    "author": "admin",
+    "title": "Our students’ participation in the ‘Read Me a Story’ competition",
+    "content": "An outstanding achievement penned by our young heroes! The school is proud of our students’ participation in the ‘Read Me a Story’ competition.",
+    "images": []
+  },
+  {
+    "id": 5,
+    "slug": "save-blessings-initiative",
+    "date": "March 20, 2024",
+    "author": "admin",
+    "title": "Save Blessings Initiative",
+    "content": "Dear ladies and gentlemen, Greetings and blessings be upon you as we launch the Save Blessings Initiative.",
+    "images": []
+  },
+  {
+    "id": 6,
+    "slug": "cis-certification",
+    "date": "March 18, 2024",
+    "author": "admin",
+    "title": "Al-Tamakon Comprehensive School has obtained the international certification and membership in CIS",
+    "content": "We are pleased to announce that Al-Tamakon Comprehensive School has received international certification and membership in CIS.",
+    "images": []
+  },
+  {
+    "id": 7,
+    "slug": "harvard-partnership",
+    "date": "February 12, 2024",
+    "author": "admin",
+    "title": "The Comprehensive AL Tamakon School and Harvard University form a strategic partnership",
+    "content": "This partnership will bring new opportunities and programs to enhance our students’ learning experience.",
+    "images": []
+  },
+  {
+    "id": 8,
+    "slug": "parent-teacher-meeting",
+    "date": "January 19, 2024",
+    "author": "admin",
+    "title": "Parent-Teacher Evaluative Meeting: Assessing Student Performance at the Comprehensive AL Tamakon School",
+    "content": "At the Comprehensive AL Tamakon School, we are dedicated to closely monitoring student performance and ensuring quality education.",
+    "images": []
+  },
+  {
+    "id": 9,
+    "slug": "international-day-of-nations",
+    "date": "November 18, 2023",
+    "author": "admin",
+    "title": "Celebrating the International Day of Nations",
+    "content": "The Comprehensive AlTamakon School celebrated the International Day of Nations with cultural activities on November 16, 2023.",
+    "images": []
+  },
+  {
+    "id": 10,
+    "slug": "little-muezzin-competition",
+    "date": "October 20, 2023",
+    "author": "admin",
+    "title": "Little Muezzin competition",
+    "content": "Al-Takmin School is keen on community partnership with schools and celebrated the Little Muezzin competition.",
+    "images": []
+  },
+  {
+    "id": 11,
+    "slug": "fasila-competition",
+    "date": "October 20, 2023",
+    "author": "admin",
+    "title": "Al Tamakon Comprehensive School’s participation in the Fasila Competition",
+    "content": "Al Tamakon Comprehensive School’s participation in the Fasila Competition with the theme: ‘If the Final Hour comes while you have a shoot of a plant in your hands, continue planting it.’",
+    "images": []
+  }
+]
