@@ -9,17 +9,21 @@ import contact_en from "./en/Contact.json";
 import contact_ar from "./ar/Contact.json";
 import news_en from "./en/News.json";
 import news_ar from "./ar/News.json";
+import gallery_en from "./en/Gallery.json";
+import gallery_ar from "./ar/Gallery.json";
 
 const resources = {
   en: {
     home: home_en,
     contact:contact_en,
     news:news_en,
+    gallery:gallery_en,
   },
   ar: {
     home: home_ar,
     contact:contact_ar,
-    news:news_ar
+    news:news_ar,
+    gallery:gallery_ar
   },
   
 };
