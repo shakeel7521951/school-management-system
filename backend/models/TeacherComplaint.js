@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const complaintSchema = new mongoose.Schema(
     {
+        teacherId:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'User',
+            required:true
+        },
         employeeName: {
             type: String,
             required: true,

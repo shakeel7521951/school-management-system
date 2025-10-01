@@ -4,18 +4,18 @@ export default function TeacherDeleteModal({ deleteModal, setDeleteModal, confir
   if (!deleteModal) return null; // ✅ only show when a complaint is set
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/80  z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/80 z-50">
       <div className="bg-white p-6 rounded-xl shadow-xl w-[90%] max-w-md text-center">
         {/* Title */}
         <h2 className="text-lg font-bold text-gray-800 mb-2">
           Confirm Delete
         </h2>
 
-        {/* Show complaint name */}
+        {/* Show employee name */}
         <p className="text-gray-600 mb-6">
           Are you sure you want to delete the complaint filed by{" "}
           <span className="font-semibold text-red-600">
-            {deleteModal.name}
+            {deleteModal.employeeName}
           </span>
           ?
         </p>
@@ -28,12 +28,12 @@ export default function TeacherDeleteModal({ deleteModal, setDeleteModal, confir
           >
             Cancel
           </button>
-         <button
-  onClick={() => confirmDelete(deleteModal._id || deleteModal.id)}
-  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
->
-  Delete
-</button>
+          <button
+            onClick={() => confirmDelete(deleteModal._id)}
+            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>
