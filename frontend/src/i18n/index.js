@@ -31,6 +31,12 @@ import analytics_en from "./en/Analytics.json"
 import analytics_ar from "./ar/Analytics.json"
 import adminStudentComplaints_en from "./en/AdminStudentComplaints.json"
 import adminStudentComplaints_ar from "./ar/AdminStudentComplaints.json"
+import users_en from "./en/Users.json"
+import users_ar from "./ar/Users.json"
+import adminRegistrationData_en from "./en/AdminRegistrationData.json"
+import adminRegistrationData_ar from "./ar/AdminRegistrationData.json"
+import adminVisitorData_en from "./en/AdminVisitorData.json"
+import adminVisitorData_ar from "./ar/AdminVisitorData.json"
 
  
 const resources = {
@@ -48,7 +54,10 @@ const resources = {
     adminSidebar:adminSidebar_en,
     adminNavbar:adminNavbar_en,
     analytics:analytics_en,
-    adminStudentComplaints:adminStudentComplaints_en
+    adminStudentComplaints:adminStudentComplaints_en,
+    users:users_en,
+    adminRegistrationData:adminRegistrationData_en,
+    adminVisitorData:adminVisitorData_en,
   },
   ar: {
     home: home_ar,
@@ -64,7 +73,10 @@ const resources = {
     adminSidebar:adminSidebar_ar,
     adminNavbar:adminNavbar_ar,
     analytics:analytics_ar,
-    adminStudentComplaints:adminStudentComplaints_ar
+    adminStudentComplaints:adminStudentComplaints_ar,
+    users:users_ar,
+    adminRegistrationData:adminRegistrationData_ar,
+    adminVisitorData:adminVisitorData_ar
 
 
   },
