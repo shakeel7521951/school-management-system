@@ -38,11 +38,9 @@ export const teacherComplaints = async (req, res) => {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ message: "You are not logged in. Please login first" });
     }
-    console.log(req.user);
 
     const { id } = req.user;
     const complaints = await TeacherComplaint.find({ teacherId: id });
-    console.log(complaints)
     if (!complaints || complaints.length === 0) {
       return res.status(404).json({ message: "No Complaint Found!" });
     }
