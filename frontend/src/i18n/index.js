@@ -22,7 +22,18 @@ import login_en from "./en/Login.json"
 import login_ar from "./ar/Login.json"
 import signup_en from "./en/Signup.json"
 import signup_ar from "./ar/Signup.json"
-
+import navbar_en from "./en/Navbar.json"
+import navbar_ar from "./ar/Navbar.json" 
+import footerbrand_en from "./en/Footer/FooterBrand.json"
+import footerbrand_ar from "./ar/Footer/FooterBrand.json"
+import footermenu_en from "./en/Footer/FooterMenu.json"
+import footermenu_ar from "./ar/Footer/FooterMenu.json"
+import footercontact_en from "./en/Footer/FooterContact.json"
+import footercontact_ar from "./ar/Footer/FooterContact.json"
+import footersearch_en from "./en/Footer/FooterSearch.json"
+import footerbottom_en from "./en/Footer/FooterBottom.json"
+import footerbottom_ar from "./ar/Footer/FooterBottom.json"
+import footersearch_ar from "./ar/Footer/FooterSearch.json"
 const resources = {
   en: {
     home: home_en,
@@ -34,6 +45,12 @@ const resources = {
     team:team_en,
     login:login_en,
     signup:signup_en,
+    navbar:navbar_en,
+    footerbrand:footerbrand_en,
+    footermenu:footermenu_en,
+    footercontact:footercontact_en,
+    footersearch:footersearch_en,
+    footerbottom:footerbottom_en,
   },
   ar: {
     home: home_ar,
@@ -45,6 +62,12 @@ const resources = {
     team:team_ar,
     login:login_ar,
     signup:signup_ar,
+navbar:navbar_ar,
+    footerbrand:footerbrand_ar,
+    footermenu:footermenu_ar,
+    footercontact:footercontact_ar,
+    footersearch:footersearch_ar,
+    footerbottom:footerbottom_ar,
 
 
   },
