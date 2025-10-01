@@ -7,6 +7,8 @@ import home_en from "./en/Home.json";
 import home_ar from "./ar/Home.json";
 import contact_en from "./en/Contact.json";
 import contact_ar from "./ar/Contact.json";
+import gallery_en from "./en/Gallery.json";
+import gallery_ar from "./ar/Gallery.json";
 
 import aboutUs_en from "./en/AboutUs.json"
 import aboutUs_ar from "./ar/AboutUs.json"
@@ -37,6 +39,7 @@ const resources = {
   en: {
     home: home_en,
     contact:contact_en,
+    gallery:gallery_en,
     aboutUs:aboutUs_en,
     directorManager:directorManager_en,
     actingDirector:actingDirector_en,
@@ -53,6 +56,7 @@ const resources = {
   ar: {
     home: home_ar,
     contact:contact_ar,
+    gallery:gallery_ar,
     aboutUs:aboutUs_ar,
     directorManager:directorManager_ar,
     actingDirector:actingDirector_ar,
