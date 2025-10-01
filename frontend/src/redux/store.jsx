@@ -15,7 +15,7 @@ export const store = configureStore({
     [submittedFormApi.reducerPath]: submittedFormApi.reducer,
     [VisitorApi.reducerPath]: VisitorApi.reducer,
     [RegistrationApi.reducerPath]: RegistrationApi.reducer,
-    [teacherComplaintApi.reducerPath]: RegistrationApi.reducer,
+    [teacherComplaintApi.reducerPath]: teacherComplaintApi.reducer,
     user: userReducer,
      language: languageReducer,
   },

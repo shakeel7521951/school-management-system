@@ -1,6 +1,16 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { X, Calendar, FileText, Building, AlertTriangle, Hash, CheckCircle2 } from "lucide-react";
+import {
+  X,
+  Calendar,
+  FileText,
+  Building,
+  AlertTriangle,
+  Hash,
+  CheckCircle2,
+  User,
+  Target,
+} from "lucide-react";
 
 const ComplaintDetailModal = ({ complaint, statusStyles, statusIcons, onClose }) => {
   if (!complaint) return null;
@@ -33,9 +43,9 @@ const ComplaintDetailModal = ({ complaint, statusStyles, statusIcons, onClose })
         {/* Status */}
         <div className="flex items-center gap-2 mb-6">
           <span
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium border ${statusStyles[complaint.status]}`}
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium border ${statusStyles[complaint.status?.toLowerCase()]}`}
           >
-            {statusIcons[complaint.status]}
+            {statusIcons[complaint.status?.toLowerCase()]}
             {complaint.status}
           </span>
         </div>
@@ -47,7 +57,16 @@ const ComplaintDetailModal = ({ complaint, statusStyles, statusIcons, onClose })
             <Hash className="text-gray-500 mt-1" size={18} />
             <div>
               <p className="font-medium">Complaint ID</p>
-              <p className="text-sm">{complaint.id}</p>
+              <p className="text-sm">{complaint._id}</p>
+            </div>
+          </div>
+
+          {/* Employee Name */}
+          <div className="flex items-start gap-3">
+            <User className="text-gray-500 mt-1" size={18} />
+            <div>
+              <p className="font-medium">Employee Name</p>
+              <p className="text-sm">{complaint.employeeName}</p>
             </div>
           </div>
 
@@ -67,7 +86,9 @@ const ComplaintDetailModal = ({ complaint, statusStyles, statusIcons, onClose })
               <Calendar className="text-gray-500 mt-1" size={18} />
               <div>
                 <p className="font-medium">Date Submitted</p>
-                <p className="text-sm">{complaint.date}</p>
+                <p className="text-sm">
+                  {complaint.date ? new Date(complaint.date).toLocaleDateString() : "-"}
+                </p>
               </div>
             </div>
           </div>
@@ -90,9 +111,9 @@ const ComplaintDetailModal = ({ complaint, statusStyles, statusIcons, onClose })
               <p className="font-medium">Severity</p>
               <span
                 className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                  complaint.severity === "High"
+                  complaint.severity?.toLowerCase() === "urgent"
                     ? "bg-red-100 text-red-700"
-                    : complaint.severity === "Medium"
+                    : complaint.severity?.toLowerCase() === "follow-up"
                     ? "bg-yellow-100 text-yellow-700"
                     : "bg-green-100 text-green-700"
                 }`}
@@ -102,12 +123,23 @@ const ComplaintDetailModal = ({ complaint, statusStyles, statusIcons, onClose })
             </div>
           </div>
 
+          {/* Expected Action */}
+          <div className="flex items-start gap-3">
+            <Target className="text-gray-500 mt-1" size={18} />
+            <div>
+              <p className="font-medium">Expected Action</p>
+              <p className="text-sm">{complaint.expectedAction}</p>
+            </div>
+          </div>
+
           {/* Description */}
           <div className="flex items-start gap-3">
             <FileText className="text-gray-500 mt-1" size={18} />
             <div>
               <p className="font-medium">Complaint Details</p>
-              <p className="text-sm leading-relaxed">{complaint.complaintDetails}</p>
+              <p className="text-sm leading-relaxed whitespace-pre-line">
+                {complaint.details}
+              </p>
             </div>
           </div>
         </div>
