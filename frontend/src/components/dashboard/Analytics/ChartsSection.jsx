@@ -1,24 +1,23 @@
 import React from "react";
-import {
-    BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
-    LineChart, Line, PieChart, Pie, Cell, ResponsiveContainer
-} from "recharts";
+import { useTranslation } from "react-i18next";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, LineChart, Line, PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
 const PRIMARY = "#104C80";
-const SUCCESS = "#16a34a"; // green for approved
-const DANGER = "#dc2626"; // red for rejected
-const WARNING = "#facc15"; // yellow for pending
+const SUCCESS = "#16a34a";
+const DANGER = "#dc2626";
+const WARNING = "#facc15";
 const TEXT_LIGHT = "#64748B";
 const CARD_BG = "#FFFFFF";
 
 const CustomTooltip = ({ active, payload, label }) => {
+    const { t } = useTranslation("analytics");
     if (active && payload && payload.length) {
         return (
             <div className="bg-white p-3 shadow-lg rounded-lg border border-gray-200 max-w-[200px]">
                 <p className="font-semibold text-sm" style={{ color: PRIMARY }}>{label}</p>
                 {payload.map((entry, index) => (
                     <p key={index} style={{ color: entry.color }} className="text-xs">
-                        {entry.name}: {entry.value}
+                        {t(`charts.${entry.name.toLowerCase()}`)}: {entry.value}
                     </p>
                 ))}
             </div>
@@ -28,33 +27,25 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 const ChartsSection = ({ registrations, totalApprovals, totalRejections, totalPending }) => {
-    // ✅ Bar Chart Data
-    const barData = [
-        { name: "Requests", approved: totalApprovals, rejected: totalRejections, pending: totalPending }
-    ];
+    const { t } = useTranslation("analytics");
 
-    // ✅ Pie Chart Data
+    const barData = [{ name: t("charts.requests"), approved: totalApprovals, rejected: totalRejections, pending: totalPending }];
     const pieData = [
         { name: "Approved", value: totalApprovals },
         { name: "Rejected", value: totalRejections },
         { name: "Pending", value: totalPending }
     ];
-
-    // ✅ Line Chart Data (Requests over time)
-    const lineData = registrations.map((r) => ({
+    const lineData = registrations.map(r => ({
         name: new Date(r.createdAt).toLocaleDateString(),
         approved: r.status === "approved" ? 1 : 0,
         rejected: r.status === "rejected" ? 1 : 0,
-        pending: r.status === "pending" ? 1 : 0,
+        pending: r.status === "pending" ? 1 : 0
     }));
 
     return (
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8">
-            {/* Bar Chart */}
             <div className="rounded-2xl p-4 shadow-lg" style={{ backgroundColor: CARD_BG }}>
-                <h2 className="text-lg font-semibold mb-4" style={{ color: PRIMARY }}>
-                    Requests by Status
-                </h2>
+                <h2 className="text-lg font-semibold mb-4" style={{ color: PRIMARY }}>{t("charts.bar_title")}</h2>
                 <ResponsiveContainer width="100%" height={250}>
                     <BarChart data={barData}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
@@ -68,11 +59,8 @@ const ChartsSection = ({ registrations, totalApprovals, totalRejections, totalPe
                 </ResponsiveContainer>
             </div>
 
-            {/* Pie Chart */}
             <div className="rounded-2xl p-4 shadow-lg" style={{ backgroundColor: CARD_BG }}>
-                <h2 className="text-lg font-semibold mb-4" style={{ color: PRIMARY }}>
-                    Request Distribution
-                </h2>
+                <h2 className="text-lg font-semibold mb-4" style={{ color: PRIMARY }}>{t("charts.pie_title")}</h2>
                 <ResponsiveContainer width="100%" height={250}>
                     <PieChart>
                         <Pie
@@ -83,7 +71,7 @@ const ChartsSection = ({ registrations, totalApprovals, totalRejections, totalPe
                             outerRadius={90}
                             paddingAngle={3}
                             dataKey="value"
-                            label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                            label={({ name, percent }) => t("charts.percent_format", { name: t(`charts.${name.toLowerCase()}`), percent: (percent * 100).toFixed(0) })}
                             labelLine={false}
                         >
                             <Cell fill={SUCCESS} />
@@ -95,11 +83,8 @@ const ChartsSection = ({ registrations, totalApprovals, totalRejections, totalPe
                 </ResponsiveContainer>
             </div>
 
-            {/* Line Chart */}
             <div className="rounded-2xl p-4 shadow-lg xl:col-span-2" style={{ backgroundColor: CARD_BG }}>
-                <h2 className="text-lg font-semibold mb-4" style={{ color: PRIMARY }}>
-                    Requests Over Time
-                </h2>
+                <h2 className="text-lg font-semibold mb-4" style={{ color: PRIMARY }}>{t("charts.line_title")}</h2>
                 <ResponsiveContainer width="100%" height={250}>
                     <LineChart data={lineData}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
