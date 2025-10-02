@@ -1,0 +1,19 @@
+{
+  "modal": {
+    "title": "رفض المستند",
+    "description": "أنت على وشك رفض \"{{title}}\". يرجى تقديم سبب للرفض.",
+    "fields": {
+      "rejectionReason": {
+        "label": "سبب الرفض",
+        "placeholder": "أدخل سبب الرفض..."
+      }
+    },
+    "actions": {
+      "cancel": "إلغاء",
+      "confirm": "تأكيد الرفض"
+    },
+    "validation": {
+      "emptyReason": "يرجى إدخال سبب للرفض."
+    }
+  }
+}

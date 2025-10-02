@@ -47,9 +47,10 @@ const ComplaintTable = ({
 }) => {
   const { t } = useTranslation("adminStudentComplaints");
 
+  // Columns now use studentClass key
   const columns = [
     { key: "name", label: t("table.columns.name"), width: "w-40" },
-    { key: "class", label: t("table.columns.class"), width: "w-20" },
+    { key: "studentClass", label: t("table.columns.class"), width: "w-20" },
     { key: "age", label: t("table.columns.age"), width: "w-20" },
     { key: "date", label: t("table.columns.date"), width: "w-28" },
     { key: "type", label: t("table.columns.type"), width: "w-32" },
@@ -67,18 +68,7 @@ const ComplaintTable = ({
         <table className="w-full border-collapse rounded-lg overflow-hidden shadow-sm">
           <thead>
             <tr className="bg-[#10448c] text-white text-sm text-nowrap">
-              {[
-                { key: "name", label: "Name", width: "w-40" },
-                { key: "studentClass", label: "Class", width: "w-20" },
-                { key: "age", label: "Age", width: "w-20" },
-                { key: "date", label: "Date", width: "w-28" },
-                { key: "type", label: "Type", width: "w-32" },
-                { key: "severity", label: "Severity", width: "w-28" },
-                { key: "impact", label: "Impact", width: "w-28" },
-                { key: "action", label: "Expected Action", width: "w-32" },
-                { key: "status", label: "Status", width: "w-28" },
-                { key: "Action", label: "Action", width: "w-28" },
-              ].map(({ key, label, width }) => (
+              {columns.map(({ key, label, width }) => (
                 <th
                   key={key}
                   onClick={() =>
@@ -122,14 +112,16 @@ const ComplaintTable = ({
                   </div>
                   <span className="font-medium text-nowrap">{c.name}</span>
                 </td>
-                <td className="px-3 py-2 text-center text-nowrap">{c.studentClass}</td>
+                <td className="px-3 py-2 text-center text-nowrap">
+                  {c.studentClass}
+                </td>
                 <td className="px-3 py-2 text-center text-nowrap">{c.age}</td>
                 <td className="px-3 py-2 text-center text-nowrap">
                   {c.date ? new Date(c.date).toLocaleDateString() : "-"}
                 </td>
                 <td className="px-3 py-2 text-center">
                   <span
-                    className={`px-2 py-1 text-md rounded-full text-nowrap${
+                    className={`px-2 py-1 text-md rounded-full text-nowrap ${
                       typeColors[c.type] || "bg-gray-100 text-gray-700"
                     }`}
                   >
@@ -226,7 +218,7 @@ const ComplaintTable = ({
 
               <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm mt-2">
                 <p>
-                  <b>{t("table.columns.class")}:</b> {c.studentClass || c.class}
+                  <b>{t("table.columns.class")}:</b> {c.studentClass}
                 </p>
                 <p>
                   <b>{t("table.columns.age")}:</b> {c.age}

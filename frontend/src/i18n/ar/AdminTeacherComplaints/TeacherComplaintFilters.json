@@ -1,0 +1,53 @@
+{
+  "header": {
+    "title": "الفلاتر",
+    "reset": "إعادة تعيين الفلاتر"
+  },
+  "search": {
+    "label": "بحث",
+    "placeholder": "ابحث بالاسم، الأثر، النوع..."
+  },
+  "status": {
+    "label": "الحالة",
+    "options": {
+      "all": "كل الحالات",
+      "pending": "قيد الانتظار",
+      "in_progress": "قيد المعالجة",
+      "resolved": "تم الحل",
+      "rejected": "مرفوض"
+    }
+  },
+  "impact": {
+    "label": "الأثر",
+    "options": {
+      "all": "كل الآثار",
+      "stress": "الضغط النفسي",
+      "performance": "الأداء",
+      "health": "الصحة",
+      "isolation": "العزلة"
+    }
+  },
+  "type": {
+    "label": "النوع",
+    "options": {
+      "all": "كل الأنواع",
+      "safety": "السلامة في العمل",
+      "stress": "الضغط",
+      "work_env": "بيئة العمل",
+      "colleagues": "الزملاء",
+      "management": "الإدارة",
+      "rights": "الحقوق",
+      "other": "أخرى"
+    }
+  },
+  "footer": {
+    "showing": "عرض {{count}} شكوى",
+    "items_per_page": {
+      "5": "5 في الصفحة",
+      "10": "10 في الصفحة",
+      "20": "20 في الصفحة",
+      "50": "50 في الصفحة"
+    },
+    "export": "تصدير"
+  }
+}

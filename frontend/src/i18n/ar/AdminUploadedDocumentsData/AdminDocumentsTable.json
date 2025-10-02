@@ -1,0 +1,42 @@
+{
+  "table": {
+    "columns": [
+      { "key": "index", "label": "#", "align": "left" },
+      { "key": "title", "label": "العنوان", "align": "left" },
+      { "key": "uploader", "label": "المرسل", "align": "left" },
+      { "key": "role", "label": "الدور", "align": "left" },
+      { "key": "type", "label": "النوع", "align": "left" },
+      { "key": "date", "label": "التاريخ", "align": "left" },
+      { "key": "status", "label": "الحالة", "align": "left" },
+      { "key": "note", "label": "ملاحظة", "align": "left" },
+      { "key": "actions", "label": "الإجراءات", "align": "center" }
+    ],
+    "headerStyles": {
+      "bgColor": "#104c80",
+      "textColor": "white",
+      "fontSize": "sm",
+      "fontWeight": "semibold"
+    }
+  },
+  "mobileCard": {
+    "fields": [
+      { "key": "title", "label": "", "fontWeight": "semibold", "fontSize": "sm" },
+      { "key": "uploader", "label": "المرسل" },
+      { "key": "role", "label": "الدور" },
+      { "key": "type", "label": "النوع" },
+      { "key": "date", "label": "التاريخ" },
+      { "key": "status", "label": "الحالة", "badge": true }
+    ],
+    "actions": [
+      { "key": "view", "icon": "Eye", "color": "gray", "hoverColor": "blue-700", "tooltip": "عرض التفاصيل" },
+      { "key": "approve", "icon": "CheckCircle", "color": "green", "hoverColor": "green-700", "tooltip": "الموافقة على المستند" },
+      { "key": "reject", "icon": "XCircle", "color": "red", "hoverColor": "red-700", "tooltip": "رفض المستند" }
+    ]
+  },
+  "statusClasses": {
+    "Pending": "bg-yellow-100 text-yellow-800",
+    "Resolved": "bg-green-100 text-green-800",
+    "Rejected": "bg-red-100 text-red-800",
+    "default": "bg-gray-100 text-gray-800"
+  }
+}

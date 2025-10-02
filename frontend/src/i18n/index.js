@@ -64,6 +64,30 @@ import footersearch_en from "./en/Footer/FooterSearch.json";
 import footerbottom_en from "./en/Footer/FooterBottom.json";
 import footerbottom_ar from "./ar/Footer/FooterBottom.json";
 import footersearch_ar from "./ar/Footer/FooterSearch.json";
+import teacherComplain_en from "./en/AdminTeacherComplaints/TeacherComplain.json"
+import teacherComplaintFilters_en from "./en/AdminTeacherComplaints/TeacherComplaintFilters.json"
+import teacherComplaintModal_en from "./en/AdminTeacherComplaints/TeacherComplaintModal.json"
+import teacherComplaintStats_en from "./en/AdminTeacherComplaints/TeacherComplaintStats.json"
+import teacherComplaintTable_en from "./en/AdminTeacherComplaints/TeacherComplaintTable.json"
+import teacherComplaintViewModal_en from "./en/AdminTeacherComplaints/TeacherComplaintViewModal.json"
+import teacherDeleteModal_en from "./en/AdminTeacherComplaints/TeacherDeleteModal.json"
+import teacherComplain_ar from "./ar/AdminTeacherComplaints/TeacherComplain.json"
+import teacherComplaintFilters_ar from "./ar/AdminTeacherComplaints/TeacherComplaintFilters.json"
+import teacherComplaintModal_ar from "./ar/AdminTeacherComplaints/TeacherComplaintModal.json"
+import teacherComplaintStats_ar from "./ar/AdminTeacherComplaints/TeacherComplaintStats.json"
+import teacherComplaintTable_ar from "./ar/AdminTeacherComplaints/TeacherComplaintTable.json"
+import teacherComplaintViewModal_ar from "./ar/AdminTeacherComplaints/TeacherComplaintViewModal.json"
+import teacherDeleteModal_ar from "./ar/AdminTeacherComplaints/TeacherDeleteModal.json"
+import uploadedDocuments_en from "./en/AdminUploadedDocumentsData/UploadedDocuments.json"
+import adminDocumentsTable_en from "./en/AdminUploadedDocumentsData/AdminDocumentsTable.json"
+import viewDocumentModal_en from "./en/AdminUploadedDocumentsData/ViewDocumentModal.json"
+import rejectDocumentModal_en from "./en/AdminUploadedDocumentsData/RejectDocumentModal.json"
+import uploadedDocuments_ar from "./ar/AdminUploadedDocumentsData/UploadedDocuments.json"
+import adminDocumentsTable_ar from "./ar/AdminUploadedDocumentsData/AdminDocumentsTable.json"
+import viewDocumentModal_ar from "./ar/AdminUploadedDocumentsData/ViewDocumentModal.json"
+import rejectDocumentModal_ar from "./ar/AdminUploadedDocumentsData/RejectDocumentModal.json"
+import adminRequestedDocuments_en from "./en/AdminRequestedDocuments.json"
+import adminRequestedDocuments_ar from "./ar/AdminRequestedDocuments.json"
 
 const resources = {
   en: {
@@ -91,6 +115,21 @@ const resources = {
     users: users_en,
     adminRegistrationData: adminRegistrationData_en,
     adminVisitorData: adminVisitorData_en,
+    teacherComplain:teacherComplain_en,
+    teacherComplaintFilters:teacherComplaintFilters_en,
+    teacherComplaintModal:teacherComplaintModal_en,
+    teacherComplaintStats:teacherComplaintStats_en,
+    teacherComplaintTable:teacherComplaintTable_en,
+    teacherComplaintViewModal:teacherComplaintViewModal_en,
+    teacherDeleteModal:teacherDeleteModal_en,
+    uploadedDocuments:uploadedDocuments_en,
+    adminDocumentsTable:adminDocumentsTable_en,
+    viewDocumentModal:viewDocumentModal_en,
+    rejectDocumentModal:rejectDocumentModal_en,
+    adminRequestedDocuments:adminRequestedDocuments_en,
+    adminRequestedDocuments:adminRequestedDocuments_en,
+    
+
 
     navbar: navbar_en,
     footerbrand: footerbrand_en,
@@ -124,6 +163,19 @@ const resources = {
     users: users_ar,
     adminRegistrationData: adminRegistrationData_ar,
     adminVisitorData: adminVisitorData_ar,
+      teacherComplain:teacherComplain_ar,
+    teacherComplaintFilters:teacherComplaintFilters_ar,
+    teacherComplaintModal:teacherComplaintModal_ar,
+    teacherComplaintStats:teacherComplaintStats_ar,
+    teacherComplaintTable:teacherComplaintTable_ar,
+    teacherComplaintViewModal:teacherComplaintViewModal_ar,
+    teacherDeleteModal:teacherDeleteModal_ar,
+     uploadedDocuments:uploadedDocuments_ar,
+    adminDocumentsTable:adminDocumentsTable_ar,
+    viewDocumentModal:viewDocumentModal_ar,
+    rejectDocumentModal:rejectDocumentModal_ar,
+    adminRequestedDocuments:adminRequestedDocuments_ar,
+
 
     navbar: navbar_ar,
     footerbrand: footerbrand_ar,

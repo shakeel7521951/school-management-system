@@ -1,0 +1,29 @@
+{
+  "modal": {
+    "title": "تفاصيل الإرسال",
+    "sections": {
+      "formData": {
+        "title": "بيانات النموذج",
+        "noData": "لا توجد بيانات متاحة"
+      },
+      "metaInfo": {
+        "formId": "معرف النموذج",
+        "submittedAt": "تاريخ الإرسال",
+        "ipAddress": "عنوان الـ IP",
+        "userAgent": "وكيل المستخدم",
+        "status": "الحالة"
+      },
+      "rejectionNote": {
+        "title": "ملاحظة الرفض",
+        "noNote": "لم يتم تقديم أي ملاحظة"
+      }
+    },
+    "actions": {
+      "download": "تحميل",
+      "close": "إغلاق"
+    },
+    "placeholders": {
+      "nA": "غير متوفر"
+    }
+  }
+}

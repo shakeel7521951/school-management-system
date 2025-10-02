@@ -1,0 +1,20 @@
+{
+  "title": "Edit Complaint",
+  "placeholders": {
+    "employeeName": "Employee Name",
+    "jobTitle": "Job Title",
+    "department": "Department",
+    "date": "Date"
+  },
+  "statusOptions": {
+    "submitted": "Submitted",
+    "pending": "Pending",
+    "in_progress": "In Progress",
+    "resolved": "Resolved",
+    "rejected": "Rejected"
+  },
+  "buttons": {
+    "cancel": "Cancel",
+    "save": "Save"
+  }
+}

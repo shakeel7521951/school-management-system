@@ -7,8 +7,11 @@ import {
   useAllSubmittedFormsQuery,
   useUpdateSubmissionStatusMutation,
 } from "../../../redux/slices/SubmittedFormsApi";
+import { useTranslation } from "react-i18next";
 
 const UploadedDocuments = () => {
+  const { t } = useTranslation("uploadedDocuments"); // JSON namespace
+
   const { data: submissions = [], isLoading, refetch } = useAllSubmittedFormsQuery();
   const [updateStatus] = useUpdateSubmissionStatusMutation();
 
@@ -68,17 +71,12 @@ const UploadedDocuments = () => {
 
   // Status badge
   const getStatusClass = (status) => {
-    switch (status) {
-      case "Pending":
-        return "bg-yellow-100 text-yellow-800";
-      case "Resolved":
-        return "bg-green-100 text-green-800";
-      case "Rejected":
-        return "bg-red-100 text-red-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
+    const classes = t("statusClasses", { returnObjects: true });
+    return classes[status] || classes.default;
   };
+
+  // Table columns from JSON
+  const tableColumns = t("tableColumns", { returnObjects: true });
 
   return (
     <div className="lg:ml-64 p-4 md:p-6 bg-gray-50 min-h-screen">
@@ -87,13 +85,13 @@ const UploadedDocuments = () => {
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 pb-4 border-b border-gray-200">
           <h2 className="text-xl md:text-2xl font-bold text-[#104c80] flex items-center gap-2">
             <FileText className="w-5 h-5 md:w-6 md:h-6" />
-            Uploaded Documents
+            {t("pageTitle")}
           </h2>
         </div>
 
         {/* Table */}
         {isLoading ? (
-          <div className="text-center py-12 text-gray-500">Loading...</div>
+          <div className="text-center py-12 text-gray-500">{t("loading")}</div>
         ) : (
           <AdminDocumentsTable
             uploads={uploads}
@@ -102,13 +100,14 @@ const UploadedDocuments = () => {
             setShowRejectModal={setShowRejectModal}
             handleApprove={handleApprove}
             getStatusClass={getStatusClass}
+            tableColumns={tableColumns}
           />
         )}
 
         {uploads.length === 0 && !isLoading && (
           <div className="text-center py-12 text-gray-500">
             <FileText className="w-12 h-12 mx-auto text-gray-300 mb-3" />
-            <p>No documents uploaded yet</p>
+            <p>{t("emptyMessage")}</p>
           </div>
         )}
       </div>
@@ -116,23 +115,26 @@ const UploadedDocuments = () => {
       {/* Modals */}
       {showViewModal && selectedDoc && (
         <ViewDocumentModal
-          selectedDoc={selectedDoc} // ← pass the doc directly
+          selectedDoc={selectedDoc}
           onClose={() => setShowViewModal(false)}
           getStatusClass={getStatusClass}
+          title={t("modals.view.title")}
         />
       )}
 
       {showRejectModal && selectedDoc && (
         <RejectDocumentModal
-          selectedDoc={selectedDoc} // ← pass the doc directly
+          selectedDoc={selectedDoc}
           rejectNote={rejectNote}
           setRejectNote={setRejectNote}
+          placeholderNote={t("modals.reject.placeholderNote")}
           onClose={() => {
             setRejectNote("");
             setSelectedDoc(null);
             setShowRejectModal(false);
           }}
           onConfirm={handleRejectSubmit}
+          title={t("modals.reject.title")}
         />
       )}
     </div>

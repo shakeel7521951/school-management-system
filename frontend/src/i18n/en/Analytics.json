@@ -1,6 +1,6 @@
 {
   "title": "Analytics",
-  "subtitle": "Track registration requests and statuses",
+  "subtitle": "Track requests and statuses",
   "kpi": {
     "total_requests": "Total Requests",
     "approved": "Approved",

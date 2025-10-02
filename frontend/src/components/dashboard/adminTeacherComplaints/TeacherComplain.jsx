@@ -11,10 +11,13 @@ import {
   useUpdateComplaintStatusMutation,
   useDeleteComplaintMutation,
 } from "../../../redux/slices/TeacherComplaints";
+import { useTranslation } from "react-i18next";
 
 const USER_ROLE = "manager";
 
 const TeacherComplain = () => {
+  const { t } = useTranslation("teacherComplain");
+
   // Filters & UI states
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterImpact, setFilterImpact] = useState("all");
@@ -93,10 +96,10 @@ const TeacherComplain = () => {
   const saveStatus = async (id, newStatus) => {
     try {
       await updateComplaintStatus({ id, status: newStatus }).unwrap();
-      setToast({ show: true, message: "Status updated successfully", type: "success" });
+      setToast({ show: true, message: t("toast.status_updated_success"), type: "success" });
       setViewModal(null);
     } catch {
-      setToast({ show: true, message: "Failed to update status", type: "error" });
+      setToast({ show: true, message: t("toast.status_updated_error"), type: "error" });
     }
   };
 
@@ -104,10 +107,10 @@ const TeacherComplain = () => {
   const confirmDelete = async (id) => {
     try {
       await deleteComplaint(id).unwrap();
-      setToast({ show: true, message: "Complaint deleted", type: "success" });
+      setToast({ show: true, message: t("toast.delete_success"), type: "success" });
       setDeleteModal(null);
     } catch {
-      setToast({ show: true, message: "Failed to delete complaint", type: "error" });
+      setToast({ show: true, message: t("toast.delete_error"), type: "error" });
     }
   };
 
@@ -117,25 +120,23 @@ const TeacherComplain = () => {
       <div className="flex justify-center items-center h-screen text-gray-500 text-xl font-medium bg-gray-50">
         <div className="text-center p-8 bg-white rounded-2xl shadow-lg max-w-md border border-gray-100">
           <FaExclamationTriangle className="mx-auto text-4xl text-amber-500 mb-4" />
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Access Denied</h2>
-          <p className="text-gray-600">You do not have permission to view complaints.</p>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">{t("access_denied.title")}</h2>
+          <p className="text-gray-600">{t("access_denied.message")}</p>
         </div>
       </div>
     );
   }
 
-  if (isLoading) return <p className="text-center mt-20">Loading complaints...</p>;
-  if (isError) return <p className="text-center mt-20 text-red-500">Failed to load complaints</p>;
+  if (isLoading) return <p className="text-center mt-20">{t("messages.loading")}</p>;
+  if (isError) return <p className="text-center mt-20 text-red-500">{t("messages.error")}</p>;
 
   return (
     <div className="lg:ml-[270px] max-w-8xl bg-gray-50 py-4 px-4 sm:px-6 lg:px-10 flex flex-col gap-8 min-h-screen">
       <header>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1a4480]">
-          Teacher Complaint Management
+          {t("page.title")}
         </h1>
-        <p className="text-gray-500 mt-1 text-sm sm:text-base">
-          Manage and resolve teachers complaints efficiently
-        </p>
+        <p className="text-gray-500 mt-1 text-sm sm:text-base">{t("page.subtitle")}</p>
         <hr className="mt-4 border-gray-200" />
       </header>
 
@@ -176,8 +177,11 @@ const TeacherComplain = () => {
       {filteredComplaints.length > 0 && pageCount > 1 && (
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white p-4 rounded-2xl shadow-md border border-gray-100">
           <div className="text-sm text-gray-700">
-            Showing {Math.min((currentPage - 1) * itemsPerPage + 1, filteredComplaints.length)} to{" "}
-            {Math.min(currentPage * itemsPerPage, filteredComplaints.length)} of {filteredComplaints.length} results
+            {t("pagination.text", {
+              start: Math.min((currentPage - 1) * itemsPerPage + 1, filteredComplaints.length),
+              end: Math.min(currentPage * itemsPerPage, filteredComplaints.length),
+              total: filteredComplaints.length,
+            })}
           </div>
           <div className="flex gap-2 flex-wrap">
             <button
@@ -185,14 +189,14 @@ const TeacherComplain = () => {
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               className="px-3 py-1.5 rounded-lg border border-gray-300 text-gray-700 disabled:opacity-50"
             >
-              <FaArrowLeft className="text-xs" /> Prev
+              <FaArrowLeft className="text-xs" /> {t("pagination.prev")}
             </button>
             <button
               disabled={currentPage === pageCount}
               onClick={() => setCurrentPage((p) => Math.min(pageCount, p + 1))}
               className="px-3 py-1.5 rounded-lg border border-gray-300 text-gray-700 disabled:opacity-50"
             >
-              Next <FaArrowRight className="text-xs" />
+              {t("pagination.next")} <FaArrowRight className="text-xs" />
             </button>
           </div>
         </div>

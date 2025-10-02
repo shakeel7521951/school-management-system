@@ -1,0 +1,29 @@
+{
+  "modal": {
+    "title": "Submission Details",
+    "sections": {
+      "formData": {
+        "title": "Form Data",
+        "noData": "No data available"
+      },
+      "metaInfo": {
+        "formId": "Form ID",
+        "submittedAt": "Submitted At",
+        "ipAddress": "IP Address",
+        "userAgent": "User Agent",
+        "status": "Status"
+      },
+      "rejectionNote": {
+        "title": "Rejection Note",
+        "noNote": "No note provided"
+      }
+    },
+    "actions": {
+      "download": "Download",
+      "close": "Close"
+    },
+    "placeholders": {
+      "nA": "N/A"
+    }
+  }
+}

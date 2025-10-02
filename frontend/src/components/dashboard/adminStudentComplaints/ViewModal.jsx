@@ -38,7 +38,7 @@ const ViewModal = ({ viewModal, setViewModal }) => {
   if (!viewModal) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div className="fixed inset-0 bg-black/90 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="p-6 border-b border-gray-200">
@@ -65,7 +65,8 @@ const ViewModal = ({ viewModal, setViewModal }) => {
               </h3>
               <p className="text-lg font-medium text-gray-900">{viewModal.name}</p>
               <p className="text-sm text-gray-600">
-                {t("table.columns.detail")} {viewModal.studentClass}, Age {viewModal.age}
+              <span className="font-bold">{t("table.columns.detail")}</span>: <br />
+                {t("table.columns.class")} {viewModal.studentClass} <br /> {t("table.columns.age")} {viewModal.age}
               </p>
             </div>
 

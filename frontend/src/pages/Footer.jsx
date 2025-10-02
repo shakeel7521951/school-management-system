@@ -44,7 +44,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative text-white overflow-hidden"
+      className="relative text-white overflow-hidden "
       style={{
         backgroundImage: "url('./images/footer-cover.png')",
         backgroundSize: "cover",
