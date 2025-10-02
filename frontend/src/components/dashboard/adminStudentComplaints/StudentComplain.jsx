@@ -12,15 +12,19 @@ import {
   useChangeStComplaintStatusMutation,
 } from "../../../redux/slices/StComplaintApi";
 
+import { useTranslation } from "react-i18next";
+
 const USER_ROLE = "manager";
 
 const StudentComplain = () => {
+  const { t } = useTranslation("adminStudentComplaints");
+
   const { data: complaints = [], isLoading, isError } = useGetAllStComplaintsQuery();
   const [deleteComplaint] = useDeleteStComplaintMutation();
   const [changeStatus] = useChangeStComplaintStatusMutation();
 
   const [filterStatus, setFilterStatus] = useState("all");
-  const [filterImpact, setFilterImpact] = useState("all"); // ✅ replaced priority with impact
+  const [filterImpact, setFilterImpact] = useState("all");
   const [filterType, setFilterType] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "ascending" });
@@ -31,45 +35,35 @@ const StudentComplain = () => {
   const [deleteModal, setDeleteModal] = useState(null);
   const [toast, setToast] = useState({ show: false, message: "", type: "" });
 
-  // ✅ Toast
   const showToast = (message, type = "success") => {
     setToast({ show: true, message, type });
     setTimeout(() => setToast({ show: false, message: "", type: "" }), 3000);
   };
 
-  // ✅ Status Update
   const saveStatus = async (id, newStatus) => {
     try {
       await changeStatus({ id, status: newStatus }).unwrap();
-      showToast("Status updated successfully", "success");
+      showToast(t("modals.status_updated"), "success");
       setEditModal(null);
-    } catch (error){
-      console.log(isError)
-      // showToast("Failed to update status", error);
+    } catch (error) {
+      showToast(t("modals.status_error"), "error");
     }
   };
 
-  // Delete complaint
   const confirmDelete = async (id) => {
-    console.log("Deleting complaint with ID:", id);
     try {
       await deleteComplaint(id).unwrap();
-      showToast("Complaint deleted successfully", "success");
+      showToast(t("modals.delete_success"), "success");
       setDeleteModal(null);
     } catch (err) {
-      console.error("Delete failed:", err);
-      showToast("Failed to delete complaint", "error");
+      showToast(t("modals.delete_error"), "error");
     }
   };
 
-
-  // ✅ Filtering + Sorting
   const filteredComplaints = useMemo(() => {
     const q = searchTerm.trim().toLowerCase();
-
     return (complaints || [])
       .filter((c) => {
-        // normalize values for consistent matching
         const statusValue = c.status?.toLowerCase().replace(/\s+/g, "-");
         const impactValue = c.impact?.toLowerCase();
         const typeValue = c.type?.toLowerCase();
@@ -93,9 +87,7 @@ const StudentComplain = () => {
         if (aKey == null && bKey == null) return 0;
         if (aKey == null) return sortConfig.direction === "ascending" ? -1 : 1;
         if (bKey == null) return sortConfig.direction === "ascending" ? 1 : -1;
-        if (sortConfig.key === "id") {
-          return sortConfig.direction === "ascending" ? aKey - bKey : bKey - aKey;
-        }
+        if (sortConfig.key === "id") return sortConfig.direction === "ascending" ? aKey - bKey : bKey - aKey;
         if (aKey < bKey) return sortConfig.direction === "ascending" ? -1 : 1;
         if (aKey > bKey) return sortConfig.direction === "ascending" ? 1 : -1;
         return 0;
@@ -110,9 +102,7 @@ const StudentComplain = () => {
 
   const handleSort = (key) => {
     let direction = "ascending";
-    if (sortConfig.key === key && sortConfig.direction === "ascending") {
-      direction = "descending";
-    }
+    if (sortConfig.key === key && sortConfig.direction === "ascending") direction = "descending";
     setSortConfig({ key, direction });
   };
 
@@ -125,69 +115,41 @@ const StudentComplain = () => {
     setCurrentPage(1);
   };
 
-  // ✅ Access Control
   if (!["manager", "protection_committee"].includes(USER_ROLE)) {
     return (
       <div className="flex justify-center items-center h-screen text-gray-500 text-xl font-medium bg-gray-50">
         <div className="text-center p-8 bg-white rounded-2xl shadow-lg max-w-md border border-gray-100">
           <FaExclamationTriangle className="mx-auto text-4xl text-amber-500 mb-4" />
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Access Denied</h2>
-          <p className="text-gray-600">You do not have permission to view complaints.</p>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">{t("access_denied.title")}</h2>
+          <p className="text-gray-600">{t("access_denied.message")}</p>
         </div>
       </div>
     );
   }
 
-  // ✅ Loading & Error
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-gray-500 text-lg">Loading complaints...</p>
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-red-500 text-lg">Failed to load complaints</p>
-      </div>
-    );
-  }
+  if (isLoading) return <p className="text-gray-500 text-lg">{t("loading")}</p>;
+  if (isError) return <p className="text-red-500 text-lg">{t("error")}</p>;
 
   return (
     <div className="lg:ml-[270px] max-w-8xl bg-gray-50 py-4 px-4 sm:px-6 lg:px-10 flex flex-col gap-8 min-h-screen">
       <header>
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1a4480]">
-        Students Complaint Management
-        </h1>
-        <p className="text-gray-500 mt-1 text-sm sm:text-base">
-          Manage and resolve students complaints efficiently
-        </p>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1a4480]">{t("title")}</h1>
+        <p className="text-gray-500 mt-1 text-sm sm:text-base">{t("subtitle")}</p>
         <hr className="mt-4 border-gray-200" />
       </header>
 
-      {/* ✅ Stats */}
-      <ComplaintStats complaints={complaints} />
-
-      {/* ✅ Filters */}
+      <ComplaintStats complaints={complaints} t={t} />
       <ComplaintFilters
-        filterStatus={filterStatus}
-        setFilterStatus={setFilterStatus}
-        filterImpact={filterImpact}
-        setFilterImpact={setFilterImpact}
-        filterType={filterType}
-        setFilterType={setFilterType}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        itemsPerPage={itemsPerPage}
-        setItemsPerPage={setItemsPerPage}
+        filterStatus={filterStatus} setFilterStatus={setFilterStatus}
+        filterImpact={filterImpact} setFilterImpact={setFilterImpact}
+        filterType={filterType} setFilterType={setFilterType}
+        searchTerm={searchTerm} setSearchTerm={setSearchTerm}
+        itemsPerPage={itemsPerPage} setItemsPerPage={setItemsPerPage}
         filteredComplaints={filteredComplaints}
         resetFilters={resetFilters}
         setCurrentPage={setCurrentPage}
+        t={t}
       />
-
-      {/* ✅ Table */}
       <ComplaintTable
         paginatedComplaints={paginatedComplaints}
         filteredComplaints={filteredComplaints}
@@ -196,19 +158,12 @@ const StudentComplain = () => {
         setViewModal={setViewModal}
         setEditModal={setEditModal}
         setDeleteModal={setDeleteModal}
+        t={t}
       />
-
-      {/* ✅ Pagination */}
       {pageCount > 1 && (
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white p-4 rounded-2xl shadow-md border border-gray-100">
           <div className="text-sm text-gray-700">
-            Showing{" "}
-            <span className="font-medium">{(currentPage - 1) * itemsPerPage + 1}</span>{" "}
-            to{" "}
-            <span className="font-medium">
-              {Math.min(currentPage * itemsPerPage, filteredComplaints.length)}
-            </span>{" "}
-            of <span className="font-medium">{filteredComplaints.length}</span> results
+            {t("pagination.showing")} <span className="font-medium">{(currentPage - 1) * itemsPerPage + 1}</span> {t("pagination.to")} <span className="font-medium">{Math.min(currentPage * itemsPerPage, filteredComplaints.length)}</span> {t("pagination.of")} <span className="font-medium">{filteredComplaints.length}</span> {t("pagination.results")}
           </div>
           <div className="flex gap-2 flex-wrap">
             <button
@@ -216,39 +171,28 @@ const StudentComplain = () => {
               disabled={currentPage === 1}
               className="px-3 py-1.5 rounded-lg border border-gray-300 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 flex items-center gap-1 text-sm"
             >
-              <FaArrowLeft className="text-xs" /> Prev
+              <FaArrowLeft className="text-xs" /> {t("pagination.prev")}
             </button>
             <button
               onClick={() => setCurrentPage((prev) => Math.min(prev + 1, pageCount))}
               disabled={currentPage === pageCount}
               className="px-3 py-1.5 rounded-lg border border-gray-300 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 flex items-center gap-1 text-sm"
             >
-              Next <FaArrowRight className="text-xs" />
+              {t("pagination.next")} <FaArrowRight className="text-xs" />
             </button>
           </div>
         </div>
       )}
 
-      {/* ✅ Modals */}
       <ComplaintModals
-        viewModal={viewModal}
-        setViewModal={setViewModal}
-        editModal={editModal}
-        setEditModal={setEditModal}
-        deleteModal={deleteModal}
-        setDeleteModal={setDeleteModal}
-        saveStatus={saveStatus}
-        confirmDelete={confirmDelete}
-        showToast={showToast}
-        toast={toast}
+        viewModal={viewModal} setViewModal={setViewModal}
+        editModal={editModal} setEditModal={setEditModal}
+        deleteModal={deleteModal} setDeleteModal={setDeleteModal}
+        saveStatus={saveStatus} confirmDelete={confirmDelete} showToast={showToast} toast={toast}
+        t={t}
       />
 
-      {/* ✅ Add this line to actually show DeleteModal */}
-      <DeleteModal
-        deleteModal={deleteModal}
-        setDeleteModal={setDeleteModal}
-        confirmDelete={confirmDelete}
-      />
+      <DeleteModal deleteModal={deleteModal} setDeleteModal={setDeleteModal} confirmDelete={confirmDelete} t={t} />
     </div>
   );
 };

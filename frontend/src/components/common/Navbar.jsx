@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { toggleLanguage } from "../../redux/slices/languageSlice";
 
 export default function Navbar() {
+  const { t } = useTranslation("navbar");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +20,14 @@ export default function Navbar() {
   const profile = useSelector(selectUserProfile);
 
   const [logout, { isLoading }] = useLogoutMutation();
+
+ const navLinks = [
+  { key: "home", name: t("navbar.navLinks.home"), path: "/" },
+  { key: "tamakon", name: t("navbar.navLinks.tamakon.title"), path: "/tamakon", dropdown: true },
+  { key: "services", name: t("navbar.navLinks.services.title"), path: "/services", dropdown: true },
+  { key: "media", name: t("navbar.navLinks.media.title"), path: "/media", dropdown: true },
+  { key: "contact", name: t("navbar.navLinks.contactUs"), path: "/contact-us" },
+];
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -85,59 +94,64 @@ export default function Navbar() {
                   </button>
 
                   {/* Dropdowns */}
-                  {link.name === "Tamakon" && (
+                {link.key === "tamakon" && (
                     <div className="absolute text-[15px] overflow-hidden left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50">
                       <NavLink
                         to="/about-tamakon"
                         className="block px-4 py-2 hover:text-indigo-700"
                       >
-                        About Tamakon
+                        {t("navbar.navLinks.tamakon.dropdown.about")}
                       </NavLink>
                       <NavLink
                         to="/tamakon-team"
                         className="block px-4 py-2 hover:text-indigo-700"
                       >
-                        Team
+                        {t("navbar.navLinks.tamakon.dropdown.team")}
                       </NavLink>
                       <NavLink
                         to="/director-message"
                         className="block px-4 py-2 hover:text-indigo-700"
                       >
-                        Director Manager Message
+                        {t("navbar.navLinks.tamakon.dropdown.directorMessage")}
                       </NavLink>
                       <NavLink
                         to="/acting-director-message"
                         className="block px-4 py-2 hover:text-indigo-700"
                       >
-                        Acting Director General Message
+                        {t(
+                          "navbar.navLinks.tamakon.dropdown.actingDirectorMessage"
+                        )}
                       </NavLink>
                       <NavLink
                         to="/school-fees"
                         className="block px-4 py-2 hover:text-indigo-700"
                       >
-                        School Fees
+                        {t("navbar.navLinks.tamakon.dropdown.schoolFees")}
                       </NavLink>
                       <NavLink
                         to="/recruitment"
                         className="block px-4 py-2 hover:text-indigo-700"
                       >
-                        Recruitment
+                        {t("navbar.navLinks.tamakon.dropdown.recruitment")}
                       </NavLink>
                       <NavLink
                         to="/faqs"
                         className="block px-4 py-2 hover:text-indigo-700"
                       >
-                        FAQs
+                        {t("navbar.navLinks.tamakon.dropdown.faqs")}
                       </NavLink>
                     </div>
                   )}
 
-                  {link.name === "Services" && (
+                {link.key === "services" && (
                     <div className="font-base text-[15px] absolute left-24 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50">
                       {/* Academic Services with dropdown */}
                       <div className="relative group/submenu ">
                         <button className="w-full  text-left px-4 py-2 hover:text-indigo-700 flex justify-between items-center">
-                          Academic Services
+                          {t(
+                            "navbar.navLinks.services.dropdown.academicServices"
+                          )}
+
                           <span className="ml-2">▸</span>
                         </button>
 
@@ -147,21 +161,21 @@ export default function Navbar() {
                             to="/middle-unit"
                             className="block px-4  py-2 hover:text-indigo-700"
                           >
-                            Middle and High Unit for Multiple Intelligences and
-                            Talents (Boys)
+                            {t("navbar.navLinks.services.dropdown.middleUnit")}
                           </NavLink>
                           <NavLink
                             to="/primary-unit"
                             className="block px-4 py-2 hover:overflow-hidden hover:text-indigo-700"
                           >
-                            Primary Unit for Multiple Intelligences and Talents
-                            – Boys and Girls
+                            {t("navbar.navLinks.services.dropdown.primaryUnit")}
                           </NavLink>
                           <NavLink
                             to="/educational-unit"
                             className="block px-4 py-2 hover:overflow-hidden hover:text-indigo-700"
                           >
-                            Specialized Education Unit
+                            {t(
+                              "navbar.navLinks.services.dropdown.specializedUnit"
+                            )}
                           </NavLink>
                         </div>
                       </div>
@@ -171,12 +185,12 @@ export default function Navbar() {
                         to="/public-relations"
                         className="hover:overflow-hidden block px-4 py-2 hover:text-indigo-700"
                       >
-                        Public Relations Department
+                        {t("navbar.navLinks.services.dropdown.publicRelations")}
                       </NavLink>
 
                       <div className="relative group/submenu ">
                         <button className="w-full text-left px-4 py-2 hover:text-indigo-700 flex justify-between items-center">
-                          Speech & Language Therapy
+                          {t("navbar.navLinks.services.dropdown.speechTherapy")}
                           <span className="ml-2">▸</span>
                         </button>
 
@@ -185,18 +199,30 @@ export default function Navbar() {
                             to="/speech-therapy"
                             className="block px-4 py-2 hover:text-indigo-700"
                           >
-                            Speech & Language Therapy
+                            {t(
+                              "navbar.navLinks.services.dropdown.speechTherapy"
+                            )}
                           </NavLink>
                           <NavLink
                             to="/vocational-rehabilitation"
                             className="block px-4 py-2 hover:text-indigo-700"
                           >
-                            Vocational & Physical Rehabilitation Department
+                            {t(
+                              "navbar.navLinks.services.dropdown.vocationalRehabilitation"
+                            )}
                           </NavLink>
                         </div>
 
-                        <div className=' absolute top-8 left-[-550px] w-56 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50'>
-                          <NavLink to='/nursing-department' className='block px-4 py-2 hover:text-indigo-700'>Nursing Department</NavLink>
+                        <div className=" absolute top-8 left-[-550px] w-56 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50">
+                          <NavLink
+                            to="/nursing-department"
+                            className="block px-4 py-2 hover:text-indigo-700"
+                          >
+                            {" "}
+                            {t(
+                              "navbar.navLinks.services.dropdown.nursingDepartment"
+                            )}
+                          </NavLink>
                         </div>
                       </div>
 
@@ -204,24 +230,26 @@ export default function Navbar() {
                         to="/financial-affairs"
                         className="block px-4 py-2 hover:text-indigo-700"
                       >
-                        Financial & Administrative Affairs
+                        {t(
+                          "navbar.navLinks.services.dropdown.financialAffairs"
+                        )}
                       </NavLink>
                     </div>
                   )}
 
-                  {link.name === "Media" && (
+                {link.key === "media" && (
                     <div className="absolute text-[15px] overflow-hidden left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50">
                       <NavLink
                         to="/news"
                         className="block px-4 py-2 hover:text-indigo-700"
                       >
-                        News
+                        {t("navbar.navLinks.media.dropdown.news")}
                       </NavLink>
                       <NavLink
                         to="/gallery"
                         className="block px-4 py-2 hover:text-indigo-700"
                       >
-                        Gallery
+                        {t("navbar.navLinks.media.dropdown.gallery")}
                       </NavLink>
                     </div>
                   )}
@@ -231,9 +259,10 @@ export default function Navbar() {
                   <NavLink
                     to={link.path}
                     className={({ isActive }) =>
-                      `relative pb-1 transition duration-300 px-3 py-2 ${isActive
-                        ? "text-indigo-300 font-semibold after:w-full"
-                        : "text-gray-200 hover:text-indigo-300 after:w-0 hover:after:w-full"
+                      `relative pb-1 transition duration-300 px-3 py-2 ${
+                        isActive
+                          ? "text-indigo-300 font-semibold after:w-full"
+                          : "text-gray-200 hover:text-indigo-300 after:w-0 hover:after:w-full"
                       } after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-gradient-to-r after:from-indigo-400 after:to-purple-400 after:transition-all after:duration-300`
                     }
                   >
@@ -264,7 +293,7 @@ export default function Navbar() {
                              hover:bg-[#104c80] hover:shadow-lg hover:shadow-[#104c80]/40 
                              hover:scale-105 transition-all duration-300 whitespace-nowrap"
                 >
-                  Login
+                  {t("navbar.profile.login")}
                 </NavLink>
               ) : (
                 <div className="relative">
@@ -292,14 +321,14 @@ export default function Navbar() {
                         to="/my-profile"
                         className="block px-4 py-2 hover:text-indigo-700"
                       >
-                        My Profile
+                        {t("navbar.profile.myProfile")}{" "}
                       </NavLink>
                       {profile?.role === "admin" && (
                         <NavLink
-                          to="/studentcomplain"
+                          to="/analytics"
                           className="block px-4 py-2 hover:text-indigo-700"
                         >
-                          Admin Dashboard
+                          {t("navbar.profile.adminDashboard")}
                         </NavLink>
                       )}
                       {profile?.role === "teacher" && (
@@ -307,7 +336,7 @@ export default function Navbar() {
                           to="/teacherdocuments"
                           className="block px-4 py-2 hover:text-indigo-700"
                         >
-                          Teacher Dashboard
+                          {t("navbar.profile.teacherDashboard")}
                         </NavLink>
                       )}
                       {profile?.role === "visitor" && (
@@ -315,7 +344,7 @@ export default function Navbar() {
                           to="/visitor"
                           className="block px-4 py-2 hover:text-indigo-700"
                         >
-                          Visitor Dashboard
+                          {t("navbar.profile.visitorDashboard")}
                         </NavLink>
                       )}
                       {profile?.role?.toLowerCase() === "student" && (
@@ -323,7 +352,7 @@ export default function Navbar() {
                           to="/stcomplaints"
                           className="block px-4 py-2 hover:text-indigo-700"
                         >
-                          Student Dashboard
+                          {t("navbar.profile.studentDashboard")}
                         </NavLink>
                       )}
                       {profile?.role?.toLowerCase() === "guard" && (
@@ -331,7 +360,7 @@ export default function Navbar() {
                           to="/visitor"
                           className="block px-4 py-2 hover:text-indigo-700"
                         >
-                          Security Dashboard
+                          {t("navbar.profile.securityDashboard")}
                         </NavLink>
                       )}
                       <button
@@ -368,12 +397,16 @@ export default function Navbar() {
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 max-w-full bg-gradient-to-b from-[#1A3570] to-[#2E3A87] border-l border-indigo-400 shadow-2xl transform transition-transform duration-300 z-50 p-4 sm:p-6 ${isOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+        className={`fixed top-0 right-0 h-full w-80 max-w-full bg-gradient-to-b from-[#1A3570] to-[#2E3A87] border-l border-indigo-400 shadow-2xl transform transition-transform duration-300 z-50 p-4 sm:p-6 ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold text-white">Menu</h2>
+          <h2 className="text-xl font-bold text-white">
+            {" "}
+            {t("navbar.menuTitle")}
+          </h2>
           <button
             onClick={() => setIsOpen(false)}
             className="p-2 bg-indigo-800 rounded-lg"
@@ -391,9 +424,10 @@ export default function Navbar() {
                   to={link.path}
                   onClick={() => setIsOpen(false)}
                   className={({ isActive }) =>
-                    `block py-3 px-4 rounded-lg transition duration-300 ${isActive
-                      ? "bg-indigo-800 text-indigo-300 font-semibold"
-                      : "text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30"
+                    `block py-3 px-4 rounded-lg transition duration-300 ${
+                      isActive
+                        ? "bg-indigo-800 text-indigo-300 font-semibold"
+                        : "text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30"
                     }`
                   }
                 >
@@ -410,137 +444,158 @@ export default function Navbar() {
                   </button>
 
                   {/* Tamakon Dropdown */}
-                  {link.name === "Tamakon" && openDropdown === "Tamakon" && (
+                 {link.key === "tamakon" && openDropdown === "tamakon" && (
                     <div className="ml-4 mt-1 flex flex-col gap-1">
                       <NavLink
                         to="/about-tamakon"
                         onClick={() => setIsOpen(false)}
                         className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
                       >
-                        About Tamakon
+                        {t("navbar.navLinks.tamakon.dropdown.about")}
                       </NavLink>
                       <NavLink
                         to="/tamakon-team"
                         onClick={() => setIsOpen(false)}
                         className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
                       >
-                        Team
+                        {t("navbar.navLinks.tamakon.dropdown.team")}
                       </NavLink>
                       <NavLink
                         to="/director-message"
                         onClick={() => setIsOpen(false)}
                         className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
                       >
-                        Director Manager Message
+                        {t("navbar.navLinks.tamakon.dropdown.directorMessage")}
                       </NavLink>
                       <NavLink
                         to="/acting-director-message"
                         onClick={() => setIsOpen(false)}
                         className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
                       >
-                        Acting Director General Message
+                        {t("navbar.navLinks.tamakon.dropdown.directorMessage")}
                       </NavLink>
                       <NavLink
                         to="/school-fees"
                         onClick={() => setIsOpen(false)}
                         className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
                       >
-                        School Fees
+                      {t("navbar.navLinks.tamakon.dropdown.schoolFees")}
+
                       </NavLink>
                       <NavLink
                         to="/recruitment"
                         onClick={() => setIsOpen(false)}
                         className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
                       >
-                        Recruitment
+                        {t("navbar.navLinks.tamakon.dropdown.recruitment")}
                       </NavLink>
                       <NavLink
                         to="/faqs"
                         onClick={() => setIsOpen(false)}
                         className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
                       >
-                        FAQs
+                        {t("navbar.navLinks.tamakon.dropdown.faqs")}
+
                       </NavLink>
                     </div>
                   )}
 
                   {/* Services Dropdown */}
-                  {link.name === "Services" && openDropdown === "Services" && (
+                 {link.key === "services" && openDropdown === "services" && (
                     <div className="ml-4 mt-1 flex flex-col gap-1">
                       <NavLink
                         to="/public-relations"
                         onClick={() => setIsOpen(false)}
                         className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
                       >
-                        Public Relations Department
+                       {t("navbar.navLinks.services.dropdown.publicRelations")}
+
                       </NavLink>
                       <NavLink
                         to="/speech-therapy"
                         onClick={() => setIsOpen(false)}
                         className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
                       >
-                        Speech & Language Therapy
+                        {t(
+                              "navbar.navLinks.services.dropdown.speechTherapy"
+                            )}
+
                       </NavLink>
                       <NavLink
                         to="/vocational-rehabilitation"
                         onClick={() => setIsOpen(false)}
                         className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
                       >
-                        Vocational & Physical Rehabilitation Department
+                            {t(
+                              "navbar.navLinks.services.dropdown.vocationalRehabilitation"
+                            )}
+
                       </NavLink>
                       <NavLink
                         to="/nursing-department"
                         onClick={() => setIsOpen(false)}
                         className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
                       >
-                        Nursing Department
+                            {t(
+                              "navbar.navLinks.services.dropdown.nursingDepartment"
+                            )}
+
                       </NavLink>
                       <NavLink
                         to="/financial-affairs"
                         onClick={() => setIsOpen(false)}
                         className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
                       >
-                        Financial & Administrative Affairs
+                         {t(
+                          "navbar.navLinks.services.dropdown.financialAffairs"
+                        )}
+
                       </NavLink>
                       <NavLink
                         to="/middle-unit"
                         onClick={() => setIsOpen(false)}
                         className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
                       >
-                        Middle and High Unit for Multiple Intelligences (Boys)
+                       {t("navbar.navLinks.services.dropdown.middleUnit")}
+
                       </NavLink>
                       <NavLink
                         to="/primary-unit"
                         onClick={() => setIsOpen(false)}
                         className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
                       >
-                        Primary Unit for Multiple Intelligences – Boys & Girls
+                      {t("navbar.navLinks.services.dropdown.primaryUnit")}
+
                       </NavLink>
                       <NavLink
                         to="/educational-unit"
                         onClick={() => setIsOpen(false)}
                         className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
                       >
-                        Specialized Education Unit
+                        {t(
+                              "navbar.navLinks.services.dropdown.specializedUnit"
+                            )}
+
                       </NavLink>
                     </div>
                   )}
 
-                  {link.name === "Media" && openDropdown === "Media" && (
+                 {link.key === "media" && openDropdown === "media" && (
                     <div className="ml-4 mt-1 flex flex-col gap-1">
                       <NavLink
                         to="/news"
                         onClick={() => setIsOpen(false)}
                         className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
                       >
-                        News
+                         {t("navbar.navLinks.media.dropdown.news")}
                       </NavLink>
                       <NavLink
                         to="/gallery"
                         onClick={() => setIsOpen(false)}
                         className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
                       >
-                        Gallery
+                          {t("navbar.navLinks.media.dropdown.gallery")}
+
                       </NavLink>
                     </div>
                   )}
@@ -548,7 +603,6 @@ export default function Navbar() {
               )}
             </li>
           ))}
-
         </ul>
 
         {/* Mobile Login/Profile (inside sidebar) */}
@@ -559,7 +613,8 @@ export default function Navbar() {
               onClick={() => setIsOpen(false)}
               className="block w-full px-4 py-3 bg-gradient-to-r from-[#104c80] to-[#104c80]/30 rounded-full text-center text-white font-semibold shadow-md hover:shadow-lg transition mb-4"
             >
-              Login
+               {t("navbar.profile.login")}
+
             </NavLink>
           ) : (
             <div className="relative">
@@ -591,18 +646,19 @@ export default function Navbar() {
                       setIsOpen(false);
                     }}
                   >
-                    My Profile
+                    {t("navbar.profile.myProfile")}
                   </NavLink>
                   {profile?.role === "admin" && (
                     <NavLink
-                      to="/studentcomplain"
+                      to="/analytics"
                       className="block px-4 py-2 text-gray-700 hover:text-indigo-700 transition"
                       onClick={() => {
                         setProfileOpen(false);
                         setIsOpen(false);
                       }}
                     >
-                      Admin Dashboard
+                       {t("navbar.profile.adminDashboard")}
+
                     </NavLink>
                   )}
                   {profile?.role === "guard" && (
@@ -614,7 +670,8 @@ export default function Navbar() {
                         setIsOpen(false);
                       }}
                     >
-                      Visitor Dashboard
+                    {t("navbar.profile.visitorDashboard")}
+
                     </NavLink>
                   )}
                   {profile?.role === "teacher" && (
@@ -626,7 +683,8 @@ export default function Navbar() {
                         setIsOpen(false);
                       }}
                     >
-                      Teacher Dashboard
+                      {t("navbar.profile.teacherDashboard")}
+
                     </NavLink>
                   )}
                   {profile?.role?.toLowerCase() === "student" && (
@@ -638,7 +696,8 @@ export default function Navbar() {
                         setIsOpen(false);
                       }}
                     >
-                      Student Dashboard
+                      {t("navbar.profile.studentDashboard")}
+
                     </NavLink>
                   )}
                   <button

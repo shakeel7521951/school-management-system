@@ -1,0 +1,116 @@
+{
+  "title": "Students Complaint Management",
+  "subtitle": "Manage and resolve students complaints efficiently",
+  "stats": {
+    "total": "Total Complaints",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "pending": "Pending"
+  },
+  "filters": {
+    "header": "Filters",
+    "reset": "Reset Filters",
+    "search": "Search by name, impact, type...",
+    "status_label": "Status",
+    "status_all": "All Status",
+    "status_pending": "Pending",
+    "status_in_progress": "In Progress",
+    "status_resolved": "Resolved",
+    "status_rejected": "Rejected",
+    "impact_label": "Impact",
+    "impact_all": "All Impact",
+    "impact_physical": "Physical",
+    "impact_psychological": "Psychological",
+    "impact_social": "Social",
+    "impact_academic": "Academic",
+    "type_label": "Type",
+    "type_all": "All Types",
+    "type_physical": "Physical Safety",
+    "type_emotions": "Emotions",
+    "type_bullying": "Bullying",
+    "type_staff": "Staff",
+    "type_learning": "Learning",
+    "type_facilities": "Facilities",
+    "type_bus": "Bus",
+    "type_rights": "Rights",
+    "type_other": "Other",
+    "showing": "Showing {{count}} complaints",
+    "items_per_page": "Items per page",
+    "items_per_page_label": "Items per page",
+    "items_per_page_options": {
+      "5": "5 per page",
+      "10": "10 per page",
+      "20": "20 per page",
+      "50": "50 per page"
+    },
+    "export": "Export",
+    "export_excel": "Export Excel",
+    "export_pdf": "Export PDF"
+  },
+  "table": {
+    "columns": {
+      "id": "ID",
+      "name": "Student Name",
+      "fullName": "Full Name",
+      "detail": "Details",
+      "impact": "Impact",
+      "type": "Type",
+      "status": "Status",
+      "actions": "Actions",
+      "class": "Class",
+      "age": "Age",
+      "date": "Date",
+      "severity": "Severity",
+      "action": "Expected Action"
+    },
+    "no_data": "No complaints found"
+  },
+  "pagination": {
+    "showing": "Showing",
+    "to": "to",
+    "of": "of",
+    "results": "results",
+    "prev": "Prev",
+    "next": "Next"
+  },
+  "modals": {
+    "view_title": "View Complaint",
+    "edit_title": "Edit Complaint Status",
+    "delete_title": "Delete Complaint",
+    "delete_confirmation": "Are you sure you want to delete this complaint filed by {{name}}?",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "current_status": "Current Status",
+    "update_status": "Update Status",
+    "assigned_to": "Assigned To",
+    "comments": "Comments",
+    "status_options": {
+      "pending": "Pending",
+      "in_progress": "In Progress",
+      "resolved": "Resolved",
+      "rejected": "Rejected"
+    },
+    "view_modal": {
+      "complainant": "Complainant",
+      "date_submitted": "Date Submitted",
+      "type": "Type",
+      "severity": "Severity",
+      "expected_action": "Expected Action",
+      "impact": "Impact",
+      "details": "Complaint Details",
+      "close": "Close"
+    }
+  },
+  "toast": {
+    "status_updated": "Status updated successfully",
+    "delete_success": "Complaint deleted successfully",
+    "delete_error": "Failed to delete complaint",
+    "status_error": "Failed to update status"
+  },
+  "loading": "Loading complaints...",
+  "error": "Failed to load complaints",
+  "access_denied": {
+    "title": "Access Denied",
+    "message": "You do not have permission to view complaints"
+  }
+}

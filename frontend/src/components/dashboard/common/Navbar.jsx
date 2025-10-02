@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { User,Menu, LogOut } from "lucide-react";
+import { User, Menu, LogOut } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUserProfile, clearProfile } from "../../../redux/slices/UserSlice";
 import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../../redux/slices/UserApi";
+import { useTranslation } from "react-i18next";
 
 const Navbar = ({ onMenuClick }) => {
+  const { t } = useTranslation("adminNavbar");
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -13,8 +15,8 @@ const Navbar = ({ onMenuClick }) => {
   // Redux user profile
   const userProfile = useSelector(selectUserProfile);
 
-  const userName = userProfile?.name || "Guest User";
-  const userRole = userProfile?.role || "User";
+  const userName = userProfile?.name || t("navbar.user.default_name");
+  const userRole = userProfile?.role || t("navbar.user.default_role");
   const initial = userName ? userName.charAt(0).toUpperCase() : "?";
 
   // RTK Query logout mutation
@@ -47,12 +49,10 @@ const Navbar = ({ onMenuClick }) => {
         <button
           className="md:hidden p-2 rounded-lg mr-3 bg-gray-100 hover:bg-gray-200 transition-all"
           onClick={onMenuClick}
-          aria-label="Toggle menu"
+          aria-label={t("navbar.aria.toggle_menu")}
         >
           <Menu size={20} className="text-gray-700" />
         </button>
-
-       
       </div>
 
       {/* Right Section */}
@@ -104,7 +104,7 @@ const Navbar = ({ onMenuClick }) => {
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-600 mr-2">
                   <User size={16} />
                 </div>
-                My Profile
+                {t("navbar.user.profile_button")}
               </button>
 
               <div className="border-t border-gray-100 my-1"></div>
@@ -117,7 +117,9 @@ const Navbar = ({ onMenuClick }) => {
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 text-red-600 mr-2">
                   <LogOut size={16} />
                 </div>
-                {isLoading ? "Logging out..." : "Logout"}
+                {isLoading
+                  ? t("navbar.user.logout_loading")
+                  : t("navbar.user.logout_button")}
               </button>
             </div>
           )}

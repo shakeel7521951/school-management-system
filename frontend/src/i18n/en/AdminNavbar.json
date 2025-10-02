@@ -1,0 +1,19 @@
+{
+  "navbar": {
+    "aria": {
+      "toggle_menu": "Toggle menu"
+    },
+    "user": {
+      "default_name": "Guest User",
+      "default_role": "User",
+      "profile_button": "My Profile",
+      "logout_button": "Logout",
+      "logout_loading": "Logging out..."
+    },
+    "dropdown": {
+      "profile_heading": "User Profile",
+      "name_label": "Name",
+      "role_label": "Role"
+    }
+  }
+}

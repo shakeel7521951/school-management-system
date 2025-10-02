@@ -1,0 +1,63 @@
+{
+  "registrationData": {
+    "pageTitle": "Student Registrations",
+    "table": {
+      "headers": {
+        "registrationDate": "Registration Date",
+        "name": "Name",
+        "age": "Age",
+        "nationality": "Nationality",
+        "father": "Father",
+        "mother": "Mother",
+        "personalId": "Personal ID",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "statusOptions": {
+        "pending": "Pending",
+        "approved": "Approved",
+        "rejected": "Rejected"
+      },
+      "buttons": {
+        "view": "View",
+        "delete": "Delete"
+      }
+    },
+    "messages": {
+      "loading": "Loading registrations...",
+      "error": "Failed to load registrations.",
+      "statusUpdateSuccess": "Status updated successfully!",
+      "statusUpdateError": "Failed to update status"
+    },
+    "studentModal": {
+      "title": "Student Details",
+      "fields": {
+        "registrationDate": "Registration Date",
+        "childName": "Child’s Name",
+        "age": "Age",
+        "nationality": "Nationality",
+        "dob": "Date of Birth",
+        "homePhone": "Home Phone",
+        "motherMobile": "Mother’s Mobile",
+        "fatherMobile": "Father’s Mobile",
+        "personalId": "Personal ID Number",
+        "fatherName": "Father’s Name",
+        "motherName": "Mother’s Name",
+        "fatherOccupation": "Father’s Occupation",
+        "motherOccupation": "Mother’s Occupation",
+        "previousSchool": "Previous School",
+        "medicalCondition": "Medical Condition",
+        "medicalDetails": "Medical Details",
+        "declarerName": "Declarer Name",
+        "signature": "Signature"
+      },
+      "buttons": {
+        "close": "Close"
+      },
+      "placeholders": {
+        "notAvailable": "N/A",
+        "none": "None"
+      }
+    }
+  }
+}

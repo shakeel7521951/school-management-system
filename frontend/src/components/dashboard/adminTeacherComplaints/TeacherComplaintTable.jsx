@@ -69,7 +69,7 @@ const TeacherComplaintTable = ({
                     !["expectedAction", "Action"].includes(key) &&
                     handleSort(key)
                   }
-                  className={`${width} py-1 px-1 text-center text-[12px] font-semibold uppercase tracking-wide cursor-pointer whitespace-nowrap`}
+                  className={`${width} py-4 px-1 text-center text-[12px] font-semibold uppercase tracking-wide cursor-pointer whitespace-nowrap`}
                 >
                   <div className="flex items-center justify-center gap-1 whitespace-nowrap">
                     {label}

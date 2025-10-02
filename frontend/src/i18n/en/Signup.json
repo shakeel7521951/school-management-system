@@ -1,0 +1,44 @@
+
+{
+  "card": {
+    "header": {
+      "title": "Create Hope Today",
+      "subtitle": "Sign up to start your journey"
+    },
+    "form": {
+      "fields": {
+        "name": {
+          "label": "Full Name",
+          "placeholder": "Enter your full name"
+        },
+        "email": {
+          "label": "Email Address",
+          "placeholder": "Enter your email"
+        },
+        "phone": {
+          "label": "Phone",
+          "placeholder": "Enter your phone number"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter your password"
+        },
+        "confirmPassword": {
+          "label": "Confirm Password",
+          "placeholder": "Confirm your password"
+        }
+      },
+      "button": {
+        "text": "Sign Up",
+        "loadingText": "Signing Up..."
+      },
+      "messages": {
+        "passwordMismatch": "Passwords do not match!",
+        "error": "Signup failed",
+        "success": "Signup successful!"
+      },
+      "loginText": "Already have an account?",
+      "loginButton": "Login"
+    }
+  }
+}

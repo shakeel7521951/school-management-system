@@ -1,0 +1,41 @@
+{
+  "hero": {
+    "title": "Financial and Administrative Affairs",
+    "subtitle": "Al-Tamakon Comprehensive School / Financial and Administrative Affairs"
+  },
+  "departments": {
+    "heading": "Our Departments",
+    "list": [
+      {
+        "title": "Technological Infrastructure",
+        "description": "Responsible for student enrollment, registration, transfer, withdrawal, and tracking the updating of student data.",
+        "image": "/images/students.png",
+        "icon": "FaCogs"
+      },
+      {
+        "title": "Financial Affairs Department",
+        "description": "Implements financial policies, prepares budgets, and reports for senior management and relevant external entities.",
+        "image": "/images/statistics.png",
+        "icon": "FaMoneyBillWave"
+      },
+      {
+        "title": "Human Resources Department",
+        "description": "Ensures smooth operations and staff support in line with standard benchmarks.",
+        "image": "/images/talent-search.png",
+        "icon": "FaUsersCog"
+      },
+      {
+        "title": "Services Department",
+        "description": "Responsible for student transportation and school maintenance.",
+        "image": "/images/service.png",
+        "icon": "FaTools"
+      },
+      {
+        "title": "IT and Networking Department",
+        "description": "Handles all devices, components, and technological infrastructure of the school.",
+        "image": "/images/technology.png",
+        "icon": "FaNetworkWired"
+      }
+    ]
+  }
+}

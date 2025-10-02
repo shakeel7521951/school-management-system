@@ -1,61 +1,71 @@
-import React from 'react'
-import { useParams, Link } from 'react-router-dom'
-import newsData from './NewsData'
+import React from "react";
+import { useParams, Link } from "react-router-dom";
 import {
   FaUser,
   FaCalendarAlt,
   FaArrowLeft,
   FaArrowRight
-} from 'react-icons/fa'
+} from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
-export default function NewsDetail () {
-  const { slug } = useParams()
-  const index = newsData.findIndex(item => item.slug === slug)
-  const news = newsData[index]
+// Import both EN/AR datasets
+import news_en from "../../i18n/en/News.json";
+import news_ar from "../../i18n/ar/News.json";
+
+export default function NewsDetail() {
+  const { slug } = useParams();
+  const { t, i18n } = useTranslation("news");
+
+  // Pick dataset according to language
+  const newsData = i18n.language === "en" ? news_en : news_ar;
+
+  // Find current news by slug
+  const index = newsData.findIndex((item) => item.slug === slug);
+  const news = newsData[index];
 
   if (!news) {
     return (
-      <div className='text-center py-20 text-red-600 text-xl'>
-        News not found
+      <div className="text-center py-20 text-red-600 text-xl">
+        {t("notFound", { defaultValue: "News not found" })}
       </div>
-    )
+    );
   }
 
-  const prevNews = newsData[index - 1]
-  const nextNews = newsData[index + 1]
+  const prevNews = newsData[index - 1];
+  const nextNews = newsData[index + 1];
 
   return (
-    <div className='max-w-5xl mx-auto px-4 sm:px-6 py-12'>
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
       {/* Title */}
-      <h1 className='text-2xl sm:text-3xl md:text-4xl font-bold text-[#104c80] leading-snug'>
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#104c80] leading-snug">
         {news.title}
       </h1>
 
       {/* Meta */}
-      <div className='flex flex-wrap items-center gap-4 mt-3 text-gray-500 text-sm'>
-        <span className='flex items-center gap-2'>
-          <FaCalendarAlt className='text-[#104c80]' /> {news.date}
+      <div className="flex flex-wrap items-center gap-4 mt-3 text-gray-500 text-sm">
+        <span className="flex items-center gap-2">
+          <FaCalendarAlt className="text-[#104c80]" /> {news.date}
         </span>
-        <span className='flex items-center gap-2'>
-          <FaUser className='text-[#104c80]' /> {news.author || 'Admin'}
+        <span className="flex items-center gap-2">
+          <FaUser className="text-[#104c80]" /> {news.author || t("admin", { defaultValue: "Admin" })}
         </span>
       </div>
 
       {/* Cover Image */}
       {news.images && news.images.length > 0 && (
-        <div className='mt-8 flex justify-center'>
+        <div className="mt-8 flex justify-center">
           <img
             src={news.images[0]}
-            alt='Main news'
-            className='rounded-2xl shadow-lg w-[500px] max-h-[600px] object-cover bg-gray-100'
+            alt="Main news"
+            className="rounded-2xl shadow-lg w-[500px] max-h-[600px] object-cover bg-gray-100"
           />
         </div>
       )}
 
       {/* Content */}
       {news.content && (
-        <div className='mt-10 text-base sm:text-lg text-gray-700 leading-relaxed space-y-6'>
-          {news.content.split('\n').map((para, i) => (
+        <div className="mt-10 text-base sm:text-lg text-gray-700 leading-relaxed space-y-6">
+          {news.content.split("\n").map((para, i) => (
             <p key={i}>{para}</p>
           ))}
         </div>
@@ -63,20 +73,20 @@ export default function NewsDetail () {
 
       {/* Extra Images - Responsive Grid */}
       {news.images && news.images.length > 1 && (
-        <div className='mt-12'>
-          <h2 className='text-xl sm:text-2xl font-semibold text-[#104c80] mb-4'>
-            Highlights
+        <div className="mt-12">
+          <h2 className="text-xl sm:text-2xl font-semibold text-[#104c80] mb-4">
+            {t("highlights", { defaultValue: "Highlights" })}
           </h2>
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5'>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
             {news.images.slice(1).map((img, i) => (
               <div
                 key={i}
-                className='overflow-hidden rounded-xl shadow-md group'
+                className="overflow-hidden rounded-xl shadow-md group"
               >
                 <img
                   src={img}
                   alt={`Extra news ${i}`}
-                  className='w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110'
+                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
             ))}
@@ -85,11 +95,11 @@ export default function NewsDetail () {
       )}
 
       {/* Navigation */}
-      <div className='flex flex-col sm:flex-row justify-between items-center mt-12 border-t pt-6 text-[#104c80] font-medium gap-4'>
+      <div className="flex flex-col sm:flex-row justify-between items-center mt-12 border-t pt-6 text-[#104c80] font-medium gap-4">
         {prevNews ? (
           <Link
             to={`/news/${prevNews.slug}`}
-            className='flex items-center gap-2 hover:underline text-center'
+            className="flex items-center gap-2 hover:underline text-center"
           >
             <FaArrowLeft /> {prevNews.title.slice(0, 40)}...
           </Link>
@@ -100,7 +110,7 @@ export default function NewsDetail () {
         {nextNews ? (
           <Link
             to={`/news/${nextNews.slug}`}
-            className='flex items-center gap-2 hover:underline text-center'
+            className="flex items-center gap-2 hover:underline text-center"
           >
             {nextNews.title.slice(0, 40)}... <FaArrowRight />
           </Link>
@@ -110,14 +120,14 @@ export default function NewsDetail () {
       </div>
 
       {/* Back Button */}
-      <div className='mt-10 text-center'>
+      <div className="mt-10 text-center">
         <Link
-          to='/news'
-          className='px-6 py-2 rounded-lg bg-[#104c80] text-white hover:bg-[#0c3b63] transition'
+          to="/news"
+          className="px-6 py-2 rounded-lg bg-[#104c80] text-white hover:bg-[#0c3b63] transition"
         >
-          ← Back to All News
+          ← {t("back", { defaultValue: "Back to All News" })}
         </Link>
       </div>
     </div>
-  )
+  );
 }

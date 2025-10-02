@@ -77,6 +77,10 @@ const TeacherNavbar = () => {
             </button>
           </div>
 
+         
+
+         
+
           {/* Profile inside mobile menu */}
           <Link
             to="/my-profile"

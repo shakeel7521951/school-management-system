@@ -63,10 +63,9 @@ const ComplaintTable = ({ complaints }) => {
                   <td className="px-2 py-2 border border-gray-300">
                     <span
                       className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold 
-                        ${
-                          complaint.severity === "Urgent"
-                            ? "bg-red-100 text-red-700"
-                            : complaint.severity === "Serious"
+                        ${complaint.severity === "Urgent"
+                          ? "bg-red-100 text-red-700"
+                          : complaint.severity === "Serious"
                             ? "bg-yellow-100 text-yellow-700"
                             : "bg-green-100 text-green-700"
                         }`}
@@ -77,9 +76,10 @@ const ComplaintTable = ({ complaints }) => {
                   <td className="px-2 py-3 text-gray-700 border border-gray-300">
                     {complaint.impact}
                   </td>
-                  <td className="px-3 py-3 text-gray-700 border border-gray-300">
-                    {complaint.details}
+                  <td className="px-2 py-3 text-gray-700 border border-gray-300">
+                    {complaint.details.split(' ').slice(0, 2).join(' ')}...
                   </td>
+
                   <td className="px-3 py-3 text-gray-700 border border-gray-300">
                     {complaint.expectedAction}
                   </td>
@@ -137,10 +137,9 @@ const ComplaintTable = ({ complaints }) => {
                 <span className="font-semibold">Severity:</span>{" "}
                 <span
                   className={`px-2 py-0.5 rounded-full text-xs font-semibold 
-                    ${
-                      complaint.severity === "Urgent"
-                        ? "bg-red-100 text-red-700"
-                        : complaint.severity === "Serious"
+                    ${complaint.severity === "Urgent"
+                      ? "bg-red-100 text-red-700"
+                      : complaint.severity === "Serious"
                         ? "bg-yellow-100 text-yellow-700"
                         : "bg-green-100 text-green-700"
                     }`}

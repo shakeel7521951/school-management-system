@@ -1,0 +1,116 @@
+{
+  "title": "إدارة شكاوى الطلاب",
+  "subtitle": "إدارة وحل شكاوى الطلاب بكفاءة",
+  "stats": {
+    "total": "إجمالي الشكاوى",
+    "approved": "موافق عليه",
+    "rejected": "مرفوض",
+    "pending": "قيد الانتظار"
+  },
+  "filters": {
+    "header": "الفلاتر",
+    "reset": "إعادة تعيين الفلاتر",
+    "search": "البحث بالاسم، التأثير، النوع...",
+    "status_label": "الحالة",
+    "status_all": "جميع الحالات",
+    "status_pending": "قيد الانتظار",
+    "status_in_progress": "قيد المعالجة",
+    "status_resolved": "تم الحل",
+    "status_rejected": "مرفوض",
+    "impact_label": "التأثير",
+    "impact_all": "جميع التأثيرات",
+    "impact_physical": "جسدي",
+    "impact_psychological": "نفسي",
+    "impact_social": "اجتماعي",
+    "impact_academic": "أكاديمي",
+    "type_label": "النوع",
+    "type_all": "جميع الأنواع",
+    "type_physical": "السلامة الجسدية",
+    "type_emotions": "العواطف",
+    "type_bullying": "التنمر",
+    "type_staff": "الموظفين",
+    "type_learning": "التعلم",
+    "type_facilities": "المرافق",
+    "type_bus": "الحافلة",
+    "type_rights": "الحقوق",
+    "type_other": "أخرى",
+    "showing": "عرض {{count}} شكاوى",
+     "items_per_page": "عدد العناصر لكل صفحة",
+    "items_per_page_label": "عدد العناصر لكل صفحة",
+    "items_per_page_options": {
+      "5": "5 لكل صفحة",
+      "10": "10 لكل صفحة",
+      "20": "20 لكل صفحة",
+      "50": "50 لكل صفحة"
+    },
+    "export": "تصدير",
+    "export_excel": "تصدير إلى Excel",
+    "export_pdf": "تصدير إلى PDF"
+  },
+  "table": {
+    "columns": {
+      "id": "المعرف",
+      "name": "اسم الطالب",
+      "fullName": "الاسم الكامل",
+      "detail": "تفاصيل",
+      "impact": "التأثير",
+      "type": "النوع",
+      "status": "الحالة",
+      "actions": "الإجراءات",
+      "class": "الصف",
+      "age": "العمر",
+      "date": "التاريخ",
+      "severity": "خطورة الشكوى",
+      "action": "الإجراء المتوقع"
+    },
+    "no_data": "لا توجد شكاوى"
+  },
+  "pagination": {
+    "showing": "عرض",
+    "to": "إلى",
+    "of": "من أصل",
+    "results": "نتيجة",
+    "prev": "السابق",
+    "next": "التالي"
+  },
+  "modals": {
+    "view_title": "عرض الشكوى",
+    "edit_title": "تعديل حالة الشكوى",
+    "delete_title": "حذف الشكوى",
+    "delete_confirmation": "هل أنت متأكد أنك تريد حذف هذه الشكوى المقدمة من {{name}}؟",
+    "cancel": "إلغاء",
+    "confirm": "تأكيد",
+    "current_status": "الحالة الحالية",
+    "update_status": "تحديث الحالة",
+    "assigned_to": "مخصص لـ",
+    "comments": "تعليقات",
+    "status_options": {
+      "pending": "قيد الانتظار",
+      "in_progress": "قيد المعالجة",
+      "resolved": "تم الحل",
+      "rejected": "مرفوض"
+    },
+    "view_modal": {
+      "complainant": "مقدم الشكوى",
+      "date_submitted": "تاريخ التقديم",
+      "type": "النوع",
+      "severity": "خطورة الشكوى",
+      "expected_action": "الإجراء المتوقع",
+      "impact": "التأثير",
+      "details": "تفاصيل الشكوى",
+      "close": "إغلاق"
+    }
+  },
+  "toast": {
+    "status_updated": "تم تحديث الحالة بنجاح",
+    "delete_success": "تم حذف الشكوى بنجاح",
+    "delete_error": "فشل في حذف الشكوى",
+    "status_error": "فشل في تحديث الحالة"
+  },
+  "loading": "جارٍ تحميل الشكاوى...",
+  "error": "فشل في تحميل الشكاوى",
+  "access_denied": {
+    "title": "تم رفض الوصول",
+    "message": "ليس لديك إذن لعرض الشكاوى"
+  }
+}

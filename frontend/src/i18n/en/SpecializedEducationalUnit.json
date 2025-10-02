@@ -1,0 +1,29 @@
+{
+  "hero": {
+    "title": "Specialized Education Unit",
+    "subtitle": "Al-Tamakon Comprehensive School / Specialized Education Unit",
+    "backgroundImage": "/images/about-cover.jpg"
+  },
+  "content": {
+    "heading": "Specialized Education Unit",
+    "subheading": "Males & Females",
+    "intro": "We offer specialized education and training services within international programs designed for individuals with special needs. The focus is on :",
+    "columns": [
+      {
+        "icon": "FaBrain",
+        "title": "Skill Development Aspect",
+        "description": "Focused training in cognitive, motor, self-care, communication, and social interaction skills. Students benefit from the <strong>ABLLS-R</strong> (Assessment of Basic Language and Learning Skills – Revised) and structured classroom environments guided by the <strong>TEACCH program</strong>."
+      },
+      {
+        "icon": "FaBookOpen",
+        "title": "Academic Aspect",
+        "description": "Students in this unit follow the <strong>special education certificate</strong>, which adheres to standards lower than the age-based (ministerial) levels. Programs are adapted to their abilities and needs, with <strong>alternative assessments</strong> conducted across all subjects."
+      },
+      {
+        "icon": "FaStethoscope",
+        "title": "Therapeutic Medical Rehabilitation",
+        "description": "Rehabilitation services are provided based on individual needs, including <strong>occupational therapy, physical therapy,</strong> and <strong>speech & language therapy</strong>, ensuring comprehensive support for every student."
+      }
+    ]
+  }
+}

@@ -12,6 +12,7 @@ const COLORS = {
 };
 
 const StaffTable = () => {
+    const {t}=useTranslation("analytics")
     return (
         <div
             className="rounded-2xl p-6 shadow-lg"

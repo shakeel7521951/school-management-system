@@ -1,0 +1,33 @@
+{
+  "hero": {
+    "title": "Department of Nursing",
+    "subtitle": "Tamkon Comprehensive School / Department of Nursing"
+  },
+  "intro": {
+    "heading": "Department of Nursing - Tamkon Comprehensive School for Learning Difficulties",
+    "description": "Welcome to the Nursing Department, which is considered the beating heart of Tamkon Comprehensive School. We pride ourselves on providing comprehensive health care and support to our students, contributing significantly to enhancing the health and well-being of all members of the school community."
+  },
+  "vision": {
+    "heading": "Our Vision",
+    "description": "We aim to provide a healthy and safe environment that contributes to enhancing student learning and growth. We work to provide high-quality, specialized medical care that suits the needs of each student."
+  },
+  "services": {
+    "heading": "Our Services Include",
+    "list": [
+      "Follow up on students’ health conditions",
+      "Providing primary care for minor injuries and illnesses",
+      "Providing medications and treatments according to medical prescription",
+      "Helping students with special needs manage their health",
+      "Cooperating with parents and teachers to provide appropriate health support"
+    ]
+  },
+  "comprehensiveCare": {
+    "heading": "Comprehensive Health Care",
+    "description": "Health care is provided by a dedicated team of professional nurses who work dedicatedly to monitor students’ health and provide the necessary support."
+  },
+  "profile": {
+    "name": "Nurse Shaima",
+    "role": "Dedicated to student care & health support",
+    "image": "/images/medicine-uniform.jpg"
+  }
+}

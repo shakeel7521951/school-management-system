@@ -1,0 +1,58 @@
+{
+  "navbar": {
+    "logoAlt": "شعار تماكون",
+    "menuTitle": "القائمة",
+    "navLinks": {
+      "home": "الرئيسية",
+      "tamakon": {
+        "title": "تماكون",
+        "dropdown": {
+          "about": "عن تماكون",
+          "team": "الفريق",
+          "directorMessage": "رسالة المدير العام",
+          "actingDirectorMessage": "رسالة المدير العام المكلف",
+          "schoolFees": "الرسوم الدراسية",
+          "recruitment": "التوظيف",
+          "faqs": "الأسئلة الشائعة"
+        }
+      },
+      "services": {
+        "title": "الخدمات",
+        "dropdown": {
+          "academicServices": "الخدمات الأكاديمية",
+          "middleUnit": "وحدة المرحلة المتوسطة والثانوية للذكاء المتعدد والمواهب (بنين)",
+          "primaryUnit": "الوحدة الابتدائية للذكاء المتعدد والمواهب – بنين وبنات",
+          "specializedUnit": "وحدة التعليم المتخصص",
+          "publicRelations": "قسم العلاقات العامة",
+          "speechTherapy": "علاج النطق واللغة",
+          "vocationalRehabilitation": "قسم التأهيل المهني والبدني",
+          "nursingDepartment": "قسم التمريض",
+          "financialAffairs": "الشؤون المالية والإدارية"
+        }
+      },
+      "media": {
+        "title": "الإعلام",
+        "dropdown": {
+          "news": "الأخبار",
+          "gallery": "المعرض"
+        }
+      },
+      "contactUs": "اتصل بنا"
+    },
+    "profile": {
+      "login": "تسجيل الدخول",
+      "myProfile": "ملفي الشخصي",
+      "adminDashboard": "لوحة تحكم المدير",
+      "teacherDashboard": "لوحة تحكم المعلم",
+      "studentDashboard": "لوحة تحكم الطالب",
+      "visitorDashboard": "لوحة تحكم الزائر",
+      "securityDashboard": "لوحة تحكم الأمن",
+      "logout": "تسجيل الخروج",
+      "loggingOut": "جاري تسجيل الخروج..."
+    },
+    "languageToggle": {
+      "en": "English",
+      "ar": "عربي"
+    }
+  }
+}
