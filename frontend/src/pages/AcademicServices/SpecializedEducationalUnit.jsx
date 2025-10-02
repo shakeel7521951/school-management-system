@@ -12,7 +12,7 @@ const SpecializedEducationalUnit = () => {
 
   // Select dataset according to active language
   const specializededucationalunitData =
-    i18n.language === "en"
+    i18n.language === "ar"
       ? specializededucationalunit_ar
       : specializededucationalunit_en;
 

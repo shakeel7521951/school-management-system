@@ -1,0 +1,41 @@
+{
+  "hero": {
+    "title": "الشؤون المالية والإدارية",
+    "subtitle": "مدرسة التمكن الشاملة / الشؤون المالية والإدارية"
+  },
+  "departments": {
+    "heading": "إداراتنا",
+    "list": [
+      {
+        "title": "البنية التحتية التكنولوجية",
+        "description": "مسؤولة عن تسجيل الطلاب، التسجيل، التحويل، الانسحاب، ومتابعة تحديث بيانات الطلاب.",
+        "image": "/images/students.png",
+        "icon": "FaCogs"
+      },
+      {
+        "title": "إدارة الشؤون المالية",
+        "description": "تقوم بتنفيذ السياسات المالية، إعداد الميزانيات، والتقارير للإدارة العليا والجهات الخارجية ذات الصلة.",
+        "image": "/images/statistics.png",
+        "icon": "FaMoneyBillWave"
+      },
+      {
+        "title": "إدارة الموارد البشرية",
+        "description": "تضمن سير العمليات بسلاسة ودعم الموظفين بما يتماشى مع المعايير القياسية.",
+        "image": "/images/talent-search.png",
+        "icon": "FaUsersCog"
+      },
+      {
+        "title": "إدارة الخدمات",
+        "description": "مسؤولة عن نقل الطلاب وصيانة المدرسة.",
+        "image": "/images/service.png",
+        "icon": "FaTools"
+      },
+      {
+        "title": "إدارة تقنية المعلومات والشبكات",
+        "description": "تتعامل مع جميع الأجهزة والمكونات والبنية التحتية التكنولوجية للمدرسة.",
+        "image": "/images/technology.png",
+        "icon": "FaNetworkWired"
+      }
+    ]
+  }
+}

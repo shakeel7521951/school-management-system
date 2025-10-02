@@ -11,7 +11,7 @@ const MiddleAndHighUnit = () => {
 
   // ✅ Corrected: choose dataset based on active language
   const middleandhighunit =
-    i18n.language === "en" ? middleandhighunit_ar : middleandhighunit_en;
+    i18n.language === "ar" ? middleandhighunit_ar : middleandhighunit_en;
 
   return (
     <div className="w-full text-gray-800">

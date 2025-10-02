@@ -17,7 +17,7 @@ const Gallery = () => {
   const { t, i18n } = useTranslation("gallery");
 
   // Select dataset according to active language
-    const galleryData = i18n.language === "ar" ? gallery_en : gallery_ar;
+    const galleryData = i18n.language === "en" ? gallery_en : gallery_ar;
 
   // School gallery images (replace with actual school photos)
   const images = [
