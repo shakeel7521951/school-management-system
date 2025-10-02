@@ -19,7 +19,6 @@ import speechandlanguagetherapy_en from "./en/SpeechAndLanguageTherapy.json";
 import speechandlanguagetherapy_ar from "./en/SpeechAndLanguageTherapy.json";
 import vocationalandphysicaldepartment_en from "./en/VocationalAndPhysicalDepartment.json";
 import vocationalandphysicaldepartment_ar from "./ar/VocationalAndPhysicalDepartment.json";
-
 import nursingdepartment_en from "./en/NursingDepartment.json";
 import nursingdepartment_ar from "./en/NursingDepartment.json";
 
