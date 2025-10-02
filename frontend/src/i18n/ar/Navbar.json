@@ -1,17 +1,17 @@
 {
   "navbar": {
-    "logoAlt": "شعار تمّكن",
+    "logoAlt": "شعار تماكون",
     "menuTitle": "القائمة",
     "navLinks": {
       "home": "الرئيسية",
       "tamakon": {
-        "title": "تمّكن",
+        "title": "تماكون",
         "dropdown": {
-          "about": "عن تمّكن",
+          "about": "عن تماكون",
           "team": "الفريق",
-          "directorMessage": "رسالة المدير",
-          "actingDirectorMessage": "رسالة المدير العام بالإنابة",
-          "schoolFees": "رسوم الدراسة",
+          "directorMessage": "رسالة المدير العام",
+          "actingDirectorMessage": "رسالة المدير العام المكلف",
+          "schoolFees": "الرسوم الدراسية",
           "recruitment": "التوظيف",
           "faqs": "الأسئلة الشائعة"
         }
@@ -20,9 +20,9 @@
         "title": "الخدمات",
         "dropdown": {
           "academicServices": "الخدمات الأكاديمية",
-          "middleUnit": "الوحدة المتوسطة والثانوية للذكاءات والمواهب المتعددة (أولاد)",
-          "primaryUnit": "الوحدة الابتدائية للذكاءات والمواهب المتعددة – أولاد وبنات",
-          "specializedUnit": "الوحدة التعليمية المتخصصة",
+          "middleUnit": "وحدة المرحلة المتوسطة والثانوية للذكاء المتعدد والمواهب (بنين)",
+          "primaryUnit": "الوحدة الابتدائية للذكاء المتعدد والمواهب – بنين وبنات",
+          "specializedUnit": "وحدة التعليم المتخصص",
           "publicRelations": "قسم العلاقات العامة",
           "speechTherapy": "علاج النطق واللغة",
           "vocationalRehabilitation": "قسم التأهيل المهني والبدني",
@@ -42,7 +42,7 @@
     "profile": {
       "login": "تسجيل الدخول",
       "myProfile": "ملفي الشخصي",
-      "adminDashboard": "لوحة تحكم المسؤول",
+      "adminDashboard": "لوحة تحكم المدير",
       "teacherDashboard": "لوحة تحكم المعلم",
       "studentDashboard": "لوحة تحكم الطالب",
       "visitorDashboard": "لوحة تحكم الزائر",
