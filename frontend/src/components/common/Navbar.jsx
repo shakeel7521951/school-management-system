@@ -29,14 +29,7 @@ export default function Navbar() {
   { key: "contact", name: t("navbar.navLinks.contactUs"), path: "/contact-us" },
 ];
 
-  const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Tamakon", path: "/tamakon", dropdown: true },
-    { name: "Services", path: "/services", dropdown: true },
-    { name: "Media", path: "/media", dropdown: true },
-    { name: "Contact Us", path: "/contact-us" },
-    { name: "Visitor", path: "/visitors" }
-  ];
+  
 
   const handleLogout = async () => {
     try {

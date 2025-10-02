@@ -99,8 +99,8 @@ const resources = {
     speechandlanguagetherapy: speechandlanguagetherapy_en,
     vocationalandphysicaldepartment: vocationalandphysicaldepartment_en,
     nursingdepartment: nursingdepartment_en,
-    publicrelations:publicrelations_en,
-    financialandadministrativeaffairs:financialandadministrativeaffairs_en,
+    publicrelations: publicrelations_en,
+    financialandadministrativeaffairs: financialandadministrativeaffairs_en,
     aboutUs: aboutUs_en,
     directorManager: directorManager_en,
     actingDirector: actingDirector_en,
@@ -144,8 +144,8 @@ const resources = {
     speechandlanguagetherap: speechandlanguagetherapy_ar,
     vocationalandphysicaldepartment: vocationalandphysicaldepartment_ar,
     nursingdepartment: nursingdepartment_ar,
-    publicrelations:publicrelations_ar,
-    financialandadministrativeaffairs:financialandadministrativeaffairs_ar,
+    publicrelations: publicrelations_ar,
+    financialandadministrativeaffairs: financialandadministrativeaffairs_ar,
     aboutUs: aboutUs_ar,
     directorManager: directorManager_ar,
     actingDirector: actingDirector_ar,
@@ -168,7 +168,6 @@ const resources = {
     footercontact: footercontact_ar,
     footersearch: footersearch_ar,
     footerbottom: footerbottom_ar,
-  },
     contact: contact_ar,
     aboutUs: aboutUs_ar,
     directorManager: directorManager_ar,
@@ -179,7 +178,7 @@ const resources = {
     teacherSidebar: teacherSidebar_ar,
     responseForm: responseForm_ar,
     registrationForm: registrationForm_ar
-  }
+  },
 };
 
 i18n
