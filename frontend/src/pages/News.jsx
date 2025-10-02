@@ -12,7 +12,7 @@ export default function NewsPage() {
   const { t, i18n } = useTranslation("news");
 
   // Select dataset according to active language
-  const newsData = i18n.language === "ar" ? news_en : news_ar;
+  const newsData = i18n.language === "en" ? news_en : news_ar;
 
   return (
     <div className="w-full text-gray-800">

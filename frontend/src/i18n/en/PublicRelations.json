@@ -1,0 +1,23 @@
+{
+  "hero": {
+    "title": "Public Relations Department",
+    "subtitle": "مدرسة التمكن الشاملة / Al-Tamakon Comprehensive School"
+  },
+  "intro": {
+    "heading": "Public Relations Department",
+    "description": "The Public Relations Department is a key academic and administrative unit at Al-Tamakon Comprehensive School. It ensures smooth operations, hospitality, and communication within the institution, while also managing student services and maintaining strong community engagement."
+  },
+  "responsibilities": {
+    "heading": "Key Responsibilities",
+    "list": [
+      "Managing reception tasks and facilitating student registration processes.",
+      "Maintaining cleanliness across all school facilities and overseeing hospitality for events.",
+      "Organizing school activities, events, and supporting community engagement initiatives.",
+      "Monitoring staff compliance with the school dress code.",
+      "Supporting the incentive system by tracking gratitude, recognition, and employee engagement.",
+      "Supervising bus supervisors and ensuring safe student transportation during school hours.",
+      "Managing the school’s social media platforms and informing parents about services and facilities.",
+      "Introducing new employees to school facilities, services, policies, and regulations."
+    ]
+  }
+}

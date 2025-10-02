@@ -11,7 +11,7 @@ const PrimaryUnit = () => {
 const { t, i18n } = useTranslation("primaryunit");
 
 // Select dataset according to active language
-    const primaryunitData = i18n.language === "ar" ? primaryunit_en : primaryunit_ar;
+    const primaryunitData = i18n.language === "en" ? primaryunit_en : primaryunit_ar;
 
   return (
     <div className="w-full text-gray-800">

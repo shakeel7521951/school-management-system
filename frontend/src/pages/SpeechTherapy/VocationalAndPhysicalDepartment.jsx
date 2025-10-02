@@ -12,7 +12,7 @@ const VocationalAndPhysicalDepartment = () => {
 
   // Select dataset according to active language
   const vocationalandphysicaldepartmentData =
-    i18n.language === "en"
+    i18n.language === "ar"
       ? vocationalandphysicaldepartment_ar
       : vocationalandphysicaldepartment_en;
 

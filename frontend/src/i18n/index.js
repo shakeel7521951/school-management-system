@@ -19,9 +19,13 @@ import speechandlanguagetherapy_en from "./en/SpeechAndLanguageTherapy.json";
 import speechandlanguagetherapy_ar from "./en/SpeechAndLanguageTherapy.json";
 import vocationalandphysicaldepartment_en from "./en/VocationalAndPhysicalDepartment.json";
 import vocationalandphysicaldepartment_ar from "./ar/VocationalAndPhysicalDepartment.json";
-
 import nursingdepartment_en from "./en/NursingDepartment.json";
 import nursingdepartment_ar from "./en/NursingDepartment.json";
+import publicrelations_en from "./en/PublicRelations.json";
+import publicrelations_ar from "./ar/PublicRelations.json";
+
+import financialandadministrativeaffairs_en from "./en/FinancialAndAdministrativeAffairs.json";
+import financialandadministrativeaffairs_ar from "./ar/FinancialAndAdministrativeAffairs.json";
 
 import aboutUs_en from "./en/AboutUs.json"
 import aboutUs_ar from "./ar/AboutUs.json"
@@ -59,6 +63,8 @@ const resources = {
     speechandlanguagetherapy:speechandlanguagetherapy_en,
     vocationalandphysicaldepartment:vocationalandphysicaldepartment_en,
     nursingdepartment:nursingdepartment_en,
+    publicrelations:publicrelations_en,
+    financialandadministrativeaffairs:financialandadministrativeaffairs_en,
     aboutUs:aboutUs_en,
     directorManager:directorManager_en,
     actingDirector:actingDirector_en,
@@ -82,6 +88,8 @@ const resources = {
     speechandlanguagetherap:speechandlanguagetherapy_ar,
     vocationalandphysicaldepartment:vocationalandphysicaldepartment_ar,
     nursingdepartment:nursingdepartment_ar,
+    publicrelations:publicrelations_ar,
+    financialandadministrativeaffairs:financialandadministrativeaffairs_ar,
     aboutUs:aboutUs_ar,
     directorManager:directorManager_ar,
     actingDirector:actingDirector_ar,
