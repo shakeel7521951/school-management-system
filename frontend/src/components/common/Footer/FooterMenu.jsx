@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 export default function FooterMenu({ sectionVariants }) {
+  const { t } = useTranslation("footermenu");
+
   const menuLinks = [
-    { name: "News", path: "/news" },
-    { name: "Team", path: "/tamakon-team" },
-    { name: "FAQ", path: "/faqs" },
-    { name: "Contact Us", path: "/contact-us" },
+    { name: t("footermenu.links.news"), path: "/news" },
+    { name: t("footermenu.links.team"), path: "/tamakon-team" },
+    { name: t("footermenu.links.faq"), path: "/faqs" },
+    { name: t("footermenu.links.contactUs"), path: "/contact-us" },
   ];
 
   const headingVariants = {
@@ -32,7 +35,7 @@ export default function FooterMenu({ sectionVariants }) {
         variants={headingVariants}
         transition={{ duration: 0.8 }}
       >
-        Menu
+        {t("footermenu.title")}
         <motion.span
           className="absolute left-0 -bottom-1 h-[3px] bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full"
           initial={{ scaleX: 0 }}

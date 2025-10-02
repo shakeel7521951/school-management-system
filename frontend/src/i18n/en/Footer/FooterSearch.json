@@ -1,0 +1,25 @@
+{
+  "footersearch": {
+    "title": "Search in Website",
+    "placeholder": "Search...",
+    "pages": {
+      "about": "About Tamakon",
+      "team": "Our Team",
+      "directorMessage": "Director Message",
+      "speechTherapy": "Speech & Language Therapy",
+      "nursing": "Nursing Department",
+      "gallery": "Gallery",
+      "news": "News",
+      "contact": "Contact Information",
+      "fees": "School Fees",
+      "recruitment": "Recruitment",
+      "faqs": "FAQs",
+      "publicRelations": "Public Relations Department",
+      "middleUnit": "Middle and High Unit for Multiple Intelligences (Boys)",
+      "primaryUnit": "Primary Unit for Multiple Intelligences – Boys and Girls",
+      "specialUnit": "Specialized Education Unit",
+      "financialAffairs": "Financial & Administrative Affairs",
+      "rehab": "Vocational & Physical Rehabilitation Department"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "registrationData": {
+    "pageTitle": "تسجيل الطلاب",
+    "table": {
+      "headers": {
+        "registrationDate": "تاريخ التسجيل",
+        "name": "الاسم",
+        "age": "العمر",
+        "nationality": "الجنسية",
+        "father": "الأب",
+        "mother": "الأم",
+        "personalId": "الرقم الشخصي",
+        "status": "الحالة",
+        "actions": "الإجراءات"
+      },
+      "statusOptions": {
+        "pending": "قيد الانتظار",
+        "approved": "مقبول",
+        "rejected": "مرفوض"
+      },
+      "buttons": {
+        "view": "عرض",
+        "delete": "حذف"
+      }
+    },
+    "messages": {
+      "loading": "جاري تحميل التسجيلات...",
+      "error": "فشل تحميل التسجيلات.",
+      "statusUpdateSuccess": "تم تحديث الحالة بنجاح!",
+      "statusUpdateError": "فشل في تحديث الحالة"
+    },
+    "studentModal": {
+      "title": "تفاصيل الطالب",
+      "fields": {
+        "registrationDate": "تاريخ التسجيل",
+        "childName": "اسم الطفل",
+        "age": "العمر",
+        "nationality": "الجنسية",
+        "dob": "تاريخ الميلاد",
+        "homePhone": "هاتف المنزل",
+        "motherMobile": "جوال الأم",
+        "fatherMobile": "جوال الأب",
+        "personalId": "الرقم الشخصي",
+        "fatherName": "اسم الأب",
+        "motherName": "اسم الأم",
+        "fatherOccupation": "مهنة الأب",
+        "motherOccupation": "مهنة الأم",
+        "previousSchool": "المدرسة السابقة",
+        "medicalCondition": "الحالة الطبية",
+        "medicalDetails": "تفاصيل طبية",
+        "declarerName": "اسم المصرّح",
+        "signature": "التوقيع"
+      },
+      "buttons": {
+        "close": "إغلاق"
+      },
+      "placeholders": {
+        "notAvailable": "غير متاح",
+        "none": "لا يوجد"
+      }
+    }
+  }
+}

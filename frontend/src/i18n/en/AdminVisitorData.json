@@ -1,0 +1,47 @@
+{
+  "heroSection": {
+    "title": "Visitor Management",
+    "subtitle": "Tamakon Comprehensive School / Visitor Management",
+    "backgroundImageAlt": "Visitors Cover Image"
+  },
+  "tableSection": {
+    "heading": "Checked-in Visitors",
+    "columns": [
+      { "key": "index", "label": "#" },
+      { "key": "name", "label": "Name" },
+      { "key": "governmentId", "label": "Badge" },
+      { "key": "reason", "label": "Reason" },
+      { "key": "hostEmail", "label": "Host" },
+      { "key": "createdAt", "label": "Check-in Time" },
+      { "key": "status", "label": "Status" },
+      { "key": "actions", "label": "Actions" }
+    ],
+    "statusOptions": {
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "pending": "Pending"
+    }
+  },
+  "actions": {
+    "view": "View Visitor",
+    "approve": "Approve Visitor",
+    "reject": "Reject Visitor"
+  },
+  "visitorModal": {
+    "title": "Visitor Details",
+    "fields": {
+      "name": "Name",
+      "hostEmail": "Host Email",
+      "governmentId": "Badge",
+      "reason": "Reason",
+      "createdAt": "Check-in Time",
+      "updatedAt": "Updated At",
+      "status": "Status"
+    },
+    "buttons": {
+      "approve": "Approve",
+      "reject": "Reject"
+    }
+  },
+  "loadingVisitors": "Loading visitors..."
+}

@@ -1,0 +1,50 @@
+{
+  "users": {
+    "header": {
+      "pageTitle": "Users Analytics",
+      "stats": {
+        "totalUsers": {
+          "title": "Total Users",
+          "description": "Total registered users on the platform"
+        },
+        "newUsers": {
+          "title": "New Users",
+          "description": "Users registered in the last 7 days"
+        },
+        "activeUsers": {
+          "title": "Active Users",
+          "description": "Users active in the last 24 hours"
+        },
+        "churnRate": {
+          "title": "Churn Rate",
+          "description": "Percentage of users who left recently"
+        }
+      },
+      "loading": "Loading user stats...",
+      "error": "Failed to load user stats."
+    },
+    "detail": {
+      "pageTitle": "Users Management",
+      "searchPlaceholder": "Search users...",
+      "table": {
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "actions": "Actions"
+      },
+      "roles": {
+        "user": "User",
+        "admin": "Admin",
+        "teacher": "Teacher",
+        "guard": "Guard",
+        "student": "Student"
+      },
+      "toast": {
+        "updateSuccess": "Role updated to {{role}}",
+        "updateError": "Failed to update role"
+      },
+      "loading": "Loading users...",
+      "error": "Error loading users"
+    }
+  }
+}
