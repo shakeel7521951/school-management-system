@@ -1,0 +1,43 @@
+{
+    "responseForm": {
+        "title": "Response Form",
+        "loading": "Loading forms...",
+        "error": "Error:",
+        "tryAgain": "Try Again",
+        "noForms": {
+            "title": "No forms yet",
+            "description": "Create your first form to get started",
+            "createButton": "Create Form"
+        },
+        "table": {
+            "headers": {
+                "title": "Title",
+                "created": "Created",
+                "updated": "Updated",
+                "status": "Status",
+                "actions": "Actions"
+            },
+            "status": {
+                "published": "Published",
+                "draft": "Draft"
+            },
+            "actions": {
+                "view": "View Form",
+                "edit": "Edit Form",
+                "download": "Download HTML",
+                "print": "Print Form",
+                "delete": "Delete Form"
+            }
+        },
+        "mobileCard": {
+            "created": "Created:",
+            "updated": "Updated:"
+        },
+        "deleteConfirm": {
+            "title": "Confirm Deletion",
+            "message": "Are you sure you want to delete this form? This action cannot be undone.",
+            "cancel": "Cancel",
+            "delete": "Delete"
+        }
+    }
+}

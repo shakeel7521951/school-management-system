@@ -26,6 +26,7 @@ export default function Navbar() {
     { name: "Services", path: "/services", dropdown: true },
     { name: "Media", path: "/media", dropdown: true },
     { name: "Contact Us", path: "/contact-us" },
+    { name: "Visitor", path: "/visitors" }
   ];
 
   const handleLogout = async () => {

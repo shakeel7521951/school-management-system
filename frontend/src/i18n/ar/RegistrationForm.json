@@ -1,0 +1,80 @@
+{
+    "title": "نموذج تسجيل الطالب",
+    "fields": {
+        "child_name": {
+            "label": "اسم الطفل",
+            "placeholder": "أدخل اسمك"
+        },
+        "email": {
+            "label": "البريد الإلكتروني",
+            "placeholder": "أدخل بريدك الإلكتروني"
+        },
+        "dob": {
+            "label": "تاريخ الميلاد",
+            "placeholder": ""
+        },
+        "age": {
+            "label": "العمر",
+            "placeholder": "أدخل عمرك"
+        },
+        "id_number": {
+            "label": "الرقم التعريفي الشخصي",
+            "placeholder": "أدخل الرقم التعريفي الخاص بك"
+        },
+        "father_name": {
+            "label": "اسم الأب",
+            "placeholder": "أدخل اسم الأب"
+        },
+        "father_mobile": {
+            "label": "رقم هاتف الأب",
+            "placeholder": "أدخل رقم هاتف الأب"
+        },
+        "father_job": {
+            "label": "وظيفة الأب",
+            "placeholder": "أدخل وظيفة الأب"
+        },
+        "mother_name": {
+            "label": "اسم الأم",
+            "placeholder": "أدخل اسم الأم"
+        },
+        "mother_mobile": {
+            "label": "رقم هاتف الأم",
+            "placeholder": "أدخل رقم هاتف الأم"
+        },
+        "mother_job": {
+            "label": "وظيفة الأم",
+            "placeholder": "أدخل وظيفة الأم"
+        },
+        "home_phone": {
+            "label": "هاتف المنزل",
+            "placeholder": "أدخل رقم هاتف المنزل"
+        },
+        "nationality": {
+            "label": "الجنسية",
+            "placeholder": "أدخل جنسيتك"
+        },
+        "previous_school": {
+            "label": "المدرسة السابقة",
+            "placeholder": "أدخل المدرسة السابقة"
+        },
+        "medical_condition": {
+            "label": "هل يعاني طفلك من أي حالة طبية؟",
+            "options": {
+                "yes": "نعم",
+                "no": "لا"
+            }
+        },
+        "medical_details": {
+            "placeholder": "إذا نعم، يرجى التوضيح وإرفاق التقارير"
+        },
+        "declarer_name": {
+            "label": "أؤكد بأن المعلومات أعلاه صحيحة",
+            "placeholder": "الاسم الكامل"
+        },
+        "signature": {
+            "placeholder": "التوقيع"
+        },
+        "submit": "إرسال",
+        "submitting": "جارٍ الإرسال..."
+    }
+}

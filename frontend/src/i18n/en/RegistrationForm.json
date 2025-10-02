@@ -1,0 +1,80 @@
+{
+    "title": "Student Registration Form",
+    "fields": {
+        "child_name": {
+            "label": "Child’s Name",
+            "placeholder": "Enter your name"
+        },
+        "email": {
+            "label": "Email Address",
+            "placeholder": "Enter your email"
+        },
+        "dob": {
+            "label": "Date of Birth",
+            "placeholder": ""
+        },
+        "age": {
+            "label": "Age",
+            "placeholder": "Enter your age"
+        },
+        "id_number": {
+            "label": "Personal ID Number",
+            "placeholder": "Enter your personal ID"
+        },
+        "father_name": {
+            "label": "Father’s Name",
+            "placeholder": "Enter your Father's Name"
+        },
+        "father_mobile": {
+            "label": "Father’s Mobile",
+            "placeholder": "Enter your Father's mobile number"
+        },
+        "father_job": {
+            "label": "Father’s Occupation",
+            "placeholder": "Enter your Father's occupation"
+        },
+        "mother_name": {
+            "label": "Mother’s Name",
+            "placeholder": "Enter your Mother's Name"
+        },
+        "mother_mobile": {
+            "label": "Mother’s Mobile",
+            "placeholder": "Enter your Mother's mobile number"
+        },
+        "mother_job": {
+            "label": "Mother’s Occupation",
+            "placeholder": "Enter your Mother's occupation"
+        },
+        "home_phone": {
+            "label": "Home Phone",
+            "placeholder": "Enter your home's phone"
+        },
+        "nationality": {
+            "label": "Nationality",
+            "placeholder": "Enter your nationality"
+        },
+        "previous_school": {
+            "label": "Previous School",
+            "placeholder": "Enter your previous school"
+        },
+        "medical_condition": {
+            "label": "Does your child suffer from any medical condition?",
+            "options": {
+                "yes": "Yes",
+                "no": "No"
+            }
+        },
+        "medical_details": {
+            "placeholder": "If yes, please explain and attach reports"
+        },
+        "declarer_name": {
+            "label": "I hereby confirm the above information is correct",
+            "placeholder": "Full Name"
+        },
+        "signature": {
+            "placeholder": "Signature"
+        },
+        "submit": "Submit",
+        "submitting": "Submitting..."
+    }
+}
