@@ -149,8 +149,8 @@ const router = createBrowserRouter([
       { path: "/tamakon-team/:slug", element: <PersonalProfile /> },
       { path: "/director-message", element: <DirectorManagerMessage /> },
       { path: "/acting-director-message", element: <ActingDirectorGeneralMessage /> },
-      // { path: "/school-fees", element: <SchoolFee /> },
-      // { path: "/recruitment", element: <Recruitment /> },
+      { path: "/school-fees", element: <SchoolFee /> },
+      { path: "/recruitment", element: <Recruitment /> },
       { path: "/faqs", element: <FAQs /> },
       { path: "/middle-unit", element: <MiddleAndHighUnit /> },
       { path: "/primary-unit", element: <PrimaryUnit /> },
@@ -162,7 +162,7 @@ const router = createBrowserRouter([
       { path: "/nursing-department", element: <NursingDepartment /> },
       { path: "/gallery", element: <GallerySection /> },
       { path: "/registration-form", element: <RegistrationForm /> },
-      
+
 
 
 
@@ -184,8 +184,8 @@ const router = createBrowserRouter([
   {
     element: <AdminRoute />,
     children: [
-      { path: 'studentcomplain', element:<AdminStudentComplain/> },
-      { path: 'teachercomplain', element:<AdminTeacherComplain/> },
+      { path: 'studentcomplain', element: <AdminStudentComplain /> },
+      { path: 'teachercomplain', element: <AdminTeacherComplain /> },
       { path: 'visitortable', element: <VisitorTable /> },
 
       { path: 'documents/uploaded', element: <UploadedDocuments /> },

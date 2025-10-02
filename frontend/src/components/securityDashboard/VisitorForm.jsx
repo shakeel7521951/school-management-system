@@ -25,7 +25,7 @@ const VisitorForm = ({ onClose }) => {
       alert("Failed to add visitor");
     }
   }
-
+  
   return (
     <div className="p-6">
       <div className="mb-4">

@@ -1,35 +1,33 @@
-import React, { useState } from "react";
-import {
-  FileText,
-  ClipboardList,
-  Bell,
-  User,
-  Menu,
-  X,
-  GraduationCap,
-  LayoutDashboard,
-  LogOut,
-} from "lucide-react";
+import React, { useState, useEffect } from "react";
+import * as Icons from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const TeacherSidebar = () => {
+  const { t, i18n } = useTranslation("teacherSidebar");
+  const [sidebarConfig, setSidebarConfig] = useState(
+    t("sidebar", { returnObjects: true })
+  );
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // ✅ Clear teacher session (update if you use tokens/localStorage)
-    localStorage.removeItem("teacherToken");
+  // Update sidebarConfig whenever language changes
+  useEffect(() => {
+    setSidebarConfig(t("sidebar", { returnObjects: true }));
+  }, [i18n.language, t]);
 
-    // ✅ Redirect to login page
-    navigate("/login");
+ 
 
-    // ✅ Close sidebar on logout
-    setIsOpen(false);
+  const getIcon = (name, size = 20, color = "currentColor") => {
+    const LucideIcon = Icons[name];
+    return LucideIcon ? <LucideIcon size={size} color={color} /> : null;
   };
+
+  if (!sidebarConfig) return null;
 
   return (
     <>
-      {/* Overlay (mobile only) */}
+      {/* Overlay */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/40 z-40 md:hidden"
@@ -39,52 +37,53 @@ const TeacherSidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full text-white
-                    bg-gradient-to-b from-[#104C80] via-[#1760a5] to-[#1e64a9]
-                    shadow-2xl transition-all duration-500 z-50 
-                    flex flex-col justify-between
-                    ${isOpen ? "w-64" : "w-0 md:w-20 lg:w-64"}
-                    overflow-hidden`}
+        className={`
+          fixed top-0 left-0 h-full z-50 flex flex-col justify-between
+          transition-all duration-500
+          ${isOpen ? "w-64" : "w-0 md:w-20 lg:w-64"} overflow-hidden
+          ${sidebarConfig.style?.textColor || "text-white"}
+          bg-gradient-to-b ${sidebarConfig.style?.colors?.from || "from-blue-800"} 
+          ${sidebarConfig.style?.colors?.via || "via-blue-600"} 
+          ${sidebarConfig.style?.colors?.to || "to-blue-400"}
+          ${sidebarConfig.style?.shadow || "shadow-2xl"}
+        `}
       >
-        {/* Sidebar Header */}
+        {/* Header */}
         <div className="px-4 py-6 flex flex-col items-center border-b border-white/10">
           <div
-            className="w-14 h-14 flex items-center justify-center rounded-2xl 
-                       bg-white/20 shadow-lg animate-bounce"
+            className={`
+              w-14 h-14 flex items-center justify-center
+              ${sidebarConfig.header.logo?.shape || "rounded-full"}
+              ${sidebarConfig.header.logo?.background || "bg-white/20"}
+              shadow-lg ${sidebarConfig.header.logo?.animation || ""}
+            `}
           >
-            <GraduationCap size={28} />
+            {getIcon(sidebarConfig.header.logo?.icon || "GraduationCap", sidebarConfig.header.logo?.size || 28)}
           </div>
           <h1
             className={`mt-3 font-bold text-base tracking-wide text-center transition-all duration-500
-            ${isOpen || window.innerWidth >= 1024 ? "opacity-100" : "hidden"}`}
+              ${isOpen || window.innerWidth >= 1024 ? "opacity-100" : "hidden"}`}
           >
-            Al Tamkon Teacher Panel
+            {sidebarConfig.header.title || ""}
           </h1>
         </div>
 
         {/* Menu Items */}
         <nav className="mt-8 flex flex-col gap-3 px-3 flex-grow">
-          {[
-            // { label: "Overview", icon: <LayoutDashboard size={20} />, path: "/teacheroverview" },
-            { label: "Documents", icon: <FileText size={20} />, path: "/teacherdocuments" },
-            { label: "Complaints", icon: <ClipboardList size={20} />, path: "/teachercomplaints" },
-            // { label: "Notifications", icon: <Bell size={20} />, path: "/teachernotifications" },
-            // { label: "Profile", icon: <User size={20} />, path: "/teacherprofile" },
-          ].map((item, index) => (
+          {sidebarConfig.menuItems?.map((item, index) => (
             <Link
               key={index}
               to={item.path}
-              onClick={() => setIsOpen(false)} // ✅ Close sidebar after navigation
+              onClick={() => setIsOpen(false)}
               className="group flex items-center gap-4 px-3 py-2 rounded-lg 
                          hover:bg-white/20 transition-all relative overflow-hidden
                          hover:translate-x-1 hover:scale-105 duration-300 ease-out"
             >
-              {/* Left hover bar */}
               <span
                 className="absolute left-0 top-0 h-full w-1 bg-white scale-y-0 
                            group-hover:scale-y-100 transition-transform duration-300"
               ></span>
-              {item.icon}
+              {getIcon(item.icon, item.size)}
               {(isOpen || window.innerWidth >= 1024) && (
                 <span className="text-sm font-medium animate-fadeIn">
                   {item.label}
@@ -93,44 +92,30 @@ const TeacherSidebar = () => {
             </Link>
           ))}
         </nav>
-
-        {/* Bottom Section (Logout only) */}
-        {/* <div className="px-3 mb-6 space-y-3">
-          <button
-            onClick={handleLogout}
-            className="w-full group flex items-center gap-4 px-3 py-2 rounded-lg 
-                       hover:bg-red-500/20 transition-all relative overflow-hidden
-                       hover:translate-x-1 hover:scale-105 duration-300 ease-out text-left"
-          >
-            <span
-              className="absolute left-0 top-0 h-full w-1 bg-red-400 scale-y-0 
-                         group-hover:scale-y-100 transition-transform duration-300"
-            ></span>
-            <LogOut size={20} />
-            {(isOpen || window.innerWidth >= 1024) && (
-              <span className="text-sm font-medium animate-fadeIn">Logout</span>
-            )}
-          </button>
-        </div> */}
       </div>
 
       {/* Toggle Button */}
       <button
-        className="fixed top-4 left-4 z-50 p-2.5 bg-white shadow-lg rounded-full md:hidden 
-                   transition duration-300 hover:scale-110 active:scale-95"
+        className={`
+          fixed top-4 left-4 z-50 p-2.5 md:hidden 
+          transition duration-300 hover:scale-110 active:scale-95 
+          ${sidebarConfig.toggleButton?.style?.background || "bg-blue-600"}
+          ${sidebarConfig.toggleButton?.style?.shadow || "shadow-md"}
+          ${sidebarConfig.toggleButton?.style?.rounded || "rounded-full"}
+        `}
         onClick={() => setIsOpen(!isOpen)}
       >
-        {isOpen ? (
-          <X
-            size={20}
-            className="text-[#104C80] transition-transform duration-300 rotate-180"
-          />
-        ) : (
-          <Menu
-            size={20}
-            className="text-[#104C80] transition-transform duration-300"
-          />
-        )}
+        {isOpen
+          ? getIcon(
+            sidebarConfig.toggleButton?.icons?.open?.icon || "X",
+            sidebarConfig.toggleButton?.icons?.open?.size || 22,
+            sidebarConfig.toggleButton?.icons?.open?.color || "white"
+          )
+          : getIcon(
+            sidebarConfig.toggleButton?.icons?.closed?.icon || "Menu",
+            sidebarConfig.toggleButton?.icons?.closed?.size || 22,
+            sidebarConfig.toggleButton?.icons?.closed?.color || "white"
+          )}
       </button>
     </>
   );

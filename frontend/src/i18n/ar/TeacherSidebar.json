@@ -1,0 +1,56 @@
+{
+    "sidebar": {
+        "header": {
+            "logo": {
+                "icon": "GraduationCap",
+                "size": 28,
+                "shape": "rounded-full",
+                "background": "bg-white/20",
+                "animation": "animate-bounce"
+            },
+            "title": "لوحة المعلم"
+        },
+        "style": {
+            "textColor": "text-white",
+            "colors": {
+                "from": "from-[#104C80]",
+                "via": "via-[#104C80]",
+                "to": "to-[#104C80]"
+            },
+            "shadow": "shadow-2xl"
+        },
+        "menuItems": [
+            {
+                "label": "المستندات",
+                "icon": "FileText",
+                "size": 20,
+                "path": "/teacherdocuments"
+            },
+            {
+                "label": "الشكاوى",
+                "icon": "ClipboardList",
+                "size": 20,
+                "path": "/teachercomplaints"
+            }
+        ],
+        "toggleButton": {
+            "style": {
+                "background": "bg-blue-600",
+                "shadow": "shadow-md",
+                "rounded": "rounded-full"
+            },
+            "icons": {
+                "open": {
+                    "icon": "X",
+                    "size": 22,
+                    "color": "white"
+                },
+                "closed": {
+                    "icon": "Menu",
+                    "size": 22,
+                    "color": "white"
+                }
+            }
+        }
+    }
+}

@@ -3,15 +3,17 @@ import { Bell, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUserProfile } from "../../../redux/slices/UserSlice";
+import { useTranslation } from "react-i18next";
 
 const TeacherNavbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { t } = useTranslation(); // useTranslation hook
 
   // Get user profile from Redux
   const userProfile = useSelector(selectUserProfile);
 
-  // Get name (fallback: Guest)
-  const userName = userProfile?.name || "Guest Teacher";
+  // Get name (fallback: Guest Teacher from i18n JSON)
+  const userName = userProfile?.name || t("teacherNavbar.guestTeacher");
 
   // First letter for avatar fallback
   const initial = userName ? userName.charAt(0).toUpperCase() : "?";
@@ -21,7 +23,7 @@ const TeacherNavbar = () => {
       className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm 
                  px-4 py-3 flex items-center justify-between md:ml-20 lg:ml-64 transition-all"
     >
-      {/* Left: Hamburger on Mobile + Search on Desktop */}
+      {/* Left: Hamburger on Mobile */}
       <div className="flex items-center gap-4 flex-1">
         <button
           className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition"
@@ -29,8 +31,6 @@ const TeacherNavbar = () => {
         >
           <Menu size={26} className="text-gray-700 hover:text-[#104C80] transition" />
         </button>
-
-       
       </div>
 
       {/* Right: Profile + Name */}
@@ -66,7 +66,9 @@ const TeacherNavbar = () => {
                      flex flex-col p-6 gap-6 md:hidden animate-slide-in"
         >
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-[#104C80]">Menu</h2>
+            <h2 className="text-lg font-semibold text-[#104C80]">
+              {t("teacherNavbar.menu")}
+            </h2>
             <button
               className="text-gray-400 hover:text-[#104C80]"
               onClick={() => setMenuOpen(false)}
@@ -100,7 +102,9 @@ const TeacherNavbar = () => {
                 {initial}
               </div>
             )}
-            <span className="text-sm font-medium text-gray-700">{userName}</span>
+            <span className="text-sm font-medium text-gray-700">
+              {t("teacherNavbar.profile")}
+            </span>
           </Link>
         </div>
       )}

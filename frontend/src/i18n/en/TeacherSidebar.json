@@ -1,0 +1,59 @@
+{
+    "sidebar": {
+        "style": {
+            "theme": "gradient",
+            "colors": {
+                "from": "from-[#104C80]",
+                "via": "via-[#1760a5]",
+                "to": "to-[#1e64a9]"
+            },
+            "textColor": "text-white",
+            "shadow": "shadow-2xl"
+        },
+        "header": {
+            "logo": {
+                "icon": "GraduationCap",
+                "size": 28,
+                "background": "bg-white/20",
+                "shape": "rounded-2xl",
+                "animation": "animate-bounce"
+            },
+            "title": "Al Tamkon Teacher Panel"
+        },
+        "menuItems": [
+            {
+                "label": "Documents",
+                "icon": "FileText",
+                "size": 20,
+                "path": "/teacherdocuments"
+            },
+            {
+                "label": "Complaints",
+                "icon": "ClipboardList",
+                "size": 20,
+                "path": "/teachercomplaints"
+            }
+        ],
+        
+        "toggleButton": {
+            "icons": {
+                "open": {
+                    "icon": "X",
+                    "size": 20,
+                    "color": "#104C80"
+                },
+                "closed": {
+                    "icon": "Menu",
+                    "size": 20,
+                    "color": "#104C80"
+                }
+            },
+            "position": "top-left",
+            "style": {
+                "background": "bg-white",
+                "rounded": "rounded-full",
+                "shadow": "shadow-lg"
+            }
+        }
+    }
+}

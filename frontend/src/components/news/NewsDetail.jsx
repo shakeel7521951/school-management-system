@@ -17,7 +17,7 @@ export default function NewsDetail() {
   const { t, i18n } = useTranslation("news");
 
   // Pick dataset according to language
-  const newsData = i18n.language === "ar" ? news_en : news_ar;
+  const newsData = i18n.language === "en" ? news_en : news_ar;
 
   // Find current news by slug
   const index = newsData.findIndex((item) => item.slug === slug);

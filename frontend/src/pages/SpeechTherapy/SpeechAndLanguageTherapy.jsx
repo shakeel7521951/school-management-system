@@ -11,7 +11,7 @@ const SpeechAndLanguageTherapy = () => {
 
   // Select dataset according to active language
   const speechandlanguagetherapyData =
-    i18n.language === "en"
+    i18n.language === "ar"
       ? speechandlanguagetherapy_ar
       : speechandlanguagetherapy_en;
 
