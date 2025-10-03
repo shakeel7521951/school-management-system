@@ -1,26 +1,28 @@
 import React from "react";
 import { FileText, XCircle, Clock } from "lucide-react"; // Icons
+import { useTranslation } from "react-i18next";
 
 const ComplaintKPICards = ({ total = 12, rejected = 3, pending = 5 }) => {
+  const { t } = useTranslation("teacherComplaints"); // Access translations
   const primary = "#104c80";
 
   const cards = [
     {
-      title: "Total Complaints",
+      title: t("teacherComplaints.kpiCards.total"), // Localized title
       value: total,
       color: `text-[${primary}]`,
       iconBg: "from-blue-100 to-blue-200",
       icon: <FileText className="w-7 h-7" style={{ color: primary }} />,
     },
     {
-      title: "Rejected Complaints",
+      title: t("teacherComplaints.kpiCards.rejected"), // Localized title
       value: rejected,
       color: "text-red-600",
       iconBg: "from-red-100 to-red-200",
       icon: <XCircle className="w-7 h-7 text-red-600" />,
     },
     {
-      title: "Pending Complaints",
+      title: t("teacherComplaints.kpiCards.pending"), // Localized title
       value: pending,
       color: "text-yellow-600",
       iconBg: "from-yellow-100 to-yellow-200",
@@ -29,7 +31,7 @@ const ComplaintKPICards = ({ total = 12, rejected = 3, pending = 5 }) => {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 gap-6 mb-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
       {cards.map((card, i) => (
         <div
           key={i}

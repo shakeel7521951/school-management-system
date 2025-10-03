@@ -10,14 +10,15 @@ import {
   useCreateComplaintMutation,
   useGetTeacherComplaintsQuery,
 } from '../../redux/slices/TeacherComplaints'
+import { useTranslation } from 'react-i18next'
 
 const TeacherComplaints = () => {
+  const { t } = useTranslation("teacherComplaints")
   const [showModal, setShowModal] = useState(false)
   const [selectedComplaint, setSelectedComplaint] = useState(null)
 
-  // ✅ API hooks
-  const { data, isLoading, isError } = useGetTeacherComplaintsQuery();
-  const complaints = data?.complaints || [];
+  const { data, isLoading, isError } = useGetTeacherComplaintsQuery()
+  const complaints = data?.complaints || []
   const [createComplaint, { isLoading: isCreating }] = useCreateComplaintMutation()
 
   const [newComplaint, setNewComplaint] = useState({
@@ -32,17 +33,11 @@ const TeacherComplaints = () => {
     expectedAction: '',
   })
 
-  // ✅ Handle Submit Complaint
   const handleSubmit = async e => {
     e.preventDefault()
     if (!newComplaint.employeeName.trim() || !newComplaint.details.trim()) return
-
     try {
-      await createComplaint({
-        ...newComplaint,
-        status: 'Pending',
-      }).unwrap()
-
+      await createComplaint({ ...newComplaint, status: 'Pending' }).unwrap()
       setNewComplaint({
         employeeName: '',
         jobTitle: '',
@@ -60,12 +55,9 @@ const TeacherComplaints = () => {
     }
   }
 
-  // ✅ KPI counts
   const totalComplaints = complaints.length
   const rejectedComplaints = complaints.filter(c => c.status === 'Rejected').length
-  const pendingComplaints = complaints.filter(
-    c => c.status === 'Pending' || c.status === 'pending'
-  ).length
+  const pendingComplaints = complaints.filter(c => c.status === 'Pending' || c.status === 'pending').length
 
   const statusStyles = {
     Submitted: 'bg-gray-100 text-gray-700 border-gray-300',
@@ -94,79 +86,72 @@ const TeacherComplaints = () => {
       >
         <div>
           <h2 className='text-3xl sm:text-4xl font-extrabold text-[#1a4480] tracking-tight'>
-            Complaints
+            {t("teacherComplaints.title")}
           </h2>
-          <p className='text-gray-600 text-md mt-1'>
-            Submit your concerns here and track their progress until they are resolved.
-          </p>
+          <p className='text-gray-600 text-md mt-1'>{t("teacherComplaints.description")}</p>
         </div>
-
         <button
           onClick={() => setShowModal(true)}
           className='lg:px-4 lg:py-2 px-4 py-3 md:px-2 md:py-2 sm:px-5 sm:py-2.5 bg-[#104c80] text-white rounded-lg shadow-md hover:bg-[#0d3a63] transition font-medium '
         >
-          + Submit Complaint
+          {t("teacherComplaints.noComplaints.createButton")}
         </button>
       </motion.div>
 
-      {/* ✅ KPI Cards */}
+      {/* KPI Cards */}
       <ComplaintKPICards
         total={totalComplaints}
         rejected={rejectedComplaints}
         pending={pendingComplaints}
+        totalLabel={t("kpiCards.total")}
+        rejectedLabel={t("kpiCards.rejected")}
+        pendingLabel={t("kpiCards.pending")}
       />
 
-      {/* Table for md and above */}
+      {/* Table */}
       <div className='hidden md:block overflow-x-auto'>
         {isLoading ? (
-          <p className='text-center text-gray-500'>Loading complaints...</p>
+          <p className='text-center text-gray-500'>{t("teacherComplaints.loading")}</p>
         ) : isError ? (
-          <p className='text-center text-red-500'>Failed to load complaints.</p>
+          <p className='text-center text-red-500'>{t("teacherComplaints.error")}</p>
         ) : complaints.length > 0 ? (
           <ComplaintTable
             complaints={complaints}
             statusStyles={statusStyles}
             statusIcons={statusIcons}
             setSelectedComplaint={setSelectedComplaint}
+            t={t}
           />
         ) : (
           <div className='bg-white shadow-md rounded-2xl p-8 text-center text-gray-500'>
-            <p className='text-lg font-medium'>No complaints submitted yet.</p>
-            <p className='text-sm text-gray-400'>
-              Click <span className='font-semibold'>+ Submit Complaint</span> to add a new one.
-            </p>
+            <p className='text-lg font-medium'>{t("teacherComplaints.noComplaints.title")}</p>
+            <p className='text-sm text-gray-400'>{t("teacherComplaints.noComplaints.description")}</p>
           </div>
         )}
       </div>
 
-      {/* Cards for mobile */}
+      {/* Mobile Cards */}
       <div className='md:hidden space-y-4'>
         {complaints.length > 0 ? (
           complaints.map(c => (
-            <div
-              key={c._id}
-              className='bg-white rounded-lg shadow p-4 border border-gray-200'
-              onClick={() => setSelectedComplaint(c)}
-            >
+            <div key={c._id} className='bg-white rounded-lg shadow p-4 border border-gray-200' onClick={() => setSelectedComplaint(c)}>
               <div className='flex justify-between items-center mb-2'>
                 <h4 className='font-semibold text-gray-800 text-nowrap'>{c.employeeName}</h4>
-                <span
-                  className={`px-2 py-1 rounded-full text-sm text-nowrap ${statusStyles[c.status]}`}
-                >
+                <span className={`px-2 py-1 rounded-full text-sm text-nowrap ${statusStyles[c.status]}`}>
                   {c.status}
                 </span>
               </div>
               <p className='text-gray-600 text-sm mb-1 text-nowrap'>{c.jobTitle}</p>
               <p className='text-gray-600 text-sm mb-1 text-nowrap'>{c.department}</p>
               <p className='text-gray-600 text-sm mb-1 text-nowrap'>{c.date}</p>
-              <td className="px-3 py-2 text-center whitespace-nowrap max-w-[120px] overflow-hidden text-ellipsis">
+              <p className='text-gray-600 text-sm mb-1 text-nowrap'>
                 {c.details.split(' ').slice(0, 5).join(' ')}...
-              </td>
+              </p>
             </div>
           ))
         ) : (
           <div className='bg-white shadow rounded-lg p-6 text-center text-gray-500'>
-            <p>No complaints submitted yet.</p>
+            <p>{t("noComplaints.title")}</p>
           </div>
         )}
       </div>
@@ -174,24 +159,13 @@ const TeacherComplaints = () => {
       {/* Modals */}
       <AnimatePresence>
         {showModal && (
-          <ComplaintModal
-            onClose={() => setShowModal(false)}
-            onSubmit={handleSubmit}
-            newComplaint={newComplaint}
-            setNewComplaint={setNewComplaint}
-            isLoading={isCreating}
-          />
+          <ComplaintModal onClose={() => setShowModal(false)} onSubmit={handleSubmit} newComplaint={newComplaint} setNewComplaint={setNewComplaint} isLoading={isCreating} t={t} />
         )}
       </AnimatePresence>
 
       <AnimatePresence>
         {selectedComplaint && (
-          <ComplaintDetailModal
-            complaint={selectedComplaint}
-            statusStyles={statusStyles}
-            statusIcons={statusIcons}
-            onClose={() => setSelectedComplaint(null)}
-          />
+          <ComplaintDetailModal complaint={selectedComplaint} statusStyles={statusStyles} statusIcons={statusIcons} onClose={() => setSelectedComplaint(null)} t={t} />
         )}
       </AnimatePresence>
     </div>

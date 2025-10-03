@@ -1,48 +1,49 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const ComplaintTable = ({ complaints }) => {
-  // ✅ Status styles
-  const statusStyles = {
-    Pending: "bg-yellow-100 text-yellow-700 border-yellow-300",
-    "In Progress": "bg-blue-100 text-blue-700 border-blue-300",
-    Resolved: "bg-green-100 text-green-700 border-green-300",
-  };
+  const { t } = useTranslation("teacherComplaints");
+
+  const statusStyles = t("teacherComplaints.table.statusStyles", { returnObjects: true });
+  const severityStyles = t("teacherComplaints.table.severityStyles", { returnObjects: true });
+  const headers = t("teacherComplaints.table.headers", { returnObjects: true });
+  const mobileHeaders = t("teacherComplaints.table.mobileCard", { returnObjects: true });
+  const statusLabels = t("teacherComplaints.table.status", { returnObjects: true });
+
+  const headerOrder = [
+    { key: "employeeName", label: headers.employeeName },
+    { key: "jobTitle", label: headers.jobTitle },
+    { key: "department", label: headers.department },
+    { key: "date", label: headers.date },
+    { key: "type", label: headers.type },
+    { key: "severity", label: headers.severity },
+    { key: "impact", label: headers.impact },
+    { key: "details", label: headers.details },
+    { key: "expectedAction", label: headers.expectedAction },
+    { key: "status", label: headers.status },
+  ];
 
   return (
     <div>
-      {/* ✅ Table for md and above */}
+      {/* ✅ Desktop Table */}
       <div className="hidden md:block bg-white shadow-lg rounded-2xl">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[1000px] border border-gray-300 text-sm table-fixed">
             <thead className="bg-gradient-to-r from-gray-50 to-gray-100 text-gray-700">
               <tr>
-                {[
-                  "Employee Name",
-                  "Job Title",
-                  "Department",
-                  "Date",
-                  "Type",
-                  "Severity",
-                  "Impact",
-                  "Details",
-                  "Expected Action",
-                  "Status",
-                ].map((head, i) => (
+                {headerOrder.map((h, i) => (
                   <th
                     key={i}
-                    className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wider border border-gray-300"
+                    className="px-3 py-2 text-left text-xs font-extrabold uppercase tracking-wider border border-gray-300"
                   >
-                    {head}
+                    {h.label}
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {complaints.map((complaint, index) => (
-                <tr
-                  key={index}
-                  className="hover:bg-gray-50 transition-colors"
-                >
+                <tr key={index} className="hover:bg-gray-50 transition-colors">
                   <td className="px-3 py-3 font-medium text-gray-900 border border-gray-300">
                     {complaint.employeeName}
                   </td>
@@ -63,12 +64,8 @@ const ComplaintTable = ({ complaints }) => {
                   <td className="px-2 py-2 border border-gray-300">
                     <span
                       className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold 
-                        ${complaint.severity === "Urgent"
-                          ? "bg-red-100 text-red-700"
-                          : complaint.severity === "Serious"
-                            ? "bg-yellow-100 text-yellow-700"
-                            : "bg-green-100 text-green-700"
-                        }`}
+                        ${severityStyles[complaint.severity]?.bg || ""} 
+                        ${severityStyles[complaint.severity]?.text || ""}`}
                     >
                       {complaint.severity}
                     </span>
@@ -77,17 +74,19 @@ const ComplaintTable = ({ complaints }) => {
                     {complaint.impact}
                   </td>
                   <td className="px-2 py-3 text-gray-700 border border-gray-300">
-                    {complaint.details.split(' ').slice(0, 2).join(' ')}...
+                    {complaint.details}
                   </td>
-
                   <td className="px-3 py-3 text-gray-700 border border-gray-300">
                     {complaint.expectedAction}
                   </td>
                   <td className="px-3 py-3 border border-gray-300">
                     <span
-                      className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium border ${statusStyles[complaint.status]}`}
+                      className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium border 
+                        ${statusStyles[complaint.status]?.bg || ""} 
+                        ${statusStyles[complaint.status]?.text || ""} 
+                        ${statusStyles[complaint.status]?.border || ""}`}
                     >
-                      {complaint.status}
+                      {statusLabels[complaint.status] || complaint.status}
                     </span>
                   </td>
                 </tr>
@@ -97,7 +96,7 @@ const ComplaintTable = ({ complaints }) => {
         </div>
       </div>
 
-      {/* ✅ Mobile Card View */}
+      {/* ✅ Mobile Card */}
       <div className="md:hidden space-y-4">
         {complaints.map((complaint, index) => (
           <div
@@ -115,48 +114,49 @@ const ComplaintTable = ({ complaints }) => {
                 </p>
               </div>
               <span
-                className={`px-2 py-1 rounded-full text-xs font-medium border ${statusStyles[complaint.status]}`}
+                className={`px-2 py-1 rounded-full text-xs font-medium border 
+                  ${statusStyles[complaint.status]?.bg || ""} 
+                  ${statusStyles[complaint.status]?.text || ""} 
+                  ${statusStyles[complaint.status]?.border || ""}`}
               >
-                {complaint.status}
+                {statusLabels[complaint.status] || complaint.status}
               </span>
             </div>
 
             {/* Body */}
             <div className="space-y-2 text-sm text-gray-700">
               <p>
-                <span className="font-semibold">Date:</span>{" "}
+                <span className="font-semibold">{mobileHeaders.date}</span>{" "}
                 {complaint.date
                   ? new Date(complaint.date).toLocaleDateString()
                   : "-"}
               </p>
               <p>
-                <span className="font-semibold">Type:</span>{" "}
+                <span className="font-semibold">{mobileHeaders.type}</span>{" "}
                 {complaint.type}
               </p>
               <p>
-                <span className="font-semibold">Severity:</span>{" "}
+                <span className="font-semibold">{mobileHeaders.severity}</span>{" "}
                 <span
                   className={`px-2 py-0.5 rounded-full text-xs font-semibold 
-                    ${complaint.severity === "Urgent"
-                      ? "bg-red-100 text-red-700"
-                      : complaint.severity === "Serious"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-green-100 text-green-700"
-                    }`}
+                    ${severityStyles[complaint.severity]?.bg || ""} 
+                    ${severityStyles[complaint.severity]?.text || ""}`}
                 >
                   {complaint.severity}
                 </span>
               </p>
               <p>
-                <span className="font-semibold">Impact:</span>{" "}
+                <span className="font-semibold">{mobileHeaders.impact}</span>{" "}
                 {complaint.impact}
               </p>
               <p>
-                <span className="font-semibold">Details:</span>{" "}
+                <span className="font-semibold">{mobileHeaders.details}</span>{" "}
                 {complaint.details}
               </p>
               <p>
-                <span className="font-semibold">Expected Action:</span>{" "}
+                <span className="font-semibold">
+                  {mobileHeaders.expectedAction}
+                </span>{" "}
                 {complaint.expectedAction}
               </p>
             </div>

@@ -1,8 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { AlertCircle, X } from "lucide-react";
+import { useTranslation } from "react-i18next"; // assuming i18n setup
 
 const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLoading }) => {
+  const { t } = useTranslation("teacherComplaints");
+
   return (
     <motion.div
       className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
@@ -29,7 +32,7 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
         <div className="flex items-center gap-3 mb-6">
           <AlertCircle className="text-[#104c80]" size={26} />
           <h3 className="text-xl font-bold text-[#104c80]">
-            Submit Staff Complaint
+            {t("teacherComplaints.submitModal.title")}
           </h3>
         </div>
         <div className="border-b mb-6"></div>
@@ -40,7 +43,7 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
-                Employee Name
+                {t("teacherComplaints.submitModal.employeeName")}
               </label>
               <input
                 type="text"
@@ -56,7 +59,7 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
-                Job Title
+                {t("teacherComplaints.submitModal.jobTitle")}
               </label>
               <input
                 type="text"
@@ -75,7 +78,7 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
-                Department
+                {t("teacherComplaints.submitModal.department")}
               </label>
               <input
                 type="text"
@@ -91,7 +94,7 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
-                Date of Complaint
+                {t("teacherComplaints.submitModal.date")}
               </label>
               <input
                 type="date"
@@ -110,7 +113,7 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
-                Complaint Type
+                {t("teacherComplaints.submitModal.type")}
               </label>
               <select
                 value={newComplaint.type}
@@ -121,20 +124,20 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
                 className="w-full rounded-lg px-4 py-2 text-sm border border-gray-300 shadow-inner 
                            focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] outline-none transition"
               >
-                <option value="">Select Type</option>
-                <option value="Safety at Work">Safety at Work</option>
-                <option value="Stress">Stress</option>
-                <option value="Work Environment">Work Environment</option>
-                <option value="Colleagues">Colleagues</option>
-                <option value="Management">Management</option>
-                <option value="Rights">Rights</option>
-                <option value="Other">Other</option>
+                <option value="">{t("teacherComplaints.submitModal.type")}</option>
+                {Object.entries(t("teacherComplaints.submitModal.typeOptions", { returnObjects: true })).map(
+                  ([key, label]) => (
+                    <option key={key} value={label}>
+                      {label}
+                    </option>
+                  )
+                )}
               </select>
             </div>
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
-                Severity
+                {t("teacherComplaints.submitModal.severity")}
               </label>
               <select
                 value={newComplaint.severity}
@@ -145,11 +148,14 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
                 className="w-full rounded-lg px-4 py-2 text-sm border border-gray-300 shadow-inner 
                            focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] outline-none transition"
               >
-                <option value="">Select Severity</option>
-                <option value="Simple Note">Simple Note</option>
-                <option value="Urgent">Urgent</option>
-                <option value="Follow-up">Follow-up</option>
-                <option value="Serious">Serious</option>
+                <option value="">{t("teacherComplaints.submitModal.severity")}</option>
+                {Object.entries(t("teacherComplaints.submitModal.severityOptions", { returnObjects: true })).map(
+                  ([key, label]) => (
+                    <option key={key} value={label}>
+                      {label}
+                    </option>
+                  )
+                )}
               </select>
             </div>
           </div>
@@ -158,7 +164,7 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
-                Impact
+                {t("teacherComplaints.submitModal.impact")}
               </label>
               <select
                 value={newComplaint.impact}
@@ -169,17 +175,20 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
                 className="w-full rounded-lg px-4 py-2 text-sm border border-gray-300 shadow-inner 
                            focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] outline-none transition"
               >
-                <option value="">Select Impact</option>
-                <option value="Stress">Stress</option>
-                <option value="Performance">Performance</option>
-                <option value="Health">Health</option>
-                <option value="Isolation">Isolation</option>
+                <option value="">{t("teacherComplaints.submitModal.impact")}</option>
+                {Object.entries(t("teacherComplaints.submitModal.impactOptions", { returnObjects: true })).map(
+                  ([key, label]) => (
+                    <option key={key} value={label}>
+                      {label}
+                    </option>
+                  )
+                )}
               </select>
             </div>
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
-                Expected Action
+                {t("teacherComplaints.submitModal.expectedAction")}
               </label>
               <input
                 type="text"
@@ -200,7 +209,7 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
           {/* Complaint Details */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1">
-              Complaint Details
+              {t("teacherComplaints.submitModal.details")}
             </label>
             <textarea
               rows="4"
@@ -222,7 +231,7 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
               onClick={onClose}
               className="px-5 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 transition shadow-sm"
             >
-              Cancel
+              {t("teacherComplaints.submitModal.cancelButton")}
             </button>
             <button
               type="submit"
@@ -230,7 +239,7 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
               className="px-5 py-2 rounded-lg bg-gradient-to-r from-[#104c80] to-[#0d3a63] 
                          text-white font-medium shadow-md hover:shadow-lg hover:opacity-90 transition disabled:opacity-60"
             >
-              {isLoading ? "Submitting..." : "Submit"}
+              {isLoading ? t("teacherComplaints.submitModal.submittingButton") : t("teacherComplaints.submitModal.submitButton")}
             </button>
           </div>
         </form>

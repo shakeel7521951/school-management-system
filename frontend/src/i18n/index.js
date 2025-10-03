@@ -91,23 +91,19 @@ import viewDocumentModal_ar from "./ar/AdminUploadedDocumentsData/ViewDocumentMo
 import rejectDocumentModal_ar from "./ar/AdminUploadedDocumentsData/RejectDocumentModal.json"
 import adminRequestedDocuments_en from "./en/AdminRequestedDocuments.json"
 import adminRequestedDocuments_ar from "./ar/AdminRequestedDocuments.json"
+import teacherComplaints_ar from "./ar/TeacherComplaints/TeacherComplaints.json"
 
-import aboutUs_en from "./en/AboutUs.json";
-import aboutUs_ar from "./ar/AboutUs.json";
-import directorManager_en from "./en/Directormanager.json";
-import directorManager_ar from "./ar/Directormanager.json";
-import actingDirector_en from "./en/Actingdirector.json";
-import actingDirector_ar from "./ar/Actingdirector.json";
-import faq_en from "./en/FAQs.json";
-import faq_ar from "./ar/FAQs.json";
-import team_en from "./en/Team.json";
-import team_ar from "./ar/Team.json";
+
+
+
+
 import teacherNavbar_en from "./en/TeacherNavbar.json";
 import teacherNavbar_ar from "./ar/TeacherNavbar.json";
 import teacherSidebar_en from "./en/TeacherSidebar.json";
 import teacherSidebar_ar from "./ar/TeacherSidebar.json";
 import responseForm_en from "./en/ResponseForm.json";
 import responseForm_ar from "./ar/ResponseForm.json";
+import teacherComplaints_en from "./en/TeacherComplaints/TeacherComplaints.json"
 import registrationForm_en from "./en/RegistrationForm.json"
 import registrationForm_ar from "./ar/RegistrationForm.json"
 
@@ -153,6 +149,7 @@ const resources = {
     rejectDocumentModal:rejectDocumentModal_en,
     adminRequestedDocuments:adminRequestedDocuments_en,
     adminRequestedDocuments:adminRequestedDocuments_en,
+    teacherComplaints:teacherComplaints_en,
     
 
 
@@ -212,6 +209,7 @@ const resources = {
     viewDocumentModal:viewDocumentModal_ar,
     rejectDocumentModal:rejectDocumentModal_ar,
     adminRequestedDocuments:adminRequestedDocuments_ar,
+    teacherComplaints:teacherComplaints_ar,
 
 
     navbar: navbar_ar,
