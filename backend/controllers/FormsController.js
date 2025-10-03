@@ -2,16 +2,18 @@ import Form from "../models/Form.js";
 
 export const createForm = async (req, res) => {
     try {
-        const { title, content, html } = req.body;
+        const { title, content, html,fillDuration } = req.body;
         const form = new Form({
             title,
             content,
-            html
+            html,
+            fillDuration
         });
 
         const savedForm = await form.save();
         res.status(201).json(savedForm);
     } catch (error) {
+      console.log(error)
         res.status(400).json({ message: error.message });
     }
 }
@@ -57,11 +59,11 @@ export const singleForm = async (req, res) => {
 export const updateForm = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, content, html } = req.body;
+    const { title, content, html ,fillDuration} = req.body;
 
     const updatedForm = await Form.findByIdAndUpdate(
       id,
-      { title, content, html },
+      { title, content, html,fillDuration },
       { new: true, runValidators: true }
     );
 

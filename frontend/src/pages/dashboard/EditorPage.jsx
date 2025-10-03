@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Heading from "@tiptap/extension-heading";
@@ -260,6 +260,7 @@ export default function EditorPage() {
   const [formTitle, setFormTitle] = useState('Untitled form');
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const editorRef = useRef(null);
+  const [fillDuration, setFillDuration] = useState('');
 
   const editor = useEditor({
     extensions: [
@@ -357,7 +358,7 @@ export default function EditorPage() {
     const required = window.confirm('Is this field required?');
     editor.chain().focus().insertContent({ type: 'checkboxField', attrs: { label, name, options, required } }).run();
   }, [editor]);
-  
+
   const insertRadio = useCallback(() => {
     if (!editor) return;
     const label = window.prompt('Radio group label', 'Gender');
@@ -478,7 +479,16 @@ export default function EditorPage() {
 
   const save = async () => {
     if (!editor) return;
+    if (!formTitle.trim() || formTitle === 'Untitled form') {
+      toast.error("Form title is required!");
+      return
+    }
+    if (!fillDuration || Number(fillDuration) < 1) {
+      toast.error("Please enter a valid time to fill (at least one day)!");
+      return
+    }
     setIsSaving(true);
+
 
     const json = editor.getJSON();
     const html = generateHTML();
@@ -497,7 +507,8 @@ export default function EditorPage() {
         body: JSON.stringify({
           content: json,
           html: html,
-          title: formTitle
+          title: formTitle,
+          fillDuration: fillDuration
         })
       });
 
@@ -522,31 +533,22 @@ export default function EditorPage() {
   };
 
   // Load form data when component mounts or when id changes
-useEffect(() => {
-  const loadForm = async () => {
-    if (id) {
+  useEffect(() => {
+    const loadForm = async () => {
+      if (!id || !editor) return;
       try {
-        const response = await axios.get(`${BACKEND_URL}/single-form/${id}`, {
-          withCredentials: true,
-        });
-
-        const formData = response.data;
-        if (formData.title) {
-          setFormTitle(formData.title);
-        }
-        if (editor && formData.content) {
-          editor.commands.setContent(formData.content);
-        }
-      } catch (error) {
-        console.error("Error loading form:", error);
-        alert("Failed to load form. Please try again.");
+        const res = await axios.get(`${BACKEND_URL}/single-form/${id}`);
+        const data = res.data;
+        if (data.title) setFormTitle(data.title);
+        if (editor && data.content) editor.commands.setContent(data.content);
+        if (data.fillDuration) setFillDuration(data.fillDuration); // <-- add this
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to load form");
       }
-    }
-  };
-
-  loadForm();
-}, [editor, id]);
-
+    };
+    loadForm();
+  }, [id, editor]);
 
   const printForm = () => {
     const htmlContent = generateHTML();
@@ -580,27 +582,44 @@ useEffect(() => {
   return (
     <div className="flex flex-col h-screen bg-gray-100">
       {/* Form title section */}
-      <div className="bg-white border-b p-4 px-10 flex items-center justify-center">
-        {isEditingTitle ? (
+      <div className="bg-white border-b p-4 px-10 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 shadow-sm">
+        {/* Left side: Form title and status */}
+        <div className="flex items-center gap-4 flex-1">
+          {isEditingTitle ? (
+            <input
+              type="text"
+              value={formTitle}
+              onChange={handleTitleChange}
+              onBlur={handleTitleBlur}
+              className="text-2xl font-bold border-b-2 border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-300 rounded px-2 py-1 w-full md:w-auto"
+              autoFocus
+              placeholder="Enter form title"
+            />
+          ) : (
+            <h1
+              className="text-2xl font-bold cursor-pointer hover:text-blue-600 transition-colors duration-200"
+              onClick={handleTitleClick}
+            >
+              {formTitle}
+            </h1>
+          )}
+          <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-lg">
+            {id ? `Editing: ${id}` : 'Creating new form'}
+          </span>
+        </div>
+
+        {/* Right side: Fill duration */}
+        <div className="flex items-center gap-2">
+          <label>Time to fill:</label>
           <input
-            type="text"
-            value={formTitle}
-            onChange={handleTitleChange}
-            onBlur={handleTitleBlur}
-            className="text-2xl font-bold text-center border-b-2 border-blue-500 focus:outline-none"
-            autoFocus
+            type="number"
+            min={1}
+            value={fillDuration}
+            onChange={(e) => setFillDuration(Number(e.target.value))}
+            className="w-20 border rounded px-2 py-1"
           />
-        ) : (
-          <h1
-            className="text-2xl font-bold cursor-pointer hover:text-blue-600"
-            onClick={handleTitleClick}
-          >
-            {formTitle}
-          </h1>
-        )}
-        <span className="ml-4 text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">
-          {id ? `Editing: ${id}` : 'Creating new form'}
-        </span>
+          <span>day(s)</span>
+        </div>
       </div>
 
       {/* Top toolbar */}

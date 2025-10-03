@@ -92,16 +92,6 @@ import rejectDocumentModal_ar from "./ar/AdminUploadedDocumentsData/RejectDocume
 import adminRequestedDocuments_en from "./en/AdminRequestedDocuments.json"
 import adminRequestedDocuments_ar from "./ar/AdminRequestedDocuments.json"
 
-import aboutUs_en from "./en/AboutUs.json";
-import aboutUs_ar from "./ar/AboutUs.json";
-import directorManager_en from "./en/Directormanager.json";
-import directorManager_ar from "./ar/Directormanager.json";
-import actingDirector_en from "./en/Actingdirector.json";
-import actingDirector_ar from "./ar/Actingdirector.json";
-import faq_en from "./en/FAQs.json";
-import faq_ar from "./ar/FAQs.json";
-import team_en from "./en/Team.json";
-import team_ar from "./ar/Team.json";
 import teacherNavbar_en from "./en/TeacherNavbar.json";
 import teacherNavbar_ar from "./ar/TeacherNavbar.json";
 import teacherSidebar_en from "./en/TeacherSidebar.json";

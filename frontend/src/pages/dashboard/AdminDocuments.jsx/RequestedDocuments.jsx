@@ -13,10 +13,24 @@ const FormManagement = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
+  const [timer, setTimer] = useState({}); // for countdown
 
   useEffect(() => {
     fetchForms();
   }, []);
+
+  // Update countdown every second
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const updatedTimer = {};
+      forms.forEach(form => {
+        updatedTimer[form._id] = getRemainingTime(form.createdAt, form.fillDuration);
+      });
+      setTimer(updatedTimer);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [forms]);
 
   const fetchForms = async () => {
     try {
@@ -69,6 +83,22 @@ const FormManagement = () => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', t("dates.formatOptions"));
+  };
+
+  // Function to calculate remaining time
+  const getRemainingTime = (createdAt, fillDuration) => {
+    const createdTime = new Date(createdAt).getTime();
+    const now = Date.now();
+    const endTime = createdTime + fillDuration * 24 * 60 * 60 * 1000;
+    const remaining = endTime - now;
+
+    if (remaining <= 0) return "Expired";
+
+    const hours = Math.floor(remaining / (1000 * 60 * 60));
+    const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+
+    return `${hours}h ${minutes}m ${seconds}s`;
   };
 
   if (loading) {
@@ -134,7 +164,7 @@ const FormManagement = () => {
                   <tr className='bg-[#104c80] text-white text-sm uppercase tracking-wide shadow-sm'>
                     <th className='px-6 py-4 text-left rounded-tl-xl'>{t("table.headers.title")}</th>
                     <th className='px-6 py-4 text-left'>{t("table.headers.created")}</th>
-                    <th className='px-6 py-4 text-left'>{t("table.headers.updated")}</th>
+                    <th className='px-6 py-4 text-left'>Time left</th>
                     <th className='px-6 py-4 text-left'>{t("table.headers.status")}</th>
                     <th className='px-6 py-4 text-left rounded-tr-xl'>{t("table.headers.actions")}</th>
                   </tr>
@@ -147,7 +177,7 @@ const FormManagement = () => {
                     >
                       <td className='px-6 py-4 text-gray-800 font-semibold'>{form.title}</td>
                       <td className='px-6 py-4 text-gray-700'>{formatDate(form.createdAt)}</td>
-                      <td className='px-6 py-4 text-gray-700'>{formatDate(form.updatedAt)}</td>
+                      <td className='px-6 py-4 text-gray-700'>{timer[form._id]}</td>
                       <td className='px-6 py-4'>
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${form.isPublished ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
                           {form.isPublished ? t("table.status.published") : t("table.status.draft")}
@@ -192,6 +222,7 @@ const FormManagement = () => {
                   </div>
                   <p className='text-sm text-gray-600'><span className='font-medium'>{t("table.headers.created")}:</span> {formatDate(form.createdAt)}</p>
                   <p className='text-sm text-gray-600'><span className='font-medium'>{t("table.headers.updated")}:</span> {formatDate(form.updatedAt)}</p>
+                  <p className='text-sm text-gray-600'><span className='font-medium'>Time left:</span> {timer[form._id]}</p>
                   <div className="flex justify-between mt-4 pt-3 border-t border-gray-100">
                     <div className="flex items-center gap-2">
                       <button onClick={() => navigate(`/view/${form._id}`)} className="p-2 text-blue-600 hover:bg-blue-100 rounded-full transition" title={t("mobileCard.actions.view")}><Eye className="w-4 h-4" /></button>
