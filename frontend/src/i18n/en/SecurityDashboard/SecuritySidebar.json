@@ -1,0 +1,9 @@
+{
+  "sidebar": {
+    "title": "Al Tamkon Security Panel",
+    "menu": {
+      "visitors": "Visitors"
+    },
+    "logout": "Logout"
+  }
+}

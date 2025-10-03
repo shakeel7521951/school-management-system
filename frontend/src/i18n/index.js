@@ -91,6 +91,11 @@ import viewDocumentModal_ar from "./ar/AdminUploadedDocumentsData/ViewDocumentMo
 import rejectDocumentModal_ar from "./ar/AdminUploadedDocumentsData/RejectDocumentModal.json"
 import adminRequestedDocuments_en from "./en/AdminRequestedDocuments.json"
 import adminRequestedDocuments_ar from "./ar/AdminRequestedDocuments.json"
+import teacherComplaints_ar from "./ar/TeacherComplaints/TeacherComplaints.json"
+
+
+
+
 
 import teacherNavbar_en from "./en/TeacherNavbar.json";
 import teacherNavbar_ar from "./ar/TeacherNavbar.json";
@@ -98,8 +103,19 @@ import teacherSidebar_en from "./en/TeacherSidebar.json";
 import teacherSidebar_ar from "./ar/TeacherSidebar.json";
 import responseForm_en from "./en/ResponseForm.json";
 import responseForm_ar from "./ar/ResponseForm.json";
+import teacherComplaints_en from "./en/TeacherComplaints/TeacherComplaints.json"
 import registrationForm_en from "./en/RegistrationForm.json"
 import registrationForm_ar from "./ar/RegistrationForm.json"
+import securityNavbar_en from "./en/SecurityDashboard/SecurityNavbar.json"
+import securityNavbar_ar from "./ar/SecurityDashboard/SecurityNavbar.json"
+import securitySidebar_en from "./en/SecurityDashboard/SecuritySidebar.json"
+import securitySidebar_ar from "./ar/SecurityDashboard/SecuritySidebar.json"
+import securityVisitorForm_en from "./en/SecurityDashboard/SecurityVisitor.json"
+import securityVisitorForm_ar from "./ar/SecurityDashboard/SecurityVisitor.json"
+import visitorViewModal_en from "./en/SecurityDashboard/VisitorViewModal.json"
+import visitorViewModal_ar from "./ar/SecurityDashboard/VisitorViewModal.json"
+import visitorManagement_en from "./en/SecurityDashboard/VisitorManagement.json"
+import visitorManagement_ar from "./ar/SecurityDashboard/VisitorManagement.json"
 
 
 const resources = {
@@ -143,6 +159,12 @@ const resources = {
     rejectDocumentModal:rejectDocumentModal_en,
     adminRequestedDocuments:adminRequestedDocuments_en,
     adminRequestedDocuments:adminRequestedDocuments_en,
+    teacherComplaints:teacherComplaints_en,
+    securityNavbar:securityNavbar_en,
+    securitySidebar:securitySidebar_en,
+    securityVisitorForm:securityVisitorForm_en,
+    visitorViewModal:visitorViewModal_en,
+    visitorManagement:visitorManagement_en,
     
 
 
@@ -202,6 +224,12 @@ const resources = {
     viewDocumentModal:viewDocumentModal_ar,
     rejectDocumentModal:rejectDocumentModal_ar,
     adminRequestedDocuments:adminRequestedDocuments_ar,
+    teacherComplaints:teacherComplaints_ar,
+    securityNavbar:securityNavbar_ar,
+    securitySidebar:securitySidebar_ar,
+    securityVisitorForm:securityVisitorForm_ar,
+    visitorViewModal:visitorViewModal_ar,
+    visitorManagement:visitorManagement_ar,
 
 
     navbar: navbar_ar,

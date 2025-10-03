@@ -1,0 +1,14 @@
+{
+  "menu": {
+    "toggle": "Toggle menu",
+    "dashboard": "Dashboard",
+    "profile": "My Profile",
+    "logout": "Logout"
+  },
+  "profile": {
+    "guest": "Guest",
+    "avatarAlt": "Profile",
+    "role": "Role",
+    "greeting": "Hello, {{name}}"
+  }
+}

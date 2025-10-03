@@ -1,0 +1,38 @@
+{
+  "visitorForm": {
+    "title": "تسجيل دخول الزائر",
+    "subtitle": "يرجى تعبئة النموذج لتسجيل الدخول",
+    "fields": {
+      "name": {
+        "label": "الاسم الكامل",
+        "placeholder": "أدخل اسمك الكامل"
+      },
+      "governmentId": {
+        "label": "رقم الهوية / البطاقة",
+        "placeholder": "مثال: بطاقة الهوية الوطنية، بطاقة الموظف"
+      },
+      "reason": {
+        "label": "السبب",
+        "options": {
+          "meeting": "اجتماع (المضيف)",
+          "interview": "مقابلة",
+          "delivery": "توصيل",
+          "maintenance": "صيانة / مقاول",
+          "other": "أخرى"
+        }
+      },
+      "hostEmail": {
+        "label": "بريد المضيف الإلكتروني",
+        "placeholder": "أدخل بريد المضيف الإلكتروني"
+      }
+    },
+    "button": {
+      "submit": "تسجيل الدخول",
+      "submitting": "جارٍ الإرسال..."
+    },
+    "alerts": {
+      "missingFields": "يرجى إدخال الاسم والهوية",
+      "failed": "فشل في إضافة الزائر"
+    }
+  }
+}

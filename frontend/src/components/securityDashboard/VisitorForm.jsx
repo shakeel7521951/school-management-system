@@ -1,51 +1,52 @@
 import { useState } from "react";
 import { User, IdCard, Mail, ClipboardList, CheckCircle2 } from "lucide-react";
 import { useAddVisitorMutation } from "../../redux/slices/VisitorApi";
+import { useTranslation } from "react-i18next";
 
 const VisitorForm = ({ onClose }) => {
+  const { t } = useTranslation("securityVisitorForm"); // ✅ namespace
   const [form, setForm] = useState({
     name: "",
     governmentId: "",
-    reason: "Meeting (Host)",
+    reason: "meeting",
     hostEmail: "",
   });
+ 
 
   const [addVisitor, { isLoading }] = useAddVisitorMutation();
 
   async function handleSubmit(e) {
     e.preventDefault();
     if (!form.name || !form.governmentId) {
-      return alert("Please enter name and ID");
+      return alert(t("alerts.missingFields"));
     }
     try {
       await addVisitor(form).unwrap();
-      onClose(); // ✅ close modal after success
+      onClose();
     } catch (err) {
       console.error("Add visitor failed:", err);
-      alert("Failed to add visitor");
+      alert(t("alerts.failed"));
     }
   }
-  
+
   return (
-    <div className="p-6">
+    <div className="p-6" >
       <div className="mb-4">
-        <h2 className="text-lg font-bold text-[#104c80]">Visitor Check-in</h2>
-        <p className="text-sm text-slate-500">
-          Please fill out the form to check in
-        </p>
+        <h2 className="text-lg font-bold text-[#104c80]">{t("visitorForm.title")}</h2>
+        <p className="text-sm text-slate-500">{t("visitorForm.subtitle")}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Name */}
         <div>
           <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
-            <User size={16} className="text-[#104c80]" /> Full name
+            <User size={16} className="text-[#104c80]" /> {t("visitorForm.fields.name.label")}
           </label>
           <input
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
             required
-            placeholder="Enter your full name"
+            placeholder={t("visitorForm.fields.name.placeholder")}
             className="mt-2 w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#104c80] outline-none transition"
           />
         </div>
@@ -53,15 +54,13 @@ const VisitorForm = ({ onClose }) => {
         {/* Government ID */}
         <div>
           <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
-            <IdCard size={16} className="text-[#104c80]" /> Government ID / Badge
+            <IdCard size={16} className="text-[#104c80]" /> {t("visitorForm.fields.governmentId.label")}
           </label>
           <input
             value={form.governmentId}
-            onChange={(e) =>
-              setForm({ ...form, governmentId: e.target.value })
-            }
+            onChange={(e) => setForm({ ...form, governmentId: e.target.value })}
             required
-            placeholder="e.g. CNIC, Employee Badge"
+            placeholder={t("visitorForm.fields.governmentId.placeholder")}
             className="mt-2 w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#104c80] outline-none transition"
           />
         </div>
@@ -69,40 +68,42 @@ const VisitorForm = ({ onClose }) => {
         {/* Reason */}
         <div>
           <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
-            <ClipboardList size={16} className="text-[#104c80]" /> Reason
+            <ClipboardList size={16} className="text-[#104c80]" /> {t("visitorForm.fields.reason.label")}
           </label>
           <select
             value={form.reason}
             onChange={(e) => setForm({ ...form, reason: e.target.value })}
             className="mt-2 w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#104c80] outline-none transition"
           >
-            <option>Meeting (Host)</option>
-            <option>Interview</option>
-            <option>Delivery</option>
-            <option>Maintenance / Contractor</option>
-            <option>Other</option>
+            <option value="meeting">{t("visitorForm.fields.reason.options.meeting")}</option>
+            <option value="interview">{t("visitorForm.fields.reason.options.interview")}</option>
+            <option value="delivery">{t("visitorForm.fields.reason.options.delivery")}</option>
+            <option value="maintenance">{t("visitorForm.fields.reason.options.maintenance")}</option>
+            <option value="other">{t("visitorForm.fields.reason.options.other")}</option>
           </select>
         </div>
 
-        {/* Host */}
+        {/* Host Email */}
         <div>
           <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
-            <Mail size={16} className="text-[#104c80]" /> Host email
+            <Mail size={16} className="text-[#104c80]" /> {t("visitorForm.fields.hostEmail.label")}
           </label>
           <input
             value={form.hostEmail}
             onChange={(e) => setForm({ ...form, hostEmail: e.target.value })}
-            placeholder="Enter host's email"
+            placeholder={t("visitorForm.fields.hostEmail.placeholder")}
             className="mt-2 w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#104c80] outline-none transition"
           />
         </div>
 
+        {/* Submit */}
         <button
           type="submit"
           disabled={isLoading}
           className="w-full py-3 flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#104c80] to-[#0d3a62] text-white font-semibold shadow-md hover:shadow-lg transition disabled:opacity-50"
         >
-          <CheckCircle2 size={20} /> {isLoading ? "Submitting..." : "Check in"}
+          <CheckCircle2 size={20} />{" "}
+          {isLoading ? t("visitorForm.button.submitting") : t("visitorForm.button.submit")}
         </button>
       </form>
     </div>
