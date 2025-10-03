@@ -106,6 +106,16 @@ import responseForm_ar from "./ar/ResponseForm.json";
 import teacherComplaints_en from "./en/TeacherComplaints/TeacherComplaints.json"
 import registrationForm_en from "./en/RegistrationForm.json"
 import registrationForm_ar from "./ar/RegistrationForm.json"
+import securityNavbar_en from "./en/SecurityDashboard/SecurityNavbar.json"
+import securityNavbar_ar from "./ar/SecurityDashboard/SecurityNavbar.json"
+import securitySidebar_en from "./en/SecurityDashboard/SecuritySidebar.json"
+import securitySidebar_ar from "./ar/SecurityDashboard/SecuritySidebar.json"
+import securityVisitorForm_en from "./en/SecurityDashboard/SecurityVisitor.json"
+import securityVisitorForm_ar from "./ar/SecurityDashboard/SecurityVisitor.json"
+import visitorViewModal_en from "./en/SecurityDashboard/VisitorViewModal.json"
+import visitorViewModal_ar from "./ar/SecurityDashboard/VisitorViewModal.json"
+import visitorManagement_en from "./en/SecurityDashboard/VisitorManagement.json"
+import visitorManagement_ar from "./ar/SecurityDashboard/VisitorManagement.json"
 
 
 const resources = {
@@ -150,6 +160,11 @@ const resources = {
     adminRequestedDocuments:adminRequestedDocuments_en,
     adminRequestedDocuments:adminRequestedDocuments_en,
     teacherComplaints:teacherComplaints_en,
+    securityNavbar:securityNavbar_en,
+    securitySidebar:securitySidebar_en,
+    securityVisitorForm:securityVisitorForm_en,
+    visitorViewModal:visitorViewModal_en,
+    visitorManagement:visitorManagement_en,
     
 
 
@@ -210,6 +225,11 @@ const resources = {
     rejectDocumentModal:rejectDocumentModal_ar,
     adminRequestedDocuments:adminRequestedDocuments_ar,
     teacherComplaints:teacherComplaints_ar,
+    securityNavbar:securityNavbar_ar,
+    securitySidebar:securitySidebar_ar,
+    securityVisitorForm:securityVisitorForm_ar,
+    visitorViewModal:visitorViewModal_ar,
+    visitorManagement:visitorManagement_ar,
 
 
     navbar: navbar_ar,

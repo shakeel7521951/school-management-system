@@ -5,6 +5,7 @@ const ComplaintTable = ({ complaints }) => {
   const { t } = useTranslation("teacherComplaints");
 
   const statusStyles = t("teacherComplaints.table.statusStyles", { returnObjects: true });
+  const severityOptions = t("teacherComplaints.table.severityOptions", { returnObjects: true });
   const severityStyles = t("teacherComplaints.table.severityStyles", { returnObjects: true });
   const headers = t("teacherComplaints.table.headers", { returnObjects: true });
   const mobileHeaders = t("teacherComplaints.table.mobileCard", { returnObjects: true });
@@ -67,7 +68,7 @@ const ComplaintTable = ({ complaints }) => {
                         ${severityStyles[complaint.severity]?.bg || ""} 
                         ${severityStyles[complaint.severity]?.text || ""}`}
                     >
-                      {complaint.severity}
+                       {severityOptions[complaint.severity] || complaint.severity}
                     </span>
                   </td>
                   <td className="px-2 py-3 text-gray-700 border border-gray-300">
@@ -142,7 +143,7 @@ const ComplaintTable = ({ complaints }) => {
                     ${severityStyles[complaint.severity]?.bg || ""} 
                     ${severityStyles[complaint.severity]?.text || ""}`}
                 >
-                  {complaint.severity}
+                 {severityOptions[complaint.severity] || complaint.severity}
                 </span>
               </p>
               <p>

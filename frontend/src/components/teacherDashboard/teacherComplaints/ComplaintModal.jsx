@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { AlertCircle, X } from "lucide-react";
-import { useTranslation } from "react-i18next"; // assuming i18n setup
+import { useTranslation } from "react-i18next";
 
 const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLoading }) => {
   const { t } = useTranslation("teacherComplaints");
@@ -20,7 +20,7 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
         transition={{ duration: 0.3, ease: "easeOut" }}
         className="relative w-full max-w-3xl bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl p-8 overflow-y-auto max-h-[90vh]"
       >
-        {/* Close button */}
+        {/* ❌ Close button */}
         <button
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition"
           onClick={onClose}
@@ -28,7 +28,7 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
           <X size={22} />
         </button>
 
-        {/* Header */}
+        {/* ✅ Header */}
         <div className="flex items-center gap-3 mb-6">
           <AlertCircle className="text-[#104c80]" size={26} />
           <h3 className="text-xl font-bold text-[#104c80]">
@@ -37,7 +37,7 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
         </div>
         <div className="border-b mb-6"></div>
 
-        {/* Form */}
+        {/* ✅ Form */}
         <form onSubmit={onSubmit} className="space-y-5">
           {/* Employee Name + Job Title */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -51,9 +51,9 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
                 onChange={(e) =>
                   setNewComplaint({ ...newComplaint, employeeName: e.target.value })
                 }
+                required
                 className="w-full rounded-lg px-4 py-2 text-sm border border-gray-300 shadow-inner 
                            focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] outline-none transition"
-                required
               />
             </div>
 
@@ -67,9 +67,9 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
                 onChange={(e) =>
                   setNewComplaint({ ...newComplaint, jobTitle: e.target.value })
                 }
+                required
                 className="w-full rounded-lg px-4 py-2 text-sm border border-gray-300 shadow-inner 
                            focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] outline-none transition"
-                required
               />
             </div>
           </div>
@@ -86,9 +86,9 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
                 onChange={(e) =>
                   setNewComplaint({ ...newComplaint, department: e.target.value })
                 }
+                required
                 className="w-full rounded-lg px-4 py-2 text-sm border border-gray-300 shadow-inner 
                            focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] outline-none transition"
-                required
               />
             </div>
 
@@ -102,9 +102,9 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
                 onChange={(e) =>
                   setNewComplaint({ ...newComplaint, date: e.target.value })
                 }
+                required
                 className="w-full rounded-lg px-4 py-2 text-sm border border-gray-300 shadow-inner 
                            focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] outline-none transition"
-                required
               />
             </div>
           </div>
@@ -127,7 +127,7 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
                 <option value="">{t("teacherComplaints.submitModal.type")}</option>
                 {Object.entries(t("teacherComplaints.submitModal.typeOptions", { returnObjects: true })).map(
                   ([key, label]) => (
-                    <option key={key} value={label}>
+                    <option key={key} value={key}>
                       {label}
                     </option>
                   )
@@ -137,7 +137,7 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
-                {t("teacherComplaints.submitModal.severity")}
+                {t("teacherComplaints.table.headers.severity")}
               </label>
               <select
                 value={newComplaint.severity}
@@ -148,10 +148,10 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
                 className="w-full rounded-lg px-4 py-2 text-sm border border-gray-300 shadow-inner 
                            focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] outline-none transition"
               >
-                <option value="">{t("teacherComplaints.submitModal.severity")}</option>
-                {Object.entries(t("teacherComplaints.submitModal.severityOptions", { returnObjects: true })).map(
+                <option value="">{t("teacherComplaints.table.headers.severity")}</option>
+                {Object.entries(t("teacherComplaints.table.severityOptions", { returnObjects: true })).map(
                   ([key, label]) => (
-                    <option key={key} value={label}>
+                    <option key={key} value={key}>
                       {label}
                     </option>
                   )
@@ -178,7 +178,7 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
                 <option value="">{t("teacherComplaints.submitModal.impact")}</option>
                 {Object.entries(t("teacherComplaints.submitModal.impactOptions", { returnObjects: true })).map(
                   ([key, label]) => (
-                    <option key={key} value={label}>
+                    <option key={key} value={key}>
                       {label}
                     </option>
                   )
@@ -199,9 +199,9 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
                     expectedAction: e.target.value,
                   })
                 }
+                required
                 className="w-full rounded-lg px-4 py-2 text-sm border border-gray-300 shadow-inner 
                            focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] outline-none transition"
-                required
               />
             </div>
           </div>
@@ -217,10 +217,10 @@ const ComplaintModal = ({ onClose, onSubmit, newComplaint, setNewComplaint, isLo
               onChange={(e) =>
                 setNewComplaint({ ...newComplaint, details: e.target.value })
               }
+              required
               className="w-full rounded-lg px-4 py-2 text-sm border border-gray-300 
                          shadow-inner focus:ring-2 focus:ring-[#104c80] focus:border-[#104c80] 
                          outline-none transition resize-none"
-              required
             ></textarea>
           </div>
 

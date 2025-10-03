@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { CheckCircle2, Clock, AlertCircle, XCircle } from 'lucide-react'
+import { CheckCircle2, Clock, AlertCircle } from 'lucide-react'
 import ComplaintModal from '../../components/teacherDashboard/teacherComplaints/ComplaintModal'
 import ComplaintTable from '../../components/teacherDashboard/teacherComplaints/ComplaintTable'
 import ComplaintDetailModal from '../../components/teacherDashboard/teacherComplaints/ComplaintDetailModal'
@@ -55,24 +55,20 @@ const TeacherComplaints = () => {
     }
   }
 
+  // KPI stats
   const totalComplaints = complaints.length
   const rejectedComplaints = complaints.filter(c => c.status === 'Rejected').length
-  const pendingComplaints = complaints.filter(c => c.status === 'Pending' || c.status === 'pending').length
+  const pendingComplaints = complaints.filter(c => c.status === 'Pending').length
 
-  const statusStyles = {
-    Submitted: 'bg-gray-100 text-gray-700 border-gray-300',
-    'Under Review': 'bg-blue-100 text-blue-700 border-blue-300',
-    'Action Taken': 'bg-yellow-100 text-yellow-700 border-yellow-300',
-    Closed: 'bg-green-100 text-green-700 border-green-300',
-    Rejected: 'bg-red-100 text-red-700 border-red-300',
-  }
+  // Status styles from JSON
+  const statusStyles = t("table.statusStyles", { returnObjects: true })
+  const statusLabels = t("table.status", { returnObjects: true })
 
+  // Status icons mapping (just link with 3 states in JSON)
   const statusIcons = {
-    Submitted: <Clock size={16} />,
-    'Under Review': <AlertCircle size={16} />,
-    'Action Taken': <Clock size={16} />,
-    Closed: <CheckCircle2 size={16} />,
-    Rejected: <XCircle size={16} />,
+    Pending: <Clock size={16} />,
+    "In Progress": <AlertCircle size={16} />,
+    Resolved: <CheckCircle2 size={16} />,
   }
 
   return (
@@ -111,21 +107,22 @@ const TeacherComplaints = () => {
       {/* Table */}
       <div className='hidden md:block overflow-x-auto'>
         {isLoading ? (
-          <p className='text-center text-gray-500'>{t("teacherComplaints.loading")}</p>
+          <p className='text-center text-gray-500'>{t("loading")}</p>
         ) : isError ? (
-          <p className='text-center text-red-500'>{t("teacherComplaints.error")}</p>
+          <p className='text-center text-red-500'>{t("error")}</p>
         ) : complaints.length > 0 ? (
           <ComplaintTable
             complaints={complaints}
             statusStyles={statusStyles}
             statusIcons={statusIcons}
+            statusLabels={statusLabels}
             setSelectedComplaint={setSelectedComplaint}
             t={t}
           />
         ) : (
           <div className='bg-white shadow-md rounded-2xl p-8 text-center text-gray-500'>
-            <p className='text-lg font-medium'>{t("teacherComplaints.noComplaints.title")}</p>
-            <p className='text-sm text-gray-400'>{t("teacherComplaints.noComplaints.description")}</p>
+            <p className='text-lg font-medium'>{t("noComplaints.title")}</p>
+            <p className='text-sm text-gray-400'>{t("noComplaints.description")}</p>
           </div>
         )}
       </div>
@@ -137,8 +134,13 @@ const TeacherComplaints = () => {
             <div key={c._id} className='bg-white rounded-lg shadow p-4 border border-gray-200' onClick={() => setSelectedComplaint(c)}>
               <div className='flex justify-between items-center mb-2'>
                 <h4 className='font-semibold text-gray-800 text-nowrap'>{c.employeeName}</h4>
-                <span className={`px-2 py-1 rounded-full text-sm text-nowrap ${statusStyles[c.status]}`}>
-                  {c.status}
+                <span
+                  className={`px-2 py-1 rounded-full text-sm text-nowrap 
+                    ${statusStyles[c.status]?.bg || ""} 
+                    ${statusStyles[c.status]?.text || ""} 
+                    ${statusStyles[c.status]?.border || ""}`}
+                >
+                  {statusLabels[c.status] || c.status}
                 </span>
               </div>
               <p className='text-gray-600 text-sm mb-1 text-nowrap'>{c.jobTitle}</p>
@@ -151,7 +153,7 @@ const TeacherComplaints = () => {
           ))
         ) : (
           <div className='bg-white shadow rounded-lg p-6 text-center text-gray-500'>
-            <p>{t("noComplaints.title")}</p>
+            <p>{t("teacherComplaints.noComplaints.title")}</p>
           </div>
         )}
       </div>
@@ -159,13 +161,26 @@ const TeacherComplaints = () => {
       {/* Modals */}
       <AnimatePresence>
         {showModal && (
-          <ComplaintModal onClose={() => setShowModal(false)} onSubmit={handleSubmit} newComplaint={newComplaint} setNewComplaint={setNewComplaint} isLoading={isCreating} t={t} />
+          <ComplaintModal
+            onClose={() => setShowModal(false)}
+            onSubmit={handleSubmit}
+            newComplaint={newComplaint}
+            setNewComplaint={setNewComplaint}
+            isLoading={isCreating}
+            t={t}
+          />
         )}
       </AnimatePresence>
 
       <AnimatePresence>
         {selectedComplaint && (
-          <ComplaintDetailModal complaint={selectedComplaint} statusStyles={statusStyles} statusIcons={statusIcons} onClose={() => setSelectedComplaint(null)} t={t} />
+          <ComplaintDetailModal
+            complaint={selectedComplaint}
+            statusStyles={statusStyles}
+            statusIcons={statusIcons}
+            onClose={() => setSelectedComplaint(null)}
+            t={t}
+          />
         )}
       </AnimatePresence>
     </div>
