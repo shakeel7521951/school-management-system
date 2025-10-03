@@ -37,7 +37,8 @@
           "gallery": "Gallery"
         }
       },
-      "contactUs": "Contact Us"
+      "contactUs": "Contact Us",
+      "visitorForm":"Visitor Form"
     },
     "profile": {
       "login": "Login",

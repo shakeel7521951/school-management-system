@@ -6,30 +6,51 @@ import { selectUserProfile, clearProfile } from '../../redux/slices/UserSlice'
 import { useLogoutMutation } from '../../redux/slices/UserApi'
 import { useTranslation } from 'react-i18next'
 import { toggleLanguage } from '../../redux/slices/languageSlice'
+import VisitorFormModal from './VisitorFormModal'
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
-export default function Navbar() {
-  const { t } = useTranslation("navbar");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
-  const [profileOpen, setProfileOpen] = useState(false);
-  const { language } = useSelector((state) => state.language);
+export default function Navbar () {
+  const { t } = useTranslation('navbar')
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [isOpen, setIsOpen] = useState(false)
+  const [profileOpen, setProfileOpen] = useState(false)
+  const { language } = useSelector(state => state.language)
+  const [visitorFormOpen, setVisitorFormOpen] = useState(false)
 
   const [openDropdown, setOpenDropdown] = useState(null)
+const [openSubmenu, setOpenSubmenu] = useState(null) // for nested submenus inside services
 
   const profile = useSelector(selectUserProfile)
 
   const [logout, { isLoading }] = useLogoutMutation()
 
- const navLinks = [
-  { key: "home", name: t("navbar.navLinks.home"), path: "/" },
-  { key: "tamakon", name: t("navbar.navLinks.tamakon.title"), path: "/tamakon", dropdown: true },
-  { key: "services", name: t("navbar.navLinks.services.title"), path: "/services", dropdown: true },
-  { key: "media", name: t("navbar.navLinks.media.title"), path: "/media", dropdown: true },
-  { key: "contact", name: t("navbar.navLinks.contactUs"), path: "/contact-us" },
-];
-
-  
+  const navLinks = [
+    { key: 'home', name: t('navbar.navLinks.home'), path: '/' },
+    {
+      key: 'tamakon',
+      name: t('navbar.navLinks.tamakon.title'),
+      path: '/tamakon',
+      dropdown: true
+    },
+    {
+      key: 'services',
+      name: t('navbar.navLinks.services.title'),
+      path: '/services',
+      dropdown: true
+    },
+    {
+      key: 'media',
+      name: t('navbar.navLinks.media.title'),
+      path: '/media',
+      dropdown: true
+    },
+    {
+      key: 'contact',
+      name: t('navbar.navLinks.contactUs'),
+      path: '/contact-us'
+    }
+  ]
 
   const handleLogout = async () => {
     try {
@@ -87,8 +108,8 @@ export default function Navbar() {
                   </button>
 
                   {/* Dropdowns */}
-                {link.key === "tamakon" && (
-                    <div className="absolute text-[15px] overflow-hidden left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50">
+                  {link.key === 'tamakon' && (
+                    <div className='absolute text-[15px] overflow-hidden left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50'>
                       <NavLink
                         to='/about-tamakon'
                         className='block px-4 py-2 hover:text-indigo-700'
@@ -138,38 +159,38 @@ export default function Navbar() {
                     </div>
                   )}
 
-                {link.key === "services" && (
-                    <div className="font-base text-[15px] absolute left-24 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50">
+                  {link.key === 'services' && (
+                    <div className='font-base text-[15px] absolute left-24 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50'>
                       {/* Academic Services with dropdown */}
-                      <div className="relative group/submenu ">
-                        <button className="w-full  text-left px-4 py-2 hover:text-indigo-700 flex justify-between items-center">
+                      <div className='relative group/submenu '>
+                        <button className='w-full  text-left px-4 py-2 hover:text-indigo-700 flex justify-between items-center'>
                           {t(
-                            "navbar.navLinks.services.dropdown.academicServices"
+                            'navbar.navLinks.services.dropdown.academicServices'
                           )}
 
-                          <span className="ml-2">▸</span>
+                          <span className='ml-2'>▸</span>
                         </button>
 
                         {/* Submenu for Academic Services */}
-                        <div className="absolute top-10 right-full  mr-1 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95  group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50">
+                        <div className='absolute top-10 right-full  mr-1 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95  group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50'>
                           <NavLink
-                            to="/middle-unit"
-                            className="block px-4  py-2 hover:text-indigo-700"
+                            to='/middle-unit'
+                            className='block px-4  py-2 hover:text-indigo-700'
                           >
-                            {t("navbar.navLinks.services.dropdown.middleUnit")}
+                            {t('navbar.navLinks.services.dropdown.middleUnit')}
                           </NavLink>
                           <NavLink
-                            to="/primary-unit"
-                            className="block px-4 py-2 hover:overflow-hidden hover:text-indigo-700"
+                            to='/primary-unit'
+                            className='block px-4 py-2 hover:overflow-hidden hover:text-indigo-700'
                           >
-                            {t("navbar.navLinks.services.dropdown.primaryUnit")}
+                            {t('navbar.navLinks.services.dropdown.primaryUnit')}
                           </NavLink>
                           <NavLink
-                            to="/educational-unit"
-                            className="block px-4 py-2 hover:overflow-hidden hover:text-indigo-700"
+                            to='/educational-unit'
+                            className='block px-4 py-2 hover:overflow-hidden hover:text-indigo-700'
                           >
                             {t(
-                              "navbar.navLinks.services.dropdown.specializedUnit"
+                              'navbar.navLinks.services.dropdown.specializedUnit'
                             )}
                           </NavLink>
                         </div>
@@ -177,45 +198,45 @@ export default function Navbar() {
 
                       {/* Other Services */}
                       <NavLink
-                        to="/public-relations"
-                        className="hover:overflow-hidden block px-4 py-2 hover:text-indigo-700"
+                        to='/public-relations'
+                        className='hover:overflow-hidden block px-4 py-2 hover:text-indigo-700'
                       >
                         {t('navbar.navLinks.services.dropdown.publicRelations')}
                       </NavLink>
 
-                      <div className="relative group/submenu ">
-                        <button className="w-full text-left px-4 py-2 hover:text-indigo-700 flex justify-between items-center">
-                          {t("navbar.navLinks.services.dropdown.speechTherapy")}
-                          <span className="ml-2">▸</span>
+                      <div className='relative group/submenu '>
+                        <button className='w-full text-left px-4 py-2 hover:text-indigo-700 flex justify-between items-center'>
+                          {t('navbar.navLinks.services.dropdown.speechTherapy')}
+                          <span className='ml-2'>▸</span>
                         </button>
 
-                        <div className="absolute top-0 right-full mr-1 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50">
+                        <div className='absolute top-0 right-full mr-1 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50'>
                           <NavLink
-                            to="/speech-therapy"
-                            className="block px-4 py-2 hover:text-indigo-700"
+                            to='/speech-therapy'
+                            className='block px-4 py-2 hover:text-indigo-700'
                           >
                             {t(
-                              "navbar.navLinks.services.dropdown.speechTherapy"
+                              'navbar.navLinks.services.dropdown.speechTherapy'
                             )}
                           </NavLink>
                           <NavLink
-                            to="/vocational-rehabilitation"
-                            className="block px-4 py-2 hover:text-indigo-700"
+                            to='/vocational-rehabilitation'
+                            className='block px-4 py-2 hover:text-indigo-700'
                           >
                             {t(
-                              "navbar.navLinks.services.dropdown.vocationalRehabilitation"
+                              'navbar.navLinks.services.dropdown.vocationalRehabilitation'
                             )}
                           </NavLink>
                         </div>
 
-                        <div className=" absolute top-8 left-[-550px] w-56 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50">
+                        <div className=' absolute top-8 left-[-550px] w-56 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50'>
                           <NavLink
-                            to="/nursing-department"
-                            className="block px-4 py-2 hover:text-indigo-700"
+                            to='/nursing-department'
+                            className='block px-4 py-2 hover:text-indigo-700'
                           >
-                            {" "}
+                            {' '}
                             {t(
-                              "navbar.navLinks.services.dropdown.nursingDepartment"
+                              'navbar.navLinks.services.dropdown.nursingDepartment'
                             )}
                           </NavLink>
                         </div>
@@ -232,8 +253,8 @@ export default function Navbar() {
                     </div>
                   )}
 
-                {link.key === "media" && (
-                    <div className="absolute text-[15px] overflow-hidden left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50">
+                  {link.key === 'media' && (
+                    <div className='absolute text-[15px] overflow-hidden left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50'>
                       <NavLink
                         to='/news'
                         className='block px-4 py-2 hover:text-indigo-700'
@@ -257,7 +278,7 @@ export default function Navbar() {
                       `relative pb-1 transition duration-300 px-3 py-2 ${
                         isActive
                           ? 'text-indigo-300 font-semibold after:w-full'
-                          : 'text-gray-200 hover:text-indigo-300 after:w-0 hover:after:w-full'
+                          : 'text-gray-200 hover:text-indigo-300  after:w-0 hover:after:w-full'
                       } after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-gradient-to-r after:from-indigo-400 after:to-purple-400 after:transition-all after:duration-300`
                     }
                   >
@@ -266,6 +287,37 @@ export default function Navbar() {
                 </li>
               )
             )}
+            <li className='mx-2'>
+              <button
+                onClick={() => setVisitorFormOpen(true)}
+                className="
+    relative
+    pb-1
+    text-gray-200
+    hover:text-indigo-300
+    transition
+    duration-300
+    px-3 py-1 
+    
+    after:absolute
+    after:left-0
+    after:-bottom-1
+    after:h-[2px]
+    after:bg-gradient-to-r
+    after:from-indigo-400
+    after:to-purple-400
+    after:w-0
+    after:block
+    after:transition-all
+    after:duration-300
+    hover:after:w-full
+    whitespace-nowrap
+    text-right
+  "
+              >
+                {t('navbar.navLinks.visitorForm')}
+              </button>
+            </li>
           </ul>
 
           {/* Right Section - Search and Login/Profile */}
@@ -282,11 +334,11 @@ export default function Navbar() {
             <div className='hidden md:block'>
               {!profile ? (
                 <NavLink
-                  to="/login"
-                  className="px-4 py-2 md:px-5 md:py-2 bg-[#104c80]/80 backdrop-blur-md border border-white/30 
+                  to='/login'
+                  className='px-4 py-2 md:px-5 md:py-2 bg-[#104c80]/80 backdrop-blur-md border border-white/30 
                              rounded-full text-white font-semibold shadow-md text-sm md:text-base
                              hover:bg-[#104c80] hover:shadow-lg hover:shadow-[#104c80]/40 
-                             hover:scale-105 transition-all duration-300 whitespace-nowrap"
+                             hover:scale-105 transition-all duration-300 whitespace-nowrap'
                 >
                   {t('navbar.profile.login')}
                 </NavLink>
@@ -316,7 +368,7 @@ export default function Navbar() {
                         to='/my-profile'
                         className='block px-4 py-2 hover:text-indigo-700'
                       >
-                        {t("navbar.profile.myProfile")}{" "}
+                        {t('navbar.profile.myProfile')}{' '}
                       </NavLink>
                       {profile?.role === 'admin' && (
                         <NavLink
@@ -363,7 +415,7 @@ export default function Navbar() {
                         disabled={isLoading}
                         className='w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition'
                       >
-                        {isLoading ? "Logging out..." : "Logout"}
+                        {isLoading ? 'Logging out...' : 'Logout'}
                       </button>
                     </div>
                   )}
@@ -397,10 +449,10 @@ export default function Navbar() {
         }`}
       >
         {/* Header */}
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold text-white">
-            {" "}
-            {t("navbar.menuTitle")}
+        <div className='flex justify-between items-center mb-6'>
+          <h2 className='text-xl font-bold text-white'>
+            {' '}
+            {t('navbar.menuTitle')}
           </h2>
           <button
             onClick={() => setIsOpen(false)}
@@ -411,194 +463,158 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Links with Dropdowns */}
-        <ul className='flex flex-col gap-2 text-base font-medium mb-8'>
-          {navLinks.map(link => (
-            <li key={link.name}>
-              {!link.dropdown ? (
-                <NavLink
-                  to={link.path}
-                  onClick={() => setIsOpen(false)}
-                  className={({ isActive }) =>
-                    `block py-3 px-4 rounded-lg transition duration-300 ${
-                      isActive
-                        ? 'bg-indigo-800 text-indigo-300 font-semibold'
-                        : 'text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30'
-                    }`
+      <ul className='flex flex-col gap-2 text-base font-medium mb-8'>
+  {navLinks.map(link => (
+    <li key={link.name}>
+      {!link.dropdown ? (
+        <NavLink
+          to={link.path}
+          onClick={() => setIsOpen(false)}
+          className={({ isActive }) =>
+            `block py-3 px-4 rounded-lg transition duration-300 ${
+              isActive
+                ? 'bg-indigo-800 text-indigo-300 font-semibold'
+                : 'text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30'
+            }`
+          }
+        >
+          {link.name}
+        </NavLink>
+      ) : (
+        <div>
+          <button
+            onClick={() => setOpenDropdown(openDropdown === link.key ? null : link.key)}
+            className='flex justify-between items-center w-full py-3 px-4 rounded-lg text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30'
+          >
+            <span>{link.name}</span>
+            <span>
+              {openDropdown === link.key ? <FaChevronUp /> : <FaChevronDown />}
+            </span>
+          </button>
+
+          {/* Tamakon Dropdown */}
+          {link.key === 'tamakon' && openDropdown === 'tamakon' && (
+            <div className='ml-4 mt-1 flex flex-col gap-1'>
+              <NavLink to='/about-tamakon' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
+                {t('navbar.navLinks.tamakon.dropdown.about')}
+              </NavLink>
+              <NavLink to='/tamakon-team' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
+                {t('navbar.navLinks.tamakon.dropdown.team')}
+              </NavLink>
+              <NavLink to='/director-message' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
+                {t('navbar.navLinks.tamakon.dropdown.directorMessage')}
+              </NavLink>
+              <NavLink to='/acting-director-message' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
+                {t('navbar.navLinks.tamakon.dropdown.directorMessage')}
+              </NavLink>
+              <NavLink to='/school-fees' onClick={e => e.preventDefault()} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
+                {t('navbar.navLinks.tamakon.dropdown.schoolFees')}
+              </NavLink>
+              <NavLink to='/recruitment' onClick={e => e.preventDefault()} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
+                {t('navbar.navLinks.tamakon.dropdown.recruitment')}
+              </NavLink>
+              <NavLink to='/faqs' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
+                {t('navbar.navLinks.tamakon.dropdown.faqs')}
+              </NavLink>
+            </div>
+          )}
+
+          {/* Services Dropdown */}
+          {link.key === 'services' && openDropdown === 'services' && (
+            <div className='ml-4 mt-1 flex flex-col gap-1'>
+              {/* Academic Services Submenu */}
+              <div>
+                <button
+                  onClick={() =>
+                    setOpenSubmenu(openSubmenu === 'academicServices' ? null : 'academicServices')
                   }
+                  className='flex justify-between items-center w-full px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
                 >
-                  {link.name}
-                </NavLink>
-              ) : (
-                <div>
-                  <button
-                    onClick={() => toggleDropdown(link.name)}
-                    className='flex justify-between items-center w-full py-3 px-4 rounded-lg text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30'
-                  >
-                    <span>{link.name}</span>
-                    <span>{openDropdown === link.name ? '▲' : '▼'}</span>
-                  </button>
+                  {t('navbar.navLinks.services.dropdown.academicServices')}
+                  <span>
+                    {openSubmenu === 'academicServices' ? <FaChevronUp /> : <FaChevronDown />}
+                  </span>
+                </button>
 
-                  {/* Tamakon Dropdown */}
-                 {link.key === "tamakon" && openDropdown === "tamakon" && (
-                    <div className="ml-4 mt-1 flex flex-col gap-1">
-                      <NavLink
-                        to="/about-tamakon"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
-                      >
-                        {t("navbar.navLinks.tamakon.dropdown.about")}
-                      </NavLink>
-                      <NavLink
-                        to="/tamakon-team"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
-                      >
-                        {t("navbar.navLinks.tamakon.dropdown.team")}
-                      </NavLink>
-                      <NavLink
-                        to="/director-message"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
-                      >
-                        {t("navbar.navLinks.tamakon.dropdown.directorMessage")}
-                      </NavLink>
-                      <NavLink
-                        to="/acting-director-message"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
-                      >
-                        {t("navbar.navLinks.tamakon.dropdown.directorMessage")}
-                      </NavLink>
-                      <NavLink
-                        to="/school-fees"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
-                      >
-                      {t("navbar.navLinks.tamakon.dropdown.schoolFees")}
+                {openSubmenu === 'academicServices' && (
+                  <div className='ml-4 flex flex-col gap-1'>
+                    <NavLink to='/middle-unit' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
+                      {t('navbar.navLinks.services.dropdown.middleUnit')}
+                    </NavLink>
+                    <NavLink to='/primary-unit' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
+                      {t('navbar.navLinks.services.dropdown.primaryUnit')}
+                    </NavLink>
+                    <NavLink to='/educational-unit' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
+                      {t('navbar.navLinks.services.dropdown.specializedUnit')}
+                    </NavLink>
+                  </div>
+                )}
+              </div>
 
-                      </NavLink>
-                      <NavLink
-                        to="/recruitment"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
-                      >
-                        {t("navbar.navLinks.tamakon.dropdown.recruitment")}
-                      </NavLink>
-                      <NavLink
-                        to="/faqs"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
-                      >
-                        {t("navbar.navLinks.tamakon.dropdown.faqs")}
+              {/* Speech Therapy Submenu */}
+              <div>
+                <button
+                  onClick={() =>
+                    setOpenSubmenu(openSubmenu === 'speechTherapy' ? null : 'speechTherapy')
+                  }
+                  className='flex justify-between items-center w-full px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                >
+                  {t('navbar.navLinks.services.dropdown.speechTherapy')}
+                  <span>
+                    {openSubmenu === 'speechTherapy' ? <FaChevronUp /> : <FaChevronDown />}
+                  </span>
+                </button>
 
-                      </NavLink>
-                    </div>
-                  )}
+                {openSubmenu === 'speechTherapy' && (
+                  <div className='ml-4 flex flex-col gap-1'>
+                    <NavLink to='/speech-therapy' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
+                      {t('navbar.navLinks.services.dropdown.speechTherapy')}
+                    </NavLink>
+                    <NavLink to='/vocational-rehabilitation' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
+                      {t('navbar.navLinks.services.dropdown.vocationalRehabilitation')}
+                    </NavLink>
+                  </div>
+                )}
+              </div>
 
-                  {/* Services Dropdown */}
-                 {link.key === "services" && openDropdown === "services" && (
-                    <div className="ml-4 mt-1 flex flex-col gap-1">
-                      <NavLink
-                        to="/public-relations"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
-                      >
-                       {t("navbar.navLinks.services.dropdown.publicRelations")}
+              {/* Other Services */}
+              <NavLink to='/public-relations' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
+                {t('navbar.navLinks.services.dropdown.publicRelations')}
+              </NavLink>
+              <NavLink to='/nursing-department' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
+                {t('navbar.navLinks.services.dropdown.nursingDepartment')}
+              </NavLink>
+              <NavLink to='/financial-affairs' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
+                {t('navbar.navLinks.services.dropdown.financialAffairs')}
+              </NavLink>
+            </div>
+          )}
 
-                      </NavLink>
-                      <NavLink
-                        to="/speech-therapy"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
-                      >
-                        {t(
-                              "navbar.navLinks.services.dropdown.speechTherapy"
-                            )}
+          {/* Media Dropdown */}
+          {link.key === 'media' && openDropdown === 'media' && (
+            <div className='ml-4 mt-1 flex flex-col gap-1'>
+              <NavLink to='/news' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
+                {t('navbar.navLinks.media.dropdown.news')}
+              </NavLink>
+              <NavLink to='/gallery' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
+                {t('navbar.navLinks.media.dropdown.gallery')}
+              </NavLink>
+            </div>
+          )}
+        </div>
+      )}
+    </li>
+  ))}
 
-                      </NavLink>
-                      <NavLink
-                        to="/vocational-rehabilitation"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
-                      >
-                            {t(
-                              "navbar.navLinks.services.dropdown.vocationalRehabilitation"
-                            )}
-
-                      </NavLink>
-                      <NavLink
-                        to="/nursing-department"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
-                      >
-                            {t(
-                              "navbar.navLinks.services.dropdown.nursingDepartment"
-                            )}
-
-                      </NavLink>
-                      <NavLink
-                        to="/financial-affairs"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
-                      >
-                         {t(
-                          "navbar.navLinks.services.dropdown.financialAffairs"
-                        )}
-
-                      </NavLink>
-                      <NavLink
-                        to="/middle-unit"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
-                      >
-                       {t("navbar.navLinks.services.dropdown.middleUnit")}
-
-                      </NavLink>
-                      <NavLink
-                        to="/primary-unit"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
-                      >
-                      {t("navbar.navLinks.services.dropdown.primaryUnit")}
-
-                      </NavLink>
-                      <NavLink
-                        to="/educational-unit"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
-                      >
-                        {t(
-                              "navbar.navLinks.services.dropdown.specializedUnit"
-                            )}
-
-                      </NavLink>
-                    </div>
-                  )}
-
-                 {link.key === "media" && openDropdown === "media" && (
-                    <div className="ml-4 mt-1 flex flex-col gap-1">
-                      <NavLink
-                        to="/news"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
-                      >
-                         {t("navbar.navLinks.media.dropdown.news")}
-                      </NavLink>
-                      <NavLink
-                        to="/gallery"
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm"
-                      >
-                          {t("navbar.navLinks.media.dropdown.gallery")}
-
-                      </NavLink>
-                    </div>
-                  )}
-                </div>
-              )}
-            </li>
-          ))}
-        </ul>
+  <li className='mx-2'>
+    <button
+      onClick={() => setVisitorFormOpen(true)}
+      className='text-gray-200 hover:text-indigo-300 hover:font-semibold transition duration-300 w-full py-3 px-4 rounded-lg hover:bg-indigo-800 flex justify-between whitespace-nowrap'
+    >
+      {t('navbar.navLinks.visitorForm')}
+    </button>
+  </li>
+</ul>
 
         {/* Mobile Login/Profile (inside sidebar) */}
         <div className='mt-auto border-t border-indigo-400 pt-4'>
@@ -608,8 +624,7 @@ export default function Navbar() {
               onClick={() => setIsOpen(false)}
               className='block w-full px-4 py-3 bg-gradient-to-r from-[#104c80] to-[#104c80]/30 rounded-full text-center text-white font-semibold shadow-md hover:shadow-lg transition mb-4'
             >
-               {t("navbar.profile.login")}
-
+              {t('navbar.profile.login')}
             </NavLink>
           ) : (
             <div className='relative'>
@@ -643,7 +658,7 @@ export default function Navbar() {
                   >
                     {t('navbar.profile.myProfile')}
                   </NavLink>
-                  {profile?.role === "admin" && (
+                  {profile?.role === 'admin' && (
                     <NavLink
                       to='/analytics'
                       className='block px-4 py-2 text-gray-700 hover:text-indigo-700 transition'
@@ -652,37 +667,34 @@ export default function Navbar() {
                         setIsOpen(false)
                       }}
                     >
-                       {t("navbar.profile.adminDashboard")}
-
+                      {t('navbar.profile.adminDashboard')}
                     </NavLink>
                   )}
-                  {profile?.role === "guard" && (
+                  {profile?.role === 'guard' && (
                     <NavLink
-                      to="/visitor"
-                      className="block px-4 py-2 text-gray-700 hover:text-indigo-700 transition"
+                      to='/visitor'
+                      className='block px-4 py-2 text-gray-700 hover:text-indigo-700 transition'
                       onClick={() => {
                         setProfileOpen(false)
                         setIsOpen(false)
                       }}
                     >
-                    {t("navbar.profile.visitorDashboard")}
-
+                      {t('navbar.profile.visitorDashboard')}
                     </NavLink>
                   )}
-                  {profile?.role === "teacher" && (
+                  {profile?.role === 'teacher' && (
                     <NavLink
-                      to="/teacherdocuments"
-                      className="block px-4 py-2 text-gray-700 hover:text-indigo-700 transition"
+                      to='/teacherdocuments'
+                      className='block px-4 py-2 text-gray-700 hover:text-indigo-700 transition'
                       onClick={() => {
                         setProfileOpen(false)
                         setIsOpen(false)
                       }}
                     >
-                      {t("navbar.profile.teacherDashboard")}
-
+                      {t('navbar.profile.teacherDashboard')}
                     </NavLink>
                   )}
-                  {profile?.role?.toLowerCase() === "student" && (
+                  {profile?.role?.toLowerCase() === 'student' && (
                     <NavLink
                       to='/stcomplaints'
                       className='block px-4 py-2 text-gray-700 hover:text-indigo-700 transition'
@@ -691,8 +703,7 @@ export default function Navbar() {
                         setIsOpen(false)
                       }}
                     >
-                      {t("navbar.profile.studentDashboard")}
-
+                      {t('navbar.profile.studentDashboard')}
                     </NavLink>
                   )}
                   <button
@@ -700,22 +711,44 @@ export default function Navbar() {
                     disabled={isLoading}
                     className='w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition'
                   >
-                    {isLoading ? "Logging out..." : "Logout"}
+                    {isLoading ? 'Logging out...' : 'Logout'}
                   </button>
                 </div>
               )}
             </div>
           )}
-          <button
-            onClick={() => dispatch(toggleLanguage())}
-            className='px-3 py-2 border rounded'
-          >
-            {language === 'en' ? 'عربي' : 'English'}
-          </button>
+  <button
+  onClick={() => dispatch(toggleLanguage())}
+  className="
+    flex items-center justify-center
+    w-full
+    px-4 py-3
+    bg-indigo-600 text-white
+    font-semibold
+    rounded-full
+    shadow-md
+    hover:bg-indigo-500
+    focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-1
+    transition-colors duration-300
+    text-md
+  "
+>
+  {language === 'en' ? 'عربي' : 'English'}
+</button>
+
+
         </div>
       </div>
       {/* Spacer to prevent content from being hidden behind fixed navbar */}
       <div className='h-[70px] sm:h-[80px] md:h-[90px]'></div>
+
+      {/* Visitor Form Modal */}
+      {visitorFormOpen && (
+        <VisitorFormModal
+          open={visitorFormOpen}
+          onClose={() => setVisitorFormOpen(false)}
+        />
+      )}
     </>
   )
 }
