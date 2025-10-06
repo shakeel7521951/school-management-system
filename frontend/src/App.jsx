@@ -83,6 +83,7 @@ import DepartSidebar from './components/DepartmentDashboard/common/DepartSidebar
 import DepartNavbar from './components/DepartmentDashboard/common/DepartNavbar'
 import DepartStudentComplaint from './pages/departmentDashboard/DepartStudentComplaint'
 import DepartTeacherComplaint from './pages/departmentDashboard/DepartTeacherComplaint'
+import AdminDepartmentPage from './pages/dashboard/AdminDepartmentPage'
 
 
 
@@ -219,6 +220,7 @@ const router = createBrowserRouter([
       { path: 'users', element: <Users /> },
       { path: 'registration-data', element: <RegistrationData /> },
       { path: "/analytics", element: <AnalyticsPage /> },
+      { path: "/departments", element: <AdminDepartmentPage /> },
       // { path: 'reports', element: <Reports /> }
     ]
   },

@@ -1,7 +1,7 @@
 import React from "react";
 import { FaFilter, FaFileExport, FaSearch } from "react-icons/fa";
 
-const DepartComplaintFilters = ({
+const DepartTeacherComplaintFilters = ({
     filterStatus,
     setFilterStatus,
     filterImpact,
@@ -147,4 +147,4 @@ const DepartComplaintFilters = ({
     );
 };
 
-export default DepartComplaintFilters;
+export default DepartTeacherComplaintFilters;

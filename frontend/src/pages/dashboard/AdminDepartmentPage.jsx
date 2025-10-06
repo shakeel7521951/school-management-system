@@ -1,0 +1,134 @@
+import React, { useState } from "react";
+import { FaBuilding, FaPlus } from "react-icons/fa";
+import DepartmentTable from "../../components/dashboard/DepartmentPage/DepartmentTable";
+import DepartmentModals from "../../components/dashboard/DepartmentPage/DepartmentModals";
+
+
+const AdminDepartmentPage = () => {
+  // Dummy Departments
+  const [departments, setDepartments] = useState([
+    {
+      _id: 1,
+      name: "Computer Science",
+      totalComplaints: 25,
+      pending: 5,
+      resolved: 20,
+      description: "Handles all complaints related to IT and software.",
+    },
+    {
+      _id: 2,
+      name: "Human Resources",
+      totalComplaints: 10,
+      pending: 2,
+      resolved: 8,
+      description: "Manages staff and student welfare complaints.",
+    },
+  ]);
+
+  // States
+  const [selectedDept, setSelectedDept] = useState(null);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showViewModal, setShowViewModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [form, setForm] = useState({ name: "", description: "" });
+
+  // ===== HANDLERS =====
+  const handleSave = () => {
+    if (selectedDept) {
+      // Edit existing
+      setDepartments((prev) =>
+        prev.map((d) => (d._id === selectedDept._id ? { ...d, ...form } : d))
+      );
+    } else {
+      // Add new
+      setDepartments((prev) => [
+        ...prev,
+        {
+          ...form,
+          _id: Date.now(),
+          totalComplaints: 0,
+          pending: 0,
+          resolved: 0,
+        },
+      ]);
+    }
+    setForm({ name: "", description: "" });
+    setSelectedDept(null);
+    setShowAddModal(false);
+  };
+
+  const handleDelete = (id) => {
+    setDepartments((prev) => prev.filter((d) => d._id !== id));
+    setShowDeleteModal(false);
+    setSelectedDept(null);
+  };
+
+  return (
+    <div className="lg:ml-64 p-6 space-y-6 bg-gray-50 min-h-screen">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-5 rounded-2xl shadow-md border border-gray-200 gap-3">
+        <h1 className="text-2xl font-bold text-[#104C80] flex items-center gap-2">
+          <FaBuilding className="text-[#104C80]" /> Department Management
+        </h1>
+        <button
+          onClick={() => {
+            setShowAddModal(true);
+            setSelectedDept(null);
+          }}
+          className="bg-[#104C80] text-white px-4 py-2 rounded-lg hover:bg-[#0d3c68] transition flex items-center gap-2 w-full sm:w-auto justify-center"
+        >
+          <FaPlus /> Add Department
+        </button>
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-[#104C80]/10 border-l-4 border-[#104C80] p-5 rounded-2xl shadow-sm">
+          <h2 className="text-gray-700 text-sm">Total Departments</h2>
+          <p className="text-3xl font-bold text-[#104C80] mt-1">
+            {departments.length}
+          </p>
+        </div>
+        <div className="bg-yellow-50 border-l-4 border-yellow-500 p-5 rounded-2xl shadow-sm">
+          <h2 className="text-gray-700 text-sm">Pending Complaints</h2>
+          <p className="text-3xl font-bold text-yellow-600 mt-1">
+            {departments.reduce((sum, d) => sum + d.pending, 0)}
+          </p>
+        </div>
+        <div className="bg-green-50 border-l-4 border-green-500 p-5 rounded-2xl shadow-sm">
+          <h2 className="text-gray-700 text-sm">Resolved Complaints</h2>
+          <p className="text-3xl font-bold text-green-600 mt-1">
+            {departments.reduce((sum, d) => sum + d.resolved, 0)}
+          </p>
+        </div>
+      </div>
+
+      {/* Department Table + Cards */}
+      <DepartmentTable
+        departments={departments}
+        setSelectedDept={setSelectedDept}
+        setShowAddModal={setShowAddModal}
+        setShowViewModal={setShowViewModal}
+        setShowDeleteModal={setShowDeleteModal}
+        setForm={setForm}
+      />
+
+      {/* Modals */}
+      <DepartmentModals
+        showAddModal={showAddModal}
+        setShowAddModal={setShowAddModal}
+        showViewModal={showViewModal}
+        setShowViewModal={setShowViewModal}
+        showDeleteModal={showDeleteModal}
+        setShowDeleteModal={setShowDeleteModal}
+        form={form}
+        setForm={setForm}
+        handleSave={handleSave}
+        handleDelete={handleDelete}
+        selectedDept={selectedDept}
+      />
+    </div>
+  );
+};
+
+export default AdminDepartmentPage;
