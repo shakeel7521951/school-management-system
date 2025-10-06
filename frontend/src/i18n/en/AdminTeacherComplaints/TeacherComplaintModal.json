@@ -7,14 +7,22 @@
     "date": "Date"
   },
   "statusOptions": {
-    "submitted": "Submitted",
+    "label": "Update Status",
     "pending": "Pending",
     "in_progress": "In Progress",
     "resolved": "Resolved",
     "rejected": "Rejected"
   },
+
   "buttons": {
     "cancel": "Cancel",
     "save": "Save"
+  },
+  "modals": {
+    "toast": {
+      "status_updated": "Status updated successfully!",
+      "status_error": "Failed to update status."
+    },
+    "select_department": "Select Department"
   }
 }

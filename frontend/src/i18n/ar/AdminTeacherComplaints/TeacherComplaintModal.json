@@ -7,14 +7,22 @@
     "date": "التاريخ"
   },
   "statusOptions": {
-    "submitted": "تم الإرسال",
+    "label": "تحديث الحالة",
     "pending": "قيد الانتظار",
     "in_progress": "قيد المعالجة",
     "resolved": "تم الحل",
-    "rejected": "مرفوض"
+    "rejected": "مرفوضة"
   },
+ 
   "buttons": {
     "cancel": "إلغاء",
     "save": "حفظ"
+  },
+  "modals": {
+    "toast": {
+      "status_updated": "تم تحديث الحالة بنجاح!",
+      "status_error": "فشل في تحديث الحالة."
+    },
+    "select_department": "اختر القسم"
   }
 }

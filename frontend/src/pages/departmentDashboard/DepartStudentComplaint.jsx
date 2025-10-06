@@ -1,8 +1,13 @@
 import React from 'react'
+import DepartStudentComplaints from '../../components/DepartmentDashboard/DepartmentStudentComplaints/DepartStudentComplaints'
+
 
 const DepartStudentComplaint = () => {
   return (
-    <div>DepartStudentComplaint</div>
+    <div>
+      <DepartStudentComplaints/>
+     
+    </div>
   )
 }
 
