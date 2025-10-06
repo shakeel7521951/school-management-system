@@ -1,0 +1,46 @@
+{
+  "pageTitle": "المستندات المرفوعة",
+  "loading": "جارٍ التحميل...",
+  "emptyMessage": "لا توجد مستندات مرفوعة بعد",
+  "tableColumns": [
+    { "key": "index", "label": "#" },
+    { "key": "title", "label": "العنوان" },
+    { "key": "uploader", "label": "المرفع" },
+    { "key": "role", "label": "الدور" },
+    { "key": "type", "label": "النوع" },
+    { "key": "date", "label": "تاريخ الإرسال" },
+    { "key": "status", "label": "الحالة" },
+    { "key": "note", "label": "ملاحظة" },
+    { "key": "actions", "label": "إجراءات" }
+  ],
+  "statusClasses": {
+    "Pending": "bg-yellow-100 text-yellow-800",
+    "Resolved": "bg-green-100 text-green-800",
+    "Rejected": "bg-red-100 text-red-800",
+    "default": "bg-gray-100 text-gray-800"
+  },
+  "modals": {
+    "view": {
+      "title": "عرض المستند"
+    },
+    "reject": {
+      "title": "رفض المستند",
+      "placeholderNote": "أدخل سبب الرفض..."
+    }
+  },
+  "mobileCard": {
+    "fields": [
+      { "key": "title", "label": "", "fontWeight": "semibold", "fontSize": "sm" },
+      { "key": "uploader", "label": "المرفع" },
+      { "key": "role", "label": "الدور" },
+      { "key": "type", "label": "النوع" },
+      { "key": "date", "label": "التاريخ" },
+      { "key": "status", "label": "الحالة", "badge": true }
+    ],
+    "actions": [
+      { "key": "view", "icon": "Eye", "color": "gray", "hoverColor": "blue-700", "tooltip": "عرض التفاصيل" },
+      { "key": "approve", "icon": "CheckCircle", "color": "green", "hoverColor": "green-700", "tooltip": "الموافقة على المستند" },
+      { "key": "reject", "icon": "XCircle", "color": "red", "hoverColor": "red-700", "tooltip": "رفض المستند" }
+    ]
+  }
+}

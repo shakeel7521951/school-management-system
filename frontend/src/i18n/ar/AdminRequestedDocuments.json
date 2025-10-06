@@ -1,0 +1,66 @@
+{
+  "page": {
+    "title": "إدارة النماذج",
+    "loading": "جارٍ تحميل النماذج...",
+    "empty": {
+      "title": "لا توجد نماذج بعد",
+      "description": "قم بإنشاء النموذج الأول للبدء",
+      "createButton": "إنشاء نموذج"
+    },
+    "createButton": "إنشاء نموذج جديد"
+  },
+  "table": {
+    "headers": {
+      "title": "العنوان",
+      "created": "تاريخ الإنشاء",
+      "updated": "تاريخ التحديث",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "published": "منشور",
+      "draft": "مسودة"
+    },
+    "rowActions": {
+      "view": "عرض النموذج",
+      "edit": "تعديل النموذج",
+      "download": "تحميل HTML",
+      "print": "طباعة النموذج",
+      "delete": "حذف النموذج"
+    }
+  },
+  "mobileCard": {
+    "status": {
+      "published": "منشور",
+      "draft": "مسودة"
+    },
+    "actions": {
+      "view": "عرض النموذج",
+      "edit": "تعديل النموذج",
+      "download": "تحميل HTML",
+      "delete": "حذف النموذج"
+    }
+  },
+  "modal": {
+    "deleteConfirmation": {
+      "title": "تأكيد الحذف",
+      "message": "هل أنت متأكد أنك تريد حذف هذا النموذج؟ هذا الإجراء لا يمكن التراجع عنه.",
+      "cancel": "إلغاء",
+      "confirm": "حذف"
+    }
+  },
+  "errors": {
+    "fetchError": "حدث خطأ أثناء جلب النماذج",
+    "deleteError": "حدث خطأ أثناء حذف النموذج",
+    "tryAgain": "حاول مرة أخرى"
+  },
+  "dates": {
+    "formatOptions": {
+      "year": "numeric",
+      "month": "short",
+      "day": "numeric",
+      "hour": "2-digit",
+      "minute": "2-digit"
+    }
+  }
+}

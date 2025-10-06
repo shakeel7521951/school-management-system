@@ -1,0 +1,14 @@
+{
+  "pending": {
+    "title": "Pending Complaints"
+  },
+  "in_progress": {
+    "title": "In Progress"
+  },
+  "resolved": {
+    "title": "Resolved"
+  },
+  "total": {
+    "title": "Total Complaints"
+  }
+}

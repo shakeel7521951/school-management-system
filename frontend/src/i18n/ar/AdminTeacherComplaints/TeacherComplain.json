@@ -1,0 +1,25 @@
+{
+  "page": {
+    "title": "إدارة شكاوى المعلمين",
+    "subtitle": "إدارة وحل شكاوى المعلمين بكفاءة"
+  },
+  "access_denied": {
+    "title": "تم رفض الوصول",
+    "message": "ليس لديك صلاحية لعرض الشكاوى."
+  },
+  "messages": {
+    "loading": "جاري تحميل الشكاوى...",
+    "error": "فشل في تحميل الشكاوى"
+  },
+  "toast": {
+    "status_updated_success": "تم تحديث الحالة بنجاح",
+    "status_updated_error": "فشل في تحديث الحالة",
+    "delete_success": "تم حذف الشكوى",
+    "delete_error": "فشل في حذف الشكوى"
+  },
+  "pagination": {
+    "text": "إظهار {{start}} إلى {{end}} من أصل {{total}} نتيجة",
+    "prev": "السابق",
+    "next": "التالي"
+  }
+}

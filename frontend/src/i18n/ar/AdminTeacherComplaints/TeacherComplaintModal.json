@@ -1,0 +1,20 @@
+{
+  "title": "تعديل الشكوى",
+  "placeholders": {
+    "employeeName": "اسم الموظف",
+    "jobTitle": "المسمى الوظيفي",
+    "department": "القسم",
+    "date": "التاريخ"
+  },
+  "statusOptions": {
+    "submitted": "تم الإرسال",
+    "pending": "قيد الانتظار",
+    "in_progress": "قيد المعالجة",
+    "resolved": "تم الحل",
+    "rejected": "مرفوض"
+  },
+  "buttons": {
+    "cancel": "إلغاء",
+    "save": "حفظ"
+  }
+}

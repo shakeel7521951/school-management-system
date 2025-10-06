@@ -6,7 +6,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 import axios from 'axios';
 
 const ResponseForm = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("responseForm");
   const navigate = useNavigate();
   const [forms, setForms] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -1,0 +1,25 @@
+{
+  "page": {
+    "title": "Teacher Complaint Management",
+    "subtitle": "Manage and resolve teachers complaints efficiently"
+  },
+  "access_denied": {
+    "title": "Access Denied",
+    "message": "You do not have permission to view complaints."
+  },
+  "messages": {
+    "loading": "Loading complaints...",
+    "error": "Failed to load complaints"
+  },
+  "toast": {
+    "status_updated_success": "Status updated successfully",
+    "status_updated_error": "Failed to update status",
+    "delete_success": "Complaint deleted",
+    "delete_error": "Failed to delete complaint"
+  },
+  "pagination": {
+    "text": "Showing {{start}} to {{end}} of {{total}} results",
+    "prev": "Prev",
+    "next": "Next"
+  }
+}

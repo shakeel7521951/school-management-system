@@ -37,7 +37,8 @@
           "gallery": "المعرض"
         }
       },
-      "contactUs": "اتصل بنا"
+      "contactUs": "اتصل بنا",
+      "visitorForm":"استمارة الزائر"
     },
     "profile": {
       "login": "تسجيل الدخول",

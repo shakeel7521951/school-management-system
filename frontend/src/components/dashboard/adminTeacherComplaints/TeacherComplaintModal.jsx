@@ -1,25 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const TeacherComplaintModal = ({
   editModal,
   setEditModal,
   saveStatus,
-  confirmDelete,
 }) => {
-  // ✅ Render nothing if no complaint is selected
-  if (!editModal) return null;
-
+  const { t } = useTranslation("teacherComplaintModal"); // always runs
   const [formData, setFormData] = useState({
     employeeName: "",
     jobTitle: "",
     department: "",
     date: "",
-    type: "",
-    severity: "",
-    impact: "",
-    expectedAction: "",
-    details: "",
     status: "",
   });
 
@@ -29,12 +22,9 @@ const TeacherComplaintModal = ({
         employeeName: editModal.employeeName || "",
         jobTitle: editModal.jobTitle || "",
         department: editModal.department || "",
-        date: editModal.date ? new Date(editModal.date).toISOString().split("T")[0] : "",
-        type: editModal.type || "",
-        severity: editModal.severity || "",
-        impact: editModal.impact || "",
-        expectedAction: editModal.expectedAction || "",
-        details: editModal.details || "",
+        date: editModal.date
+          ? new Date(editModal.date).toISOString().split("T")[0]
+          : "",
         status: editModal.status || "",
       });
     }
@@ -50,13 +40,16 @@ const TeacherComplaintModal = ({
     setEditModal(null);
   };
 
+  // ✅ Move the "no complaint selected" check AFTER hooks
+  if (!editModal) return null;
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-50">
+    <div className="fixed inset-0 bg-black/90 flex items-center justify-center p-2 sm:p-4 z-50">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg sm:max-w-xl md:max-w-2xl p-6">
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg sm:text-xl font-bold text-gray-800">
-            Edit Complaint
+            {t("title")}
           </h2>
           <button
             onClick={() => setEditModal(null)}
@@ -73,7 +66,7 @@ const TeacherComplaintModal = ({
             name="employeeName"
             value={formData.employeeName}
             onChange={handleChange}
-            placeholder="Employee Name"
+            placeholder={t("placeholders.employeeName")}
             className="w-full border rounded px-3 py-2"
             readOnly
           />
@@ -82,26 +75,27 @@ const TeacherComplaintModal = ({
             name="jobTitle"
             value={formData.jobTitle}
             onChange={handleChange}
-            placeholder="Job Title"
-            readOnly
+            placeholder={t("placeholders.jobTitle")}
             className="w-full border rounded px-3 py-2"
+            readOnly
           />
           <input
             type="text"
             name="department"
             value={formData.department}
             onChange={handleChange}
-            readOnly
-            placeholder="Department"
+            placeholder={t("placeholders.department")}
             className="w-full border rounded px-3 py-2"
+            readOnly
           />
           <input
             type="date"
             name="date"
-            readOnly
             value={formData.date}
             onChange={handleChange}
+            placeholder={t("placeholders.date")}
             className="w-full border rounded px-3 py-2"
+            readOnly
           />
           <select
             name="status"
@@ -109,11 +103,11 @@ const TeacherComplaintModal = ({
             onChange={handleChange}
             className="w-full border rounded px-3 py-2"
           >
-            <option value="submitted">Submitted</option>
-            <option value="pending">Pending</option>
-            <option value="in progress">In Progress</option>
-            <option value="resolved">Resolved</option>
-            <option value="rejected">Rejected</option>
+            <option value="submitted">{t("statusOptions.submitted")}</option>
+            <option value="pending">{t("statusOptions.pending")}</option>
+            <option value="in progress">{t("statusOptions.in_progress")}</option>
+            <option value="resolved">{t("statusOptions.resolved")}</option>
+            <option value="rejected">{t("statusOptions.rejected")}</option>
           </select>
         </div>
 
@@ -123,13 +117,13 @@ const TeacherComplaintModal = ({
             onClick={() => setEditModal(null)}
             className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
           >
-            Cancel
+            {t("buttons.cancel")}
           </button>
           <button
             onClick={handleSave}
             className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
           >
-            Save
+            {t("buttons.save")}
           </button>
         </div>
       </div>

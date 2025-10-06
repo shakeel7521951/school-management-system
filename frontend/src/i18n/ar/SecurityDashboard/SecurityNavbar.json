@@ -1,0 +1,14 @@
+{
+  "menu": {
+    "toggle": "تبديل القائمة",
+    "dashboard": "لوحة التحكم",
+    "profile": "ملفي الشخصي",
+    "logout": "تسجيل الخروج"
+  },
+  "profile": {
+    "guest": "ضيف",
+    "avatarAlt": "الملف الشخصي",
+    "role": "الدور",
+    "greeting": "مرحباً، {{name}}"
+  }
+}

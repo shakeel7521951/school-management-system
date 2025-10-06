@@ -1,0 +1,19 @@
+{
+  "modal": {
+    "title": "Reject Document",
+    "description": "You are about to reject \"{{title}}\". Please provide a reason for rejection.",
+    "fields": {
+      "rejectionReason": {
+        "label": "Rejection Reason",
+        "placeholder": "Enter the reason for rejection..."
+      }
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "confirm": "Confirm Reject"
+    },
+    "validation": {
+      "emptyReason": "Please enter a rejection reason."
+    }
+  }
+}

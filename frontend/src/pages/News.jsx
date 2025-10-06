@@ -14,6 +14,12 @@ export default function NewsPage() {
   // Select dataset according to active language
   const newsData = i18n.language === "en" ? news_en : news_ar;
 
+  // Extract hero title & subtitle from the first object
+  const hero = newsData[0];
+
+  // Exclude the first object for news cards
+  const newsCards = newsData.slice(1);
+
   return (
     <div className="w-full text-gray-800">
       {/* Hero Section */}
@@ -32,17 +38,17 @@ export default function NewsPage() {
           className="relative z-10 text-center text-white px-6"
         >
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 drop-shadow-2xl">
-            {t("newsTitle", { defaultValue: "News" })}
+            {hero.newsTitle}
           </h1>
           <p className="text-base sm:text-lg md:text-lg font-medium text-gray-100 max-w-3xl mx-auto">
-            {t("newsSubtitle", { defaultValue: "مدرسة التمكن الشاملة / News" })}
+            {hero.newsSubtitle}
           </p>
         </motion.div>
       </section>
 
       {/* News Cards */}
       <div className="max-w-6xl mx-auto px-4 py-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {newsData.map((item, index) => (
+        {newsCards.map((item, index) => (
           <motion.div
             key={item.id || index}
             initial={{ opacity: 0, y: 30 }}
@@ -59,9 +65,7 @@ export default function NewsPage() {
             <div className="absolute top-0 left-0 w-full h-1 bg-[#104c80] rounded-tl-xl rounded-tr-xl"></div>
 
             <div className="mt-2">
-              {item.date && (
-                <p className="text-sm text-gray-400">{item.date}</p>
-              )}
+              {item.date && <p className="text-sm text-gray-400">{item.date}</p>}
               <h2 className="text-xl font-semibold text-[#104c80] mt-2 leading-snug">
                 {item.title}
               </h2>

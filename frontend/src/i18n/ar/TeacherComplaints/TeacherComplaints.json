@@ -1,0 +1,97 @@
+{
+  "teacherComplaints": {
+    "title": "الشكاوى",
+    "description": "قم بتقديم مخاوفك هنا وتتبع تقدمها حتى يتم حلها.",
+    "loading": "جاري تحميل الشكاوى...",
+    "error": "فشل في تحميل الشكاوى.",
+    "noComplaints": {
+      "title": "لا توجد شكاوى حتى الآن",
+      "description": "اضغط على + تقديم شكوى لإضافة شكوى جديدة.",
+      "createButton": "+ تقديم شكوى"
+    },
+    "kpiCards": {
+      "total": "إجمالي الشكاوى",
+      "rejected": "الشكاوى المرفوضة",
+      "pending": "الشكاوى المعلقة"
+    },
+    "table": {
+      "headers": {
+        "employeeName": "اسم الموظف",
+        "jobTitle": "المسمى الوظيفي",
+        "department": "القسم",
+        "date": "التاريخ",
+        "type": "النوع",
+        "severity": "الخطورة",
+        "impact": "الأثر",
+        "details": "التفاصيل",
+        "expectedAction": "الإجراء المتوقع",
+        "status": "الحالة"
+      },
+      "mobileCard": {
+        "date": "التاريخ:",
+        "type": "النوع:",
+        "severity": "الخطورة:",
+        "impact": "الأثر:",
+        "details": "التفاصيل:",
+        "expectedAction": "الإجراء المتوقع:"
+      },
+      "status": {
+        "Pending": "معلق",
+        "In Progress": "قيد المعالجة",
+        "Resolved": "تم الحل"
+      },
+      "statusStyles": {
+        "Pending": { "bg": "bg-yellow-100", "text": "text-yellow-700", "border": "border-yellow-300" },
+        "In Progress": { "bg": "bg-blue-100", "text": "text-blue-700", "border": "border-blue-300" },
+        "Resolved": { "bg": "bg-green-100", "text": "text-green-700", "border": "border-green-300" }
+      },
+      "severityOptions": {
+        "simple": "ملاحظة بسيطة",
+        "urgent": "عاجل",
+        "followUp": "متابعة",
+        "serious": "خطير"
+      },
+      "severityStyles": {
+        "simple": { "bg": "bg-gray-100", "text": "text-gray-700" },
+        "urgent": { "bg": "bg-red-100", "text": "text-red-700" },
+        "followUp": { "bg": "bg-blue-100", "text": "text-blue-700" },
+        "serious": { "bg": "bg-yellow-100", "text": "text-yellow-700" }
+      }
+    },
+    "deleteConfirm": {
+      "title": "تأكيد الحذف",
+      "message": "هل أنت متأكد أنك تريد حذف هذه الشكوى؟ هذا الإجراء لا يمكن التراجع عنه.",
+      "cancel": "إلغاء",
+      "delete": "حذف"
+    },
+    "submitModal": {
+      "title": "تقديم شكوى موظف",
+      "employeeName": "اسم الموظف",
+      "jobTitle": "المسمى الوظيفي",
+      "department": "القسم",
+      "date": "تاريخ الشكوى",
+      "type": "نوع الشكوى",
+      "typeOptions": {
+        "safety": "السلامة في العمل",
+        "stress": "الضغط النفسي",
+        "workEnvironment": "بيئة العمل",
+        "colleagues": "الزملاء",
+        "management": "الإدارة",
+        "rights": "الحقوق",
+        "other": "أخرى"
+      },
+      "impact": "الأثر",
+      "impactOptions": {
+        "stress": "ضغط",
+        "performance": "الأداء",
+        "health": "الصحة",
+        "isolation": "العزلة"
+      },
+      "expectedAction": "الإجراء المتوقع",
+      "details": "تفاصيل الشكوى",
+      "cancelButton": "إلغاء",
+      "submitButton": "إرسال",
+      "submittingButton": "جاري الإرسال..."
+    }
+  }
+}

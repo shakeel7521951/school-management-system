@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import {  Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useSelector } from "react-redux";
 import { selectUserProfile } from "../../../redux/slices/UserSlice";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const SecurityNavbar = () => {
+  const { t } = useTranslation("securityNavbar"); // load namespace
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   // Get user profile from Redux
   const userProfile = useSelector(selectUserProfile);
 
-  // Get name from Redux (fallback if missing)
-  const userName = userProfile?.name || "Guest";
+  // Use translated "guest" if no name
+  const userName = userProfile?.name || t("profile.guest");
 
   // First letter of name
   const initial = userName ? userName.charAt(0).toUpperCase() : "?";
@@ -22,19 +24,21 @@ const SecurityNavbar = () => {
       className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm 
                  px-4 py-3 flex items-center justify-between md:ml-64 transition-all"
     >
-      {/* Left: Hamburger + Search */}
+      {/* Left: Hamburger */}
       <div className="flex items-center gap-4 flex-1">
         <button
           className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition"
           onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={t("menu.toggle")} // ✅ translated aria label
         >
-          <Menu size={26} className="text-gray-700 hover:text-[#104C80] transition" />
+          <Menu
+            size={26}
+            className="text-gray-700 hover:text-[#104C80] transition"
+          />
         </button>
-
-       
       </div>
 
-      {/* Right: Profile (Clickable to My Profile) */}
+      {/* Right: Profile */}
       <div
         className="flex items-center gap-3 cursor-pointer group"
         onClick={() => navigate("/my-profile")}
@@ -43,7 +47,7 @@ const SecurityNavbar = () => {
         {userProfile?.image ? (
           <img
             src={userProfile.image}
-            alt="Profile"
+            alt={t("profile.avatarAlt")} // ✅ translated alt
             className="w-10 h-10 rounded-full object-cover shadow-lg"
           />
         ) : (
@@ -57,7 +61,9 @@ const SecurityNavbar = () => {
         )}
 
         {/* User name */}
-        <span className="text-sm font-medium text-gray-700">{userName}</span>
+        <span className="text-sm font-medium text-gray-700">
+          {userName}
+        </span>
       </div>
     </nav>
   );

@@ -1,0 +1,46 @@
+{
+  "pageTitle": "Uploaded Documents",
+  "loading": "Loading...",
+  "emptyMessage": "No documents uploaded yet",
+  "tableColumns": [
+    { "key": "index", "label": "#" },
+    { "key": "title", "label": "Title" },
+    { "key": "uploader", "label": "Uploader" },
+    { "key": "role", "label": "Role" },
+    { "key": "type", "label": "Type" },
+    { "key": "date", "label": "Submission Date" },
+    { "key": "status", "label": "Status" },
+    { "key": "note", "label": "Note" },
+    { "key": "actions", "label": "Actions" }
+  ],
+  "statusClasses": {
+    "Pending": "bg-yellow-100 text-yellow-800",
+    "Resolved": "bg-green-100 text-green-800",
+    "Rejected": "bg-red-100 text-red-800",
+    "default": "bg-gray-100 text-gray-800"
+  },
+  "modals": {
+    "view": {
+      "title": "View Document"
+    },
+    "reject": {
+      "title": "Reject Document",
+      "placeholderNote": "Enter rejection reason..."
+    }
+  },
+  "mobileCard": {
+    "fields": [
+      { "key": "title", "label": "", "fontWeight": "semibold", "fontSize": "sm" },
+      { "key": "uploader", "label": "Uploader" },
+      { "key": "role", "label": "Role" },
+      { "key": "type", "label": "Type" },
+      { "key": "date", "label": "Date" },
+      { "key": "status", "label": "Status", "badge": true }
+    ],
+    "actions": [
+      { "key": "view", "icon": "Eye", "color": "gray", "hoverColor": "blue-700", "tooltip": "View details" },
+      { "key": "approve", "icon": "CheckCircle", "color": "green", "hoverColor": "green-700", "tooltip": "Approve document" },
+      { "key": "reject", "icon": "XCircle", "color": "red", "hoverColor": "red-700", "tooltip": "Reject document" }
+    ]
+  }
+}

@@ -9,31 +9,7 @@ import {
   FaSortDown,
   FaExclamationTriangle,
 } from "react-icons/fa";
-
-// Colors
-const typeColors = {
-  "Safety at Work": "bg-indigo-100 text-indigo-700",
-  "Work Environment": "bg-red-100 text-red-700",
-  Colleagues: "bg-orange-100 text-orange-700",
-  Management: "bg-green-100 text-green-700",
-  Rights: "bg-purple-100 text-purple-700",
-  Stress: "bg-cyan-100 text-cyan-700",
-};
-
-const severityColors = {
-  "simple-note": "bg-gray-100 text-gray-700",
-  urgent: "bg-red-100 text-red-700",
-  "follow-up": "bg-amber-100 text-amber-700",
-  serious: "bg-purple-100 text-purple-700",
-};
-
-const statusColors = {
-  submitted: "bg-yellow-100 text-yellow-700",
-  pending: "bg-yellow-100 text-yellow-700",
-  "in progress": "bg-blue-100 text-blue-700",
-  resolved: "bg-green-100 text-green-700",
-  rejected: "bg-red-100 text-red-700",
-};
+import { useTranslation } from "react-i18next";
 
 const TeacherComplaintTable = ({
   paginatedComplaints,
@@ -44,51 +20,44 @@ const TeacherComplaintTable = ({
   setEditModal,
   setDeleteModal,
 }) => {
+  const { t } = useTranslation("teacherComplaintTable");
+
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-      {/* --- TABLE VIEW (hidden on small screens) --- */}
+      {/* --- TABLE VIEW (Desktop) --- */}
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full border-collapse rounded-lg overflow-hidden shadow-sm">
           <thead>
             <tr className="bg-[#10448c] text-white text-sm whitespace-nowrap">
-              {[
-                { key: "employeeName", label: "Employee Name", width: "w-40" },
-                { key: "jobTitle", label: "Job Title", width: "w-40" },
-                { key: "department", label: "Department", width: "w-28" },
-                { key: "date", label: "Date", width: "w-28" },
-                { key: "type", label: "Type", width: "w-36" },
-                { key: "severity", label: "Severity", width: "w-28" },
-                { key: "impact", label: "Impact", width: "w-28" },
-                { key: "expectedAction", label: "Expected Action", width: "w-44" },
-                { key: "status", label: "Status", width: "w-28" },
-                { key: "Action", label: "Action", width: "w-28" },
-              ].map(({ key, label, width }) => (
-                <th
-                  key={key}
-                  onClick={() =>
-                    !["expectedAction", "Action"].includes(key) &&
-                    handleSort(key)
-                  }
-                  className={`${width} py-4 px-1 text-center text-[12px] font-semibold uppercase tracking-wide cursor-pointer whitespace-nowrap`}
-                >
-                  <div className="flex items-center justify-center gap-1 whitespace-nowrap">
-                    {label}
-                    {!["expectedAction", "Action"].includes(key) && (
-                      <>
-                        {sortConfig.key === key ? (
-                          sortConfig.direction === "ascending" ? (
-                            <FaSortUp />
+              {Object.entries(t("table.headers", { returnObjects: true })).map(
+                ([key, label]) => (
+                  <th
+                    key={key}
+                    onClick={() =>
+                      !["expectedAction", "action"].includes(key) &&
+                      handleSort(key)
+                    }
+                    className={`py-4 px-2 text-center text-[12px] font-semibold uppercase tracking-wide cursor-pointer whitespace-nowrap`}
+                  >
+                    <div className="flex items-center justify-center gap-1 whitespace-nowrap">
+                      {label}
+                      {!["expectedAction", "action"].includes(key) && (
+                        <>
+                          {sortConfig.key === key ? (
+                            sortConfig.direction === "ascending" ? (
+                              <FaSortUp />
+                            ) : (
+                              <FaSortDown />
+                            )
                           ) : (
-                            <FaSortDown />
-                          )
-                        ) : (
-                          <FaSort className="text-gray-300" />
-                        )}
-                      </>
-                    )}
-                  </div>
-                </th>
-              ))}
+                            <FaSort className="text-gray-300" />
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </th>
+                )
+              )}
             </tr>
           </thead>
 
@@ -100,49 +69,65 @@ const TeacherComplaintTable = ({
                   i % 2 === 0 ? "bg-white" : "bg-gray-50"
                 } hover:bg-gray-100 transition text-sm whitespace-nowrap`}
               >
+                {/* Employee Name */}
                 <td className="px-3 py-2 flex items-center gap-3 whitespace-nowrap">
                   <div className="bg-indigo-100 p-2 rounded-full">
                     <FaUser className="text-indigo-600 text-sm" />
                   </div>
                   <span className="font-medium">{c.employeeName}</span>
                 </td>
-                <td className="px-3 py-2 text-center whitespace-nowrap">{c.jobTitle}</td>
-                <td className="px-3 py-2 text-center whitespace-nowrap">{c.department}</td>
-                <td className="px-3 py-2 text-center whitespace-nowrap">
+
+                <td className="px-3 py-2 text-center">{c.jobTitle}</td>
+                <td className="px-3 py-2 text-center">{c.department}</td>
+                <td className="px-3 py-2 text-center">
                   {c.date ? new Date(c.date).toLocaleDateString() : "-"}
                 </td>
-                <td className="px-2 py-2 text-center whitespace-nowrap">
+
+                {/* Type */}
+                <td className="px-3 py-2 text-center">
                   <span
-                    className={`px-2 py-1 text-xs rounded-full whitespace-nowrap ${
-                      typeColors[c.type] || "bg-gray-100 text-gray-700"
+                    className={`px-2 py-1 text-xs rounded-full ${
+                      t(`colors.type.${c.type}`, {
+                        defaultValue: t("colors.type.default"),
+                      })
                     }`}
                   >
                     {c.type}
                   </span>
                 </td>
-                <td className="px-3 py-2 text-center whitespace-nowrap">
+
+                {/* Severity */}
+                <td className="px-3 py-2 text-center">
                   <span
-                    className={`px-1 py-1 text-xs rounded-full whitespace-nowrap ${
-                      severityColors[c.severity?.toLowerCase()] ||
-                      "bg-gray-100 text-gray-700"
+                    className={`px-2 py-1 text-xs rounded-full ${
+                      t(`colors.severity.${c.severity}`, {
+                        defaultValue: t("colors.severity.default"),
+                      })
                     }`}
                   >
                     {c.severity}
                   </span>
                 </td>
-                <td className="px-3 py-2 text-center whitespace-nowrap">{c.impact}</td>
-                <td className="px-3 py-2 text-center whitespace-nowrap">{c.expectedAction}</td>
-                <td className="px-3 py-2 text-center whitespace-nowrap">
+
+                <td className="px-3 py-2 text-center">{c.impact}</td>
+                <td className="px-3 py-2 text-center">{c.expectedAction}</td>
+
+                {/* Status */}
+                <td className="px-3 py-2 text-center">
                   <span
-                    className={`px-1 py-1 text-xs font-semibold rounded-full whitespace-nowrap ${
-                      statusColors[c.status?.toLowerCase()]
+                    className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                      t(`colors.status.${c.status}`, {
+                        defaultValue: t("colors.status.default"),
+                      })
                     }`}
                   >
                     {c.status}
                   </span>
                 </td>
-                <td className="px-3 py-2 text-center whitespace-nowrap">
-                  <div className="flex justify-center gap-2 whitespace-nowrap">
+
+                {/* Actions */}
+                <td className="px-3 py-2 text-center">
+                  <div className="flex justify-center gap-2">
                     <button
                       onClick={() => setViewModal({ ...c })}
                       className="text-indigo-600 hover:bg-indigo-50 p-2 rounded-full"
@@ -165,14 +150,16 @@ const TeacherComplaintTable = ({
                 </td>
               </tr>
             ))}
+
+            {/* No Data */}
             {filteredComplaints.length === 0 && (
               <tr>
                 <td
-                  colSpan="11"
-                  className="px-4 py-6 text-center text-gray-400 text-sm whitespace-nowrap"
+                  colSpan="10"
+                  className="px-4 py-6 text-center text-gray-400 text-sm"
                 >
                   <FaExclamationTriangle className="mx-auto text-2xl mb-2" />
-                  No complaints found.
+                  {t("table.empty.message")}
                 </td>
               </tr>
             )}
@@ -180,16 +167,16 @@ const TeacherComplaintTable = ({
         </table>
       </div>
 
-      {/* --- CARD VIEW (visible only on small screens) --- */}
+      {/* --- CARD VIEW (Mobile) --- */}
       <div className="block md:hidden p-4 space-y-4">
         {paginatedComplaints.length > 0 ? (
           paginatedComplaints.map((c) => (
             <div
               key={c._id}
-              className="bg-white rounded-xl shadow-md border border-gray-200 p-4 space-y-2 whitespace-nowrap"
+              className="bg-white rounded-xl shadow-md border border-gray-200 p-4 space-y-2"
             >
               {/* Header */}
-              <div className="flex items-center gap-3 border-b pb-2 whitespace-nowrap">
+              <div className="flex items-center gap-3 border-b pb-2">
                 <div className="bg-indigo-100 p-2 rounded-full">
                   <FaUser className="text-indigo-600 text-sm" />
                 </div>
@@ -197,57 +184,32 @@ const TeacherComplaintTable = ({
               </div>
 
               {/* Info Grid */}
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm mt-2 whitespace-nowrap">
-                <p>
-                  <b>Job Title:</b> {c.jobTitle}
-                </p>
-                <p>
-                  <b>Department:</b> {c.department}
-                </p>
-                <p>
-                  <b>Date:</b> {c.date ? new Date(c.date).toLocaleDateString() : "-"}
-                </p>
-                <p>
-                  <b>Impact:</b> {c.impact}
-                </p>
-                <p className="col-span-2">
-                  <b>Type:</b>{" "}
-                  <span
-                    className={`px-2 py-1 text-xs rounded-full whitespace-nowrap ${
-                      typeColors[c.type] || "bg-gray-100 text-gray-700"
-                    }`}
-                  >
-                    {c.type}
-                  </span>
-                </p>
-                <p className="col-span-2">
-                  <b>Severity:</b>{" "}
-                  <span
-                    className={`px-2 py-1 text-xs rounded-full whitespace-nowrap ${
-                      severityColors[c.severity?.toLowerCase()] ||
-                      "bg-gray-100 text-gray-700"
-                    }`}
-                  >
-                    {c.severity}
-                  </span>
-                </p>
-                <p className="col-span-2">
-                  <b>Expected Action:</b> {c.expectedAction}
-                </p>
-                <p className="col-span-2">
-                  <b>Status:</b>{" "}
-                  <span
-                    className={`px-2 py-1 text-xs rounded-full whitespace-nowrap ${
-                      statusColors[c.status?.toLowerCase()]
-                    }`}
-                  >
-                    {c.status}
-                  </span>
-                </p>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm mt-2">
+                {Object.entries(t("card.labels", { returnObjects: true })).map(
+                  ([key, label]) =>
+                    c[key] && (
+                      <p key={key} className="col-span-2">
+                        <b>{label}:</b>{" "}
+                        {["type", "severity", "status"].includes(key) ? (
+                          <span
+                            className={`px-2 py-1 text-xs rounded-full ${
+                              t(`colors.${key}.${c[key]}`, {
+                                defaultValue: t(`colors.${key}.default`),
+                              })
+                            }`}
+                          >
+                            {c[key]}
+                          </span>
+                        ) : (
+                          c[key]
+                        )}
+                      </p>
+                    )
+                )}
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex justify-end gap-4 pt-3 border-t mt-2 whitespace-nowrap">
+              {/* Actions */}
+              <div className="flex justify-end gap-4 pt-3 border-t mt-2">
                 <button
                   onClick={() => setViewModal({ ...c })}
                   className="text-indigo-600 hover:text-indigo-800"
@@ -270,9 +232,9 @@ const TeacherComplaintTable = ({
             </div>
           ))
         ) : (
-          <div className="text-center text-gray-400 whitespace-nowrap">
+          <div className="text-center text-gray-400">
             <FaExclamationTriangle className="mx-auto text-2xl mb-2" />
-            No complaints found.
+            {t("card.empty.message")}
           </div>
         )}
       </div>
