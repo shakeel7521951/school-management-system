@@ -27,8 +27,8 @@ const ComplaintsSidebar = () => {
         label: "Complaints",
         icon: "MessageSquare",
         dropdown: [
-            { id: "/complaints/new", label: "Student's Complaints" },
-            { id: "/complaints/pending", label: "Teacher's Complaints" },
+            { id: "/student-complaint", label: "Students Complaints" },
+            { id: "/teacher-complaint", label: "Teachers Complaints" },
         ],
     };
 

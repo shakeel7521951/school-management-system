@@ -1,6 +1,6 @@
 // components/FormViewer.jsx
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation, redirect } from "react-router-dom";
 import {
   ArrowLeft,
   Home,
@@ -10,16 +10,18 @@ import {
   XCircle,
 } from "lucide-react";
 import axios from "axios";
+import { toast } from "react-toastify";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const FormViewer = () => {
+  const location = useLocation();
+  const timer = location.state?.timer;
   const { id } = useParams();
   const navigate = useNavigate();
   const [htmlContent, setHtmlContent] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [submissionStatus, setSubmissionStatus] = useState(null);
-
   useEffect(() => {
     const fetchFormHTML = async () => {
       try {
@@ -29,7 +31,7 @@ const FormViewer = () => {
           withCredentials: true
         });
 
-        setHtmlContent(response.data); 
+        setHtmlContent(response.data);
         setError(null);
       } catch (error) {
         setError("Failed to load form. Please try again later.");
@@ -46,7 +48,7 @@ const FormViewer = () => {
     try {
       setSubmissionStatus("submitting");
 
-      await axios.post(
+      const response = await axios.post(
         `${BACKEND_URL}/submitForm`,
         {
           formId: id,
@@ -55,15 +57,26 @@ const FormViewer = () => {
         },
         {
           headers: { "Content-Type": "application/json" },
-          withCredentials: true, 
+          withCredentials: true,
         }
       );
 
       setSubmissionStatus("success");
-      navigate(-1)
+      alert("Form submitted successfully!");
+      navigate(-1);
     } catch (err) {
-      console.error("Error submitting form:", err);
-      setSubmissionStatus("error");
+      const message = err?.response?.data?.message || "Something went wrong!";
+      console.error("Error submitting form:", message);
+
+      if (message.includes("expired")) {
+        toast.error("This form is no longer available — the fill duration has expired.");
+        navigate(-1)
+      } else {
+        toast.error(message);
+        navigate(-1);
+      }
+
+      setSubmissionStatus(message);
       setTimeout(() => setSubmissionStatus(null), 3000);
     }
   };
@@ -154,6 +167,13 @@ const FormViewer = () => {
             <h1 className="text-xl font-semibold">Form Viewer</h1>
           </div>
           <div className="flex items-center gap-3">
+            <div className="p-6">
+              {/* Show the timer value for this form */}
+              <p>
+                Remaining Time: <span className="font-medium">{timer?.[id]?.slice(0, 7)}</span>
+              </p>
+
+            </div>
             <button
               onClick={handleDownload}
               className="flex items-center gap-2 px-3 py-2 bg-white text-[#104C80] rounded-md shadow hover:bg-gray-100 transition"
@@ -168,6 +188,7 @@ const FormViewer = () => {
             >
               <Printer className="w-4 h-4" /> Print
             </button>
+
           </div>
         </div>
       </div>

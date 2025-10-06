@@ -1,10 +1,27 @@
 // controllers/formSubmissionController.js
+import Form from "../models/Form.js";
 import FormSubmission from "../models/FormSubmission.js";
 
-// ✅ Store new submission
+// Store new submission
 export const submitForm = async (req, res) => {
   try {
     const { formId, formData } = req.body;
+
+    const form = await Form.findById(formId);
+    if (!form) {
+      return res.status(404).json({ message: "Form not found" });
+    }
+
+    const createdAt = new Date(form.createdAt);
+    const expiryDate = new Date(createdAt.getTime() + form.fillDuration * 24 * 60 * 60 * 1000);
+    const currentDate = new Date();
+
+    if (currentDate > expiryDate) {
+      return res.status(400).json({
+        message: "Form has expired. You can no longer submit responses.",
+        expired: true,
+      });
+    }
 
     const submission = new FormSubmission({
       formId,
@@ -14,9 +31,15 @@ export const submitForm = async (req, res) => {
     });
 
     const savedSubmission = await submission.save();
-    res.status(201).json(savedSubmission);
+
+    res.status(201).json({
+      message: "Form submitted successfully",
+      submission: savedSubmission,
+      expired: false,
+    });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.error("Error submitting form:", error);
+    res.status(500).json({ message: error.message });
   }
 };
 
