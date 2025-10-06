@@ -79,8 +79,10 @@ import AdminStudentComplain from './pages/dashboard/AdminComplaints/AdminStudent
 import AdminTeacherComplain from './pages/dashboard/AdminComplaints/AdminTeacherComplain'
 import OrbEffect from './components/common/Footer/OrbEffect'
 import DepartSidebar from './components/DepartmentDashboard/common/DepartSidebar'
-import ComplaintPage from './components/DepartmentDashboard/ComplaintPage'
+// import ComplaintPage from './components/DepartmentDashboard/ComplaintPage'
 import DepartNavbar from './components/DepartmentDashboard/common/DepartNavbar'
+import DepartStudentComplaint from './pages/departmentDashboard/DepartStudentComplaint'
+import DepartTeacherComplaint from './pages/departmentDashboard/DepartTeacherComplaint'
 
 
 
@@ -255,7 +257,8 @@ const router = createBrowserRouter([
   {
     element: <DepartmentRoute />,
     children: [
-      { path: '/depart-complaint', element: <ComplaintPage /> },
+      { path: '/student-complaint', element: <DepartStudentComplaint /> },
+      { path: '/teacher-complaint', element: <DepartTeacherComplaint /> },
     ]
   },
 
