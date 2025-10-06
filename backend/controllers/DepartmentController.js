@@ -2,12 +2,12 @@ import Department from "../models/Department.js";
 
 export const createDepartment = async (req, res) => {
     try {
-        const { name, head } = req.body;
+        const { name,description } = req.body;
         const existing = await Department.findOne({ name });
         if (existing) {
             return res.status(400).json({ message: "Department already exists" });
         }
-        const department = new Department({ name, head });
+        const department = new Department({ name, description });
         await department.save();
         res.status(201).json({ message: "Department created successfully" });
     } catch (error) {

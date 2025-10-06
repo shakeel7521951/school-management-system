@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.post("/create-department",createDepartment);
 router.get("/all-departments",getAllDepartments);
-router.delete("/delete-department",deleteDepartment);
+router.delete("/delete-department/:id",deleteDepartment);
 router.put("/edit-department/:id",editDepartment);
 
 export default router;
