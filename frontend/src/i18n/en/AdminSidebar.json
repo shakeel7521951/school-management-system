@@ -27,8 +27,8 @@
       "color": "text-[#3B82F6]",
       "hover": "hover:bg-pink-50",
       "dropdown": [
-        { "id": "/studentcomplain", "label": "Student Complaints" },
-        { "id": "/teachercomplain", "label": "Teacher Complaints" }
+        { "id": "/studentcomplain", "label": "Students Complaints" },
+        { "id": "/teachercomplain", "label": "Teachers Complaints" }
       ]
     },
     {

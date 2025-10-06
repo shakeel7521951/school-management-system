@@ -5,7 +5,8 @@
     "total": "إجمالي الشكاوى",
     "approved": "موافق عليه",
     "rejected": "مرفوض",
-    "pending": "قيد الانتظار"
+    "pending": "قيد الانتظار",
+    "in_progress": "قيد التنفيذ"
   },
   "filters": {
     "header": "الفلاتر",

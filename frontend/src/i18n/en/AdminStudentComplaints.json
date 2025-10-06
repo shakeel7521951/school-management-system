@@ -1,11 +1,12 @@
 {
-  "title": "Students Complaint Management",
+  "title": "Students Complaints Management",
   "subtitle": "Manage and resolve students complaints efficiently",
   "stats": {
     "total": "Total Complaints",
     "approved": "Approved",
     "rejected": "Rejected",
-    "pending": "Pending"
+    "pending": "Pending",
+    "in_progress":"In Progress"
   },
   "filters": {
     "header": "Filters",
