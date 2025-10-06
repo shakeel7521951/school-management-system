@@ -11,13 +11,23 @@ const ResponseForm = () => {
   const [forms, setForms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [deleteConfirm, setDeleteConfirm] = useState(null); // holds form id
-
-  // Fetch forms from the backend
+  const [deleteConfirm, setDeleteConfirm] = useState(null);
+  const [timer, setTimer] = useState({});
   useEffect(() => {
     fetchForms();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const updatedTimer = {};
+      forms.forEach(form => {
+        updatedTimer[form._id] = getRemainingTime(form.createdAt, form.fillDuration);
+      })
+      setTimer(updatedTimer);
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [forms])
 
   const fetchForms = async () => {
     try {
@@ -32,6 +42,25 @@ const ResponseForm = () => {
       setLoading(false);
     }
   };
+
+  const getRemainingTime = (createdAt, fillDuration) => {
+    if (!createdAt) return null;
+
+    const createdTime = new Date(createdAt).getTime(); 
+    const now = Date.now();
+
+    const endTime = createdTime + fillDuration * 24 * 60 * 60 * 1000;
+    const remainingTime = endTime - now;
+
+    if (remainingTime <= 0) return "Expired";
+
+    const hours = Math.floor(remainingTime / (1000 * 60 * 60));
+    const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+    return `${hours}h ${minutes}m ${seconds}s`;
+  }
+
 
   const handleDownloadHTML = (form) => {
     const blob = new Blob([form.html], { type: 'text/html' });
@@ -167,7 +196,7 @@ const ResponseForm = () => {
                   <tr className='bg-[#104c80] text-white text-sm uppercase tracking-wide shadow-sm'>
                     <th className='px-6 py-4 text-left rounded-tl-xl'>{t('responseForm.table.headers.title')}</th>
                     <th className='px-6 py-4 text-left'>{t('responseForm.table.headers.created')}</th>
-                    <th className='px-6 py-4 text-left'>{t('responseForm.table.headers.updated')}</th>
+                    <th className='px-6 py-4 text-left'>{t('responseForm.table.headers.remaining')}</th>
                     <th className='px-6 py-4 text-left'>{t('responseForm.table.headers.status')}</th>
                     <th className='px-6 py-4 text-left rounded-tr-xl'>{t('responseForm.table.headers.actions')}</th>
                   </tr>
@@ -182,7 +211,7 @@ const ResponseForm = () => {
                         {form.title}
                       </td>
                       <td className='px-6 py-4 text-gray-700'>{formatDate(form.createdAt)}</td>
-                      <td className='px-6 py-4 text-gray-700'>{formatDate(form.updatedAt)}</td>
+                      <td className='px-6 py-4 text-gray-700'>{timer[form._id]}</td>
                       <td className='px-6 py-4'>
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${form.isPublished ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
                           {form.isPublished ? t('responseForm.table.status.published') : t('responseForm.table.status.draft')}
@@ -243,12 +272,12 @@ const ResponseForm = () => {
                     <span className='font-medium'>{t('responseForm.mobileCard.created')}</span> {formatDate(form.createdAt)}
                   </p>
                   <p className='text-sm text-gray-600'>
-                    <span className='font-medium'>{t('responseForm.mobileCard.updated')}</span> {formatDate(form.updatedAt)}
+                    <span className='font-medium'>{t('responseForm.mobileCard.remaining')}</span> {timer[form._id]}
                   </p>
                   <div className="flex justify-between mt-4 pt-3 border-t border-gray-100">
                     <div className="flex items-center gap-2">
                       <button
-                        onClick={() => navigate(`/view/${form._id}`)}
+                        onClick={() => navigate(`/view/${form._id}`,{state:{timer:timer}})}
                         className="p-2 text-blue-600 hover:bg-blue-100 rounded-full transition"
                         title={t('responseForm.table.actions.view')}
                       >

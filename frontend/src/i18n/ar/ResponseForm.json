@@ -13,7 +13,7 @@
             "headers": {
                 "title": "العنوان",
                 "created": "تاريخ الإنشاء",
-                "updated": "تاريخ التحديث",
+                "remaining": "متبقي",
                 "status": "الحالة",
                 "actions": "الإجراءات"
             },
@@ -31,7 +31,7 @@
         },
         "mobileCard": {
             "created": "تم الإنشاء:",
-            "updated": "تم التحديث:"
+            "remaining": "متبقي"
         },
         "deleteConfirm": {
             "title": "تأكيد الحذف",

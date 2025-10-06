@@ -13,7 +13,7 @@
             "headers": {
                 "title": "Title",
                 "created": "Created",
-                "updated": "Updated",
+                "remaining": "Remaining",
                 "status": "Status",
                 "actions": "Actions"
             },
@@ -31,7 +31,7 @@
         },
         "mobileCard": {
             "created": "Created:",
-            "updated": "Updated:"
+            "remaining": "Remaining:"
         },
         "deleteConfirm": {
             "title": "Confirm Deletion",
