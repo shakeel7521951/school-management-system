@@ -1,31 +1,29 @@
 import React, { useState } from "react";
 import {
-  FileText,
   MessageSquare,
-  Settings,
-  Bell,
   Menu,
   GraduationCap,
   X,
-  LayoutDashboard,
-  LogOut, // ✅ Logout icon
+  LogOut,
 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const StudentSidebar = () => {
+  const { t } = useTranslation("studentSidebar"); // use studentSidebar namespace
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
-    // ✅ Clear student session (you can also clear localStorage or tokens here)
     localStorage.removeItem("studentToken");
-
-    // ✅ Redirect to login page
     navigate("/login");
-
-    // ✅ Close sidebar on logout
     setIsOpen(false);
   };
+
+  const menuItems = [
+    { key: "complaints", icon: <MessageSquare size={20} />, path: "/stcomplaints" },
+  ];
 
   return (
     <>
@@ -56,27 +54,23 @@ const StudentSidebar = () => {
           </div>
           <h1
             className={`mt-3 font-bold text-base tracking-wide text-center transition-all duration-500
-            ${isOpen || window.innerWidth >= 1024 ? "opacity-100" : "hidden"}`}
+                        ${isOpen ? "opacity-100" : "hidden lg:block"}`}
           >
-            Al Tamkon Student Portal
+            {t("portalTitle")}
           </h1>
         </div>
 
         {/* Menu Items */}
         <nav className="mt-8 flex flex-col gap-3 px-3 flex-grow">
-          {[
-            // { label: "Overview", icon: <LayoutDashboard size={20} />, path: "/stoverview" },
-            // { label: "Documents", icon: <FileText size={20} />, path: "/stdocuments" },
-            { label: "Complaints", icon: <MessageSquare size={20} />, path: "/stcomplaints" },
-            // { label: "Notifications", icon: <Bell size={20} />, path: "/stnotifications" },
-          ].map((item, index) => (
+          {menuItems.map((item, index) => (
             <Link
               key={index}
               to={item.path}
-              onClick={() => setIsOpen(false)} // ✅ Close sidebar after navigation
-              className="group flex items-center gap-4 px-3 py-2 rounded-lg 
-                         hover:bg-white/20 transition-all relative overflow-hidden
-                         hover:translate-x-1 hover:scale-105 duration-300 ease-out"
+              onClick={() => setIsOpen(false)}
+              className={`group flex items-center gap-4 px-3 py-2 rounded-lg 
+                          hover:bg-white/20 transition-all relative overflow-hidden
+                          hover:translate-x-1 hover:scale-105 duration-300 ease-out
+                          ${location.pathname === item.path ? "bg-white/30" : ""}`}
             >
               {/* Left hover bar */}
               <span
@@ -86,53 +80,34 @@ const StudentSidebar = () => {
               {item.icon}
               {(isOpen || window.innerWidth >= 1024) && (
                 <span className="text-sm font-medium animate-fadeIn">
-                  {item.label}
+                  {t(`menu.${item.key}`)}
                 </span>
               )}
             </Link>
           ))}
-        </nav>
 
-        {/* Bottom Section (Settings + Logout) */}
-        <div className="px-3 mb-6 space-y-3">
-          {/* Settings */}
-          {/* <Link
-            to="/stsettings"
-            onClick={() => setIsOpen(false)} // ✅ Close sidebar after navigation
+          {/* Logout */}
+          <button
+            onClick={handleLogout}
             className="group flex items-center gap-4 px-3 py-2 rounded-lg 
-                       hover:bg-white/20 transition-all relative overflow-hidden
-                       hover:translate-x-1 hover:scale-105 duration-300 ease-out"
+                       hover:bg-red-500/80 transition-all relative overflow-hidden
+                       hover:translate-x-1 hover:scale-105 duration-300 ease-out mt-auto"
           >
             <span
               className="absolute left-0 top-0 h-full w-1 bg-white scale-y-0 
                          group-hover:scale-y-100 transition-transform duration-300"
             ></span>
-            <Settings size={20} />
-            {(isOpen || window.innerWidth >= 1024) && (
-              <span className="text-sm font-medium animate-fadeIn">Settings</span>
-            )}
-          </Link> */}
-
-          {/* Logout */}
-          {/* <button
-            onClick={handleLogout}
-            className="w-full group flex items-center gap-4 px-3 py-2 rounded-lg 
-                       hover:bg-red-500/20 transition-all relative overflow-hidden
-                       hover:translate-x-1 hover:scale-105 duration-300 ease-out text-left"
-          >
-            <span
-              className="absolute left-0 top-0 h-full w-1 bg-red-400 scale-y-0 
-                         group-hover:scale-y-100 transition-transform duration-300"
-            ></span>
             <LogOut size={20} />
             {(isOpen || window.innerWidth >= 1024) && (
-              <span className="text-sm font-medium animate-fadeIn">Logout</span>
+              <span className="text-sm font-medium animate-fadeIn">
+                {t("menu.logout")}
+              </span>
             )}
-          </button> */}
-        </div>
+          </button>
+        </nav>
       </div>
 
-      {/* Toggle Button */}
+      {/* Toggle Button (mobile only) */}
       <button
         className="fixed top-4 left-4 z-50 p-2.5 bg-white shadow-lg rounded-full md:hidden 
                    transition duration-300 hover:scale-110 active:scale-95"
