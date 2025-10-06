@@ -14,6 +14,7 @@ import stComplaintRoutes from "./routes/stComplaintRoutes.js";
 import visitorRoutes from "./routes/VisitorRoutes.js";
 import registrationRoutes from "./routes/registrationRoutes.js";
 import teacherComplaint from "./routes/TeacherComplaitRoutes.js";
+import departmentRoutes from "./routes/DepartmentRoutes.js";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -42,5 +43,6 @@ app.use(stComplaintRoutes);
 app.use(visitorRoutes);
 app.use(registrationRoutes);
 app.use(teacherComplaint);
+app.use(departmentRoutes);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
