@@ -115,7 +115,7 @@ const ComplaintTable = ({ complaints }) => {
                 </p>
               </div>
               <span
-                className={`px-2 py-1 rounded-full text-xs font-medium border 
+                className={`px-2 py-0 rounded-full text-[10px] font-medium border 
                   ${statusStyles[complaint.status]?.bg || ""} 
                   ${statusStyles[complaint.status]?.text || ""} 
                   ${statusStyles[complaint.status]?.border || ""}`}

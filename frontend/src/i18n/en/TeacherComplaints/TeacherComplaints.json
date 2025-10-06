@@ -49,16 +49,16 @@
        "Rejected" : {"bg":"bg-red-100","text": "text-red-700","border": "border-red-300"}
     },
     "severityOptions": {
-  "simple note": "Simple Note",
-  "urgent": "Urgent",
-  "followUp": "Follow-up",
-  "serious": "Serious"
+  "Simple Note": "Simple Note",
+  "Urgent": "Urgent",
+  "Follow Up": "Follow Up",
+  "Serious": "Serious"
 },
 "severityStyles": {
-  "simple note": { "bg": "bg-gray-100", "text": "text-gray-700" },
-  "urgent": { "bg": "bg-red-100", "text": "text-red-700" },
-  "followUp": { "bg": "bg-blue-100", "text": "text-blue-700" },
-  "serious": { "bg": "bg-yellow-100", "text": "text-yellow-700" }
+  "Simple Note": { "bg": "bg-gray-100", "text": "text-gray-700" },
+  "Urgent": { "bg": "bg-red-100", "text": "text-red-700" },
+  "Follow Up": { "bg": "bg-blue-100", "text": "text-blue-700" },
+  "Serious": { "bg": "bg-yellow-100", "text": "text-yellow-700" }
 }
   
   },
@@ -77,21 +77,21 @@
       "date": "Date of Complaint",
       "type": "Complaint Type",
       "typeOptions": {
-        "safety": "Safety at Work",
-        "stress": "Stress",
-        "workEnvironment": "Work Environment",
-        "colleagues": "Colleagues",
-        "management": "Management",
-        "rights": "Rights",
-        "other": "Other"
+        "Safety": "Safety at Work",
+        "Stress": "Stress",
+        "Work Environment": "Work Environment",
+        "Colleagues": "Colleagues",
+        "Management": "Management",
+        "Rights": "Rights",
+        "Other": "Other"
       },
    
       "impact": "Impact",
       "impactOptions": {
-        "stress": "Stress",
-        "performance": "Performance",
-        "health": "Health",
-        "isolation": "Isolation"
+        "Stress": "Stress",
+        "Performance": "Performance",
+        "Health": "Health",
+        "Isolation": "Isolation"
       },
       "expectedAction": "Expected Action",
       "details": "Complaint Details",

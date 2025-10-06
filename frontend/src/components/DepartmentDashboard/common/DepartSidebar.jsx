@@ -23,7 +23,7 @@ const ComplaintsSidebar = () => {
 
     // ✅ Complaints Menu
     const complaintsItem = {
-        id: "complaints",
+        id: "/student-complaint",
         label: "Complaints",
         icon: "MessageSquare",
         dropdown: [
