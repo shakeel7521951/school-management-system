@@ -1,6 +1,6 @@
 // components/FormViewer.jsx
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate, useLocation, redirect } from "react-router-dom";
 import {
   ArrowLeft,
   Home,
@@ -10,6 +10,7 @@ import {
   XCircle,
 } from "lucide-react";
 import axios from "axios";
+import { toast } from "react-toastify";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const FormViewer = () => {
@@ -21,7 +22,6 @@ const FormViewer = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [submissionStatus, setSubmissionStatus] = useState(null);
-  console.log(timer)
   useEffect(() => {
     const fetchFormHTML = async () => {
       try {
@@ -48,7 +48,7 @@ const FormViewer = () => {
     try {
       setSubmissionStatus("submitting");
 
-      await axios.post(
+      const response = await axios.post(
         `${BACKEND_URL}/submitForm`,
         {
           formId: id,
@@ -62,10 +62,21 @@ const FormViewer = () => {
       );
 
       setSubmissionStatus("success");
-      navigate(-1)
+      alert("Form submitted successfully!");
+      navigate(-1);
     } catch (err) {
-      console.error("Error submitting form:", err);
-      setSubmissionStatus("error");
+      const message = err?.response?.data?.message || "Something went wrong!";
+      console.error("Error submitting form:", message);
+
+      if (message.includes("expired")) {
+        toast.error("This form is no longer available — the fill duration has expired.");
+        navigate(-1)
+      } else {
+        toast.error(message);
+        navigate(-1);
+      }
+
+      setSubmissionStatus(message);
       setTimeout(() => setSubmissionStatus(null), 3000);
     }
   };
