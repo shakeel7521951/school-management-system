@@ -77,19 +77,31 @@ import RegistrationData from './pages/dashboard/RegistrationData'
 import AnalyticsPage from './pages/dashboard/AnayticsPage'
 import AdminStudentComplain from './pages/dashboard/AdminComplaints/AdminStudentComplain'
 import AdminTeacherComplain from './pages/dashboard/AdminComplaints/AdminTeacherComplain'
+import OrbEffect from './components/common/Footer/OrbEffect'
+import DepartSidebar from './components/DepartmentDashboard/common/DepartSidebar'
+import ComplaintPage from './components/DepartmentDashboard/ComplaintPage'
+import DepartNavbar from './components/DepartmentDashboard/common/DepartNavbar'
+
+
 
 // import MyProfile from './pages/MyProfile'
 
 const MainFunction = () => {
   return (
-    <div className='overflow-hidden'>
+    <div className="flex flex-col min-h-screen relative overflow-hidden">
+      <OrbEffect />
       <Navbar />
-      <Outlet />
+
+      <main className="flex-grow">
+        <Outlet />
+      </main>
+
       <Footer />
-      <BackToTopButton />,
+      <BackToTopButton />
     </div>
   )
 }
+
 
 const AdminRoute = () => {
   return (
@@ -134,6 +146,16 @@ const SecurityRoute = () => {
         <SecuritySidebar />
         <Outlet />
       </RoleRoute>
+    </div>
+  )
+}
+
+const DepartmentRoute = () => {
+  return (
+    <div>
+      <DepartNavbar />
+      <DepartSidebar />
+      <Outlet />
     </div>
   )
 }
@@ -227,7 +249,17 @@ const router = createBrowserRouter([
   },
   { path: "/form-editor", element: <EditorPage /> },
   { path: "/form-editor/:id", element: <EditorPage /> },
-  { path: "/view/:id", element: <FormViewer /> }
+  { path: "/view/:id", element: <FormViewer /> },
+
+
+  {
+    element: <DepartmentRoute />,
+    children: [
+      { path: '/depart-complaint', element: <ComplaintPage /> },
+    ]
+  },
+
+  
 ])
 
 function App() {

@@ -12,7 +12,7 @@ export default function FooterBottom({ sectionVariants }) {
 
   return (
     <motion.div
-      className="mt-16 pt-8 border-t border-[#104c80] flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0"
+      className="pt-8 border-t border-[#104c80] flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0"
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"

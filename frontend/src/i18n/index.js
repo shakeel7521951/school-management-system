@@ -26,12 +26,9 @@ import publicrelations_ar from "./ar/PublicRelations.json";
 import financialandadministrativeaffairs_en from "./en/FinancialAndAdministrativeAffairs.json";
 import financialandadministrativeaffairs_ar from "./ar/FinancialAndAdministrativeAffairs.json";
 
-import aboutUs_en from "./en/AboutUs.json";
-import aboutUs_ar from "./ar/AboutUs.json";
+
 import directorManager_en from "./en/Directormanager.json";
 import directorManager_ar from "./ar/Directormanager.json";
-import actingDirector_en from "./en/Actingdirector.json";
-import actingDirector_ar from "./ar/Actingdirector.json";
 import faq_en from "./en/FAQs.json";
 import faq_ar from "./ar/FAQs.json";
 import team_en from "./en/Team.json";
@@ -97,6 +94,11 @@ import teacherComplaints_ar from "./ar/TeacherComplaints/TeacherComplaints.json"
 
 
 
+
+import aboutUs_en from "./en/AboutUs.json";
+import aboutUs_ar from "./ar/AboutUs.json";
+import actingDirector_en from "./en/Actingdirector.json";
+import actingDirector_ar from "./ar/Actingdirector.json";
 import teacherNavbar_en from "./en/TeacherNavbar.json";
 import teacherNavbar_ar from "./ar/TeacherNavbar.json";
 import teacherSidebar_en from "./en/TeacherSidebar.json";
@@ -116,6 +118,12 @@ import visitorViewModal_en from "./en/SecurityDashboard/VisitorViewModal.json"
 import visitorViewModal_ar from "./ar/SecurityDashboard/VisitorViewModal.json"
 import visitorManagement_en from "./en/SecurityDashboard/VisitorManagement.json"
 import visitorManagement_ar from "./ar/SecurityDashboard/VisitorManagement.json"
+import studentNavbar_en from "./en/studentDashboard/StudentNavbar.json"
+import studentNavbar_ar from "./ar/studentDashboard/StudentNavbar.json"
+import studentSidebar_en from "./en/studentDashboard/StudentSidebar.json"
+import studentSidebar_ar from "./en/studentDashboard/StudentSidebar.json"
+
+
 
 
 const resources = {
@@ -131,14 +139,10 @@ const resources = {
     nursingdepartment: nursingdepartment_en,
     publicrelations: publicrelations_en,
     financialandadministrativeaffairs: financialandadministrativeaffairs_en,
-    aboutUs: aboutUs_en,
-    directorManager: directorManager_en,
     actingDirector: actingDirector_en,
     faq: faq_en,
-    team: team_en,
     login: login_en,
     signup: signup_en,
-    team: team_en,
     adminSidebar: adminSidebar_en,
     adminNavbar: adminNavbar_en,
     analytics: analytics_en,
@@ -174,16 +178,15 @@ const resources = {
     footercontact: footercontact_en,
     footersearch: footersearch_en,
     footerbottom: footerbottom_en,
-    contact: contact_en,
     aboutUs: aboutUs_en,
     directorManager: directorManager_en,
-    actingDirector: actingDirector_en,
-    faq: faq_en,
     team: team_en,
     teacherNavbar: teacherNavbar_en,
     teacherSidebar: teacherSidebar_en,
     responseForm: responseForm_en,
-    registrationForm: registrationForm_en
+    registrationForm: registrationForm_en,
+    studentNavbar: studentNavbar_en,
+    studentSidebar: studentSidebar_en
   },
   ar: {
     home: home_ar,
@@ -200,11 +203,9 @@ const resources = {
     aboutUs: aboutUs_ar,
     directorManager: directorManager_ar,
     actingDirector: actingDirector_ar,
-    faq: faq_ar,
     team: team_ar,
     login: login_ar,
     signup: signup_ar,
-    team: team_ar,
     adminSidebar: adminSidebar_ar,
     adminNavbar: adminNavbar_ar,
     analytics: analytics_ar,
@@ -238,16 +239,14 @@ const resources = {
     footercontact: footercontact_ar,
     footersearch: footersearch_ar,
     footerbottom: footerbottom_ar,
-    contact: contact_ar,
     aboutUs: aboutUs_ar,
-    directorManager: directorManager_ar,
-    actingDirector: actingDirector_ar,
     faq: faq_ar,
-    team: team_ar,
     teacherNavbar: teacherNavbar_ar,
     teacherSidebar: teacherSidebar_ar,
     responseForm: responseForm_ar,
-    registrationForm: registrationForm_ar
+    registrationForm: registrationForm_ar,
+    studentNavbar: studentNavbar_ar,
+    studentSidebar: studentSidebar_ar
   },
 };
 
@@ -269,7 +268,9 @@ i18n
       "teacherNavbar",
       "teacherSidebar",
       "responseForm",
-      "registrationForm"
+      "registrationForm",
+      "studentNavbar",
+      "studentSidebar"
 
     ],
     defaultNS: "home",
