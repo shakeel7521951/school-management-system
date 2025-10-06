@@ -81,6 +81,7 @@
     "delete_confirmation": "Are you sure you want to delete this complaint filed by {{name}}?",
     "cancel": "Cancel",
     "confirm": "Confirm",
+    "saving":"Saving",
     "current_status": "Current Status",
     "update_status": "Update Status",
     "assigned_to": "Assigned To",
