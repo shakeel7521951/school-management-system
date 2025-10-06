@@ -1,6 +1,6 @@
 // components/FormViewer.jsx
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import {
   ArrowLeft,
   Home,
@@ -13,13 +13,15 @@ import axios from "axios";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const FormViewer = () => {
+  const location = useLocation();
+  const timer = location.state?.timer;
   const { id } = useParams();
   const navigate = useNavigate();
   const [htmlContent, setHtmlContent] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [submissionStatus, setSubmissionStatus] = useState(null);
-
+  console.log(timer)
   useEffect(() => {
     const fetchFormHTML = async () => {
       try {
@@ -29,7 +31,7 @@ const FormViewer = () => {
           withCredentials: true
         });
 
-        setHtmlContent(response.data); 
+        setHtmlContent(response.data);
         setError(null);
       } catch (error) {
         setError("Failed to load form. Please try again later.");
@@ -55,7 +57,7 @@ const FormViewer = () => {
         },
         {
           headers: { "Content-Type": "application/json" },
-          withCredentials: true, 
+          withCredentials: true,
         }
       );
 
@@ -154,6 +156,13 @@ const FormViewer = () => {
             <h1 className="text-xl font-semibold">Form Viewer</h1>
           </div>
           <div className="flex items-center gap-3">
+            <div className="p-6">
+              {/* Show the timer value for this form */}
+              <p>
+                Remaining Time: <span className="font-medium">{timer?.[id]?.slice(0, 7)}</span>
+              </p>
+
+            </div>
             <button
               onClick={handleDownload}
               className="flex items-center gap-2 px-3 py-2 bg-white text-[#104C80] rounded-md shadow hover:bg-gray-100 transition"
@@ -168,6 +177,7 @@ const FormViewer = () => {
             >
               <Printer className="w-4 h-4" /> Print
             </button>
+
           </div>
         </div>
       </div>
