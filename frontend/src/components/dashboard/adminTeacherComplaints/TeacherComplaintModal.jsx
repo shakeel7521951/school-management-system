@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { FaTimes, FaExclamationTriangle, FaCheck } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { useGetDepartmentsQuery } from "../../../redux/slices/DepartmentApi"; 
 
 const TeacherComplaintModal = ({ editModal, setEditModal, saveStatus, toast, showToast }) => {
   const { t } = useTranslation("teacherComplaintModal");
 
-  const departmentOptions = [
-    { key: "maintenance", label: t("departments.maintenance") },
-    { key: "counseling", label: t("departments.counseling") },
-    { key: "academic", label: t("departments.academic") },
-    { key: "it", label: t("departments.it") },
-    { key: "transport", label: t("departments.transport") },
-    { key: "hr", label: t("departments.hr") },
-    { key: "administration", label: t("departments.administration") }
-  ];
+  // ✅ Fetch departments dynamically
+  const { data: departmentsData, isLoading, isError } = useGetDepartmentsQuery();
 
   const [formData, setFormData] = useState({
     employeeName: "",
@@ -111,28 +105,32 @@ const TeacherComplaintModal = ({ editModal, setEditModal, saveStatus, toast, sho
               </select>
             </div>
 
-            {/* Assigned Department */}
-          <div>
-  <label className="block text-sm font-medium text-gray-700 mb-1">
-    Assigned To
-  </label>
-  <select
-    name="assignedTo"
-    value={formData.assignedTo}
-    onChange={handleChange}
-    className="w-full border border-gray-300 px-3 py-2 rounded-lg focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
-  >
-    <option value="">Select Department</option>
-    <option value="Maintenance Department">Maintenance Department</option>
-    <option value="Counseling Office">Counseling Office</option>
-    <option value="Academic Office">Academic Office</option>
-    <option value="IT Department">IT Department</option>
-    <option value="Transport Office">Transport Office</option>
-    <option value="HR Department">HR Department</option>
-    <option value="Administration">Administration</option>
-  </select>
-</div>
-
+            {/* Assigned Department (fetched dynamically) */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Assigned To
+              </label>
+              <select
+                name="assignedTo"
+                value={formData.assignedTo}
+                onChange={handleChange}
+                disabled={isLoading || isError}
+                className="w-full border border-gray-300 px-3 py-2 rounded-lg focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
+              >
+                <option value="">
+                  {isLoading
+                    ? "Loading departments..."
+                    : isError
+                    ? "Failed to load"
+                    : "Select Department"}
+                </option>
+                {departmentsData?.departments?.map((dept) => (
+                  <option key={dept._id} value={dept.name}>
+                    {dept.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           {/* Footer */}
