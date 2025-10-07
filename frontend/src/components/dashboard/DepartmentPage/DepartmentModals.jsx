@@ -1,22 +1,9 @@
-// src/pages/admin/Department/DepartmentModals.jsx
 import React from "react";
 import { motion } from "framer-motion";
 
-export default function DepartmentModals({
-  showAddModal,
-  setShowAddModal,
-  showViewModal,
-  setShowViewModal,
-  showDeleteModal,
-  setShowDeleteModal,
-  form,
-  setForm,
-  handleSave,
-  handleDelete,
-  selectedDept,
-}) {
-  // ===== ADD / EDIT MODAL =====
-  const AddEditModal = () => (
+// ======================= ADD / EDIT MODAL =======================
+function AddEditModal({ form, setForm, handleSave, setShowAddModal, selectedDept }) {
+  return (
     <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
@@ -34,6 +21,7 @@ export default function DepartmentModals({
           }}
           className="space-y-4"
         >
+          {/* Department Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Department Name
@@ -48,21 +36,21 @@ export default function DepartmentModals({
             />
           </div>
 
+          {/* Description */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Description
             </label>
             <textarea
               value={form.description}
-              onChange={(e) =>
-                setForm({ ...form, description: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, description: e.target.value })}
               placeholder="Enter short description"
               className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#104C80]"
               rows={3}
             />
           </div>
 
+          {/* Buttons */}
           <div className="flex justify-end gap-3 pt-2">
             <button
               type="button"
@@ -85,9 +73,11 @@ export default function DepartmentModals({
       </motion.div>
     </div>
   );
+}
 
-  // ===== VIEW MODAL =====
-  const ViewModal = () => (
+// ======================= VIEW MODAL =======================
+function ViewModal({ selectedDept, setShowViewModal }) {
+  return (
     <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
@@ -108,15 +98,15 @@ export default function DepartmentModals({
           </p>
           <p>
             <span className="font-semibold">Total Complaints:</span>{" "}
-            {selectedDept?.totalComplaints}
+            {selectedDept?.totalComplaints ?? 0}
           </p>
           <p>
             <span className="font-semibold">Pending:</span>{" "}
-            {selectedDept?.pending}
+            {selectedDept?.pending ?? 0}
           </p>
           <p>
             <span className="font-semibold">Resolved:</span>{" "}
-            {selectedDept?.resolved}
+            {selectedDept?.resolved ?? 0}
           </p>
         </div>
 
@@ -131,18 +121,18 @@ export default function DepartmentModals({
       </motion.div>
     </div>
   );
+}
 
-  // ===== DELETE MODAL =====
-  const DeleteModal = () => (
+// ======================= DELETE MODAL =======================
+function DeleteModal({ selectedDept, setShowDeleteModal, handleDelete }) {
+  return (
     <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         className="bg-white w-[90%] max-w-sm rounded-2xl shadow-xl p-6 text-center"
       >
-        <h2 className="text-lg font-bold text-gray-800 mb-3">
-          Confirm Delete
-        </h2>
+        <h2 className="text-lg font-bold text-gray-800 mb-3">Confirm Delete</h2>
         <p className="text-gray-600 mb-6">
           Are you sure you want to delete{" "}
           <span className="font-semibold text-[#104C80]">
@@ -167,12 +157,48 @@ export default function DepartmentModals({
       </motion.div>
     </div>
   );
+}
 
+// ======================= MAIN COMPONENT =======================
+export default function DepartmentModals({
+  showAddModal,
+  setShowAddModal,
+  showViewModal,
+  setShowViewModal,
+  showDeleteModal,
+  setShowDeleteModal,
+  form,
+  setForm,
+  handleSave,
+  handleDelete,
+  selectedDept,
+}) {
   return (
     <>
-      {showAddModal && <AddEditModal />}
-      {showViewModal && <ViewModal />}
-      {showDeleteModal && <DeleteModal />}
+      {showAddModal && (
+        <AddEditModal
+          form={form}
+          setForm={setForm}
+          handleSave={handleSave}
+          setShowAddModal={setShowAddModal}
+          selectedDept={selectedDept}
+        />
+      )}
+
+      {showViewModal && (
+        <ViewModal
+          selectedDept={selectedDept}
+          setShowViewModal={setShowViewModal}
+        />
+      )}
+
+      {showDeleteModal && (
+        <DeleteModal
+          selectedDept={selectedDept}
+          setShowDeleteModal={setShowDeleteModal}
+          handleDelete={handleDelete}
+        />
+      )}
     </>
   );
 }

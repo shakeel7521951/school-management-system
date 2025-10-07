@@ -1,29 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaBuilding, FaPlus } from "react-icons/fa";
 import DepartmentTable from "../../components/dashboard/DepartmentPage/DepartmentTable";
 import DepartmentModals from "../../components/dashboard/DepartmentPage/DepartmentModals";
-
+import {
+  useGetDepartmentsQuery,
+  useCreateDepartmentMutation,
+  useUpdateDepartmentMutation,
+  useDeleteDepartmentMutation,
+} from "../../redux/slices/DepartmentApi";
 
 const AdminDepartmentPage = () => {
-  // Dummy Departments
-  const [departments, setDepartments] = useState([
-    {
-      _id: 1,
-      name: "Computer Science",
-      totalComplaints: 25,
-      pending: 5,
-      resolved: 20,
-      description: "Handles all complaints related to IT and software.",
-    },
-    {
-      _id: 2,
-      name: "Human Resources",
-      totalComplaints: 10,
-      pending: 2,
-      resolved: 8,
-      description: "Manages staff and student welfare complaints.",
-    },
-  ]);
+  // Fetch departments
+  const { data, isLoading, refetch } = useGetDepartmentsQuery();
+  const [createDepartment] = useCreateDepartmentMutation();
+  const [updateDepartment] = useUpdateDepartmentMutation();
+  const [deleteDepartment] = useDeleteDepartmentMutation();
+
+  const departments = data?.departments || [];
 
   // States
   const [selectedDept, setSelectedDept] = useState(null);
@@ -33,35 +26,41 @@ const AdminDepartmentPage = () => {
   const [form, setForm] = useState({ name: "", description: "" });
 
   // ===== HANDLERS =====
-  const handleSave = () => {
-    if (selectedDept) {
-      // Edit existing
-      setDepartments((prev) =>
-        prev.map((d) => (d._id === selectedDept._id ? { ...d, ...form } : d))
-      );
-    } else {
-      // Add new
-      setDepartments((prev) => [
-        ...prev,
-        {
-          ...form,
-          _id: Date.now(),
-          totalComplaints: 0,
-          pending: 0,
-          resolved: 0,
-        },
-      ]);
+  const handleSave = async () => {
+    try {
+      if (selectedDept) {
+        // Edit existing
+        await updateDepartment({ id: selectedDept._id, ...form }).unwrap();
+      } else {
+        // Add new
+        await createDepartment(form).unwrap();
+      }
+      refetch();
+      setForm({ name: "", description: "" });
+      setSelectedDept(null);
+      setShowAddModal(false);
+    } catch (error) {
+      console.error("Error saving department:", error);
     }
-    setForm({ name: "", description: "" });
-    setSelectedDept(null);
-    setShowAddModal(false);
   };
 
-  const handleDelete = (id) => {
-    setDepartments((prev) => prev.filter((d) => d._id !== id));
-    setShowDeleteModal(false);
-    setSelectedDept(null);
+  const handleDelete = async (id) => {
+    try {
+      await deleteDepartment(id).unwrap();
+      refetch();
+      setShowDeleteModal(false);
+      setSelectedDept(null);
+    } catch (error) {
+      console.error("Error deleting department:", error);
+    }
   };
+
+  if (isLoading)
+    return (
+      <div className="text-center py-20 text-[#104C80] font-semibold">
+        Loading departments...
+      </div>
+    );
 
   return (
     <div className="lg:ml-64 p-6 space-y-6 bg-gray-50 min-h-screen">
@@ -92,18 +91,18 @@ const AdminDepartmentPage = () => {
         <div className="bg-yellow-50 border-l-4 border-yellow-500 p-5 rounded-2xl shadow-sm">
           <h2 className="text-gray-700 text-sm">Pending Complaints</h2>
           <p className="text-3xl font-bold text-yellow-600 mt-1">
-            {departments.reduce((sum, d) => sum + d.pending, 0)}
+            {departments.reduce((sum, d) => sum + (d.pending || 0), 0)}
           </p>
         </div>
         <div className="bg-green-50 border-l-4 border-green-500 p-5 rounded-2xl shadow-sm">
           <h2 className="text-gray-700 text-sm">Resolved Complaints</h2>
           <p className="text-3xl font-bold text-green-600 mt-1">
-            {departments.reduce((sum, d) => sum + d.resolved, 0)}
+            {departments.reduce((sum, d) => sum + (d.resolved || 0), 0)}
           </p>
         </div>
       </div>
 
-      {/* Department Table + Cards */}
+      {/* Department Table */}
       <DepartmentTable
         departments={departments}
         setSelectedDept={setSelectedDept}

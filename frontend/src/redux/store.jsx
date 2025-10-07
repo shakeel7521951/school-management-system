@@ -7,6 +7,7 @@ import { VisitorApi } from "./slices/VisitorApi";
 import { RegistrationApi } from "./slices/RegistrationApi";
 import { teacherComplaintApi } from "./slices/TeacherComplaints";
 import languageReducer from "./slices/languageSlice";
+import { departmentApi } from "./slices/DepartmentApi";
 
 export const store = configureStore({
   reducer: {
@@ -16,10 +17,11 @@ export const store = configureStore({
     [VisitorApi.reducerPath]: VisitorApi.reducer,
     [RegistrationApi.reducerPath]: RegistrationApi.reducer,
     [teacherComplaintApi.reducerPath]: teacherComplaintApi.reducer,
+    [departmentApi.reducerPath]: departmentApi.reducer,
     user: userReducer,
      language: languageReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(userApi.middleware, stComplaintApi.middleware, submittedFormApi.middleware, VisitorApi.middleware, RegistrationApi.middleware, teacherComplaintApi.middleware),
+    getDefaultMiddleware().concat(userApi.middleware, stComplaintApi.middleware, submittedFormApi.middleware, VisitorApi.middleware, RegistrationApi.middleware, teacherComplaintApi.middleware,departmentApi.middleware),
   devTools: process.env.NODE_ENV !== "production",
 });
