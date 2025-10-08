@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { FaTimes, FaExclamationTriangle, FaCheck } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
-import { useGetDepartmentsQuery } from "../../../redux/slices/DepartmentApi"; 
+import { useGetDepartmentsQuery } from "../../../redux/slices/DepartmentApi";
 
-const TeacherComplaintModal = ({ editModal, setEditModal, saveStatus, toast, showToast }) => {
+const TeacherComplaintModal = ({
+  editModal,
+  setEditModal,
+  saveStatus,
+  toast,
+  showToast,
+}) => {
   const { t } = useTranslation("teacherComplaintModal");
 
   // ✅ Fetch departments dynamically
@@ -15,9 +21,10 @@ const TeacherComplaintModal = ({ editModal, setEditModal, saveStatus, toast, sho
     department: "",
     date: "",
     status: "",
-    assignedTo: ""
+    assignedTo: "",
   });
 
+  // ✅ Prefill modal when opened
   useEffect(() => {
     if (editModal) {
       setFormData({
@@ -28,36 +35,39 @@ const TeacherComplaintModal = ({ editModal, setEditModal, saveStatus, toast, sho
           ? new Date(editModal.date).toISOString().split("T")[0]
           : "",
         status: editModal.status || "",
-        assignedTo: editModal.assignedTo || ""
+        assignedTo: editModal.assignedTo || "",
       });
     }
   }, [editModal]);
 
   if (!editModal) return null;
 
+  // ✅ Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // ✅ Save updated status and assigned department
   const handleSave = async () => {
     try {
       await saveStatus(editModal._id, formData.status, formData.assignedTo);
-      showToast(t("modals.toast.status_updated"), "success");
+      showToast("Status updated successfully", "success");
       setEditModal(null);
     } catch (error) {
-      showToast(error?.message || t("modals.toast.status_error"), "error");
+      showToast(error?.message || "Error updating status", "error");
     }
   };
 
   return (
     <>
+      {/* Modal Overlay */}
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-50">
         <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg sm:max-w-xl md:max-w-2xl">
           {/* Header */}
           <div className="p-4 sm:p-6 border-b border-gray-200 flex justify-between items-center">
             <h2 className="text-lg sm:text-xl font-bold text-gray-800">
-              {t("title")}
+              Complaint Details
             </h2>
             <button
               onClick={() => setEditModal(null)}
@@ -69,28 +79,28 @@ const TeacherComplaintModal = ({ editModal, setEditModal, saveStatus, toast, sho
 
           {/* Body */}
           <div className="p-4 sm:p-6 space-y-5">
-            {/* Read-only Info */}
+            {/* Read-only Information */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {["employeeName", "jobTitle", "department", "date"].map((field) => (
                 <div key={field}>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    {t(`placeholders.${field}`)}
+                  <label className="block text-sm font-medium text-gray-700 mb-1 capitalize">
+                    {field.replace(/([A-Z])/g, " $1")}
                   </label>
                   <input
                     type={field === "date" ? "date" : "text"}
                     name={field}
                     value={formData[field]}
-                    className="w-full border border-gray-300 px-3 py-2 rounded-lg bg-gray-50"
                     readOnly
+                    className="w-full border border-gray-300 px-3 py-2 rounded-lg bg-gray-50"
                   />
                 </div>
               ))}
             </div>
 
-            {/* Update Status */}
+            {/* Status Dropdown */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                {t("statusOptions.label")}
+                Status
               </label>
               <select
                 name="status"
@@ -98,14 +108,14 @@ const TeacherComplaintModal = ({ editModal, setEditModal, saveStatus, toast, sho
                 onChange={handleChange}
                 className="w-full border border-gray-300 px-3 py-2 rounded-lg focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
               >
-                <option value="pending">{t("statusOptions.pending")}</option>
-                <option value="in progress">{t("statusOptions.in_progress")}</option>
-                <option value="resolved">{t("statusOptions.resolved")}</option>
-                <option value="rejected">{t("statusOptions.rejected")}</option>
+                <option value="pending">Pending</option>
+                <option value="in progress">In Progress</option>
+                <option value="resolved">Resolved</option>
+                <option value="rejected">Rejected</option>
               </select>
             </div>
 
-            {/* Assigned Department (fetched dynamically) */}
+            {/* Assigned Department Dropdown */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Assigned To
@@ -121,7 +131,7 @@ const TeacherComplaintModal = ({ editModal, setEditModal, saveStatus, toast, sho
                   {isLoading
                     ? "Loading departments..."
                     : isError
-                    ? "Failed to load"
+                    ? "Failed to load departments"
                     : "Select Department"}
                 </option>
                 {departmentsData?.departments?.map((dept) => (
@@ -139,19 +149,19 @@ const TeacherComplaintModal = ({ editModal, setEditModal, saveStatus, toast, sho
               onClick={() => setEditModal(null)}
               className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition w-full sm:w-auto"
             >
-              {t("buttons.cancel")}
+              Cancel
             </button>
             <button
               onClick={handleSave}
               className="px-4 py-2 bg-[#1a4480] text-white rounded-lg hover:bg-[#0d3260] transition w-full sm:w-auto"
             >
-              {t("buttons.save")}
+              Save
             </button>
           </div>
         </div>
       </div>
 
-      {/* Toast */}
+      {/* Toast Notification */}
       {toast?.show && (
         <div
           className={`fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg text-white font-medium flex items-center gap-2 ${

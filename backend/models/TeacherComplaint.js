@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 
 const complaintSchema = new mongoose.Schema(
     {
-        teacherId:{
-            type:mongoose.Schema.Types.ObjectId,
-            ref:'User',
-            required:true
+        teacherId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
         },
         employeeName: {
             type: String,
@@ -51,6 +51,11 @@ const complaintSchema = new mongoose.Schema(
         status: {
             type: String,
             default: "Pending",
+        },
+        assignedTo: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Department",
+            default: null,
         },
     },
     { timestamps: true }

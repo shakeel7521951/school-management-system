@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaTimes, FaExclamationTriangle, FaCheck } from "react-icons/fa";
 import ViewModal from "./ViewModal";
 import { useChangeStComplaintStatusMutation } from "../../../redux/slices/StComplaintApi";
+import { useGetDepartmentsQuery } from "../../../redux/slices/DepartmentApi";
 import { useTranslation } from "react-i18next";
 
 const ComplaintModals = ({
@@ -17,15 +18,12 @@ const ComplaintModals = ({
 }) => {
   const { t } = useTranslation("adminStudentComplaints");
 
-  const assignedOptions = [
-    "Maintenance Dept",
-    "Counseling Office",
-    "Academic Office",
-    "IT Department",
-    "Transport Office",
-    "HR Department",
-    "Administration",
-  ];
+  // Fetch departments dynamically
+  const {
+    data: departmentsData,
+    isLoading: deptLoading,
+    isError: deptError,
+  } = useGetDepartmentsQuery();
 
   const statusColors = {
     resolve: "bg-green-100 text-green-700",
@@ -59,13 +57,18 @@ const ComplaintModals = ({
       }).unwrap();
 
       setComplaints((prev) =>
-        prev.map((c) => (c._id === editModal._id ? { ...c, ...res.complaint } : c))
+        prev.map((c) =>
+          c._id === editModal._id ? { ...c, ...res.complaint } : c
+        )
       );
 
       showToast(t("modals.toast.status_updated"), "success");
       setEditModal(null);
     } catch (error) {
-      showToast(error?.data?.message || t("modals.toast.status_error"), "error");
+      showToast(
+        error?.data?.message || t("modals.toast.status_error"),
+        "error"
+      );
     }
   };
 
@@ -76,7 +79,9 @@ const ComplaintModals = ({
   return (
     <>
       {/* View Modal */}
-      {viewModal && <ViewModal viewModal={viewModal} setViewModal={setViewModal} />}
+      {viewModal && (
+        <ViewModal viewModal={viewModal} setViewModal={setViewModal} />
+      )}
 
       {/* Edit Modal */}
       {editModal && (
@@ -87,26 +92,32 @@ const ComplaintModals = ({
               <h2 className="text-lg sm:text-xl font-bold text-gray-800">
                 {t("modals.edit_title")}
               </h2>
-              <button onClick={handleCancelEdit} className="text-gray-400 hover:text-gray-600">
+              <button
+                onClick={handleCancelEdit}
+                className="text-gray-400 hover:text-gray-600"
+              >
                 <FaTimes className="text-xl" />
               </button>
             </div>
 
             {/* Body */}
             <div className="p-4 sm:p-6 space-y-5">
+              {/* Current Status */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   {t("modals.current_status")}
                 </label>
                 <span
                   className={`px-3 py-1 text-sm font-medium rounded-full ${
-                    statusColors[editModal.status.toLowerCase()] || "bg-gray-100 text-gray-700"
+                    statusColors[editModal.status.toLowerCase()] ||
+                    "bg-gray-100 text-gray-700"
                   }`}
                 >
                   {editModal.status}
                 </span>
               </div>
 
+              {/* Update Status */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   {t("modals.update_status")}
@@ -116,13 +127,22 @@ const ComplaintModals = ({
                   value={updatedStatus}
                   onChange={(e) => setUpdatedStatus(e.target.value)}
                 >
-                  <option value="Pending">{t("modals.status_options.pending")}</option>
-                  <option value="In Progress">{t("modals.status_options.in_progress")}</option>
-                  <option value="Resolved">{t("modals.status_options.resolved")}</option>
-                  <option value="Rejected">{t("modals.status_options.rejected")}</option>
+                  <option value="Pending">
+                    {t("modals.status_options.pending")}
+                  </option>
+                  <option value="In Progress">
+                    {t("modals.status_options.in_progress")}
+                  </option>
+                  <option value="Resolved">
+                    {t("modals.status_options.resolved")}
+                  </option>
+                  <option value="Rejected">
+                    {t("modals.status_options.rejected")}
+                  </option>
                 </select>
               </div>
 
+              {/* Assigned To (Dynamic Departments) */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   {t("modals.assigned_to")}
@@ -131,25 +151,27 @@ const ComplaintModals = ({
                   className="w-full border border-gray-300 px-3 py-2 rounded-lg focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
                   value={assignedTo}
                   onChange={(e) => setAssignedTo(e.target.value)}
+                  disabled={deptLoading}
                 >
-                  {assignedOptions.map((option, idx) => (
-                    <option key={idx} value={option}>
-                      {option}
-                    </option>
-                  ))}
+                  <option value="">
+                    {deptLoading
+                      ? "Loading departments..."
+                      : "Select Department"}
+                  </option>
+                  {!deptLoading &&
+                    !deptError &&
+                    departmentsData?.departments?.map((dept) => (
+                      <option key={dept._id} value={dept.name}>
+                        {dept.name}
+                      </option>
+                    ))}
                 </select>
-              </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  {t("modals.comments")}
-                </label>
-                <textarea
-                  rows="3"
-                  className="w-full border border-gray-300 px-3 py-2 rounded-lg focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
-                  value={comments}
-                  onChange={(e) => setComments(e.target.value)}
-                ></textarea>
+                {deptError && (
+                  <p className="text-red-500 text-sm mt-1">
+                    Failed to load departments. Try again later.
+                  </p>
+                )}
               </div>
             </div>
 
@@ -166,7 +188,9 @@ const ComplaintModals = ({
                 disabled={isLoading}
                 className="px-4 py-2 bg-[#1a4480] text-white rounded-lg hover:bg-[#0d3260] transition w-full sm:w-auto"
               >
-                {isLoading ? t("modals.saving") || "Saving..." : t("modals.confirm")}
+                {isLoading
+                  ? t("modals.saving") || "Saving..."
+                  : t("modals.confirm")}
               </button>
             </div>
           </div>
