@@ -61,6 +61,11 @@ const complaintSchema = new mongoose.Schema(
       enum: ["Pending", "Resolved", "In Progress"],
       default: "Pending",
     },
+    assignedTo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Department",
+      default: null,
+    },
     submittedAt: {
       type: Date,
       default: Date.now,

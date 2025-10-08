@@ -92,17 +92,18 @@ export const updateComplaint = async (req, res) => {
 
 export const updateComplaintStatus = async (req, res) => {
   try {
-    const { status } = req.body;
-
+    const { status,assignedTo } = req.body;
+console.log("assigned to ........",assignedTo)
     const complaint = await TeacherComplaint.findByIdAndUpdate(
       req.params.id,
-      { status },
+      { status ,assignedTo},
       { new: true }
     );
 
     if (!complaint) {
       return res.status(404).json({ success: false, message: "Complaint not found" });
     }
+    console.log("complaint....",complaint)
 
     return res.status(200).json({
       success: true,
