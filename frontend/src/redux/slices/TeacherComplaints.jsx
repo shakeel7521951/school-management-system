@@ -59,10 +59,10 @@ export const teacherComplaintApi = createApi({
 
     // ✅ Update only status
     updateComplaintStatus: builder.mutation({
-      query: ({ id, status }) => ({
+      query: ({ id, status, assignedTo }) => ({
         url: `/update-teacher-complaint-status/${id}`,
         method: "PATCH",
-        body: { status },
+        body: { status, assignedTo },
       }),
       invalidatesTags: ["TeacherComplaint"],
     }),

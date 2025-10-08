@@ -53,7 +53,6 @@ const ComplaintModals = ({
         id: editModal._id,
         status: updatedStatus,
         assignedTo,
-        comments,
       }).unwrap();
 
       setComplaints((prev) =>
@@ -108,10 +107,9 @@ const ComplaintModals = ({
                   {t("modals.current_status")}
                 </label>
                 <span
-                  className={`px-3 py-1 text-sm font-medium rounded-full ${
-                    statusColors[editModal.status.toLowerCase()] ||
+                  className={`px-3 py-1 text-sm font-medium rounded-full ${statusColors[editModal.status.toLowerCase()] ||
                     "bg-gray-100 text-gray-700"
-                  }`}
+                    }`}
                 >
                   {editModal.status}
                 </span>
@@ -154,18 +152,17 @@ const ComplaintModals = ({
                   disabled={deptLoading}
                 >
                   <option value="">
-                    {deptLoading
-                      ? "Loading departments..."
-                      : "Select Department"}
+                    {deptLoading ? "Loading departments..." : "Select Department"}
                   </option>
                   {!deptLoading &&
                     !deptError &&
                     departmentsData?.departments?.map((dept) => (
-                      <option key={dept._id} value={dept.name}>
+                      <option key={dept._id} value={dept._id}>
                         {dept.name}
                       </option>
                     ))}
                 </select>
+
 
                 {deptError && (
                   <p className="text-red-500 text-sm mt-1">
@@ -200,9 +197,8 @@ const ComplaintModals = ({
       {/* Toast Notification */}
       {toast.show && (
         <div
-          className={`fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg text-white font-medium flex items-center gap-2 transition-opacity duration-300 ${
-            toast.type === "success" ? "bg-green-500" : "bg-red-500"
-          }`}
+          className={`fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg text-white font-medium flex items-center gap-2 transition-opacity duration-300 ${toast.type === "success" ? "bg-green-500" : "bg-red-500"
+            }`}
         >
           {toast.type === "success" ? <FaCheck /> : <FaExclamationTriangle />}
           {toast.message}

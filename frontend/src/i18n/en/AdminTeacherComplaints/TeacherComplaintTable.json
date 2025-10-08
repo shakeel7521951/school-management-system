@@ -9,6 +9,7 @@
       "severity": "Severity",
       "impact": "Impact",
       "expectedAction": "Expected Action",
+      "assignedTo":"Assigned To",
       "status": "Status",
       "action": "Action"
     },

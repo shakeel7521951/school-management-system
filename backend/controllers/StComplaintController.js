@@ -64,15 +64,17 @@ export const deleteComplaint = async (req, res) => {
 };
 
 export const changeComplaintStatus = async (req, res) => {
+  console.log("api is running.....")
   try {
-    const { status } = req.body; // e.g. "Resolved", "In Progress"
+    const { status,assignedTo } = req.body; 
+    console.log(req.body);
     if (!["Pending", "Resolved", "In Progress"].includes(status)) {
       return res.status(400).json({ message: "Invalid status value" });
     }
 
     const complaint = await StComplaint.findByIdAndUpdate(
       req.params.id,
-      { status },
+      { status,assignedTo },
       { new: true }
     );
 
@@ -82,6 +84,7 @@ export const changeComplaintStatus = async (req, res) => {
 
     res.status(200).json({ message: "Status updated successfully", complaint });
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: "Internal server error" });
   }
 };

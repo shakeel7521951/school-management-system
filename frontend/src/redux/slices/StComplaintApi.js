@@ -59,10 +59,10 @@ export const stComplaintApi = createApi({
     }),
 
     changeStComplaintStatus: builder.mutation({
-      query: ({ id, status }) => ({
+      query: ({ id, status ,assignedTo}) => ({
         url: `/st-complaint-status/${id}`,
         method: "PATCH",
-        body: { status },
+        body: { status,assignedTo },
       }),
       invalidatesTags: ["StComplaint"],
     }),

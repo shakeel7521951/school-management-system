@@ -9,6 +9,7 @@
       "severity": "درجة الخطورة",
       "impact": "الأثر",
       "expectedAction": "الإجراء المتوقع",
+      "assignedTo":"معين إلى",
       "status": "الحالة",
       "action": "الإجراءات"
     },

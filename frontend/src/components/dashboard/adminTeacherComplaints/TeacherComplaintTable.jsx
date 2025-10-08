@@ -111,6 +111,7 @@ const TeacherComplaintTable = ({
 
                 <td className="px-3 py-2 text-center">{c.impact}</td>
                 <td className="px-3 py-2 text-center">{c.expectedAction}</td>
+                <td className="px-3 py-2 text-center">{c.assignedTo?.name}</td>
 
                 {/* Status */}
                 <td className="px-3 py-2 text-center">

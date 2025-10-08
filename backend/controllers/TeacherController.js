@@ -25,7 +25,7 @@ export const createComplaint = async (req, res) => {
 
 export const getComplaints = async (req, res) => {
   try {
-    const complaints = await TeacherComplaint.find().sort({ createdAt: -1 });
+    const complaints = await TeacherComplaint.find().populate("assignedTo","name").sort({ createdAt: -1 });
     return res.status(200).json({ success: true, data: complaints });
   } catch (error) {
     console.error("Error fetching complaints:", error);
@@ -92,18 +92,17 @@ export const updateComplaint = async (req, res) => {
 
 export const updateComplaintStatus = async (req, res) => {
   try {
-    const { status,assignedTo } = req.body;
-console.log("assigned to ........",assignedTo)
+    const { status, assignedTo } = req.body;
+
     const complaint = await TeacherComplaint.findByIdAndUpdate(
       req.params.id,
-      { status ,assignedTo},
+      { status, assignedTo },
       { new: true }
     );
 
     if (!complaint) {
       return res.status(404).json({ success: false, message: "Complaint not found" });
     }
-    console.log("complaint....",complaint)
 
     return res.status(200).json({
       success: true,
