@@ -45,7 +45,7 @@ export default function HomeAbout() {
               autoPlay
               muted
               loop
-              controls
+              
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1A4480]/30 to-transparent"></div>
           </div>

@@ -69,7 +69,7 @@ const VocationalAndPhysicalDepartment = () => {
             src="./videos/video-3.mp4"
             alt="Department Overview"
             className="rounded-2xl shadow-lg w-full max-w-md object-cover hover:scale-105 transition-transform duration-500"
-            controls autoPlay muted loop
+            autoPlay muted loop
           />
         </motion.div>
       </section>
