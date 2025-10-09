@@ -93,9 +93,9 @@ const TeacherComplain = () => {
   };
 
   // Save status
-  const saveStatus = async (id, newStatus) => {
+  const saveStatus = async (id, newStatus,assignedTo) => {
     try {
-      await updateComplaintStatus({ id, status: newStatus }).unwrap();
+      await updateComplaintStatus({ id, status: newStatus ,assignedTo}).unwrap();
       setToast({ show: true, message: t("toast.status_updated_success"), type: "success" });
       setViewModal(null);
     } catch {

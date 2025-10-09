@@ -19,7 +19,7 @@ const USER_ROLE = "manager";
 const StudentComplain = () => {
   const { t } = useTranslation("adminStudentComplaints");
 
-  const { data: complaints = [], isLoading, isError } = useGetAllStComplaintsQuery();
+  const { data: complaints = [], isLoading, isError} = useGetAllStComplaintsQuery();
   const [deleteComplaint] = useDeleteStComplaintMutation();
   const [changeStatus] = useChangeStComplaintStatusMutation();
 
@@ -42,7 +42,7 @@ const StudentComplain = () => {
 
   const saveStatus = async (id, newStatus) => {
     try {
-      await changeStatus({ id, status: newStatus }).unwrap();
+      await changeStatus({ id, status: newStatus,assignedTo }).unwrap();
       showToast(t("modals.status_updated"), "success");
       setEditModal(null);
     } catch (error) {
