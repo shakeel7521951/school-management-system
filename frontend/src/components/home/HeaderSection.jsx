@@ -13,34 +13,46 @@ import "swiper/css/effect-fade";
 
 const floatingVariants = {
   animate: {
-    y: [0, -20, 0],
+    y: [0, -15, 0],
     x: [0, 10, 0],
     transition: { duration: 6, repeat: Infinity, ease: "easeInOut" },
   },
 };
 
 export default function HeaderSection() {
-  const { t } = useTranslation("home"); 
+  const { t } = useTranslation("home");
 
   return (
-    <div className="relative overflow-hidden">
-      {/* Floating Background Shapes */}
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.2, ease: "easeOut" }}
+      className="relative overflow-hidden font-['Poppins']"
+    >
+      {/* Floating background effects */}
       <motion.div
-        className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-pink-500/40 to-purple-500/40 rounded-full blur-3xl"
+        className="absolute top-10 left-5 sm:left-10 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 bg-gradient-to-r from-pink-500/40 to-purple-500/40 rounded-full blur-3xl"
         variants={floatingVariants}
         animate="animate"
       />
       <motion.div
-        className="absolute bottom-20 right-20 w-40 h-40 bg-gradient-to-r from-blue-400/30 to-cyan-400/30 rounded-full blur-2xl"
+        className="absolute bottom-10 right-5 sm:right-10 w-28 h-28 sm:w-40 sm:h-40 md:w-52 md:h-52 bg-gradient-to-r from-blue-400/40 to-cyan-400/30 rounded-full blur-2xl"
         variants={floatingVariants}
         animate="animate"
       />
 
+      {/* Light overlay animation */}
+      <motion.div
+        className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent_70%)]"
+        animate={{ opacity: [0.3, 0.6, 0.3] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      {/* Swiper */}
       <Swiper
         modules={[Autoplay, Pagination, Navigation, EffectFade]}
         effect="fade"
         fadeEffect={{ crossFade: true }}
-        spaceBetween={0}
         slidesPerView={1}
         loop
         autoplay={{ delay: 6000, disableOnInteraction: false }}
@@ -50,7 +62,7 @@ export default function HeaderSection() {
           bulletActiveClass: "swiper-pagination-bullet-active !bg-white",
         }}
         navigation={{ nextEl: ".custom-next", prevEl: ".custom-prev" }}
-        className="w-full h-[90vh] group relative z-10"
+        className="w-full h-[100vh] relative z-10"
       >
         {/* Slide 1 */}
         <SwiperSlide>
@@ -58,29 +70,32 @@ export default function HeaderSection() {
             <motion.img
               src="./images/hero-bg.jpeg"
               alt="Admission"
-              className="w-full h-full object-cover"
-              initial={{ scale: 1.2 }}
+              className="absolute top-0 left-0 w-full h-full object-fill"
+              initial={{ scale: 1.05 }}
               animate={{ scale: 1 }}
               transition={{ duration: 6, ease: "easeOut" }}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/70 flex items-center justify-center">
+            <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-[#0b163b]/80 to-black/70 flex items-center justify-center">
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}
-                className="text-center text-white max-w-3xl px-6"
+                className="text-center text-white px-4 sm:px-6 md:px-10 max-w-xl sm:max-w-2xl md:max-w-3xl"
               >
-                <h1 className="text-4xl md:text-4xl md:w-[750px] font-bold mb-6">
+                <h1 className="text-3xl sm:text-5xl md:text-5xl font-extrabold leading-tight bg-white bg-clip-text text-transparent drop-shadow-lg">
                   {t("slide1.title")}
                 </h1>
-                <p className="text-lg md:text-xl text-gray-200 mb-8">
+                <p className="text-base sm:text-lg md:text-xl text-gray-200 mt-4 sm:mt-6 mb-6 sm:mb-10 tracking-wide">
                   {t("slide1.description")}
                 </p>
                 <Link to="/registration-form">
                   <motion.button
-                    whileHover={{ scale: 1.08 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-8 py-4 bg-gradient-to-r from-[#224182] to-[#3b63bb] rounded-lg text-white text-lg font-semibold shadow-lg"
+                    whileHover={{
+                      scale: 1.1,
+                      boxShadow: "0px 0px 30px rgba(34,65,130,0.6)",
+                    }}
+                    whileTap={{ scale: 0.97 }}
+                    className="px-6 py-3 sm:px-8 sm:py-3.5 md:px-10 md:py-4 bg-gradient-to-r from-[#224182] via-[#3b63bb] to-[#5679e3] rounded-xl text-white font-semibold tracking-wide transition-all duration-300 text-sm sm:text-base md:text-lg"
                   >
                     {t("slide1.button")}
                   </motion.button>
@@ -94,31 +109,34 @@ export default function HeaderSection() {
         <SwiperSlide>
           <div className="relative w-full h-full">
             <motion.img
-              src="./images/hero-bg.jpeg"
+              src="./images/img-3.jpeg"
               alt="Employee Incentive"
-              className="w-full h-full object-cover"
-              initial={{ scale: 1.2 }}
+              className="absolute top-0 left-0 w-full h-full object-cover"
+              initial={{ scale: 1.05 }}
               animate={{ scale: 1 }}
               transition={{ duration: 6, ease: "easeOut" }}
             />
-            <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
+            <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-[#0b163b]/70 to-black/70 flex items-center justify-center">
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1 }}
-                className="text-center text-white max-w-3xl px-6"
+                className="text-center text-white px-4 sm:px-6 md:px-10 max-w-xl sm:max-w-2xl md:max-w-3xl"
               >
-                <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                <h1 className="text-3xl sm:text-5xl md:text-5xl font-extrabold leading-tight bg-white bg-clip-text text-transparent drop-shadow-lg">
                   {t("slide2.title")}
                 </h1>
-                <p className="text-lg md:text-xl mb-8 text-gray-200">
+                <p className="text-base sm:text-lg md:text-xl mt-4 sm:mt-6 mb-6 sm:mb-10 text-gray-200 tracking-wide">
                   {t("slide2.description")}
                 </p>
                 <Link to="/tamakon-team">
                   <motion.button
-                    whileHover={{ scale: 1.08 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-12 py-4 text-lg bg-gradient-to-r from-[#224182] to-[#3b63bb] rounded-lg"
+                    whileHover={{
+                      scale: 1.1,
+                      boxShadow: "0px 0px 30px rgba(34,65,130,0.6)",
+                    }}
+                    whileTap={{ scale: 0.97 }}
+                    className="px-6 py-3 sm:px-8 sm:py-3.5 md:px-12 md:py-4 bg-gradient-to-r from-[#224182] via-[#3b63bb] to-[#5679e3] rounded-xl text-white font-semibold tracking-wide transition-all duration-300 text-sm sm:text-base md:text-lg"
                   >
                     {t("slide2.button")}
                   </motion.button>
@@ -129,27 +147,25 @@ export default function HeaderSection() {
         </SwiperSlide>
       </Swiper>
 
-      {/* Navigation Arrows */}
-      <div className="absolute top-1/2 -translate-y-1/2 left-6 z-20 hidden lg:flex">
-        <div className="custom-prev cursor-pointer bg-gradient-to-r from-[#224182] to-[#3b63bb] w-14 h-14 rounded-full flex items-center justify-center shadow-xl">
-          <ChevronLeft className="text-white w-7 h-7" />
-        </div>
-      </div>
-      <div className="absolute top-1/2 -translate-y-1/2 right-6 z-20 hidden lg:flex">
-        <div className="custom-next cursor-pointer bg-gradient-to-r from-[#224182] to-[#3b63bb] w-14 h-14 rounded-full flex items-center justify-center shadow-xl">
-          <ChevronRight className="text-white w-7 h-7" />
-        </div>
+      {/* Navigation Buttons */}
+      <div className="absolute inset-0 flex justify-between items-center px-4 sm:px-6 md:px-8 z-20">
+        <button className="custom-prev p-3 bg-white/15 hover:bg-white/30 backdrop-blur-xl rounded-full border border-white/40 transition">
+          <ChevronLeft className="text-white w-6 h-6 md:w-7 md:h-7" />
+        </button>
+        <button className="custom-next p-3 bg-white/15 hover:bg-white/30 backdrop-blur-xl rounded-full border border-white/40 transition">
+          <ChevronRight className="text-white w-6 h-6 md:w-7 md:h-7" />
+        </button>
       </div>
 
       {/* Progress Bar */}
-      <div className="absolute top-0 left-0 w-full h-[4px] bg-white/30 z-20">
+      <div className="absolute top-0 left-0 w-full h-[3px] bg-white/30 z-20">
         <motion.div
           initial={{ width: "0%" }}
           animate={{ width: "100%" }}
           transition={{ duration: 6, ease: "linear", repeat: Infinity }}
-          className="h-full bg-gradient-to-r from-yellow-400 to-pink-500"
+          className="h-full bg-gradient-to-r from-[#00F5A0] via-[#00D9F5] to-[#0059F5] shadow-[0_0_20px_rgba(0,249,255,0.5)]"
         />
       </div>
-    </div>
+    </motion.div>
   );
 }

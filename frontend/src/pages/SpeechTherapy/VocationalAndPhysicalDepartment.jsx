@@ -43,14 +43,37 @@ const VocationalAndPhysicalDepartment = () => {
       </section>
 
       {/* Intro Section */}
-      <section className="max-w-6xl mx-auto px-6 py-16 text-center">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#104c80] mb-6">
-          {vocationalandphysicaldepartmentData.intro.heading}
-        </h2>
-        <p className="text-gray-700 text-lg leading-relaxed max-w-4xl mx-auto">
-          {vocationalandphysicaldepartmentData.intro.text}
-        </p>
+      <section className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12 items-center">
+        {/* Left: Text Content */}
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#104c80] mb-6 text-center md:text-left">
+            {vocationalandphysicaldepartmentData.intro.heading}
+          </h2>
+          <p className="text-gray-700 text-lg leading-relaxed text-center md:text-left">
+            {vocationalandphysicaldepartmentData.intro.text}
+          </p>
+        </motion.div>
+
+        {/* Right: Image */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex justify-center md:justify-end"
+        >
+          <video
+            src="./videos/video-3.mp4"
+            alt="Department Overview"
+            className="rounded-2xl shadow-lg w-full max-w-md object-cover hover:scale-105 transition-transform duration-500"
+            controls autoPlay muted loop
+          />
+        </motion.div>
       </section>
+
 
       {/* What is Occupational Therapy */}
       <section className="bg-gray-50 py-16 px-6">

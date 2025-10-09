@@ -9,7 +9,8 @@
       "severity": "Severity",
       "impact": "Impact",
       "expectedAction": "Expected Action",
-"status": "Status",
+      "assignedTo":"Assigned To",
+      "status": "Status",
       "action": "Action"
     },
     "empty": {

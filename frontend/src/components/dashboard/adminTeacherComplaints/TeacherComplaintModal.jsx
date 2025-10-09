@@ -131,11 +131,11 @@ const TeacherComplaintModal = ({
                   {isLoading
                     ? "Loading departments..."
                     : isError
-                    ? "Failed to load departments"
-                    : "Select Department"}
+                      ? "Failed to load departments"
+                      : "Select Department"}
                 </option>
                 {departmentsData?.departments?.map((dept) => (
-                  <option key={dept._id} value={dept.name}>
+                  <option key={dept._id} value={dept._id}>
                     {dept.name}
                   </option>
                 ))}
@@ -164,9 +164,8 @@ const TeacherComplaintModal = ({
       {/* Toast Notification */}
       {toast?.show && (
         <div
-          className={`fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg text-white font-medium flex items-center gap-2 ${
-            toast.type === "success" ? "bg-green-500" : "bg-red-500"
-          }`}
+          className={`fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg text-white font-medium flex items-center gap-2 ${toast.type === "success" ? "bg-green-500" : "bg-red-500"
+            }`}
         >
           {toast.type === "success" ? <FaCheck /> : <FaExclamationTriangle />}
           {toast.message}

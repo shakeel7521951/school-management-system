@@ -1,6 +1,5 @@
-// components/FormViewer.jsx
 import { useState, useEffect } from "react";
-import { useParams, useNavigate, useLocation, redirect } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import {
   ArrowLeft,
   Home,
@@ -11,6 +10,7 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import { toast } from "react-toastify";
+
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const FormViewer = () => {
@@ -18,19 +18,20 @@ const FormViewer = () => {
   const timer = location.state?.timer;
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [htmlContent, setHtmlContent] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [submissionStatus, setSubmissionStatus] = useState(null);
+
   useEffect(() => {
     const fetchFormHTML = async () => {
       try {
         setLoading(true);
         const response = await axios.get(`${BACKEND_URL}/html-form/${id}`, {
           responseType: "text",
-          withCredentials: true
+          withCredentials: true,
         });
-
         setHtmlContent(response.data);
         setError(null);
       } catch (error) {
@@ -41,9 +42,9 @@ const FormViewer = () => {
       }
     };
 
-
     fetchFormHTML();
   }, [id]);
+
   const handleSubmitForm = async (data) => {
     try {
       setSubmissionStatus("submitting");
@@ -70,7 +71,7 @@ const FormViewer = () => {
 
       if (message.includes("expired")) {
         toast.error("This form is no longer available — the fill duration has expired.");
-        navigate(-1)
+        navigate(-1);
       } else {
         toast.error(message);
         navigate(-1);
@@ -80,7 +81,6 @@ const FormViewer = () => {
       setTimeout(() => setSubmissionStatus(null), 3000);
     }
   };
-
 
   const handleDownload = () => {
     const blob = new Blob([htmlContent], { type: "text/html" });
@@ -153,9 +153,9 @@ const FormViewer = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#f5f8fa] rounded-lg">
+    <div className="min-h-screen bg-[#f5f8fa] m-0 p-0 flex flex-col">
       {/* 🔹 Header */}
-      <div className="bg-[#104C80] shadow-sm border-b rounded-lg">
+      <div className="bg-[#104C80] shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center text-white">
           <div className="flex items-center gap-4">
             <button
@@ -168,11 +168,10 @@ const FormViewer = () => {
           </div>
           <div className="flex items-center gap-3">
             <div className="p-6">
-              {/* Show the timer value for this form */}
               <p>
-                Remaining Time: <span className="font-medium">{timer?.[id]?.slice(0, 7)}</span>
+                Remaining Time:{" "}
+                <span className="font-medium">{timer?.[id]?.slice(0, 7)}</span>
               </p>
-
             </div>
             <button
               onClick={handleDownload}
@@ -188,7 +187,6 @@ const FormViewer = () => {
             >
               <Printer className="w-4 h-4" /> Print
             </button>
-
           </div>
         </div>
       </div>
@@ -207,31 +205,42 @@ const FormViewer = () => {
         </div>
       )}
 
-      {/* 🔹 Form Content */}
-      <div className="max-w-4xl mx-auto p-4 sm:p-6">
-        <form
-          className="bg-white rounded-lg shadow-lg p-6 border border-gray-200 space-y-6"
-          onSubmit={(e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const formValues = {};
-            for (let [key, value] of formData.entries()) formValues[key] = value;
-            handleSubmitForm(formValues);
-          }}
-        >
-          {/* Injected HTML */}
-          <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-
-          {/* Submit Button */}
-          <div className="pt-4 flex justify-end">
-            <button
-              type="submit"
-              className="px-6 py-2 bg-[#104C80] text-white font-medium rounded-md shadow hover:bg-[#0d3a61] transition"
-            >
-              Submit Form
-            </button>
+      {/* 🔹 Form Section */}
+      <div className="flex justify-center flex-1 py-6">
+        <div className="w-full max-w-[700px] bg-white shadow-md text-start">
+          {/* Banner */}
+          <div className="h-[100px]">
+            <img
+              src="/images/img-7.jpeg"
+              alt="Form Banner"
+              className="w-full h-full object-cover rounded-t-md"
+            />
           </div>
-        </form>
+
+          {/* Form */}
+          <form
+            className="p-6 space-y-6"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const formData = new FormData(e.target);
+              const formValues = {};
+              for (let [key, value] of formData.entries())
+                formValues[key] = value;
+              handleSubmitForm(formValues);
+            }}
+          >
+            <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+
+            <div className="pt-4 flex justify-end">
+              <button
+                type="submit"
+                className="px-6 py-2 bg-[#104C80] text-white font-medium rounded-md shadow hover:bg-[#0d3a61] transition"
+              >
+                Submit Form
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
