@@ -84,10 +84,12 @@ import DepartNavbar from './components/DepartmentDashboard/common/DepartNavbar'
 import DepartStudentComplaint from './pages/departmentDashboard/DepartStudentComplaint'
 import DepartTeacherComplaint from './pages/departmentDashboard/DepartTeacherComplaint'
 import AdminDepartmentPage from './pages/dashboard/AdminDepartmentPage'
+import ParentComplaintForm from './pages/ParentComplaintForm'
 
 
 
 // import MyProfile from './pages/MyProfile'
+import AdminParentComplaints from './pages/dashboard/AdminComplaints/AdminParentsComplaints';
 
 const MainFunction = () => {
   return (
@@ -199,6 +201,8 @@ const router = createBrowserRouter([
       // { path: '/complainform', element: <ComplaintForm /> },
       // { path: '/complainstatus', element: <ComplaintForm /> },
       { path: '/my-profile', element: <ProfilePage /> },
+    {path:"/parent-complaint-form",element:<ParentComplaintForm/>}
+
     ]
   },
   { path: '/login', element: <Login /> },
@@ -211,6 +215,7 @@ const router = createBrowserRouter([
     children: [
       { path: 'studentcomplain', element: <AdminStudentComplain /> },
       { path: 'teachercomplain', element: <AdminTeacherComplain /> },
+      { path: 'parentcomplain', element: <AdminParentComplaints/> },
       { path: 'visitortable', element: <VisitorTable /> },
 
       { path: 'documents/uploaded', element: <UploadedDocuments /> },

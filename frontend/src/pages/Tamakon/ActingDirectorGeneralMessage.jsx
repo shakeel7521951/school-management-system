@@ -3,7 +3,33 @@ import { motion } from "framer-motion"
 import { useTranslation } from 'react-i18next'
 
 const ActingDirectorGeneralMessage = () => {
-  const { t } = useTranslation("actingDirector") 
+  const { t } = useTranslation("actingDirector")
+
+  // Animation variants
+  const fadeUp = {
+    hidden: { opacity: 0, y: 60 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  }
+
+  const fadeDown = {
+    hidden: { opacity: 0, y: -60 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  }
+
+  const fadeLeft = {
+    hidden: { opacity: 0, x: -60 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  }
+
+  const fadeRight = {
+    hidden: { opacity: 0, x: 60 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  }
+
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 1.2, ease: "easeInOut" } },
+  }
 
   return (
     <div className="w-full">
@@ -13,64 +39,114 @@ const ActingDirectorGeneralMessage = () => {
         style={{ backgroundImage: `url(${t("heroSection.backgroundImage")})` }}
       >
         {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#104c80]/80 to-[#0a3255]/70"></div>
-
-        {/* Content */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
+          initial="hidden"
+          animate="visible"
+          variants={fadeIn}
+          className="absolute inset-0 bg-gradient-to-b from-[#104c80]/80 to-[#0a3255]/70"
+        ></motion.div>
+
+        {/* Hero Text */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={fadeDown}
           className="relative z-10 text-center text-white px-4"
         >
-          <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 drop-shadow-xl tracking-wide">
+          <motion.h1
+            variants={fadeUp}
+            className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 drop-shadow-xl tracking-wide"
+          >
             {t("heroSection.title")}
-          </h1>
-          <p className="text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-gray-100 drop-shadow">
+          </motion.h1>
+          <motion.p
+            variants={fadeDown}
+            transition={{ delay: 0.2 }}
+            className="text-md sm:text-lg md:text-xl lg:text-2xl font-medium text-gray-100 drop-shadow"
+          >
             {t("heroSection.subtitle")}
-          </p>
+          </motion.p>
         </motion.div>
       </section>
 
-      {/* Content Section */}
+      {/* Main Content */}
       <div className="container mx-auto px-6 sm:px-10 lg:px-20 py-16 lg:py-20">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Text */}
+          {/* Text Column */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
+            variants={fadeLeft}
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold text-[#104c80] mb-6 sm:mb-8 leading-snug">
+            <motion.h2
+              variants={fadeDown}
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold text-[#104c80] mb-6 sm:mb-8 leading-snug"
+            >
               {t("contentSection.heading")}
-            </h2>
-            <div className="space-y-4 sm:space-y-5 px-3 lg:px-0 text-gray-700 leading-relaxed text-justify text-[1rem] sm:text-[1.05rem] md:text-[1.1rem]">
-              {t("contentSection.paragraphs", { returnObjects: true }).map((para, idx) => (
-                <p key={idx}>{para}</p>
-              ))}
+            </motion.h2>
+
+            <div className="space-y-5 px-3 lg:px-0 text-gray-700 leading-relaxed text-justify text-[1rem] sm:text-[1.05rem] md:text-[1.1rem]">
+              {t("contentSection.paragraphs", { returnObjects: true }).map((para, idx) => {
+                // Alternate animation directions for each paragraph
+                const variants =
+                  idx % 4 === 0 ? fadeUp :
+                  idx % 4 === 1 ? fadeLeft :
+                  idx % 4 === 2 ? fadeRight :
+                  fadeDown
+
+                return (
+                  <motion.p
+                    key={idx}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={variants}
+                    transition={{ delay: idx * 0.15 }}
+                  >
+                    {para}
+                  </motion.p>
+                )
+              })}
             </div>
 
             {/* Signature */}
-            <div className="mt-8 sm:mt-10">
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+              className="mt-8 sm:mt-10"
+            >
               <p className="text-lg sm:text-xl font-semibold text-[#104c80]">
                 {t("contentSection.signature.position")}
               </p>
               <p className="text-xl sm:text-2xl font-bold text-gray-900">
                 {t("contentSection.signature.name")}
               </p>
-              <div className="w-16 sm:w-20 h-1 bg-[#104c80] mt-2 rounded-full"></div>
-            </div>
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="w-16 sm:w-20 h-1 bg-[#104c80] mt-2 rounded-full origin-left"
+              ></motion.div>
+            </motion.div>
           </motion.div>
 
-          {/* Image */}
+          {/* Image Column */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
+            variants={fadeRight}
             className="flex justify-center"
           >
-            <img
+            <motion.img
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              // whileHover={{ scale: 1.05, rotate: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               src={t("contentSection.signature.image")}
               alt={t("contentSection.signature.name")}
               className="rounded-3xl shadow-2xl w-full max-w-md sm:max-w-lg md:max-w-xl object-cover ring-4 ring-[#104c80]/20"

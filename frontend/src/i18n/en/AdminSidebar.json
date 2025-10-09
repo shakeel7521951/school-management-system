@@ -28,7 +28,8 @@
       "hover": "hover:bg-pink-50",
       "dropdown": [
         { "id": "/studentcomplain", "label": "Students Complaints" },
-        { "id": "/teachercomplain", "label": "Teachers Complaints" }
+        { "id": "/teachercomplain", "label": "Teachers Complaints" },
+        {"id":"/parentcomplain","label":"Parents Complaints"}
       ]
     },
     {
