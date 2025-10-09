@@ -60,25 +60,38 @@ const NursingDepartment = () => {
 
       {/* Vision Section */}
       <section className="bg-gray-50 py-20 px-6">
-        <div className="max-w-5xl mx-auto text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-2xl sm:text-3xl font-bold text-[#104c80] mb-6"
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
+          {/* Text Side */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="flex-1 text-center md:text-left"
           >
-            {nursingdepartmentData.vision.heading}
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto"
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#104c80] mb-6">
+              {nursingdepartmentData.vision.heading}
+            </h2>
+            <p className="text-lg text-gray-700 leading-relaxed max-w-2xl mx-auto md:mx-0">
+              {nursingdepartmentData.vision.description}
+            </p>
+          </motion.div>
+
+          {/* Image Side */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="flex-1 flex justify-center md:justify-end"
           >
-            {nursingdepartmentData.vision.description}
-          </motion.p>
+            <img
+              src="/images/img-4.jpeg"
+              alt="Our Vision"
+              className="rounded-2xl shadow-xl w-full max-w-md object-cover hover:scale-[1.03] transition-transform duration-500"
+            />
+          </motion.div>
         </div>
       </section>
+
 
       {/* Services Section */}
       <section className="max-w-6xl mx-auto px-6 py-20">
