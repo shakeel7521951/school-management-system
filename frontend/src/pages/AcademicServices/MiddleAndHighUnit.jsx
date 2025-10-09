@@ -17,27 +17,33 @@ const MiddleAndHighUnit = () => {
     <div className="w-full text-gray-800">
       {/* Hero Banner */}
       <section
-        className="relative w-full h-[50vh] bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: `url(${middleandhighunit.hero.backgroundImage})` }}
+        className="relative w-full h-[50vh] bg-cover bg-center flex items-center justify-center text-center"
+        style={{
+          backgroundImage: `url(${middleandhighunit.hero.backgroundImage})`,
+        }}
       >
         {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#104c80]/80 to-[#0a3255]/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0b305a]/80 via-[#0b3f7a]/70 to-[#0a3255]/80"></div>
 
-        {/* Content */}
+        {/* Hero Content */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="relative z-10 text-center text-white px-6"
+          className="relative z-10 px-6 max-w-4xl"
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 drop-shadow-2xl md:leading-15 leading-10">
-            {middleandhighunit.hero.title}
+          <h1 className="text-4xl sm:text-5xl md:text-5xl font-extrabold mb-5 text-white leading-tight drop-shadow-[0_3px_10px_rgba(0,0,0,0.4)] tracking-wide">
+            <span className="bg-clip-text text-transparent bg-white">
+              {middleandhighunit.hero.title}
+            </span>
           </h1>
-          <p className="text-base sm:text-lg md:text-lg font-medium text-gray-100 max-w-3xl mx-auto leading-relaxed">
+
+          <p className="text-base sm:text-lg md:text-xl font-medium text-gray-100 leading-relaxed mx-auto max-w-2xl">
             {middleandhighunit.hero.subtitle}
           </p>
         </motion.div>
       </section>
+
 
       {/* Content Area */}
       <motion.div

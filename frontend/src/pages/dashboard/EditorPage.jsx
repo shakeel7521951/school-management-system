@@ -580,7 +580,7 @@ export default function EditorPage() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
+    <div className="flex flex-col h-auto bg-gray-100">
       {/* Form title section */}
       <div className="bg-white border-b p-4 px-10 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 shadow-sm">
         {/* Left side: Form title and status */}
@@ -814,6 +814,7 @@ export default function EditorPage() {
         </div>
       </div>
 
+
       {/* Form fields toolbar */}
       <div className="bg-gray-200 p-2 flex flex-wrap gap-2 px-14">
         <span className="text-sm font-medium py-2">Form Fields:</span>
@@ -840,21 +841,28 @@ export default function EditorPage() {
         </button>
       </div>
 
-      {/* Editor content */}
-      <div className="flex-1 overflow-auto p-4">
-        <div ref={editorRef} className="bg-white p-8 rounded shadow-lg max-w-4xl mx-auto min-h-[500px]">
-          <EditorContent editor={editor} />
-        </div>
-      </div>
 
-      {savedId && (
-        <div className="p-4 bg-blue-50 border-t">
-          <div className="max-w-4xl mx-auto text-sm">
-            <span className="font-medium">Form saved successfully!</span> ID: <code className="bg-blue-100 p-1 rounded">{savedId}</code>
-            <span className="ml-4">View at: <code className="bg-blue-100 p-1 rounded">/view/{savedId}</code></span>
+      
+      <div className=" w-[700px] py-2 m-auto bg-white text-start">
+        <div className="w-auto bg-pink-200 h-[100px]">
+          <img src="./images/img-7.jpeg" alt="" className="w-[100%] h-[100%] object-cover"/>
+        </div>
+        {/* Editor content */}
+        <div className="flex-1 overflow-auto py-4">
+          <div ref={editorRef} className="bg-white p-8 max-w-6xl mx-auto min-h-[500px]">
+            <EditorContent editor={editor} />
           </div>
         </div>
-      )}
+
+        {savedId && (
+          <div className="p-4 bg-blue-50 border-t">
+            <div className="max-w-4xl mx-auto text-sm">
+              <span className="font-medium">Form saved successfully!</span> ID: <code className="bg-blue-100 p-1 rounded">{savedId}</code>
+              <span className="ml-4">View at: <code className="bg-blue-100 p-1 rounded">/view/{savedId}</code></span>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
