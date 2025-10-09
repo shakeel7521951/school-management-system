@@ -43,14 +43,37 @@ const VocationalAndPhysicalDepartment = () => {
       </section>
 
       {/* Intro Section */}
-      <section className="max-w-6xl mx-auto px-6 py-16 text-center">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#104c80] mb-6">
-          {vocationalandphysicaldepartmentData.intro.heading}
-        </h2>
-        <p className="text-gray-700 text-lg leading-relaxed max-w-4xl mx-auto">
-          {vocationalandphysicaldepartmentData.intro.text}
-        </p>
+      <section className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12 items-center">
+        {/* Left: Text Content */}
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#104c80] mb-6 text-center md:text-left">
+            {vocationalandphysicaldepartmentData.intro.heading}
+          </h2>
+          <p className="text-gray-700 text-lg leading-relaxed text-center md:text-left">
+            {vocationalandphysicaldepartmentData.intro.text}
+          </p>
+        </motion.div>
+
+        {/* Right: Image */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex justify-center md:justify-end"
+        >
+          <video
+            src="./videos/video-3.mp4"
+            alt="Department Overview"
+            className="rounded-2xl shadow-lg w-full max-w-md object-cover hover:scale-105 transition-transform duration-500"
+            autoPlay muted loop
+          />
+        </motion.div>
       </section>
+
 
       {/* What is Occupational Therapy */}
       <section className="bg-gray-50 py-16 px-6">
@@ -119,28 +142,48 @@ const VocationalAndPhysicalDepartment = () => {
           <h2 className="text-3xl font-bold text-[#104c80] mb-6">
             {vocationalandphysicaldepartmentData.physicalTherapy.title}
           </h2>
-          <p className="text-lg text-gray-700 mb-8 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-lg text-gray-700 mb-10 max-w-4xl mx-auto leading-relaxed">
             {vocationalandphysicaldepartmentData.physicalTherapy.text}
           </p>
 
-          <ul className="space-y-4 text-gray-700 text-left max-w-3xl mx-auto">
-            {vocationalandphysicaldepartmentData.physicalTherapy.points.map(
-              (point, idx) => (
-                <motion.li
-                  key={idx}
-                  initial={{ opacity: 0, x: -40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: idx * 0.2 }}
-                  className="flex items-start gap-3"
-                >
-                  <FaCheckCircle className="text-[#104c80] text-xl mt-1" />
-                  {point}
-                </motion.li>
-              )
-            )}
-          </ul>
+          {/* List and Image Wrapper */}
+          <div className="flex flex-col md:flex-row items-start justify-center gap-4 max-w-4xl mx-auto">
+            {/* Points List */}
+            <ul className="flex-1 space-y-4 text-gray-700 text-left text-xl">
+              {vocationalandphysicaldepartmentData.physicalTherapy.points.map(
+                (point, idx) => (
+                  <motion.li
+                    key={idx}
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: idx * 0.2 }}
+                    className="flex items-start gap-3"
+                  >
+                    <FaCheckCircle className="text-[#104c80] text-xl mt-1 shrink-0" />
+                    <span className="leading-relaxed">{point}</span>
+                  </motion.li>
+                )
+              )}
+            </ul>
+
+            {/* Image beside list */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="flex justify-center w-full md:w-[50%] h-[350px]"
+            >
+              <img
+                src="./images/img-6.jpeg"
+                alt="Physical Therapy Illustration"
+                className="rounded-2xl shadow-xl w-[100%] h-[80%]  object-cover hover:scale-[1.03] transition-transform duration-500"
+              />
+            </motion.div>
+          </div>
         </motion.div>
       </section>
+
+
 
       {/* Closing Section */}
       <section className="bg-gradient-to-r from-[#104c80] to-[#1e3a5f] py-20 px-6 text-center">
