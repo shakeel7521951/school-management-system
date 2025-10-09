@@ -1,4 +1,3 @@
-import React from "react";
 import UsersHeader from "../../components/dashboard/user/UsersHeader";
 import UsersDetail from "../../components/dashboard/user/UsersDetail";
 

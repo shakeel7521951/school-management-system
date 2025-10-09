@@ -3,11 +3,11 @@ import sendMail from "../utils/SendMail.js";
 
 export const register = async (req, res) => {
   try {
-    const { name, email,phone, password } = req.body;
+    const { name, email, phone, password } = req.body;
     let user = await User.findOne({ email });
     if (user) return res.status(400).json({ message: "User already exists" });
 
-    user = new User({ name, email,phone, password, status: "unverified" });
+    user = new User({ name, email, phone, password, status: "unverified" });
 
     const otp = await user.generateOTP();
     await user.save();
@@ -182,7 +182,7 @@ export const login = async (req, res) => {
     const token = user.generateToken();
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true, 
+      secure: true,
       sameSite: "none",
       maxAge: 60 * 60 * 1000,
     });
@@ -274,7 +274,7 @@ export const updateProfile = async (req, res) => {
 
 export const allUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find().populate("department", 'name');
     if (!users) {
       res.status(404).json({ message: "NO User Found!" });
     }
@@ -288,33 +288,30 @@ export const allUsers = async (req, res) => {
 
 export const updateUserRole = async (req, res) => {
   try {
-    const { id, role } = req.body;
-    if (!id || !role) {
-      return res
-        .status(400)
-        .json({ message: "User ID and role are required." });
+    const { id, role, department } = req.body;
+    if (!id) {
+      return res.status(400).json({ message: "User ID is required." });
     }
 
-    const updateUserRole = await User.findByIdAndUpdate(
-      {_id:id},
-      { role },
-      { new: true }
-    );
+    const updateData = {};
+    if (role) updateData.role = role;
+    if (department) updateData.department = department;
 
-    if (!updateUserRole) {
-      return res
-        .status(400)
-        .json({ message: "Something went wrong. Please try again later." });
+    const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true });
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found." });
     }
 
     res.status(200).json({
-      message: "User role updated successfully",
-      user: updateUserRole,
+      message: "User updated successfully",
+      user: updatedUser,
     });
   } catch (error) {
-    console.error("Error updating user role:", error);
-    res
-      .status(500)
-      .json({ message: "Internal server error", error: error.message });
+    console.error("Error updating user role or department:", error);
+    res.status(500).json({
+      message: "Internal server error",
+      error: error.message,
+    });
   }
 };

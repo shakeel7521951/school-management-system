@@ -22,6 +22,16 @@ export const departmentApi = createApi({
       query: () => `/all-departments`,
       providesTags: ["Departments"],
     }),
+    // GET department complaints
+    getDepartmentComplaints: builder.query({
+      query: () => `/departmentComplaints`,
+      providesTags: ["Departments"],
+    }),
+
+    getTeacherDepartmentComplaints: builder.query({
+      query: () => `/department-teacher-complaints`,
+      providesTags: ["Departments"],
+    }),
 
     // CREATE
     createDepartment: builder.mutation({
@@ -59,4 +69,6 @@ export const {
   useCreateDepartmentMutation,
   useUpdateDepartmentMutation,
   useDeleteDepartmentMutation,
+  useGetDepartmentComplaintsQuery,
+  useGetTeacherDepartmentComplaintsQuery,
 } = departmentApi;

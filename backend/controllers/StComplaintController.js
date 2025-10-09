@@ -49,7 +49,7 @@ export const getComplaintById = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
   }
-};
+}; 
 
 export const deleteComplaint = async (req, res) => {
   try {
@@ -64,10 +64,8 @@ export const deleteComplaint = async (req, res) => {
 };
 
 export const changeComplaintStatus = async (req, res) => {
-  console.log("api is running.....")
   try {
     const { status,assignedTo } = req.body; 
-    console.log(req.body);
     if (!["Pending", "Resolved", "In Progress"].includes(status)) {
       return res.status(400).json({ message: "Invalid status value" });
     }

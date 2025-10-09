@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Search } from "lucide-react";
 import { useAllUsersQuery, useUpdateUserRoleMutation } from "../../../redux/slices/UserApi";
+import { useGetDepartmentsQuery } from "../../../redux/slices/DepartmentApi";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 
@@ -8,14 +9,21 @@ const UsersDetail = () => {
   const { t } = useTranslation("users");
   const { data: users, isLoading, error, refetch } = useAllUsersQuery();
   const [updateUser] = useUpdateUserRoleMutation();
+  const { data, isLoading: deptLoading } = useGetDepartmentsQuery();
+  const departments = data?.departments;
+  console.log(data)
   const [search, setSearch] = useState("");
-
   const roles = ["user", "admin", "teacher", "guard", "student"];
-
-  const handleRoleChange = async (userId, newRole) => {
+console.log(users);
+  // Update Role or Department
+  const handleUserUpdate = async (userId, field, newValue) => {
     try {
-      await updateUser({ id: userId, role: newRole }).unwrap();
-      toast.success(t("users.detail.toast.updateSuccess", { role: t(`users.detail.roles.${newRole}`) }));
+      await updateUser({ id: userId, [field]: newValue }).unwrap();
+      toast.success(
+        field === "role"
+          ? t("users.detail.toast.updateSuccess", { role: t(`users.detail.roles.${newValue}`) })
+          : "Department updated successfully!"
+      );
       refetch();
     } catch (err) {
       toast.error(t("users.detail.toast.updateError"));
@@ -58,6 +66,7 @@ const UsersDetail = () => {
               <th className="px-4 py-3 text-left">{t("users.detail.table.name")}</th>
               <th className="px-4 py-3 text-left">{t("users.detail.table.email")}</th>
               <th className="px-4 py-3 text-left">{t("users.detail.table.role")}</th>
+              <th className="px-4 py-3 text-left">Department</th>
               <th className="px-4 py-3 text-center">{t("users.detail.table.actions")}</th>
             </tr>
           </thead>
@@ -66,11 +75,10 @@ const UsersDetail = () => {
               <tr key={user._id}>
                 <td className="px-4 py-3">{user.name}</td>
                 <td className="px-4 py-3">{user.email}</td>
-                <td className="px-4 py-3 capitalize">{t(`users.detail.roles.${user.role}`)}</td>
-                <td className="px-4 py-3 text-center">
+                <td className="px-4 py-3 capitalize">
                   <select
                     defaultValue={user.role}
-                    onChange={(e) => handleRoleChange(user._id, e.target.value)}
+                    onChange={(e) => handleUserUpdate(user._id, "role", e.target.value)}
                     className="border rounded px-2 py-1 text-sm"
                   >
                     {roles.map((role) => (
@@ -80,6 +88,24 @@ const UsersDetail = () => {
                     ))}
                   </select>
                 </td>
+                <td className="px-4 py-3">
+                  <select
+                    defaultValue={user.department?._id || ""}
+                    onChange={(e) => handleUserUpdate(user._id, "department", e.target.value)}
+                    className="border rounded px-2 py-1 text-sm w-full"
+                    disabled={deptLoading}
+                  >
+                    <option value="">
+                      {deptLoading ? "Loading..." : "Select Department"}
+                    </option>
+                    {departments?.map((dept) => (
+                      <option key={dept._id} value={dept._id}>
+                        {dept.name}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td className="px-4 py-3 text-center text-gray-500">—</td>
               </tr>
             ))}
           </tbody>
@@ -90,18 +116,44 @@ const UsersDetail = () => {
       <div className="md:hidden space-y-4">
         {filteredUsers.map((user) => (
           <div key={user._id} className="border rounded-lg p-4 shadow-sm bg-white space-y-2">
-            <p><span className="font-semibold">{t("users.detail.table.name")}:</span> {user.name}</p>
-            <p><span className="font-semibold">{t("users.detail.table.email")}:</span> {user.email}</p>
-            <p><span className="font-semibold">{t("users.detail.table.role")}:</span> {t(`users.detail.roles.${user.role}`)}</p>
+            <p>
+              <span className="font-semibold">{t("users.detail.table.name")}:</span> {user.name}
+            </p>
+            <p>
+              <span className="font-semibold">{t("users.detail.table.email")}:</span> {user.email}
+            </p>
+            <p>
+              <span className="font-semibold">{t("users.detail.table.role")}:</span>{" "}
+              {t(`users.detail.roles.${user.role}`)}
+            </p>
             <div>
+              <label className="font-semibold">Role: </label>
               <select
                 defaultValue={user.role}
-                onChange={(e) => handleRoleChange(user._id, e.target.value)}
-                className="border rounded px-2 py-1 text-sm"
+                onChange={(e) => handleUserUpdate(user._id, "role", e.target.value)}
+                className="border rounded px-2 py-1 text-sm w-full"
               >
                 {roles.map((role) => (
                   <option key={role} value={role}>
                     {t(`users.detail.roles.${role}`)}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="font-semibold">Department: </label>
+              <select
+                defaultValue={user.department?._id || ""}
+                onChange={(e) => handleUserUpdate(user._id, "department", e.target.value)}
+                className="border rounded px-2 py-1 text-sm w-full"
+                disabled={deptLoading}
+              >
+                <option value="">
+                  {deptLoading ? "Loading..." : "Select Department"}
+                </option>
+                {departments?.map((dept) => (
+                  <option key={dept._id} value={dept._id}>
+                    {dept.name}
                   </option>
                 ))}
               </select>

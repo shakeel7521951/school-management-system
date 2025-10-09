@@ -1,50 +1,27 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { FaExclamationTriangle, FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import DepartComplaintTable from "./DepartComplaintTable";
 import DepartComplaintStats from "./DepartComplaintStats";
 import DepartStudentComplaintFilters from "./DepartStudentComplaintFilters";
 import DepartDeleteModal from "./DepartDeleteModal";
 import DepartComplaintModals from "./DepartComplaintModals";
+import { useGetDepartmentComplaintsQuery } from "../../../redux/slices/DepartmentApi"; // ✅ import your API hook
 
 const DepartStudentComplaints = () => {
-  // ✅ Dummy User Role
   const USER_ROLE = "manager";
 
-  // ✅ Complaints Data (inside component)
-  const [complaints, setComplaints] = useState([
-    {
-      id: 1,
-      name: "Ali Khan",
-      type: "Bullying",
-      impact: "Psychological",
-      status: "Pending",
-      detail: "Student reports being bullied by peers in class.",
-    },
-    {
-      id: 2,
-      name: "Sara Ahmed",
-      type: "Facilities",
-      impact: "Social",
-      status: "Resolved",
-      detail: "Broken chair and poor lighting in classroom.",
-    },
-    {
-      id: 3,
-      name: "Bilal Hussain",
-      type: "Staff",
-      impact: "Academic",
-      status: "In Progress",
-      detail: "Teacher grading unfairly according to the student.",
-    },
-    {
-      id: 4,
-      name: "Hina Malik",
-      type: "Learning",
-      impact: "Academic",
-      status: "Rejected",
-      detail: "Complaint about curriculum difficulty.",
-    },
-  ]);
+  // ✅ Fetch complaints using RTK Query
+  const { data, error, isLoading, refetch } = useGetDepartmentComplaintsQuery();
+
+  // ✅ Local state for complaints (for filtering/sorting)
+  const [complaints, setComplaints] = useState([]);
+
+  // ✅ Update state when API data changes
+  useEffect(() => {
+    if (data?.complaints) {
+      setComplaints(data.complaints);
+    }
+  }, [data]);
 
   // ✅ States
   const [filterStatus, setFilterStatus] = useState("all");
@@ -68,16 +45,16 @@ const DepartStudentComplaints = () => {
   // ✅ Update Complaint Status
   const saveStatus = (id, newStatus) => {
     setComplaints((prev) =>
-      prev.map((c) => (c.id === id ? { ...c, status: newStatus } : c))
+      prev.map((c) => (c._id === id ? { ...c, status: newStatus } : c))
     );
-    showToast(`Status updated to "${newStatus}" for complaint ID ${id}`);
+    showToast(`Status updated to "${newStatus}"`);
     setEditModal(null);
   };
 
   // ✅ Delete Complaint
   const confirmDelete = (id) => {
-    setComplaints((prev) => prev.filter((c) => c.id !== id));
-    showToast(`Complaint ID ${id} deleted successfully`, "success");
+    setComplaints((prev) => prev.filter((c) => c._id !== id));
+    showToast(`Complaint deleted successfully`, "success");
     setDeleteModal(null);
   };
 
@@ -109,7 +86,7 @@ const DepartStudentComplaints = () => {
         if (aKey == null && bKey == null) return 0;
         if (aKey == null) return sortConfig.direction === "ascending" ? -1 : 1;
         if (bKey == null) return sortConfig.direction === "ascending" ? 1 : -1;
-        if (sortConfig.key === "id") return sortConfig.direction === "ascending" ? aKey - bKey : bKey - aKey;
+        if (sortConfig.key === "_id") return 0; // don't sort by id
         if (aKey < bKey) return sortConfig.direction === "ascending" ? -1 : 1;
         if (aKey > bKey) return sortConfig.direction === "ascending" ? 1 : -1;
         return 0;
@@ -123,14 +100,12 @@ const DepartStudentComplaints = () => {
     return filteredComplaints.slice(startIndex, startIndex + itemsPerPage);
   }, [filteredComplaints, currentPage, itemsPerPage]);
 
-  // ✅ Sorting Handler
   const handleSort = (key) => {
     let direction = "ascending";
     if (sortConfig.key === key && sortConfig.direction === "ascending") direction = "descending";
     setSortConfig({ key, direction });
   };
 
-  // ✅ Reset Filters
   const resetFilters = () => {
     setFilterStatus("all");
     setFilterImpact("all");
@@ -140,7 +115,6 @@ const DepartStudentComplaints = () => {
     setCurrentPage(1);
   };
 
-  // ✅ Role Restriction
   if (!["manager", "protection_committee"].includes(USER_ROLE)) {
     return (
       <div className="flex justify-center items-center h-screen text-gray-500 text-xl font-medium bg-gray-50">
@@ -153,9 +127,25 @@ const DepartStudentComplaints = () => {
     );
   }
 
+  // ✅ Loading / Error Handling
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen text-gray-500 text-lg">
+        Loading department complaints...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen text-red-600 text-lg">
+        Failed to load complaints. <button onClick={refetch}>Retry</button>
+      </div>
+    );
+  }
+
   return (
     <div className="lg:ml-[270px] max-w-8xl bg-gray-50 py-4 px-4 sm:px-6 lg:px-10 flex flex-col gap-8 min-h-screen">
-      {/* Header */}
       <header>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1a4480]">
           Students Complaints Management
@@ -166,10 +156,8 @@ const DepartStudentComplaints = () => {
         <hr className="mt-4 border-gray-200" />
       </header>
 
-      {/* Stats */}
       <DepartComplaintStats complaints={complaints} />
 
-      {/* Filters */}
       <DepartStudentComplaintFilters
         filterStatus={filterStatus}
         setFilterStatus={setFilterStatus}
@@ -186,7 +174,6 @@ const DepartStudentComplaints = () => {
         setCurrentPage={setCurrentPage}
       />
 
-      {/* Table */}
       <DepartComplaintTable
         paginatedComplaints={paginatedComplaints}
         filteredComplaints={filteredComplaints}
@@ -197,7 +184,6 @@ const DepartStudentComplaints = () => {
         setDeleteModal={setDeleteModal}
       />
 
-      {/* Pagination */}
       {pageCount > 1 && (
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white p-4 rounded-2xl shadow-md border border-gray-100">
           <div className="text-sm text-gray-700">
@@ -228,7 +214,6 @@ const DepartStudentComplaints = () => {
         </div>
       )}
 
-      {/* Modals */}
       <DepartComplaintModals
         viewModal={viewModal}
         setViewModal={setViewModal}
