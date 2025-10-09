@@ -14,7 +14,6 @@ const InlineImage = ({ src, alt }) => {
         {/* 🎥 Video Only */}
         <video
           src={src}
-          controls
           muted
           autoPlay
           loop
