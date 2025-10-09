@@ -28,7 +28,8 @@
       "hover": "hover:bg-pink-50",
       "dropdown": [
         { "id": "/studentcomplain", "label": "شكاوى الطلاب" },
-        { "id": "/teachercomplain", "label": "شكاوى المعلمين" }
+        { "id": "/teachercomplain", "label": "شكاوى المعلمين" },
+        {"id":"/parentcomplain","label":" شكاوى أولياء الأمور"}
       ]
     },
     {
