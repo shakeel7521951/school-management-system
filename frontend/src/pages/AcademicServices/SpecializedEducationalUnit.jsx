@@ -31,11 +31,15 @@ const SpecializedEducationalUnit = () => {
 
   return (
     <div className="w-full text-gray-800">
-      {/* Hero Banner (No Image) */}
-      <section className="relative w-full bg-gradient-to-br from-[#104c80] via-[#0e3d6b] to-[#08294d] flex items-center justify-center py-20 md:py-28 overflow-hidden">
-        {/* Decorative Glows */}
-        <div className="absolute top-[-200px] left-[-150px] w-[600px] h-[600px] bg-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-[-250px] right-[-150px] w-[600px] h-[600px] bg-indigo-400/20 rounded-full blur-3xl animate-pulse"></div>
+      {/* Hero Banner with Background Image + Overlay */}
+      <section
+        className="relative w-full flex items-center justify-center py-20 md:py-28 overflow-hidden bg-center bg-cover"
+        style={{
+          backgroundImage: "url('./images/about-cover.jpg')",
+        }}
+      >
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#104c80]/80 via-[#0e3d6b]/80 to-[#08294d]/80 z-0"></div>
 
         {/* Centered Text */}
         <motion.div
@@ -50,9 +54,6 @@ const SpecializedEducationalUnit = () => {
           <p className="text-base sm:text-lg md:text-xl font-medium text-gray-100 leading-relaxed max-w-2xl mx-auto">
             {specializededucationalunitData.hero.subtitle}
           </p>
-
-          {/* Decorative Divider */}
-          <div className="mt-8 w-28 h-1 bg-gradient-to-r from-white via-[#c5dfff] to-transparent mx-auto rounded-full"></div>
         </motion.div>
       </section>
 
