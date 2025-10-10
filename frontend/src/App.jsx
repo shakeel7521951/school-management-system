@@ -163,10 +163,12 @@ const SecurityRoute = () => {
 const DepartmentRoute = () => {
   return (
     <div>
-      <DepartNavbar />
-      <DepartSidebar />
-      <Outlet />
-      <ScrollToTop />
+      <RoleRoute allowedRoles={["manager"]}>
+        <DepartNavbar />
+        <DepartSidebar />
+        <Outlet />
+        <ScrollToTop />
+      </RoleRoute>
     </div>
   )
 }
@@ -195,10 +197,6 @@ const router = createBrowserRouter([
       { path: "/nursing-department", element: <NursingDepartment /> },
       { path: "/gallery", element: <GallerySection /> },
       { path: "/registration-form", element: <RegistrationForm /> },
-
-
-
-
       // { path: '/services', element: <Event /> },
       { path: '/contact-us', element: <ContactUs /> },
       { path: '/news', element: <NewsPage /> },
