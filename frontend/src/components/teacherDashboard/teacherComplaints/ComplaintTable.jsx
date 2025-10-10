@@ -27,75 +27,77 @@ const ComplaintTable = ({ complaints }) => {
   return (
     <div>
       {/* ✅ Desktop Table */}
-      <div className="hidden md:block bg-white shadow-lg rounded-2xl">
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[1000px] border border-gray-300 text-sm table-fixed">
-            <thead className="bg-gradient-to-r from-gray-50 to-gray-100 text-gray-700">
-              <tr>
-                {headerOrder.map((h, i) => (
-                  <th
-                    key={i}
-                    className="px-3 py-2 text-left text-xs font-extrabold uppercase tracking-wider border border-gray-300"
-                  >
-                    {h.label}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {complaints.map((complaint, index) => (
-                <tr key={index} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-3 py-3 font-medium text-gray-900 border border-gray-300">
-                    {complaint.employeeName}
-                  </td>
-                  <td className="px-3 py-3 text-gray-700 border border-gray-300">
-                    {complaint.jobTitle}
-                  </td>
-                  <td className="px-3 py-3 text-gray-700 border border-gray-300">
-                    {complaint.department}
-                  </td>
-                  <td className="px-3 py-3 text-gray-500 border border-gray-300">
-                    {complaint.date
-                      ? new Date(complaint.date).toLocaleDateString()
-                      : "-"}
-                  </td>
-                  <td className="px-3 py-3 border border-gray-300">
-                    {complaint.type}
-                  </td>
-                  <td className="px-2 py-2 border border-gray-300">
-                    <span
-                      className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold 
-                        ${severityStyles[complaint.severity]?.bg || ""} 
-                        ${severityStyles[complaint.severity]?.text || ""}`}
-                    >
-                       {severityOptions[complaint.severity] || complaint.severity}
-                    </span>
-                  </td>
-                  <td className="px-2 py-3 text-gray-700 border border-gray-300">
-                    {complaint.impact}
-                  </td>
-                  <td className="px-2 py-3 text-gray-700 border border-gray-300">
-                    {complaint.details}
-                  </td>
-                  <td className="px-3 py-3 text-gray-700 border border-gray-300">
-                    {complaint.expectedAction}
-                  </td>
-                  <td className="px-3 py-3 border border-gray-300">
-                    <span
-                      className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium border 
-                        ${statusStyles[complaint.status]?.bg || ""} 
-                        ${statusStyles[complaint.status]?.text || ""} 
-                        ${statusStyles[complaint.status]?.border || ""}`}
-                    >
-                      {statusLabels[complaint.status] || complaint.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+   <div className="hidden md:block bg-white shadow-lg rounded-2xl">
+  <div className="overflow-x-auto">
+    <table className="w-full min-w-[1000px] border border-gray-300 text-sm table-fixed">
+      <thead className="bg-gradient-to-r from-gray-50 to-gray-100 text-gray-700">
+        <tr>
+          {headerOrder.map((h, i) => (
+           <th
+        key={i}
+        className={`px-3 py-2 text-left text-xs font-extrabold uppercase tracking-wider border border-gray-300 
+          ${h.key === "type" ? "w-[130px]" : "w-auto"}`}
+      >
+        {h.label}
+      </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {complaints.map((complaint, index) => (
+          <tr key={index} className="hover:bg-gray-50 transition-colors text-center">
+            <td className="px-3 py-3 font-medium text-gray-900 border border-gray-300 break-words whitespace-normal max-w-[120px]">
+              {complaint.employeeName}
+            </td>
+            <td className="px-3 py-3 text-gray-700 border border-gray-300 break-words whitespace-normal max-w-[100px]">
+              {complaint.jobTitle}
+            </td>
+            <td className="px-3 py-3 text-gray-700 border border-gray-300 break-words whitespace-normal max-w-[100px]">
+              {complaint.department}
+            </td>
+            <td className="px-3 py-3 text-gray-500 border border-gray-300 max-w-[90px]">
+              {complaint.date
+                ? new Date(complaint.date).toLocaleDateString()
+                : "-"}
+            </td>
+            <td className="py-3 border border-gray-300 whitespace-normal ">
+              {complaint.type}
+            </td>
+            <td className="px-2 py-2 border border-gray-300 text-center max-w-[90px]">
+              <span
+                className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold 
+                  ${severityStyles[complaint.severity]?.bg || ""} 
+                  ${severityStyles[complaint.severity]?.text || ""}`}
+              >
+                {severityOptions[complaint.severity] || complaint.severity}
+              </span>
+            </td>
+            <td className="px-2 py-3 text-gray-700 border border-gray-300 break-words whitespace-normal max-w-[100px]">
+              {complaint.impact}
+            </td>
+            <td className="px-2 py-3 text-gray-700 border border-gray-300 break-words whitespace-normal max-w-[180px]">
+              {complaint.details}
+            </td>
+            <td className="px-3 py-3 text-gray-700 border border-gray-300 break-words whitespace-normal max-w-[180px]">
+              {complaint.expectedAction}
+            </td>
+            <td className="px-3 py-3 border border-gray-300 text-center max-w-[90px]">
+              <span
+                className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium border 
+                  ${statusStyles[complaint.status]?.bg || ""} 
+                  ${statusStyles[complaint.status]?.text || ""} 
+                  ${statusStyles[complaint.status]?.border || ""}`}
+              >
+                {statusLabels[complaint.status] || complaint.status}
+              </span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
 
       {/* ✅ Mobile Card */}
       <div className="md:hidden space-y-4">
