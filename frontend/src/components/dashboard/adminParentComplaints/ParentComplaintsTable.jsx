@@ -40,18 +40,16 @@ const ParentComplaintsTable = ({
   handleSort,
   setViewModal,
   setEditModal,
-  setDeleteModal,
   statusClasses,
-  onDelete, // ✅ from parent
+  onDelete,
 }) => {
-  console.log(complaints);
   return (
     <>
-      {/* DESKTOP TABLE */}
+      {/* ✅ DESKTOP TABLE */}
       <div className="hidden md:block overflow-x-auto bg-white rounded-xl shadow-lg">
         <table className="w-full border-collapse text-sm">
           <thead>
-            <tr className="bg-[#104c80] text-white">
+            <tr className="bg-[#104c80] text-white text-center">
               {[
                 "Parent Name",
                 "Relation",
@@ -69,32 +67,21 @@ const ParentComplaintsTable = ({
                 <th
                   key={idx}
                   onClick={() =>
-                    ![
-                      "Expected Action",
-                      "Action",
-                      "Assigned To",
-                      "Status",
-                    ].includes(header) &&
+                    !["Expected Action", "Action", "Assigned To", "Status"].includes(header) &&
                     handleSort(header.toLowerCase().replace(/\s+/g, ""))
                   }
-                  className="py-4 px-3 text-center cursor-pointer whitespace-nowrap"
+                  className="py-3 px-4 cursor-pointer select-none align-middle whitespace-nowrap"
                 >
                   <div className="flex items-center justify-center gap-1">
                     {header}
-                    {sortConfig?.key ===
-                    header.toLowerCase().replace(/\s+/g, "") ? (
+                    {sortConfig?.key === header.toLowerCase().replace(/\s+/g, "") ? (
                       sortConfig.direction === "ascending" ? (
                         <FaSortUp />
                       ) : (
                         <FaSortDown />
                       )
                     ) : (
-                      ![
-                        "Expected Action",
-                        "Action",
-                        "Assigned To",
-                        "Status",
-                      ].includes(header) && (
+                      !["Expected Action", "Action", "Assigned To", "Status"].includes(header) && (
                         <FaSort className="text-gray-300" />
                       )
                     )}
@@ -111,76 +98,67 @@ const ParentComplaintsTable = ({
                   key={c._id || i}
                   className={`${
                     i % 2 === 0 ? "bg-white" : "bg-gray-50"
-                  } hover:bg-indigo-50 transition`}
+                  } hover:bg-indigo-50 transition-all duration-200 text-center align-middle`}
                 >
-                  <td className="px-3 py-3">{c.parentName}</td>
-                  <td className="px-3 py-3 text-center">
-                    {c.relationToStudent}
-                  </td>
-                  <td className="px-3 py-3 text-center">{c.studentName}</td>
-                  <td className="px-3 py-3 text-center">{c.class}</td>
+                  <td className="px-4 py-3 align-middle">{c.parentName}</td>
+                  <td className="px-4 py-3 align-middle">{c.relationToStudent}</td>
+                  <td className="px-4 py-3 align-middle">{c.studentName}</td>
+                  <td className="px-4 py-3 align-middle">{c.class}</td>
 
                   {/* ✅ Date + Time Ago */}
-                  <td className="px-3 py-3 text-center text-nowrap">
+                  <td className="px-4 py-3 align-middle">
                     {c.date ? (
                       <>
                         <div>{new Date(c.date).toLocaleDateString()}</div>
-                        <div className="text-xs text-gray-500">
-                          {timeAgo(c.date)}
-                        </div>
+                        <div className="text-xs text-gray-500">{timeAgo(c.date)}</div>
                       </>
                     ) : (
                       "-"
                     )}
                   </td>
 
-                  <td className="px-3 py-3 text-center">{c.complaintType}</td>
-                  <td className="px-3 py-3 text-center">{c.severity}</td>
-                  <td className="px-3 py-3 text-center">{c.impact}</td>
-                  <td className="px-3 py-3 text-center">
-                    {c.expectedAction}
-                  </td>
-                  <td className="px-3 py-3 text-center">
-                    {c.assignedTo?.name || "Unassigned"}
-                  </td>
-                  <td className="px-3 py-3 text-center">
-                    <span className={statusClasses[c.status] || "text-gray-500"}>
+                  <td className="px-4 py-3 align-middle">{c.complaintType}</td>
+                  <td className="px-4 py-3 align-middle">{c.severity}</td>
+                  <td className="px-4 py-3 align-middle">{c.impact}</td>
+                  <td className="px-4 py-3 align-middle">{c.expectedAction}</td>
+                  <td className="px-4 py-3 align-middle">{c.assignedTo?.name || "Unassigned"}</td>
+                  <td className="px-4 py-3 align-middle">
+                    <span className={`${statusClasses[c.status] || "text-gray-500"} font-medium`}>
                       {c.status}
                     </span>
                   </td>
 
-                  {/* Action Buttons */}
-                  <td className="px-3 py-3 text-center flex justify-center gap-2">
-                    <button
-                      onClick={() => setViewModal(c)}
-                      className="text-indigo-600 hover:bg-indigo-50 p-2 rounded-full"
-                      title="View"
-                    >
-                      <FaEye />
-                    </button>
-                    <button
-                      onClick={() => setEditModal(c)}
-                      className="text-green-600 hover:bg-green-50 p-2 rounded-full"
-                      title="Edit Status"
-                    >
-                      <FaEdit />
-                    </button>
-                    <button
-                      onClick={() => onDelete(c._id)}
-                      className="text-red-600 hover:bg-red-50 p-2 rounded-full"
-                      title="Delete"
-                    >
-                      <FaTrash />
-                    </button>
+                  {/* ✅ Action Buttons Centered */}
+                  <td className="px-4 py-3 align-middle">
+                    <div className="flex justify-center items-center gap-2">
+                      <button
+                        onClick={() => setViewModal(c)}
+                        className="text-indigo-600 hover:bg-indigo-50 p-2 rounded-full"
+                        title="View"
+                      >
+                        <FaEye />
+                      </button>
+                      <button
+                        onClick={() => setEditModal(c)}
+                        className="text-green-600 hover:bg-green-50 p-2 rounded-full"
+                        title="Edit"
+                      >
+                        <FaEdit />
+                      </button>
+                      <button
+                        onClick={() => onDelete(c._id)}
+                        className="text-red-600 hover:bg-red-50 p-2 rounded-full"
+                        title="Delete"
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td
-                  colSpan="12"
-                  className="px-4 py-6 text-center text-gray-400 text-sm"
-                >
+                <td colSpan="12" className="px-4 py-6 text-center text-gray-400 text-sm">
                   <FaExclamationTriangle className="mx-auto text-2xl mb-2" />
                   No complaints found.
                 </td>
@@ -190,7 +168,7 @@ const ParentComplaintsTable = ({
         </table>
       </div>
 
-      {/* MOBILE CARDS */}
+      {/* ✅ MOBILE CARDS */}
       <div className="md:hidden space-y-4 mt-4">
         {Array.isArray(complaints) && complaints.length > 0 ? (
           complaints.map((c, i) => (
@@ -211,16 +189,12 @@ const ParentComplaintsTable = ({
               <p className="text-sm text-gray-600">
                 <b>Type:</b> {c.complaintType} | <b>Severity:</b> {c.severity}
               </p>
-
-              {/* ✅ Date + Time Ago for Mobile */}
               <p className="text-sm text-gray-600">
                 <b>Date:</b>{" "}
                 {c.date ? (
                   <>
                     {new Date(c.date).toLocaleDateString()}{" "}
-                    <span className="text-gray-500 text-xs">
-                      ({timeAgo(c.date)})
-                    </span>
+                    <span className="text-gray-500 text-xs">({timeAgo(c.date)})</span>
                   </>
                 ) : (
                   "-"

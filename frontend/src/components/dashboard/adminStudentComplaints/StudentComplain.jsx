@@ -131,7 +131,7 @@ const StudentComplain = () => {
   if (isError) return <p className="text-red-500 text-lg">{t("error")}</p>;
 
   return (
-    <div className="lg:ml-[270px] max-w-8xl bg-gray-50 py-4 px-4 sm:px-6 lg:px-10 flex flex-col gap-8 min-h-screen">
+    <div className="lg:ml-64 max-w-8xl bg-gray-50 py-4 px-4 sm:px-6 lg:px-10 flex flex-col gap-8 min-h-screen">
       <header>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1a4480]">{t("title")}</h1>
         <p className="text-gray-500 mt-1 text-sm sm:text-base">{t("subtitle")}</p>

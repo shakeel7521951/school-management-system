@@ -131,7 +131,7 @@ const TeacherComplain = () => {
   if (isError) return <p className="text-center mt-20 text-red-500">{t("messages.error")}</p>;
 
   return (
-    <div className="lg:ml-[270px] max-w-8xl bg-gray-50 py-4 px-4 sm:px-6 lg:px-10 flex flex-col gap-8 min-h-screen">
+    <div className="lg:ml-64 max-w-8xl bg-gray-50 py-4 px-4 sm:px-6 lg:px-10 flex flex-col gap-8 min-h-screen">
       <header>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1a4480]">
           {t("page.title")}
