@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useCreateParentComplaintMutation } from "../redux/slices/ParentComplaintApi";
+import { useNavigate } from "react-router-dom";
 
 const ParentComplaintForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     parentName: "",
     relationToStudent: "",
@@ -16,6 +19,8 @@ const ParentComplaintForm = () => {
     expectedAction: "",
   });
 
+  const [createParentComplaint, { isLoading }] = useCreateParentComplaintMutation();
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -23,35 +28,40 @@ const ParentComplaintForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Complaint Submitted:", formData);
 
-    // ✅ Show toast notification (Right side, default color)
-    toast.success("Complaint submitted successfully!", {
-      position: "top-right",
-      theme: "colored",
-    });
+    try {
+      await createParentComplaint(formData).unwrap();
 
-    // ✅ Reset form after submission
-    setFormData({
-      parentName: "",
-      relationToStudent: "",
-      studentName: "",
-      class: "",
-      date: "",
-      complaintType: "",
-      severity: "",
-      details: "",
-      impact: "",
-      expectedAction: "",
-    });
+      toast.success("Complaint submitted successfully!", {
+        position: "top-right",
+        theme: "colored",
+      });
+      navigate(-1)
+      setFormData({
+        parentName: "",
+        relationToStudent: "",
+        studentName: "",
+        class: "",
+        date: "",
+        complaintType: "",
+        severity: "",
+        details: "",
+        impact: "",
+        expectedAction: "",
+      });
+    } catch (error) {
+      console.error("Error submitting complaint:", error);
+      toast.error(error?.data?.message || "Failed to submit complaint", {
+        position: "top-right",
+        theme: "colored",
+      });
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-10 px-4">
-      {/* Toast container */}
-     
       <div className="w-full max-w-3xl bg-white shadow-xl rounded-3xl p-8 border-t-4 border-[#104c80]">
         <h2 className="text-3xl font-bold text-[#104c80] mb-6 text-center">
           Parent Complaint Form
@@ -237,14 +247,17 @@ const ParentComplaintForm = () => {
           <div className="text-center">
             <button
               type="submit"
-              className="bg-[#104c80] text-white font-semibold py-3 px-10 rounded-xl hover:bg-[#0d3a63] transition duration-300"
+              disabled={isLoading}
+              className={`${
+                isLoading ? "bg-gray-400" : "bg-[#104c80] hover:bg-[#0d3a63]"
+              } text-white font-semibold py-3 px-10 rounded-xl transition duration-300`}
             >
-              Submit Complaint
+              {isLoading ? "Submitting..." : "Submit Complaint"}
             </button>
           </div>
         </form>
       </div>
-       <ToastContainer />
+
     </div>
   );
 };
