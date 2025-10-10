@@ -90,13 +90,14 @@ import ParentComplaintForm from './pages/ParentComplaintForm'
 
 // import MyProfile from './pages/MyProfile'
 import AdminParentComplaints from './pages/dashboard/AdminComplaints/AdminParentsComplaints';
+import ScrollToTop from './components/common/ScrollToTop'
 
 const MainFunction = () => {
   return (
     <div className="flex flex-col min-h-screen relative overflow-hidden">
       <OrbEffect />
       <Navbar />
-
+      <ScrollToTop />
       <main className="flex-grow">
         <Outlet />
       </main>
@@ -115,6 +116,7 @@ const AdminRoute = () => {
         <Navbarr />
         <Sidebaar />
         <Outlet />
+        <ScrollToTop />
       </RoleRoute>
     </div>
   )
@@ -127,6 +129,7 @@ const StudentRoute = () => {
         <StudentNavbar />
         <StudentSidebar />
         <Outlet />
+        <ScrollToTop />
       </RoleRoute>
     </div>
   )
@@ -139,6 +142,7 @@ const TeacherRoute = () => {
         <TeacherNavbar />
         <TeacherSideBar />
         <Outlet />
+        <ScrollToTop />
       </RoleRoute>
     </div>
   )
@@ -150,6 +154,7 @@ const SecurityRoute = () => {
         <SecurityNavbar />
         <SecuritySidebar />
         <Outlet />
+        <ScrollToTop />
       </RoleRoute>
     </div>
   )
@@ -161,6 +166,7 @@ const DepartmentRoute = () => {
       <DepartNavbar />
       <DepartSidebar />
       <Outlet />
+      <ScrollToTop />
     </div>
   )
 }
