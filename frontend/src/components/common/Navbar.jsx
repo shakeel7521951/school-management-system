@@ -300,7 +300,7 @@ export default function Navbar () {
                   )}
                 </li>
               ) : (
-                <li key={link.name} className='mx-2'>
+                <li key={link.name} className='mx-2 mt-1'>
                   <NavLink
                     to={link.path}
                     className={({ isActive }) =>
