@@ -12,27 +12,14 @@ const ComplaintModals = ({
   setEditModal,
   deleteModal,
   setDeleteModal,
-  setComplaints,
   showToast,
   toast,
 }) => {
   const { t } = useTranslation("adminStudentComplaints");
 
-  // Fetch departments dynamically
-  const {
-    data: departmentsData,
-    isLoading: deptLoading,
-    isError: deptError,
-  } = useGetDepartmentsQuery();
-
-  const statusColors = {
-    resolve: "bg-green-100 text-green-700",
-    pending: "bg-yellow-100 text-yellow-700",
-    rejected: "bg-red-100 text-red-700",
-    "in progress": "bg-blue-100 text-blue-700",
-  };
-
+  const { data: departmentsData, isLoading: deptLoading, isError: deptError } = useGetDepartmentsQuery();
   const [changeStatus, { isLoading }] = useChangeStComplaintStatusMutation();
+
   const [updatedStatus, setUpdatedStatus] = useState("");
   const [assignedTo, setAssignedTo] = useState("");
   const [comments, setComments] = useState("");
@@ -45,29 +32,27 @@ const ComplaintModals = ({
     }
   }, [editModal]);
 
+  const statusColors = {
+    resolve: "bg-green-100 text-green-700",
+    pending: "bg-yellow-100 text-yellow-700",
+    rejected: "bg-red-100 text-red-700",
+    "in progress": "bg-blue-100 text-blue-700",
+  };
+
   const handleSaveChanges = async () => {
     if (!editModal) return;
-
     try {
-      const res = await changeStatus({
+      await changeStatus({
         id: editModal._id,
         status: updatedStatus,
         assignedTo,
       }).unwrap();
 
-      setComplaints((prev) =>
-        prev.map((c) =>
-          c._id === editModal._id ? { ...c, ...res.complaint } : c
-        )
-      );
-
       showToast(t("modals.toast.status_updated"), "success");
-      setEditModal(null);
+      setEditModal(null); // ✅ close modal on success
     } catch (error) {
-      showToast(
-        error?.data?.message || t("modals.toast.status_error"),
-        "error"
-      );
+      console.error(error);
+      showToast(error?.data?.message || t("modals.toast.status_error"), "error");
     }
   };
 
@@ -78,9 +63,7 @@ const ComplaintModals = ({
   return (
     <>
       {/* View Modal */}
-      {viewModal && (
-        <ViewModal viewModal={viewModal} setViewModal={setViewModal} />
-      )}
+      {viewModal && <ViewModal viewModal={viewModal} setViewModal={setViewModal} />}
 
       {/* Edit Modal */}
       {editModal && (
@@ -88,13 +71,8 @@ const ComplaintModals = ({
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg sm:max-w-xl md:max-w-2xl">
             {/* Header */}
             <div className="p-4 sm:p-6 border-b border-gray-200 flex justify-between items-center">
-              <h2 className="text-lg sm:text-xl font-bold text-gray-800">
-                {t("modals.edit_title")}
-              </h2>
-              <button
-                onClick={handleCancelEdit}
-                className="text-gray-400 hover:text-gray-600"
-              >
+              <h2 className="text-lg sm:text-xl font-bold text-gray-800">{t("modals.edit_title")}</h2>
+              <button onClick={handleCancelEdit} className="text-gray-400 hover:text-gray-600">
                 <FaTimes className="text-xl" />
               </button>
             </div>
@@ -107,9 +85,9 @@ const ComplaintModals = ({
                   {t("modals.current_status")}
                 </label>
                 <span
-                  className={`px-3 py-1 text-sm font-medium rounded-full ${statusColors[editModal.status.toLowerCase()] ||
-                    "bg-gray-100 text-gray-700"
-                    }`}
+                  className={`px-3 py-1 text-sm font-medium rounded-full ${
+                    statusColors[editModal.status?.toLowerCase()] || "bg-gray-100 text-gray-700"
+                  }`}
                 >
                   {editModal.status}
                 </span>
@@ -125,22 +103,14 @@ const ComplaintModals = ({
                   value={updatedStatus}
                   onChange={(e) => setUpdatedStatus(e.target.value)}
                 >
-                  <option value="Pending">
-                    {t("modals.status_options.pending")}
-                  </option>
-                  <option value="In Progress">
-                    {t("modals.status_options.in_progress")}
-                  </option>
-                  <option value="Resolved">
-                    {t("modals.status_options.resolved")}
-                  </option>
-                  <option value="Rejected">
-                    {t("modals.status_options.rejected")}
-                  </option>
+                  <option value="Pending">{t("modals.status_options.pending")}</option>
+                  <option value="In Progress">{t("modals.status_options.in_progress")}</option>
+                  <option value="Resolved">{t("modals.status_options.resolved")}</option>
+                  <option value="Rejected">{t("modals.status_options.rejected")}</option>
                 </select>
               </div>
 
-              {/* Assigned To (Dynamic Departments) */}
+              {/* Assigned To */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   {t("modals.assigned_to")}
@@ -163,7 +133,6 @@ const ComplaintModals = ({
                     ))}
                 </select>
 
-
                 {deptError && (
                   <p className="text-red-500 text-sm mt-1">
                     Failed to load departments. Try again later.
@@ -185,9 +154,7 @@ const ComplaintModals = ({
                 disabled={isLoading}
                 className="px-4 py-2 bg-[#1a4480] text-white rounded-lg hover:bg-[#0d3260] transition w-full sm:w-auto"
               >
-                {isLoading
-                  ? t("modals.saving") || "Saving..."
-                  : t("modals.confirm")}
+                {isLoading ? t("modals.saving") || "Saving..." : t("modals.confirm")}
               </button>
             </div>
           </div>
@@ -197,8 +164,9 @@ const ComplaintModals = ({
       {/* Toast Notification */}
       {toast.show && (
         <div
-          className={`fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg text-white font-medium flex items-center gap-2 transition-opacity duration-300 ${toast.type === "success" ? "bg-green-500" : "bg-red-500"
-            }`}
+          className={`fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg text-white font-medium flex items-center gap-2 transition-opacity duration-300 ${
+            toast.type === "success" ? "bg-green-500" : "bg-red-500"
+          }`}
         >
           {toast.type === "success" ? <FaCheck /> : <FaExclamationTriangle />}
           {toast.message}
