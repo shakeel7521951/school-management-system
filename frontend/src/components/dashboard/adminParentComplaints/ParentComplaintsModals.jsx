@@ -93,10 +93,10 @@ const ParentComplaintsModals = ({
           <div className="bg-white p-6 rounded-xl w-11/12 md:w-1/3 shadow-lg">
             <h3 className="text-lg font-bold mb-4 text-[#104c80]">Edit Complaint Details</h3>
             <p className="mb-2">
-              <b>Parent:</b> {formatDisplay(editModal.parentName)}
+              <b>Parent Name:</b> {formatDisplay(editModal.parentName)}
             </p>
             <p className="mb-2">
-              <b>Student:</b> {formatDisplay(editModal.studentName)}
+              <b>Student Name:</b> {formatDisplay(editModal.studentName)}
             </p>
 
             <label className="block mb-2 font-semibold">Assign To:</label>

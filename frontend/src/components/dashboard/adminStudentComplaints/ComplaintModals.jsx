@@ -17,7 +17,8 @@ const ComplaintModals = ({
 }) => {
   const { t } = useTranslation("adminStudentComplaints");
 
-  const { data: departmentsData, isLoading: deptLoading, isError: deptError } = useGetDepartmentsQuery();
+  const { data: departmentsData, isLoading: deptLoading, isError: deptError } =
+    useGetDepartmentsQuery();
   const [changeStatus, { isLoading }] = useChangeStComplaintStatusMutation();
 
   const [updatedStatus, setUpdatedStatus] = useState("");
@@ -49,10 +50,13 @@ const ComplaintModals = ({
       }).unwrap();
 
       showToast(t("modals.toast.status_updated"), "success");
-      setEditModal(null); // ✅ close modal on success
+      setEditModal(null);
     } catch (error) {
       console.error(error);
-      showToast(error?.data?.message || t("modals.toast.status_error"), "error");
+      showToast(
+        error?.data?.message || t("modals.toast.status_error"),
+        "error"
+      );
     }
   };
 
@@ -63,7 +67,9 @@ const ComplaintModals = ({
   return (
     <>
       {/* View Modal */}
-      {viewModal && <ViewModal viewModal={viewModal} setViewModal={setViewModal} />}
+      {viewModal && (
+        <ViewModal viewModal={viewModal} setViewModal={setViewModal} />
+      )}
 
       {/* Edit Modal */}
       {editModal && (
@@ -71,27 +77,74 @@ const ComplaintModals = ({
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg sm:max-w-xl md:max-w-2xl">
             {/* Header */}
             <div className="p-4 sm:p-6 border-b border-gray-200 flex justify-between items-center">
-              <h2 className="text-lg sm:text-xl font-bold text-gray-800">{t("modals.edit_title")}</h2>
-              <button onClick={handleCancelEdit} className="text-gray-400 hover:text-gray-600">
+              <h2 className="text-lg sm:text-xl font-bold text-gray-800">
+                {t("modals.edit_title")}
+              </h2>
+              <button
+                onClick={handleCancelEdit}
+                className="text-gray-400 hover:text-gray-600"
+              >
                 <FaTimes className="text-xl" />
               </button>
             </div>
 
             {/* Body */}
             <div className="p-4 sm:p-6 space-y-5">
-              {/* Current Status */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  {t("modals.current_status")}
-                </label>
-                <span
-                  className={`px-3 py-1 text-sm font-medium rounded-full ${
-                    statusColors[editModal.status?.toLowerCase()] || "bg-gray-100 text-gray-700"
-                  }`}
-                >
-                  {editModal.status}
-                </span>
+              {/* ✅ Student Details (Read-only section) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Student Name
+                  </label>
+                  <input
+                    type="text"
+                    value={editModal.name|| "N/A"}
+                    readOnly
+                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-lg text-gray-700"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Class
+                  </label>
+                  <input
+                    type="text"
+                    value={editModal.studentClass || "N/A"}
+                    readOnly
+                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-lg text-gray-700"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Age
+                  </label>
+                  <input
+                    type="text"
+                    value={editModal.age || "N/A"}
+                    readOnly
+                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-lg text-gray-700"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Complaint Date
+                  </label>
+                  <input
+                    type="text"
+                    value={
+                      editModal.date
+                        ? new Date(editModal.date).toLocaleDateString()
+                        : "N/A"
+                    }
+                    readOnly
+                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-lg text-gray-700"
+                  />
+                </div>
               </div>
+
 
               {/* Update Status */}
               <div>
@@ -103,10 +156,18 @@ const ComplaintModals = ({
                   value={updatedStatus}
                   onChange={(e) => setUpdatedStatus(e.target.value)}
                 >
-                  <option value="Pending">{t("modals.status_options.pending")}</option>
-                  <option value="In Progress">{t("modals.status_options.in_progress")}</option>
-                  <option value="Resolved">{t("modals.status_options.resolved")}</option>
-                  <option value="Rejected">{t("modals.status_options.rejected")}</option>
+                  <option value="Pending">
+                    {t("modals.status_options.pending")}
+                  </option>
+                  <option value="In Progress">
+                    {t("modals.status_options.in_progress")}
+                  </option>
+                  <option value="Resolved">
+                    {t("modals.status_options.resolved")}
+                  </option>
+                  <option value="Rejected">
+                    {t("modals.status_options.rejected")}
+                  </option>
                 </select>
               </div>
 
@@ -122,7 +183,9 @@ const ComplaintModals = ({
                   disabled={deptLoading}
                 >
                   <option value="">
-                    {deptLoading ? "Loading departments..." : "Select Department"}
+                    {deptLoading
+                      ? "Loading departments..."
+                      : "Select Department"}
                   </option>
                   {!deptLoading &&
                     !deptError &&
@@ -154,7 +217,9 @@ const ComplaintModals = ({
                 disabled={isLoading}
                 className="px-4 py-2 bg-[#1a4480] text-white rounded-lg hover:bg-[#0d3260] transition w-full sm:w-auto"
               >
-                {isLoading ? t("modals.saving") || "Saving..." : t("modals.confirm")}
+                {isLoading
+                  ? t("modals.saving") || "Saving..."
+                  : t("modals.confirm")}
               </button>
             </div>
           </div>
