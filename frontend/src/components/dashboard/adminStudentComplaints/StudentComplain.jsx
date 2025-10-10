@@ -19,7 +19,7 @@ const USER_ROLE = "manager";
 const StudentComplain = () => {
   const { t } = useTranslation("adminStudentComplaints");
 
-  const { data: complaints = [], isLoading, isError} = useGetAllStComplaintsQuery();
+  const { data: complaints = [], isLoading, isError } = useGetAllStComplaintsQuery();
   const [deleteComplaint] = useDeleteStComplaintMutation();
   const [changeStatus] = useChangeStComplaintStatusMutation();
 
@@ -40,9 +40,9 @@ const StudentComplain = () => {
     setTimeout(() => setToast({ show: false, message: "", type: "" }), 3000);
   };
 
-  const saveStatus = async (id, newStatus) => {
+  const saveStatus = async (id, newStatus, assignedTo) => {
     try {
-      await changeStatus({ id, status: newStatus,assignedTo }).unwrap();
+      await changeStatus({ id, status: newStatus, assignedTo }).unwrap();
       showToast(t("modals.status_updated"), "success");
       setEditModal(null);
     } catch (error) {
@@ -139,6 +139,7 @@ const StudentComplain = () => {
       </header>
 
       <ComplaintStats complaints={complaints} t={t} />
+
       <ComplaintFilters
         filterStatus={filterStatus} setFilterStatus={setFilterStatus}
         filterImpact={filterImpact} setFilterImpact={setFilterImpact}
@@ -150,6 +151,7 @@ const StudentComplain = () => {
         setCurrentPage={setCurrentPage}
         t={t}
       />
+
       <ComplaintTable
         paginatedComplaints={paginatedComplaints}
         filteredComplaints={filteredComplaints}
@@ -160,6 +162,7 @@ const StudentComplain = () => {
         setDeleteModal={setDeleteModal}
         t={t}
       />
+
       {pageCount > 1 && (
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white p-4 rounded-2xl shadow-md border border-gray-100">
           <div className="text-sm text-gray-700">
@@ -188,7 +191,10 @@ const StudentComplain = () => {
         viewModal={viewModal} setViewModal={setViewModal}
         editModal={editModal} setEditModal={setEditModal}
         deleteModal={deleteModal} setDeleteModal={setDeleteModal}
-        saveStatus={saveStatus} confirmDelete={confirmDelete} showToast={showToast} toast={toast}
+        saveStatus={saveStatus}
+        confirmDelete={confirmDelete}
+        showToast={showToast}
+        toast={toast}
         t={t}
       />
 

@@ -5,10 +5,10 @@ const Features = () => {
   const { t } = useTranslation();
 
   const featureKeys = [
-    { image: "./images/language.png", key: "features.items.0" },
-    { image: "./images/edu.png", key: "features.items.1" },
-    { image: "./images/technologies.png", key: "features.items.2" },
-    { image: "./images/brightfuture.png", key: "features.items.3" },
+    { image: "./images/image-01.jpg", key: "features.items.0" },
+    { image: "./images/image-02.jpg", key: "features.items.1" },
+    { image: "./images/image-03.jpg", key: "features.items.2" },
+    { image: "./images/image-02.jpg", key: "features.items.3" },
   ];
 
   return (
@@ -31,17 +31,19 @@ const Features = () => {
             className="bg-gradient-to-b from-[#273C66] to-[#1A4480] text-white p-6 sm:p-8 rounded-xl shadow-lg hover:scale-105 transition flex flex-col items-center text-center"
           >
             {/* Image */}
-            <div className="mb-6">
+            <div className="mb-6 w-32 h-32 flex items-center justify-center bg-white/10 rounded-full overflow-hidden">
               <img
                 src={item.image}
                 alt={t(`${item.key}.title`)}
-                className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain"
+                className="w-full h-full object-cover object-center"
               />
             </div>
+
             {/* Title */}
             <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3">
               {t(`${item.key}.title`)}
             </h3>
+
             {/* Description */}
             <p className="text-sm sm:text-base md:text-lg text-gray-200">
               {t(`${item.key}.desc`)}
