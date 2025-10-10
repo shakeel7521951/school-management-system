@@ -15,6 +15,7 @@ import visitorRoutes from "./routes/VisitorRoutes.js";
 import registrationRoutes from "./routes/registrationRoutes.js";
 import teacherComplaint from "./routes/TeacherComplaitRoutes.js";
 import departmentRoutes from "./routes/DepartmentRoutes.js";
+import parentComplaints from "./routes/parentComplaintRoutes.js";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -44,5 +45,6 @@ app.use(visitorRoutes);
 app.use(registrationRoutes);
 app.use(teacherComplaint);
 app.use(departmentRoutes);
+app.use(parentComplaints)
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

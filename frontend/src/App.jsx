@@ -201,7 +201,7 @@ const router = createBrowserRouter([
       // { path: '/complainform', element: <ComplaintForm /> },
       // { path: '/complainstatus', element: <ComplaintForm /> },
       { path: '/my-profile', element: <ProfilePage /> },
-    {path:"/parent-complaint-form",element:<ParentComplaintForm/>}
+      { path: "/parent-complaint-form", element: <ParentComplaintForm /> }
 
     ]
   },
@@ -215,7 +215,7 @@ const router = createBrowserRouter([
     children: [
       { path: 'studentcomplain', element: <AdminStudentComplain /> },
       { path: 'teachercomplain', element: <AdminTeacherComplain /> },
-      { path: 'parentcomplain', element: <AdminParentComplaints/> },
+      { path: 'parentcomplain', element: <AdminParentComplaints /> },
       { path: 'visitortable', element: <VisitorTable /> },
 
       { path: 'documents/uploaded', element: <UploadedDocuments /> },
@@ -265,12 +265,12 @@ const router = createBrowserRouter([
     element: <DepartmentRoute />,
     children: [
       { path: '/student-complaint', element: <DepartStudentComplaint /> },
-      { path: '/teacher-complaint', element: <DepartTeacherComplaint/> },
+      { path: '/teacher-complaint', element: <DepartTeacherComplaint /> },
 
     ]
   },
 
-  
+
 ])
 
 function App() {
