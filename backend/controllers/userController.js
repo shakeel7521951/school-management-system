@@ -37,25 +37,44 @@ export const register = async (req, res) => {
 export const verifyUser = async (req, res) => {
   try {
     const { email, otp } = req.body;
-
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).populate("department", "name");
     if (!user) return res.status(404).json({ message: "User not found" });
 
     if (!user.verifyOTP(otp)) {
       return res.status(400).json({ message: "Invalid or expired OTP" });
     }
 
-    // Mark user as verified
     user.otp = undefined;
     user.otpExpires = undefined;
     user.status = "verified";
     await user.save();
 
     const token = user.generateToken();
-    res.cookie("token", token, { httpOnly: true, maxAge: 60 * 60 * 1000 });
 
-    res.status(200).json({ message: "User verified successfully" });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 60 * 60 * 1000,
+    });
+    res.status(200).json({
+      message: "User verified successfully",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        profilePic: user.profilePic,
+        department: {
+          id: user.department?._id,
+          name: user.department?.name,
+        },
+      },
+      token,
+    });
   } catch (error) {
+    console.error("Error verifying user:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
@@ -161,18 +180,19 @@ export const resetPassword = async (req, res) => {
   }
 };
 
+
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-
-    const user = await User.findOne({ email });
-    if (!user) return res.status(404).json({ message: "User not found" });
+    const user = await User.findOne({ email }).populate("department", "name");
+    if (!user)
+      return res.status(404).json({ message: "User not found" });
 
     if (user.status === "unverified") {
       await User.deleteOne({ email });
-      return res
-        .status(403)
-        .json({ message: "Account not verified. Please register again." });
+      return res.status(403).json({
+        message: "Account not verified. Please register again.",
+      });
     }
 
     const isMatch = await user.comparePassword(password);
@@ -180,15 +200,31 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: "Invalid email or password" });
 
     const token = user.generateToken();
+
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,
       sameSite: "none",
-      maxAge: 60 * 60 * 1000,
+      maxAge: 60 * 60 * 1000, // 1 hour
     });
-
-    res.status(200).json({ message: "Login successful", user });
+    res.status(200).json({
+      message: "Login successful",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        profilePic: user.profilePic,
+        department: {
+          id: user.department?._id,
+          name: user.department?.name,
+        },
+      },
+      token,
+    });
   } catch (error) {
+    console.error("Login error:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };

@@ -59,8 +59,18 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Generate JWT Token
 userSchema.methods.generateToken = function () {
+  const departmentData =
+    this.department && typeof this.department === "object"
+      ? {
+        id: this.department._id || null,
+        name: this.department.name || null,
+      }
+      : {
+        id: this.department || null,
+        name: null,
+      };
+
   return jwt.sign(
     {
       id: this._id,
@@ -69,11 +79,11 @@ userSchema.methods.generateToken = function () {
       phone: this.phone,
       role: this.role,
       profilePic: this.profilePic,
-      department: this.department,
+      department: departmentData,
     },
     process.env.JWT_SECRET,
     { expiresIn: "1h" }
-  )
+  );
 };
 
 const User = mongoose.model("User", userSchema);

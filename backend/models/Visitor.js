@@ -17,6 +17,11 @@ const visitorSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    visitorType: {
+        type: String,
+        enum: ["parent", "teacher", "student", "other"],
+        required: true
+    },
     status: {
         type: String,
         enum: ["pending", "approved", "rejected"],

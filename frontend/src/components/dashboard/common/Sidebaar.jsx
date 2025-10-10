@@ -3,6 +3,8 @@ import * as Icons from "lucide-react";
 import { FaChartLine } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { selectUserProfile } from "../../../redux/slices/UserSlice";
 
 const Sidebar = () => {
   const { t } = useTranslation("adminSidebar");
@@ -10,8 +12,15 @@ const Sidebar = () => {
   const [activeItem, setActiveItem] = useState("admincomplain");
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
-
+  const profile = useSelector(selectUserProfile);
   const navigate = useNavigate();
+
+  // 🧩 Department Restriction Logic
+  const restrictedDept =
+    profile?.department?.name ===
+    "Department of Strategic Planning for Quality and School Accreditation";
+
+  const canViewComplaints = !restrictedDept; // ❌ Hide complaint routes for this department
 
   useEffect(() => {
     const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
@@ -33,6 +42,19 @@ const Sidebar = () => {
   const app = t("app", { returnObjects: true });
   const systemStatus = t("systemStatus", { returnObjects: true });
   const menuItems = t("menuItems", { returnObjects: true });
+
+  // ✅ Filter complaint routes if user is from restricted department
+  const filteredMenuItems = menuItems.filter((item) => {
+    // if complaints dropdown or route
+    if (!canViewComplaints && item.id.includes("complain")) return false;
+    if (
+      !canViewComplaints &&
+      item.dropdown?.some((sub) => sub.id.includes("complain"))
+    ) {
+      return false;
+    }
+    return true;
+  });
 
   return (
     <>
@@ -72,7 +94,7 @@ const Sidebar = () => {
 
         {/* Menu */}
         <nav className="flex-grow space-y-2 mt-6 px-2">
-          {menuItems.map((item) => {
+          {filteredMenuItems.map((item) => {
             let IconComponent = null;
             if (item.icon === "FaChartLine") {
               IconComponent = FaChartLine;
@@ -131,24 +153,29 @@ const Sidebar = () => {
                 {/* Dropdown */}
                 {item.dropdown && isDropdownOpen && isOpen && (
                   <div className="ml-8 mt-1 space-y-1">
-                    {item.dropdown.map((sub) => (
-                      <Link
-                        key={sub.id}
-                        to={sub.id}
-                        onClick={() => {
-                          setActiveItem(sub.id);
-                          if (!isDesktop) setIsOpen(false);
-                        }}
-                        className={`block px-3 py-1.5 text-sm rounded-md
+                    {item.dropdown.map((sub) => {
+                      if (!canViewComplaints && sub.id.includes("complain"))
+                        return null;
+
+                      return (
+                        <Link
+                          key={sub.id}
+                          to={sub.id}
+                          onClick={() => {
+                            setActiveItem(sub.id);
+                            if (!isDesktop) setIsOpen(false);
+                          }}
+                          className={`block px-3 py-1.5 text-sm rounded-md
                                     ${
                                       activeItem === sub.id
                                         ? "bg-green-50 text-green-700"
                                         : "text-gray-600 hover:bg-gray-100"
                                     }`}
-                      >
-                        {sub.label}
-                      </Link>
-                    ))}
+                        >
+                          {sub.label}
+                        </Link>
+                      );
+                    })}
                   </div>
                 )}
               </div>

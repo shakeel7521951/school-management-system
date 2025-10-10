@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { useAddVisitorMutation } from "../../redux/slices/VisitorApi";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const VisitorForm = ({ onClose }) => {
   const { t } = useTranslation("securityVisitorForm");
@@ -30,10 +31,13 @@ const VisitorForm = ({ onClose }) => {
     }
     try {
       await addVisitor(form).unwrap();
+      toast.success("Your visitor request has been submitted.");
       onClose();
     } catch (err) {
       console.error("Add visitor failed:", err);
-      alert(t("visitorForm.alerts.failed"));
+      toast.error(
+        err?.data?.message || t("visitorForm.alerts.submissionError")
+      );
     }
   }
 
