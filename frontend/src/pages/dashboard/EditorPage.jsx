@@ -845,7 +845,7 @@ export default function EditorPage() {
       
       <div className=" w-[700px] py-2 m-auto bg-white text-start">
         <div className="w-auto bg-pink-200 h-[100px]">
-          <img src="./images/img-7.jpeg" alt="" className="w-[100%] h-[100%] object-cover"/>
+          <img src="/images/img-7.jpeg" alt="" className="w-[100%] h-[100%] object-cover"/>
         </div>
         {/* Editor content */}
         <div className="flex-1 overflow-auto py-4">

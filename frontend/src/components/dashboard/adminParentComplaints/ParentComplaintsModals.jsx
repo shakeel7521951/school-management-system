@@ -14,6 +14,36 @@ const ParentComplaintsModals = ({
   onStatusChange,
   onDelete,
 }) => {
+  // Helper to safely convert values to displayable strings.
+  const formatDisplay = (val) => {
+    if (val === null || val === undefined || val === "") return "N/A";
+
+    // Arrays: join their displayable items
+    if (Array.isArray(val)) return val.map((v) => formatDisplay(v)).join(", ");
+
+    // Objects: prefer `.name`, fall back to `_id` or JSON
+    if (typeof val === "object") {
+      if ("name" in val && val.name !== undefined && val.name !== null) {
+        return String(val.name);
+      }
+      if ("_id" in val && Object.keys(val).length === 1) {
+        return String(val._id);
+      }
+      try {
+        return JSON.stringify(val);
+      } catch {
+        return "N/A";
+      }
+    }
+
+    // Date-like strings/numbers
+    const maybeDate = new Date(val);
+    if (!isNaN(maybeDate.getTime())) return maybeDate.toLocaleDateString();
+
+    // Fallback to string
+    return String(val);
+  };
+
   return (
     <>
       {/* --- VIEW MODAL --- */}
@@ -27,13 +57,14 @@ const ParentComplaintsModals = ({
               <FaTimes />
             </button>
             <h3 className="text-xl font-bold mb-4 text-[#104c80]">Complaint Details</h3>
+
             <div className="space-y-2 text-gray-700">
               {Object.entries({
                 Parent: viewModal.parentName,
                 Relation: viewModal.relationToStudent,
                 Student: viewModal.studentName,
                 Class: viewModal.class,
-                Date: new Date(viewModal.date).toLocaleDateString(),
+                Date: viewModal.date ? new Date(viewModal.date).toLocaleDateString() : "N/A",
                 Type: viewModal.complaintType,
                 Severity: viewModal.severity,
                 Impact: viewModal.impact,
@@ -41,12 +72,15 @@ const ParentComplaintsModals = ({
                 "Assigned To": viewModal.assignedToName || viewModal.assignedTo,
               }).map(([label, value]) => (
                 <p key={label}>
-                  <b>{label}:</b> {value}
+                  <b>{label}:</b> {formatDisplay(value)}
                 </p>
               ))}
+
               <p>
                 <b>Status:</b>{" "}
-                <span className={statusClasses[viewModal.status]}>{viewModal.status}</span>
+                <span className={statusClasses?.[viewModal.status] || ""}>
+                  {formatDisplay(viewModal.status)}
+                </span>
               </p>
             </div>
           </div>
@@ -57,35 +91,45 @@ const ParentComplaintsModals = ({
       {editModal && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-xl w-11/12 md:w-1/3 shadow-lg">
-            <h3 className="text-lg font-bold mb-4 text-[#104c80]">
-              Edit Complaint Details
-            </h3>
-            <p className="mb-2"><b>Parent:</b> {editModal.parentName}</p>
-            <p className="mb-2"><b>Student:</b> {editModal.studentName}</p>
+            <h3 className="text-lg font-bold mb-4 text-[#104c80]">Edit Complaint Details</h3>
+            <p className="mb-2">
+              <b>Parent:</b> {formatDisplay(editModal.parentName)}
+            </p>
+            <p className="mb-2">
+              <b>Student:</b> {formatDisplay(editModal.studentName)}
+            </p>
 
             <label className="block mb-2 font-semibold">Assign To:</label>
-            <select
-              className="w-full border border-gray-300 rounded-xl p-2 mb-4"
-              value={editModal.assignedTo}
-              onChange={(e) =>
-                setEditModal({ ...editModal, assignedTo: e.target.value })
-              }
-            >
-              <option value="">Unassigned</option>
-              {departments.map((dept) => (
-                <option key={dept._id} value={dept._id}>
-                  {dept.name}
-                </option>
-              ))}
-            </select>
+
+            {/* Ensure select value is an id string (if assignedTo is an object use its _id) */}
+            {(() => {
+              const assignedToValue =
+                typeof editModal.assignedTo === "object" && editModal.assignedTo !== null
+                  ? editModal.assignedTo._id
+                  : editModal.assignedTo || "";
+              return (
+                <select
+                  className="w-full border border-gray-300 rounded-xl p-2 mb-4"
+                  value={assignedToValue}
+                  onChange={(e) =>
+                    setEditModal({ ...editModal, assignedTo: e.target.value })
+                  }
+                >
+                  <option value="">Unassigned</option>
+                  {departments.map((dept) => (
+                    <option key={dept._id} value={dept._id}>
+                      {dept.name}
+                    </option>
+                  ))}
+                </select>
+              );
+            })()}
 
             <label className="block mb-2 font-semibold">Change Status:</label>
             <select
               className="w-full border border-gray-300 rounded-xl p-2 mb-4"
-              value={editModal.status}
-              onChange={(e) =>
-                setEditModal({ ...editModal, status: e.target.value })
-              }
+              value={editModal.status || ""}
+              onChange={(e) => setEditModal({ ...editModal, status: e.target.value })}
             >
               {statuses.map((status) => (
                 <option key={status} value={status}>
@@ -100,7 +144,10 @@ const ParentComplaintsModals = ({
                   onStatusChange({
                     id: editModal._id,
                     status: editModal.status,
-                    assignedTo: editModal.assignedTo || null,
+                    assignedTo:
+                      typeof editModal.assignedTo === "object"
+                        ? editModal.assignedTo._id
+                        : editModal.assignedTo || null,
                   });
                   setEditModal(null);
                 }}
@@ -126,7 +173,9 @@ const ParentComplaintsModals = ({
             <FaExclamationTriangle className="text-red-500 text-3xl mx-auto mb-3" />
             <h3 className="text-lg font-bold mb-2 text-gray-800">Confirm Delete</h3>
             <p className="text-sm text-gray-500 mb-4">
-              Are you sure you want to delete the complaint by <b>{deleteModal.parentName}</b> about <b>{deleteModal.studentName}</b>?
+              Are you sure you want to delete the complaint by{" "}
+              <b>{formatDisplay(deleteModal.parentName)}</b> about{" "}
+              <b>{formatDisplay(deleteModal.studentName)}</b>?
             </p>
             <div className="flex justify-center gap-3">
               <button
