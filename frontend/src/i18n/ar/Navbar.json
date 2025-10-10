@@ -38,7 +38,14 @@
         }
       },
       "contactUs": "اتصل بنا",
-      "visitorForm":"استمارة الزائر"
+      "form": {
+        "title": "النماذج",
+        "dropdown": {
+          "visitorForm": "نموذج الزائر",
+          "parentsForm": "نموذج أولياء الأمور",
+          "registrationForm": "نموذج التسجيل"
+        }
+      }
     },
     "profile": {
       "login": "تسجيل الدخول",

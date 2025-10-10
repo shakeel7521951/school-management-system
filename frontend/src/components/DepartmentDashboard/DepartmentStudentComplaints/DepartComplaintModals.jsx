@@ -12,7 +12,8 @@ const DepartComplaintModals = ({
   showToast,
   setComplaints,
 }) => {
-  const [changeStComplaintStatus, { isLoading: isUpdating }] = useChangeStComplaintStatusMutation();
+  const [changeStComplaintStatus, { isLoading: isUpdating }] =
+    useChangeStComplaintStatusMutation();
 
   const statusColors = {
     resolve: "bg-green-100 text-green-700",
@@ -24,10 +25,26 @@ const DepartComplaintModals = ({
   const [updatedStatus, setUpdatedStatus] = useState("");
   const [comments, setComments] = useState("");
 
+  // ✅ To hold complaint details for view
+  const [complaintInfo, setComplaintInfo] = useState({
+    name: "",
+    studentClass: "",
+    date: "",
+    age: "",
+  });
+
   useEffect(() => {
     if (editModal) {
       setUpdatedStatus(editModal.status || "");
       setComments(editModal.comments || "");
+      setComplaintInfo({
+        name: editModal.name || "N/A",
+        studentClass: editModal.studentClass || "N/A",
+        date: editModal.date
+          ? new Date(editModal.date).toISOString().split("T")[0]
+          : "N/A",
+        age: editModal.age || "N/A",
+      });
     }
   }, [editModal]);
 
@@ -47,9 +64,14 @@ const DepartComplaintModals = ({
       // ✅ Update UI instantly
       setComplaints((prev) =>
         prev.map((c) =>
-          c._id === editModal._id ? { ...c, status: updatedStatus, comments } : c
+          c._id === editModal._id
+            ? { ...c, status: updatedStatus, comments }
+            : c
         )
       );
+
+      // ✅ Reset only comment field
+      setComments("");
 
       showToast("Complaint status updated successfully", "success");
       setEditModal(null);
@@ -66,38 +88,54 @@ const DepartComplaintModals = ({
   return (
     <>
       {/* ✅ View Modal */}
-      {viewModal && <DepartViewModal viewModal={viewModal} setViewModal={setViewModal} />}
+      {viewModal && (
+        <DepartViewModal viewModal={viewModal} setViewModal={setViewModal} />
+      )}
 
       {/* ✅ Edit Modal */}
       {editModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-50">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg sm:max-w-xl md:max-w-2xl">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg sm:max-w-xl md:max-w-2xl overflow-y-auto max-h-[90vh]">
             {/* Header */}
             <div className="p-4 sm:p-6 border-b border-gray-200 flex justify-between items-center">
               <h2 className="text-lg sm:text-xl font-bold text-gray-800">
-                Edit Complaint Status
+                Edit Student Complaint
               </h2>
-              <button onClick={handleCancelEdit} className="text-gray-400 hover:text-gray-600">
+              <button
+                onClick={handleCancelEdit}
+                className="text-gray-400 hover:text-gray-600"
+              >
                 <FaTimes className="text-xl" />
               </button>
             </div>
 
             {/* Body */}
             <div className="p-4 sm:p-6 space-y-5">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Current Status
-                </label>
-                <span
-                  className={`px-3 py-1 text-sm font-medium rounded-full ${
-                    statusColors[editModal.status?.toLowerCase()] ||
-                    "bg-gray-100 text-gray-700"
-                  }`}
-                >
-                  {editModal.status}
-                </span>
+              {/* Read-only Info */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  { label: "Student Name", value: complaintInfo.name },
+                  { label: "Class", value: complaintInfo.studentClass },
+                  { label: "Date", value: complaintInfo.date },
+                  { label: "Age", value: complaintInfo.age },
+                ].map(({ label, value }) => (
+                  <div key={label}>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      {label}
+                    </label>
+                    <input
+                      type="text"
+                      readOnly
+                      value={value}
+                      className="w-full border border-gray-300 px-3 py-2 rounded-lg bg-gray-50 text-gray-800"
+                    />
+                  </div>
+                ))}
               </div>
 
+              
+
+              {/* Update Status */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Update Status
@@ -114,15 +152,17 @@ const DepartComplaintModals = ({
                 </select>
               </div>
 
+              {/* Comments Field */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Comments
+            Message / Comments
                 </label>
                 <textarea
                   rows="3"
                   className="w-full border border-gray-300 px-3 py-2 rounded-lg focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
                   value={comments}
                   onChange={(e) => setComments(e.target.value)}
+                  placeholder="Add your comments or feedback..."
                 ></textarea>
               </div>
             </div>

@@ -29,6 +29,7 @@ const ComplaintsSidebar = () => {
         dropdown: [
             { id: "/student-complaint", label: "Students Complaints" },
             { id: "/teacher-complaint", label: "Teachers Complaints" },
+            { id: "/parent-complaint", label: "Parents Complaints" },
         ],
     };
 

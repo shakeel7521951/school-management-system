@@ -38,7 +38,15 @@
         }
       },
       "contactUs": "Contact Us",
-      "visitorForm":"Visitor Form"
+       "form": {
+        "title": "Form",
+        "dropdown": {
+          "visitorForm": "Visitor Form ",
+          "parentsForm": "Parent Form",
+          "registrationForm":"Registration Form"
+        }
+      }
+     
     },
     "profile": {
       "login": "Login",

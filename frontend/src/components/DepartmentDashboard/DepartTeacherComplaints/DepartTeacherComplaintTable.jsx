@@ -3,7 +3,6 @@ import {
   FaUser,
   FaEye,
   FaEdit,
-  FaTrash,
   FaSort,
   FaSortUp,
   FaSortDown,
@@ -58,7 +57,7 @@ const DepartTeacherComplaintTable = ({
                   onClick={() =>
                     !["expectedAction", "action"].includes(key) && handleSort(key)
                   }
-                  className="py-4 px-2 text-center text-[12px] font-semibold uppercase tracking-wide cursor-pointer whitespace-nowrap"
+                  className="py-4 px-3 text-center text-[13px] font-semibold uppercase tracking-wide cursor-pointer"
                 >
                   <div className="flex items-center justify-center gap-1">
                     {label}
@@ -90,31 +89,33 @@ const DepartTeacherComplaintTable = ({
                     i % 2 === 0 ? "bg-white" : "bg-gray-50"
                   } hover:bg-gray-100 transition text-sm`}
                 >
-                  <td className="px-3 py-2 flex items-center gap-3">
-                    <div className="bg-indigo-100 p-2 rounded-full">
-                      <FaUser className="text-indigo-600 text-sm" />
+                  <td className="px-3 py-3 text-center align-middle">
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="bg-indigo-100 p-2 rounded-full">
+                        <FaUser className="text-indigo-600 text-sm" />
+                      </div>
+                      <span className="font-medium">{c.employeeName}</span>
                     </div>
-                    <span className="font-medium">{c.employeeName}</span>
                   </td>
-                  <td className="px-1 py-1 text-[13px] text-center">{c.jobTitle}</td>
-                  <td className="px-3 py-2 text-center">{c.department}</td>
-                  <td className="px-3 py-2 text-center">
+                  <td className="px-3 py-3 text-center align-middle">{c.jobTitle}</td>
+                  <td className="px-3 py-3 text-center align-middle">{c.department}</td>
+                  <td className="px-3 py-3 text-center align-middle">
                     {c.date ? new Date(c.date).toLocaleDateString() : "-"}
                   </td>
-                  <td className="px-3 py-2 text-center">{c.type}</td>
-                  <td className="px-3 py-2 text-center">{c.severity}</td>
-                  <td className="px-3 py-2 text-center">{c.impact}</td>
-                  <td className="px-3 py-2 text-center">{c.expectedAction}</td>
-                  <td className="px-3 py-2 text-center whitespace-nowrap">
+                  <td className="px-3 py-3 text-center align-middle">{c.type}</td>
+                  <td className="px-3 py-3 text-center align-middle">{c.severity}</td>
+                  <td className="px-3 py-3 text-center align-middle">{c.impact}</td>
+                  <td className="px-3 py-3 text-center align-middle">{c.expectedAction}</td>
+                  <td className="px-3 py-3 text-center align-middle whitespace-nowrap">
                     <span
-                      className={`inline-block px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap ${getStatusColor(
+                      className={`inline-block px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(
                         c.status
                       )}`}
                     >
                       {c.status}
                     </span>
                   </td>
-                  <td className="px-3 py-2 text-center">
+                  <td className="px-3 py-3 text-center align-middle">
                     <div className="flex justify-center gap-2">
                       <button
                         onClick={() => setViewModal(c)}
@@ -127,12 +128,6 @@ const DepartTeacherComplaintTable = ({
                         className="text-green-600 hover:bg-green-50 p-2 rounded-full"
                       >
                         <FaEdit />
-                      </button>
-                      <button
-                        onClick={() => setDeleteModal(c)}
-                        className="text-red-600 hover:bg-red-50 p-2 rounded-full"
-                      >
-                        <FaTrash />
                       </button>
                     </div>
                   </td>
@@ -187,7 +182,6 @@ const DepartTeacherComplaintTable = ({
               <div className="flex justify-end gap-3 mt-3">
                 <button onClick={() => setViewModal(c)} className="text-indigo-600"><FaEye /></button>
                 <button onClick={() => setEditModal(c)} className="text-green-600"><FaEdit /></button>
-                <button onClick={() => setDeleteModal(c)} className="text-red-600"><FaTrash /></button>
               </div>
             </div>
           ))

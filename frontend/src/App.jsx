@@ -90,6 +90,7 @@ import ParentComplaintForm from './pages/ParentComplaintForm'
 
 // import MyProfile from './pages/MyProfile'
 import AdminParentComplaints from './pages/dashboard/AdminComplaints/AdminParentsComplaints';
+import DepartParentsComplaint from './pages/departmentDashboard/DepartParentsComplaint'
 
 const MainFunction = () => {
   return (
@@ -266,6 +267,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/student-complaint', element: <DepartStudentComplaint /> },
       { path: '/teacher-complaint', element: <DepartTeacherComplaint /> },
+      { path: '/parent-complaint', element: <DepartParentsComplaint /> },
 
     ]
   },

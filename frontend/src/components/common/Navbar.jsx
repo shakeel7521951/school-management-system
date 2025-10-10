@@ -19,7 +19,7 @@ export default function Navbar () {
   const [visitorFormOpen, setVisitorFormOpen] = useState(false)
 
   const [openDropdown, setOpenDropdown] = useState(null)
-const [openSubmenu, setOpenSubmenu] = useState(null) // for nested submenus inside services
+  const [openSubmenu, setOpenSubmenu] = useState(null) // for nested submenus inside services
 
   const profile = useSelector(selectUserProfile)
 
@@ -49,6 +49,12 @@ const [openSubmenu, setOpenSubmenu] = useState(null) // for nested submenus insi
       key: 'contact',
       name: t('navbar.navLinks.contactUs'),
       path: '/contact-us'
+    },
+    {
+      key: 'form',
+      name: t('navbar.navLinks.form.title'),
+      path: '/form',
+      dropdown: true
     }
   ]
 
@@ -269,6 +275,29 @@ const [openSubmenu, setOpenSubmenu] = useState(null) // for nested submenus insi
                       </NavLink>
                     </div>
                   )}
+
+                  {link.key === 'form' && (
+                    <div className='absolute text-[15px] overflow-hidden left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50'>
+                      <button
+                        onClick={() => setVisitorFormOpen(true)}
+                        className='block px-4 py-2 hover:text-indigo-700'
+                      >
+                        {t('navbar.navLinks.form.dropdown.visitorForm')}
+                      </button>
+                      <NavLink
+                        to='/registration-form'
+                        className='block px-4 py-2 hover:text-indigo-700'
+                      >
+                        {t('navbar.navLinks.form.dropdown.registrationForm')}
+                      </NavLink>
+                      <NavLink
+                        to='/parent-complaint-form'
+                        className='block px-4 py-2 hover:text-indigo-700'
+                      >
+                        {t('navbar.navLinks.form.dropdown.parentsForm')}
+                      </NavLink>
+                    </div>
+                  )}
                 </li>
               ) : (
                 <li key={link.name} className='mx-2'>
@@ -287,37 +316,6 @@ const [openSubmenu, setOpenSubmenu] = useState(null) // for nested submenus insi
                 </li>
               )
             )}
-            <li className='mx-2'>
-              <button
-                onClick={() => setVisitorFormOpen(true)}
-                className="
-    relative
-    pb-1
-    text-gray-200
-    hover:text-indigo-300
-    transition
-    duration-300
-    px-3 py-1 
-    
-    after:absolute
-    after:left-0
-    after:-bottom-1
-    after:h-[2px]
-    after:bg-gradient-to-r
-    after:from-indigo-400
-    after:to-purple-400
-    after:w-0
-    after:block
-    after:transition-all
-    after:duration-300
-    hover:after:w-full
-    whitespace-nowrap
-    text-right
-  "
-              >
-                {t('navbar.navLinks.visitorForm')}
-              </button>
-            </li>
           </ul>
 
           {/* Right Section - Search and Login/Profile */}
@@ -463,158 +461,285 @@ const [openSubmenu, setOpenSubmenu] = useState(null) // for nested submenus insi
         </div>
 
         {/* Mobile Links with Dropdowns */}
-      <ul className='flex flex-col gap-2 text-base font-medium mb-8'>
-  {navLinks.map(link => (
-    <li key={link.name}>
-      {!link.dropdown ? (
-        <NavLink
-          to={link.path}
-          onClick={() => setIsOpen(false)}
-          className={({ isActive }) =>
-            `block py-3 px-4 rounded-lg transition duration-300 ${
-              isActive
-                ? 'bg-indigo-800 text-indigo-300 font-semibold'
-                : 'text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30'
-            }`
-          }
-        >
-          {link.name}
-        </NavLink>
-      ) : (
-        <div>
-          <button
-            onClick={() => setOpenDropdown(openDropdown === link.key ? null : link.key)}
-            className='flex justify-between items-center w-full py-3 px-4 rounded-lg text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30'
-          >
-            <span>{link.name}</span>
-            <span>
-              {openDropdown === link.key ? <FaChevronUp /> : <FaChevronDown />}
-            </span>
-          </button>
-
-          {/* Tamakon Dropdown */}
-          {link.key === 'tamakon' && openDropdown === 'tamakon' && (
-            <div className='ml-4 mt-1 flex flex-col gap-1'>
-              <NavLink to='/about-tamakon' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
-                {t('navbar.navLinks.tamakon.dropdown.about')}
-              </NavLink>
-              <NavLink to='/tamakon-team' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
-                {t('navbar.navLinks.tamakon.dropdown.team')}
-              </NavLink>
-              <NavLink to='/director-message' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
-                {t('navbar.navLinks.tamakon.dropdown.directorMessage')}
-              </NavLink>
-              <NavLink to='/acting-director-message' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
-                {t('navbar.navLinks.tamakon.dropdown.directorMessage')}
-              </NavLink>
-              <NavLink to='/school-fees' onClick={e => e.preventDefault()} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
-                {t('navbar.navLinks.tamakon.dropdown.schoolFees')}
-              </NavLink>
-              <NavLink to='/recruitment' onClick={e => e.preventDefault()} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
-                {t('navbar.navLinks.tamakon.dropdown.recruitment')}
-              </NavLink>
-              <NavLink to='/faqs' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
-                {t('navbar.navLinks.tamakon.dropdown.faqs')}
-              </NavLink>
-            </div>
-          )}
-
-          {/* Services Dropdown */}
-          {link.key === 'services' && openDropdown === 'services' && (
-            <div className='ml-4 mt-1 flex flex-col gap-1'>
-              {/* Academic Services Submenu */}
-              <div>
-                <button
-                  onClick={() =>
-                    setOpenSubmenu(openSubmenu === 'academicServices' ? null : 'academicServices')
+        <ul className='flex flex-col gap-2 text-base font-medium mb-8'>
+          {navLinks.map(link => (
+            <li key={link.name}>
+              {!link.dropdown ? (
+                <NavLink
+                  to={link.path}
+                  onClick={() => setIsOpen(false)}
+                  className={({ isActive }) =>
+                    `block py-3 px-4 rounded-lg transition duration-300 ${
+                      isActive
+                        ? 'bg-indigo-800 text-indigo-300 font-semibold'
+                        : 'text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30'
+                    }`
                   }
-                  className='flex justify-between items-center w-full px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
                 >
-                  {t('navbar.navLinks.services.dropdown.academicServices')}
-                  <span>
-                    {openSubmenu === 'academicServices' ? <FaChevronUp /> : <FaChevronDown />}
-                  </span>
-                </button>
+                  {link.name}
+                </NavLink>
+              ) : (
+                <div>
+                  <button
+                    onClick={() =>
+                      setOpenDropdown(
+                        openDropdown === link.key ? null : link.key
+                      )
+                    }
+                    className='flex justify-between items-center w-full py-3 px-4 rounded-lg text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30'
+                  >
+                    <span>{link.name}</span>
+                    <span>
+                      {openDropdown === link.key ? (
+                        <FaChevronUp />
+                      ) : (
+                        <FaChevronDown />
+                      )}
+                    </span>
+                  </button>
 
-                {openSubmenu === 'academicServices' && (
-                  <div className='ml-4 flex flex-col gap-1'>
-                    <NavLink to='/middle-unit' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
-                      {t('navbar.navLinks.services.dropdown.middleUnit')}
-                    </NavLink>
-                    <NavLink to='/primary-unit' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
-                      {t('navbar.navLinks.services.dropdown.primaryUnit')}
-                    </NavLink>
-                    <NavLink to='/educational-unit' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
-                      {t('navbar.navLinks.services.dropdown.specializedUnit')}
-                    </NavLink>
-                  </div>
-                )}
-              </div>
+                  {/* Tamakon Dropdown */}
+                  {link.key === 'tamakon' && openDropdown === 'tamakon' && (
+                    <div className='ml-4 mt-1 flex flex-col gap-1'>
+                      <NavLink
+                        to='/about-tamakon'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.tamakon.dropdown.about')}
+                      </NavLink>
+                      <NavLink
+                        to='/tamakon-team'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.tamakon.dropdown.team')}
+                      </NavLink>
+                      <NavLink
+                        to='/director-message'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.tamakon.dropdown.directorMessage')}
+                      </NavLink>
+                      <NavLink
+                        to='/acting-director-message'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.tamakon.dropdown.directorMessage')}
+                      </NavLink>
+                      <NavLink
+                        to='/school-fees'
+                        onClick={e => e.preventDefault()}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.tamakon.dropdown.schoolFees')}
+                      </NavLink>
+                      <NavLink
+                        to='/recruitment'
+                        onClick={e => e.preventDefault()}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.tamakon.dropdown.recruitment')}
+                      </NavLink>
+                      <NavLink
+                        to='/faqs'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.tamakon.dropdown.faqs')}
+                      </NavLink>
+                    </div>
+                  )}
 
-              {/* Speech Therapy Submenu */}
-              <div>
-                <button
-                  onClick={() =>
-                    setOpenSubmenu(openSubmenu === 'speechTherapy' ? null : 'speechTherapy')
-                  }
-                  className='flex justify-between items-center w-full px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
-                >
-                  {t('navbar.navLinks.services.dropdown.speechTherapy')}
-                  <span>
-                    {openSubmenu === 'speechTherapy' ? <FaChevronUp /> : <FaChevronDown />}
-                  </span>
-                </button>
+                  {/* Services Dropdown */}
+                  {link.key === 'services' && openDropdown === 'services' && (
+                    <div className='ml-4 mt-1 flex flex-col gap-1'>
+                      {/* Academic Services Submenu */}
+                      <div>
+                        <button
+                          onClick={() =>
+                            setOpenSubmenu(
+                              openSubmenu === 'academicServices'
+                                ? null
+                                : 'academicServices'
+                            )
+                          }
+                          className='flex justify-between items-center w-full px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                        >
+                          {t(
+                            'navbar.navLinks.services.dropdown.academicServices'
+                          )}
+                          <span>
+                            {openSubmenu === 'academicServices' ? (
+                              <FaChevronUp />
+                            ) : (
+                              <FaChevronDown />
+                            )}
+                          </span>
+                        </button>
 
-                {openSubmenu === 'speechTherapy' && (
-                  <div className='ml-4 flex flex-col gap-1'>
-                    <NavLink to='/speech-therapy' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
-                      {t('navbar.navLinks.services.dropdown.speechTherapy')}
-                    </NavLink>
-                    <NavLink to='/vocational-rehabilitation' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
-                      {t('navbar.navLinks.services.dropdown.vocationalRehabilitation')}
-                    </NavLink>
-                  </div>
-                )}
-              </div>
+                        {openSubmenu === 'academicServices' && (
+                          <div className='ml-4 flex flex-col gap-1'>
+                            <NavLink
+                              to='/middle-unit'
+                              onClick={() => setIsOpen(false)}
+                              className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                            >
+                              {t(
+                                'navbar.navLinks.services.dropdown.middleUnit'
+                              )}
+                            </NavLink>
+                            <NavLink
+                              to='/primary-unit'
+                              onClick={() => setIsOpen(false)}
+                              className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                            >
+                              {t(
+                                'navbar.navLinks.services.dropdown.primaryUnit'
+                              )}
+                            </NavLink>
+                            <NavLink
+                              to='/educational-unit'
+                              onClick={() => setIsOpen(false)}
+                              className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                            >
+                              {t(
+                                'navbar.navLinks.services.dropdown.specializedUnit'
+                              )}
+                            </NavLink>
+                          </div>
+                        )}
+                      </div>
 
-              {/* Other Services */}
-              <NavLink to='/public-relations' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
-                {t('navbar.navLinks.services.dropdown.publicRelations')}
-              </NavLink>
-              <NavLink to='/nursing-department' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
-                {t('navbar.navLinks.services.dropdown.nursingDepartment')}
-              </NavLink>
-              <NavLink to='/financial-affairs' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
-                {t('navbar.navLinks.services.dropdown.financialAffairs')}
-              </NavLink>
-            </div>
-          )}
+                      {/* Speech Therapy Submenu */}
+                      <div>
+                        <button
+                          onClick={() =>
+                            setOpenSubmenu(
+                              openSubmenu === 'speechTherapy'
+                                ? null
+                                : 'speechTherapy'
+                            )
+                          }
+                          className='flex justify-between items-center w-full px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                        >
+                          {t('navbar.navLinks.services.dropdown.speechTherapy')}
+                          <span>
+                            {openSubmenu === 'speechTherapy' ? (
+                              <FaChevronUp />
+                            ) : (
+                              <FaChevronDown />
+                            )}
+                          </span>
+                        </button>
 
-          {/* Media Dropdown */}
-          {link.key === 'media' && openDropdown === 'media' && (
-            <div className='ml-4 mt-1 flex flex-col gap-1'>
-              <NavLink to='/news' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
-                {t('navbar.navLinks.media.dropdown.news')}
-              </NavLink>
-              <NavLink to='/gallery' onClick={() => setIsOpen(false)} className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'>
-                {t('navbar.navLinks.media.dropdown.gallery')}
-              </NavLink>
-            </div>
-          )}
-        </div>
-      )}
-    </li>
-  ))}
+                        {openSubmenu === 'speechTherapy' && (
+                          <div className='ml-4 flex flex-col gap-1'>
+                            <NavLink
+                              to='/speech-therapy'
+                              onClick={() => setIsOpen(false)}
+                              className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                            >
+                              {t(
+                                'navbar.navLinks.services.dropdown.speechTherapy'
+                              )}
+                            </NavLink>
+                            <NavLink
+                              to='/vocational-rehabilitation'
+                              onClick={() => setIsOpen(false)}
+                              className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                            >
+                              {t(
+                                'navbar.navLinks.services.dropdown.vocationalRehabilitation'
+                              )}
+                            </NavLink>
+                          </div>
+                        )}
+                      </div>
 
-  <li className='mx-2'>
-    <button
-      onClick={() => setVisitorFormOpen(true)}
-      className='text-gray-200 hover:text-indigo-300 hover:font-semibold transition duration-300 w-full py-3 px-4 rounded-lg hover:bg-indigo-800 flex justify-between whitespace-nowrap'
-    >
-      {t('navbar.navLinks.visitorForm')}
-    </button>
-  </li>
-</ul>
+                      {/* Other Services */}
+                      <NavLink
+                        to='/public-relations'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.services.dropdown.publicRelations')}
+                      </NavLink>
+                      <NavLink
+                        to='/nursing-department'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t(
+                          'navbar.navLinks.services.dropdown.nursingDepartment'
+                        )}
+                      </NavLink>
+                      <NavLink
+                        to='/financial-affairs'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t(
+                          'navbar.navLinks.services.dropdown.financialAffairs'
+                        )}
+                      </NavLink>
+                    </div>
+                  )}
+
+                  {/* Media Dropdown */}
+                  {link.key === 'media' && openDropdown === 'media' && (
+                    <div className='ml-4 mt-1 flex flex-col gap-1'>
+                      <NavLink
+                        to='/news'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.media.dropdown.news')}
+                      </NavLink>
+                      <NavLink
+                        to='/gallery'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.media.dropdown.gallery')}
+                      </NavLink>
+                    </div>
+                  )}
+
+                  {link.key === 'form' && openDropdown === 'form' && (
+                    <div className='ml-4 mt-1 flex flex-col gap-1'>
+                      <button
+                        onClick={() => {
+                          setVisitorFormOpen(true)
+                          setIsOpen(false)
+                        }}
+                        className='block px-4 ml-[-160px] py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.form.dropdown.visitorForm')}
+                      </button>
+                      <NavLink
+                        to='/registration-form'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.form.dropdown.registrationForm')}
+                      </NavLink>
+                      <NavLink
+                        to='/parent-complaint-form'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.form.dropdown.parentsForm')}
+                      </NavLink>
+                    </div>
+                  )}
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
 
         {/* Mobile Login/Profile (inside sidebar) */}
         <div className='mt-auto border-t border-indigo-400 pt-4'>
@@ -717,9 +842,9 @@ const [openSubmenu, setOpenSubmenu] = useState(null) // for nested submenus insi
               )}
             </div>
           )}
-  <button
-  onClick={() => dispatch(toggleLanguage())}
-  className="
+          <button
+            onClick={() => dispatch(toggleLanguage())}
+            className='
     flex items-center justify-center
     w-full
     px-4 py-3
@@ -731,12 +856,10 @@ const [openSubmenu, setOpenSubmenu] = useState(null) // for nested submenus insi
     focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-1
     transition-colors duration-300
     text-md
-  "
->
-  {language === 'en' ? 'عربي' : 'English'}
-</button>
-
-
+  '
+          >
+            {language === 'en' ? 'عربي' : 'English'}
+          </button>
         </div>
       </div>
       {/* Spacer to prevent content from being hidden behind fixed navbar */}

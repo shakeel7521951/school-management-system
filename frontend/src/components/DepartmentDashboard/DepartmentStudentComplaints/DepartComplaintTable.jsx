@@ -2,14 +2,12 @@ import {
   FaUser,
   FaEye,
   FaEdit,
-  FaTrash,
+  FaExclamationTriangle,
   FaSort,
   FaSortUp,
   FaSortDown,
-  FaExclamationTriangle,
 } from "react-icons/fa";
 
-// 🎨 Colors for each category
 const typeColors = {
   Bullying: "bg-indigo-100 text-indigo-700",
   "Physical Safety": "bg-red-100 text-red-700",
@@ -42,7 +40,6 @@ const DepartComplaintTable = ({
   handleSort,
   setViewModal,
   setEditModal,
-  setDeleteModal,
 }) => {
   const columns = [
     { key: "name", label: "Name", width: "w-40" },
@@ -61,16 +58,16 @@ const DepartComplaintTable = ({
     <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
       {/* 🖥️ Desktop Table View */}
       <div className="hidden md:block overflow-x-auto">
-        <table className="w-full border-collapse rounded-lg overflow-hidden shadow-sm">
+        <table className="w-full border-collapse">
           <thead>
-            <tr className="bg-[#10448c] text-white text-sm text-nowrap">
+            <tr className="bg-[#10448c] text-white text-sm">
               {columns.map(({ key, label, width }) => (
                 <th
                   key={key}
                   onClick={() =>
                     key !== "actions" && handleSort && handleSort(key)
                   }
-                  className={`${width} px-1 py-4 text-center font-semibold uppercase tracking-wide cursor-pointer`}
+                  className={`${width} px-3 py-4 text-center font-semibold uppercase tracking-wide cursor-pointer`}
                 >
                   <div className="flex items-center justify-center gap-1">
                     {label}
@@ -102,29 +99,38 @@ const DepartComplaintTable = ({
                   i % 2 === 0 ? "bg-white" : "bg-gray-50"
                 } hover:bg-gray-100 transition text-sm`}
               >
-                <td className="px-3 py-2 flex items-center gap-3">
-                  <div className="bg-indigo-100 p-2 rounded-full">
-                    <FaUser className="text-indigo-600 text-sm" />
+                <td className="px-3 py-3 align-middle text-center">
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="bg-indigo-100 p-2 rounded-full">
+                      <FaUser className="text-indigo-600 text-sm" />
+                    </div>
+                    <span className="font-medium">{c.name}</span>
                   </div>
-                  <span className="font-medium text-nowrap">{c.name}</span>
                 </td>
-                <td className="px-3 py-2 text-center">{c.studentClass}</td>
-                <td className="px-3 py-2 text-center">{c.age}</td>
-                <td className="px-3 py-2 text-center text-nowrap">
+
+                <td className="px-3 py-3 align-middle text-center">
+                  {c.studentClass}
+                </td>
+
+                <td className="px-3 py-3 align-middle text-center">{c.age}</td>
+
+                <td className="px-3 py-3 align-middle text-center">
                   {c.date ? new Date(c.date).toLocaleDateString() : "-"}
                 </td>
-                <td className="px-3 py-2 text-center">
+
+                <td className="px-3 py-3 align-middle text-center">
                   <span
-                    className={`px-2 py-1 text-md rounded-full text-nowrap ${
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${
                       typeColors[c.type] || "bg-gray-100 text-gray-700"
                     }`}
                   >
                     {c.type}
                   </span>
                 </td>
-                <td className="px-3 py-2 text-center">
+
+                <td className="px-3 py-3 align-middle text-center">
                   <span
-                    className={`px-2 py-1 text-md rounded-full text-nowrap ${
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${
                       severityColors[c.severity?.toLowerCase()] ||
                       "bg-gray-100 text-gray-700"
                     }`}
@@ -132,10 +138,14 @@ const DepartComplaintTable = ({
                     {c.severity}
                   </span>
                 </td>
-                <td className="px-3 py-2 text-center">{c.impact}</td>
-                <td className="px-3 py-2 text-center">
+
+                <td className="px-3 py-3 align-middle text-center">
+                  {c.impact}
+                </td>
+
+                <td className="px-3 py-3 align-middle text-center">
                   <span
-                    className={`px-2 py-1 text-xs font-semibold rounded-full text-nowrap ${
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${
                       c.action === "resolve"
                         ? "bg-green-100 text-green-700"
                         : c.action === "pending"
@@ -146,9 +156,10 @@ const DepartComplaintTable = ({
                     {c.action}
                   </span>
                 </td>
-                <td className="px-3 py-2 text-center">
+
+                <td className="px-3 py-3 align-middle text-center">
                   <span
-                    className={`px-2 py-1 text-xs font-semibold rounded-full text-nowrap ${
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${
                       statusColors[c.status?.toLowerCase()] ||
                       "bg-gray-100 text-gray-700"
                     }`}
@@ -156,25 +167,20 @@ const DepartComplaintTable = ({
                     {c.status}
                   </span>
                 </td>
-                <td className="px-3 py-2 text-center">
+
+                <td className="px-3 py-3 align-middle text-center">
                   <div className="flex justify-center gap-2">
                     <button
                       onClick={() => setViewModal({ ...c })}
-                      className="text-indigo-600 hover:bg-indigo-50 p-2 rounded-full"
+                      className="text-indigo-600 hover:bg-indigo-50 p-2 rounded-full transition"
                     >
                       <FaEye />
                     </button>
                     <button
                       onClick={() => setEditModal({ ...c })}
-                      className="text-green-600 hover:bg-green-50 p-2 rounded-full"
+                      className="text-green-600 hover:bg-green-50 p-2 rounded-full transition"
                     >
                       <FaEdit />
-                    </button>
-                    <button
-                      onClick={() => setDeleteModal(c)}
-                      className="text-red-600 hover:bg-red-50 p-2 rounded-full"
-                    >
-                      <FaTrash />
                     </button>
                   </div>
                 </td>
@@ -185,7 +191,7 @@ const DepartComplaintTable = ({
               <tr>
                 <td
                   colSpan={columns.length}
-                  className="px-4 py-6 text-center text-gray-400 text-sm"
+                  className="px-4 py-6 text-center text-gray-400 text-sm align-middle"
                 >
                   <FaExclamationTriangle className="mx-auto text-2xl mb-2" />
                   No complaints found
@@ -285,12 +291,6 @@ const DepartComplaintTable = ({
                   className="text-green-600 hover:text-green-800"
                 >
                   <FaEdit />
-                </button>
-                <button
-                  onClick={() => setDeleteModal(c)}
-                  className="text-red-600 hover:text-red-800"
-                >
-                  <FaTrash />
                 </button>
               </div>
             </div>
