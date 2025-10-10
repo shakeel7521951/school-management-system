@@ -6,41 +6,19 @@ import DepartTeacherComplaintTable from "./DepartTeacherComplaintTable";
 import DepartTeacherComplaintViewModal from "./DepartTeacherComplaintViewModal";
 import DepartTeacherComplaintModal from "./DepartTeacherComplaintModal";
 import DepartTeacherDeleteModal from "./DepartTeacherDeleteModal";
+import { useGetTeacherDepartmentComplaintsQuery } from "../../../redux/slices/DepartmentApi";
 
-const USER_ROLE = "manager";
+const USER_ROLE = "manager"; // example role — replace with actual logged-in user role
 
 const DepartTeacherComplaints = () => {
-  // ✅ Dummy data (replace with API later)
-  const complaints = [
-    {
-      _id: 1,
-      employeeName: "John Doe",
-      jobTitle: "Math Teacher",
-      department: "Mathematics",
-      type: "work Environment",
-      impact: "-",
-      action: "Pending",
-      status: "Pending",
-      details: "-",
-      date: "2025-09-25",
-      severity:"-",
-      
-    },
-    {
-      _id: 2,
-      employeeName: "Jane Smith",
-      jobTitle: "Science Teacher",
-      department: "Science",
-      type: "-",
-      impact: "-",
-      severity: "-",
-      action: "In Progress",
-      status: "In Progress",
-      details: "-.",
-      date: "2025-09-20",
-    },
-   
-  ];
+  // ✅ Role-based conditional fetching
+  const shouldFetch = ["manager", "protection_committee"].includes(USER_ROLE);
+  const { data, isLoading, isError } = useGetTeacherDepartmentComplaintsQuery(undefined, {
+    skip: !shouldFetch,
+  });
+
+  // ✅ Fallback to empty array if no data
+  const complaints = data?.complaints || [];
 
   // ✅ Filters & UI states
   const [filterStatus, setFilterStatus] = useState("all");
@@ -70,8 +48,8 @@ const DepartTeacherComplaints = () => {
       const matchesType =
         filterType === "all" || c.type?.toLowerCase() === filterType.toLowerCase();
       const matchesSearch =
-        c.employeeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        c.details.toLowerCase().includes(searchTerm.toLowerCase());
+        c.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        c.details?.toLowerCase().includes(searchTerm.toLowerCase());
       return matchesStatus && matchesImpact && matchesType && matchesSearch;
     });
   }, [complaints, filterStatus, filterImpact, filterType, searchTerm]);
@@ -112,22 +90,22 @@ const DepartTeacherComplaints = () => {
     setSortConfig({ key, direction });
   };
 
-  // ✅ Dummy status update
+  // ✅ Status update (dummy for now)
   const saveStatus = (id, newStatus) => {
     console.log("Status updated for complaint", id, "to", newStatus);
     setToast({ show: true, message: "Status updated successfully.", type: "success" });
     setViewModal(null);
   };
 
-  // ✅ Dummy delete handler
+  // ✅ Delete handler (dummy)
   const confirmDelete = (id) => {
     console.log("Complaint deleted:", id);
     setToast({ show: true, message: "Complaint deleted successfully.", type: "success" });
     setDeleteModal(null);
   };
 
-  // ✅ Role access control
-  if (!["manager", "protection_committee"].includes(USER_ROLE)) {
+  // ✅ Handle loading / error / access
+  if (!shouldFetch) {
     return (
       <div className="flex justify-center items-center h-screen text-gray-500 text-xl font-medium bg-gray-50">
         <div className="text-center p-8 bg-white rounded-2xl shadow-lg max-w-md border border-gray-100">
@@ -135,6 +113,22 @@ const DepartTeacherComplaints = () => {
           <h2 className="text-2xl font-bold text-gray-800 mb-2">Access Denied</h2>
           <p className="text-gray-600">You do not have permission to view this page.</p>
         </div>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen text-gray-600 text-lg">
+        Loading complaints...
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="flex justify-center items-center h-screen text-gray-600 text-lg">
+        Failed to load complaints. Please try again later.
       </div>
     );
   }
@@ -152,8 +146,10 @@ const DepartTeacherComplaints = () => {
         <hr className="mt-4 border-gray-200" />
       </header>
 
+      {/* Stats */}
       <DepartTeacherComplaintStats complaints={complaints} />
 
+      {/* Filters */}
       <DepartTeacherComplaintFilters
         filterStatus={filterStatus}
         setFilterStatus={setFilterStatus}
@@ -175,6 +171,7 @@ const DepartTeacherComplaints = () => {
         setCurrentPage={setCurrentPage}
       />
 
+      {/* Table */}
       <DepartTeacherComplaintTable
         paginatedComplaints={paginatedComplaints}
         filteredComplaints={filteredComplaints}

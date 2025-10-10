@@ -6,7 +6,6 @@ const DepartStudentComplaint = () => {
   return (
     <div>
       <DepartStudentComplaints/>
-     
     </div>
   )
 }

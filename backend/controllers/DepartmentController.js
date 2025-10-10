@@ -1,4 +1,7 @@
 import Department from "../models/Department.js";
+import StComplaint from "../models/StComplaint.js";
+import TeacherComplaint from "../models/TeacherComplaint.js";
+import User from "../models/User.js";
 
 export const createDepartment = async (req, res) => {
     try {
@@ -46,3 +49,67 @@ export const editDepartment = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 }
+
+export const  departmentStComplaints = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findById(userId).populate("department", "name");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    if (!user.department) {
+      return res.status(400).json({ message: "User has no assigned department" });
+    }
+    const complaints = await StComplaint.find({
+      assignedTo: user.department._id,
+    })
+      .populate("assignedTo", "name")
+      .sort({ createdAt: -1 });
+    if (complaints.length === 0) {
+      return res.status(200).json({ message: "No complaints assigned to this department yet." });
+    }
+    res.status(200).json({
+      message: `Complaints assigned to ${user.department.name}`,
+      department: user.department.name,
+      complaints,
+    });
+  } catch (error) {
+    console.error("Error fetching department complaints:", error);
+    res.status(500).json({
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+export const  departmentTeacherComplaints = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findById(userId).populate("department", "name");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    if (!user.department) {
+      return res.status(400).json({ message: "User has no assigned department" });
+    }
+    const complaints = await TeacherComplaint.find({
+      assignedTo: user.department._id,
+    })
+      .populate("assignedTo", "name")
+      .sort({ createdAt: -1 });
+    if (complaints.length === 0) {
+      return res.status(200).json({ message: "No complaints assigned to this department yet." });
+    }
+    res.status(200).json({
+      message: `Complaints assigned to ${user.department.name}`,
+      department: user.department.name,
+      complaints,
+    });
+  } catch (error) {
+    console.error("Error fetching department complaints:", error);
+    res.status(500).json({
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};

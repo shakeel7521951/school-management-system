@@ -75,10 +75,10 @@ export const userApi = createApi({
     }),
 
     updateUserRole: builder.mutation({
-      query: ({ id, role }) => ({
+      query: (body) => ({
         url: "/update-user-role",
         method: "PUT",
-        body: { id, role },
+        body,
         credentials: "include",
       }),
     }),

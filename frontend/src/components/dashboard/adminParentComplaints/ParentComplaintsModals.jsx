@@ -11,6 +11,8 @@ const ParentComplaintsModals = ({
   departments,
   statuses,
   statusClasses,
+  onStatusChange,
+  onDelete,
 }) => {
   return (
     <>
@@ -36,7 +38,7 @@ const ParentComplaintsModals = ({
                 Severity: viewModal.severity,
                 Impact: viewModal.impact,
                 "Expected Action": viewModal.expectedAction,
-                "Assigned To": viewModal.assignedTo,
+                "Assigned To": viewModal.assignedToName || viewModal.assignedTo,
               }).map(([label, value]) => (
                 <p key={label}>
                   <b>{label}:</b> {value}
@@ -65,11 +67,14 @@ const ParentComplaintsModals = ({
             <select
               className="w-full border border-gray-300 rounded-xl p-2 mb-4"
               value={editModal.assignedTo}
-              onChange={(e) => setEditModal({ ...editModal, assignedTo: e.target.value })}
+              onChange={(e) =>
+                setEditModal({ ...editModal, assignedTo: e.target.value })
+              }
             >
+              <option value="">Unassigned</option>
               {departments.map((dept) => (
-                <option key={dept} value={dept}>
-                  {dept}
+                <option key={dept._id} value={dept._id}>
+                  {dept.name}
                 </option>
               ))}
             </select>
@@ -78,7 +83,9 @@ const ParentComplaintsModals = ({
             <select
               className="w-full border border-gray-300 rounded-xl p-2 mb-4"
               value={editModal.status}
-              onChange={(e) => setEditModal({ ...editModal, status: e.target.value })}
+              onChange={(e) =>
+                setEditModal({ ...editModal, status: e.target.value })
+              }
             >
               {statuses.map((status) => (
                 <option key={status} value={status}>
@@ -89,7 +96,14 @@ const ParentComplaintsModals = ({
 
             <div className="flex justify-end gap-3">
               <button
-                onClick={() => setEditModal(null)}
+                onClick={() => {
+                  onStatusChange({
+                    id: editModal._id,
+                    status: editModal.status,
+                    assignedTo: editModal.assignedTo || null,
+                  });
+                  setEditModal(null);
+                }}
                 className="px-4 py-2 bg-[#104c80] text-white rounded-xl hover:bg-[#0d3b65] transition"
               >
                 Save
@@ -112,12 +126,11 @@ const ParentComplaintsModals = ({
             <FaExclamationTriangle className="text-red-500 text-3xl mx-auto mb-3" />
             <h3 className="text-lg font-bold mb-2 text-gray-800">Confirm Delete</h3>
             <p className="text-sm text-gray-500 mb-4">
-              Are you sure you want to delete the complaint by <b>{deleteModal.parentName}</b> about{" "}
-              <b>{deleteModal.studentName}</b>?
+              Are you sure you want to delete the complaint by <b>{deleteModal.parentName}</b> about <b>{deleteModal.studentName}</b>?
             </p>
             <div className="flex justify-center gap-3">
               <button
-                onClick={() => setDeleteModal(null)}
+                onClick={() => onDelete(deleteModal)}
                 className="px-4 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 transition"
               >
                 Delete

@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    phone:{type:String,required:true},
+    phone: { type: String, required: true },
+    department: { type: mongoose.Schema.Types.ObjectId, ref: "Department" },
     password: { type: String, required: true },
     profilePic: { type: String },
     role: { type: String, default: "user" },
@@ -49,7 +50,7 @@ userSchema.post("save", function (doc) {
         await user.deleteOne();
         console.log(`Unverified user ${user.email} deleted after OTP expiry.`);
       }
-    }, 5 * 60 * 1000); 
+    }, 5 * 60 * 1000);
   }
 });
 
@@ -61,10 +62,18 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
 // Generate JWT Token
 userSchema.methods.generateToken = function () {
   return jwt.sign(
-    { id: this._id,name:this.name ,email: this.email,phone:this.phone, role: this.role,profilePic:this.profilePic },
+    {
+      id: this._id,
+      name: this.name,
+      email: this.email,
+      phone: this.phone,
+      role: this.role,
+      profilePic: this.profilePic,
+      department: this.department,
+    },
     process.env.JWT_SECRET,
     { expiresIn: "1h" }
-  );
+  )
 };
 
 const User = mongoose.model("User", userSchema);
