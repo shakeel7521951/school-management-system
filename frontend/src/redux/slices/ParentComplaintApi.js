@@ -46,10 +46,10 @@ export const parentComplaintApi = createApi({
     }),
 
     changeParentComplaintStatus: builder.mutation({
-      query: ({ id, status }) => ({
+      query: ({ id, status,assignedTo }) => ({
         url: `/update-parent-complaint-status/${id}`,
         method: "PUT",
-        body: { status },
+        body: { status,assignedTo },
       }),
       invalidatesTags: ["ParentComplaint"],
     }),

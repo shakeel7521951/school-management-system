@@ -86,7 +86,7 @@ const ParentComplaintsTable = ({
                   <td className="px-3 py-3 text-center">{c.severity}</td>
                   <td className="px-3 py-3 text-center">{c.impact}</td>
                   <td className="px-3 py-3 text-center">{c.expectedAction}</td>
-                  <td className="px-3 py-3 text-center">{c.assignedTo || "Unassigned"}</td>
+                  <td className="px-3 py-3 text-center">{c.assignedTo?.name || "Unassigned"}</td>
                   <td className="px-3 py-3 text-center">
                     <span className={statusClasses[c.status] || "text-gray-500"}>
                       {c.status}

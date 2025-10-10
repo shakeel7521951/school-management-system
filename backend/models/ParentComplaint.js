@@ -26,6 +26,14 @@ const parentComplaintSchema = new mongoose.Schema(
             type: Date,
             required: true,
         },
+        assignedTo: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Department",
+            default: null,
+        },
+        departmentMessage:{
+            type:String
+        },
         complaintType: {
             type: String,
             required: true,
@@ -62,7 +70,7 @@ const parentComplaintSchema = new mongoose.Schema(
         },
         status: {
             type: String,
-            enum: ["Pending", "In Review", "Resolved"],
+            enum: ["Pending", "In Review", "Resolved","Rejected"],
             default: "Pending",
         },
     },

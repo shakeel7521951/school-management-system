@@ -78,6 +78,7 @@ const AdminParentComplaints = () => {
   // --- Update Complaint Status & Assigned Department ---
   const handleStatusChange = async ({ id, status, assignedTo }) => {
     try {
+      console.log(assignedTo)
       await changeParentComplaintStatus({ id, status, assignedTo }).unwrap();
       toast.success("Complaint updated successfully!");
       refetch();
