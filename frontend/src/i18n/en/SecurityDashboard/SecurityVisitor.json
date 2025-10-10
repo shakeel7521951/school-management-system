@@ -11,6 +11,15 @@
         "label": "Government ID / Badge",
         "placeholder": "e.g. CNIC, Employee Badge"
       },
+      "visitorType": {
+        "label": "Visitor Type",
+        "options": {
+          "parent": "Parent",
+          "teacher": "Teacher",
+          "student": "Student",
+          "other": "Other"
+        }
+      },
       "reason": {
         "label": "Reason",
         "options": {

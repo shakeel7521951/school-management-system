@@ -11,6 +11,15 @@
         "label": "رقم الهوية / البطاقة",
         "placeholder": "مثال: بطاقة الهوية الوطنية، بطاقة الموظف"
       },
+      "visitorType": {
+        "label": "نوع الزائر",
+        "options": {
+          "parent": "ولي أمر",
+          "teacher": "معلم",
+          "student": "طالب",
+          "other": "أخرى"
+        }
+      },
       "reason": {
         "label": "السبب",
         "options": {
