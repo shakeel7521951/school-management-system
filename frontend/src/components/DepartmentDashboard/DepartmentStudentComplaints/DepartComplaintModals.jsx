@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaTimes, FaExclamationTriangle, FaCheck } from "react-icons/fa";
 import DepartViewModal from "./DepartViewModal";
-
+import { useChangeStComplaintStatusMutation } from "../../../redux/slices/StComplaintApi";
 
 const DepartComplaintModals = ({
   viewModal,
@@ -9,8 +9,10 @@ const DepartComplaintModals = ({
   editModal,
   setEditModal,
   toast,
+  showToast,
+  setComplaints,
 }) => {
-  
+  const [changeStComplaintStatus, { isLoading: isUpdating }] = useChangeStComplaintStatusMutation();
 
   const statusColors = {
     resolve: "bg-green-100 text-green-700",
@@ -29,13 +31,32 @@ const DepartComplaintModals = ({
     }
   }, [editModal]);
 
-  const handleSaveChanges = () => {
-    console.log("Updated Values:", {
-      status: updatedStatus,
-      assignedTo,
-      comments,
-    });
-    setEditModal(null);
+  // ✅ Save Changes - Backend Integration
+  const handleSaveChanges = async () => {
+    if (!editModal?._id) return;
+
+    try {
+      const payload = {
+        id: editModal._id,
+        status: updatedStatus,
+        comments,
+      };
+
+      await changeStComplaintStatus(payload).unwrap();
+
+      // ✅ Update UI instantly
+      setComplaints((prev) =>
+        prev.map((c) =>
+          c._id === editModal._id ? { ...c, status: updatedStatus, comments } : c
+        )
+      );
+
+      showToast("Complaint status updated successfully", "success");
+      setEditModal(null);
+    } catch (error) {
+      console.error("Error updating department complaint:", error);
+      showToast("Failed to update complaint status", "error");
+    }
   };
 
   const handleCancelEdit = () => {
@@ -44,10 +65,10 @@ const DepartComplaintModals = ({
 
   return (
     <>
-      {/* View Modal */}
+      {/* ✅ View Modal */}
       {viewModal && <DepartViewModal viewModal={viewModal} setViewModal={setViewModal} />}
 
-      {/* Edit Modal */}
+      {/* ✅ Edit Modal */}
       {editModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-50">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg sm:max-w-xl md:max-w-2xl">
@@ -69,7 +90,8 @@ const DepartComplaintModals = ({
                 </label>
                 <span
                   className={`px-3 py-1 text-sm font-medium rounded-full ${
-                    statusColors[editModal.status?.toLowerCase()] || "bg-gray-100 text-gray-700"
+                    statusColors[editModal.status?.toLowerCase()] ||
+                    "bg-gray-100 text-gray-700"
                   }`}
                 >
                   {editModal.status}
@@ -92,8 +114,6 @@ const DepartComplaintModals = ({
                 </select>
               </div>
 
-              
-
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Comments
@@ -111,22 +131,31 @@ const DepartComplaintModals = ({
             <div className="p-4 sm:p-6 border-t border-gray-200 flex flex-col sm:flex-row justify-end gap-3">
               <button
                 onClick={handleCancelEdit}
-                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition w-full sm:w-auto"
+                disabled={isUpdating}
+                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition w-full sm:w-auto disabled:opacity-50"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSaveChanges}
-                className="px-4 py-2 bg-[#1a4480] text-white rounded-lg hover:bg-[#0d3260] transition w-full sm:w-auto"
+                disabled={isUpdating}
+                className="px-4 py-2 bg-[#1a4480] text-white rounded-lg hover:bg-[#0d3260] transition w-full sm:w-auto disabled:opacity-50 flex items-center justify-center gap-2"
               >
-                Save Changes
+                {isUpdating ? (
+                  <>
+                    <span className="animate-spin border-2 border-white border-t-transparent rounded-full w-4 h-4"></span>
+                    Saving...
+                  </>
+                ) : (
+                  "Save Changes"
+                )}
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Toast Notification */}
+      {/* ✅ Toast Notification */}
       {toast?.show && (
         <div
           className={`fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg text-white font-medium flex items-center gap-2 transition-opacity duration-300 ${

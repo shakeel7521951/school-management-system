@@ -49,7 +49,7 @@ export const getComplaintById = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
   }
-}; 
+};
 
 export const deleteComplaint = async (req, res) => {
   try {
@@ -65,14 +65,14 @@ export const deleteComplaint = async (req, res) => {
 
 export const changeComplaintStatus = async (req, res) => {
   try {
-    const { status,assignedTo } = req.body; 
-    if (!["Pending", "Resolved", "In Progress"].includes(status)) {
+    const { status, assignedTo, message } = req.body;
+    if (!["Pending", "Resolved", "In Progress", "Rejected"].includes(status)) {
       return res.status(400).json({ message: "Invalid status value" });
     }
 
     const complaint = await StComplaint.findByIdAndUpdate(
       req.params.id,
-      { status,assignedTo },
+      { status, assignedTo, departmentMessage: message },
       { new: true }
     );
 

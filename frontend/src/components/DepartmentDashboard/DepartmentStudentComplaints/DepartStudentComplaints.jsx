@@ -5,18 +5,22 @@ import DepartComplaintStats from "./DepartComplaintStats";
 import DepartStudentComplaintFilters from "./DepartStudentComplaintFilters";
 import DepartDeleteModal from "./DepartDeleteModal";
 import DepartComplaintModals from "./DepartComplaintModals";
-import { useGetDepartmentComplaintsQuery } from "../../../redux/slices/DepartmentApi"; // ✅ import your API hook
+import {
+  useGetDepartmentComplaintsQuery,
+} from "../../../redux/slices/DepartmentApi"; // ✅ import all hooks
+import { useChangeStComplaintStatusMutation, useDeleteStComplaintMutation } from "../../../redux/slices/StComplaintApi";
 
 const DepartStudentComplaints = () => {
   const USER_ROLE = "manager";
 
-  // ✅ Fetch complaints using RTK Query
+  // ✅ RTK Query Hooks
   const { data, error, isLoading, refetch } = useGetDepartmentComplaintsQuery();
+  const [changeStComplaintStatus] = useChangeStComplaintStatusMutation();
+  const [deleteStComplaint] = useDeleteStComplaintMutation();
 
-  // ✅ Local state for complaints (for filtering/sorting)
+  // ✅ Local state for complaints
   const [complaints, setComplaints] = useState([]);
 
-  // ✅ Update state when API data changes
   useEffect(() => {
     if (data?.complaints) {
       setComplaints(data.complaints);
@@ -36,29 +40,42 @@ const DepartStudentComplaints = () => {
   const [deleteModal, setDeleteModal] = useState(null);
   const [toast, setToast] = useState({ show: false, message: "", type: "" });
 
-  // ✅ Simple Toast Function
+  // ✅ Toast Handler
   const showToast = (message, type = "success") => {
     setToast({ show: true, message, type });
     setTimeout(() => setToast({ show: false, message: "", type: "" }), 3000);
   };
 
-  // ✅ Update Complaint Status
-  const saveStatus = (id, newStatus) => {
-    setComplaints((prev) =>
-      prev.map((c) => (c._id === id ? { ...c, status: newStatus } : c))
-    );
-    showToast(`Status updated to "${newStatus}"`);
-    setEditModal(null);
+  // ✅ Update Complaint Status (and backend if needed)
+  const saveStatus = async (id, newStatus) => {
+    console.log(id,newStatus);
+    try {
+      await changeStComplaintStatus({ id, status: newStatus }).unwrap();
+      setComplaints((prev) =>
+        prev.map((c) => (c._id === id ? { ...c, status: newStatus } : c))
+      );
+      showToast(`Status updated to "${newStatus}"`);
+      setEditModal(null);
+    } catch (err) {
+      console.error("Error updating department:", err);
+      showToast("Failed to update status", "error");
+    }
   };
 
   // ✅ Delete Complaint
-  const confirmDelete = (id) => {
-    setComplaints((prev) => prev.filter((c) => c._id !== id));
-    showToast(`Complaint deleted successfully`, "success");
-    setDeleteModal(null);
+  const confirmDelete = async (id) => {
+    try {
+      await deleteStComplaint(id).unwrap();
+      setComplaints((prev) => prev.filter((c) => c._id !== id));
+      showToast(`Complaint deleted successfully`, "success");
+      setDeleteModal(null);
+    } catch (err) {
+      console.error("Error deleting department:", err);
+      showToast("Failed to delete complaint", "error");
+    }
   };
 
-  // ✅ Filter Logic
+  // ✅ Filter & Sort Logic
   const filteredComplaints = useMemo(() => {
     const q = searchTerm.trim().toLowerCase();
     return complaints
@@ -86,7 +103,7 @@ const DepartStudentComplaints = () => {
         if (aKey == null && bKey == null) return 0;
         if (aKey == null) return sortConfig.direction === "ascending" ? -1 : 1;
         if (bKey == null) return sortConfig.direction === "ascending" ? 1 : -1;
-        if (sortConfig.key === "_id") return 0; // don't sort by id
+        if (sortConfig.key === "_id") return 0;
         if (aKey < bKey) return sortConfig.direction === "ascending" ? -1 : 1;
         if (aKey > bKey) return sortConfig.direction === "ascending" ? 1 : -1;
         return 0;
@@ -115,6 +132,7 @@ const DepartStudentComplaints = () => {
     setCurrentPage(1);
   };
 
+  // ✅ Role Protection
   if (!["manager", "protection_committee"].includes(USER_ROLE)) {
     return (
       <div className="flex justify-center items-center h-screen text-gray-500 text-xl font-medium bg-gray-50">
@@ -127,7 +145,7 @@ const DepartStudentComplaints = () => {
     );
   }
 
-  // ✅ Loading / Error Handling
+  // ✅ Loading / Error UI
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen text-gray-500 text-lg">
@@ -144,6 +162,7 @@ const DepartStudentComplaints = () => {
     );
   }
 
+  // ✅ UI
   return (
     <div className="lg:ml-[270px] max-w-8xl bg-gray-50 py-4 px-4 sm:px-6 lg:px-10 flex flex-col gap-8 min-h-screen">
       <header>
