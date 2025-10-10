@@ -59,7 +59,7 @@ export default function HeaderSection() {
       />
 
       {/* Overlay gradient (updated look) */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/70 to-[#000000]/70" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black/70 to-[#000000]/70 " />
 
       {/* Swiper */}
       <Swiper
@@ -75,7 +75,7 @@ export default function HeaderSection() {
           bulletActiveClass: "swiper-pagination-bullet-active !bg-white",
         }}
         navigation={{ nextEl: ".custom-next", prevEl: ".custom-prev" }}
-        className="w-full h-[70vh] sm:h-[60vh] md:h-[65vh] lg:h-[86vh] relative z-10 md:block hidden"
+        className="w-full h-[70vh] sm:h-[60vh] md:h-[65vh] lg:h-[86vh] relative z-10"
       >
         {/* Slide 1 */}
         <SwiperSlide>
@@ -141,7 +141,7 @@ export default function HeaderSection() {
       </Swiper>
 
       {/* Navigation Buttons */}
-      <div className="absolute inset-0 justify-between items-center px-4 sm:px-6 md:px-8 z-20 hidden sm:flex">
+      <div className="absolute inset-0 flex justify-between items-center px-4 sm:px-6 md:px-8 z-20">
         <button className="custom-prev p-3 bg-white/15 hover:bg-white/30 backdrop-blur-xl rounded-full border border-white/40 transition">
           <ChevronLeft className="text-white w-6 h-6 md:w-7 md:h-7" />
         </button>
@@ -149,7 +149,6 @@ export default function HeaderSection() {
           <ChevronRight className="text-white w-6 h-6 md:w-7 md:h-7" />
         </button>
       </div>
-
 
       {/* Progress Bar */}
       <div className="absolute top-0 left-0 w-full h-[3px] bg-white/30 z-20">
