@@ -163,10 +163,12 @@ const SecurityRoute = () => {
 const DepartmentRoute = () => {
   return (
     <div>
-      <DepartNavbar />
-      <DepartSidebar />
-      <Outlet />
-      <ScrollToTop />
+      <RoleRoute allowedRoles={["manager"]}>
+        <DepartNavbar />
+        <DepartSidebar />
+        <Outlet />
+        <ScrollToTop />
+      </RoleRoute>
     </div>
   )
 }
