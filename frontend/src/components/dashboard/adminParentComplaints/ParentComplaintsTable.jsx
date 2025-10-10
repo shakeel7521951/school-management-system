@@ -9,6 +9,31 @@ import {
   FaExclamationTriangle,
 } from "react-icons/fa";
 
+// ✅ Helper function to display "time ago"
+const timeAgo = (date) => {
+  if (!date) return "-";
+  const now = new Date();
+  const past = new Date(date);
+  const seconds = Math.floor((now - past) / 1000);
+
+  const intervals = [
+    { label: "year", seconds: 31536000 },
+    { label: "month", seconds: 2592000 },
+    { label: "day", seconds: 86400 },
+    { label: "hour", seconds: 3600 },
+    { label: "minute", seconds: 60 },
+    { label: "second", seconds: 1 },
+  ];
+
+  for (let i = 0; i < intervals.length; i++) {
+    const interval = Math.floor(seconds / intervals[i].seconds);
+    if (interval >= 1) {
+      return `${interval} ${interval === 1 ? intervals[i].label : intervals[i].label + "s"} ago`;
+    }
+  }
+  return "Just now";
+};
+
 const ParentComplaintsTable = ({
   complaints = [],
   sortConfig,
@@ -19,7 +44,7 @@ const ParentComplaintsTable = ({
   statusClasses,
   onDelete, // ✅ from parent
 }) => {
-  console.log(complaints)
+  console.log(complaints);
   return (
     <>
       {/* DESKTOP TABLE */}
@@ -44,21 +69,32 @@ const ParentComplaintsTable = ({
                 <th
                   key={idx}
                   onClick={() =>
-                    !["Expected Action", "Action", "Assigned To", "Status"].includes(header) &&
+                    ![
+                      "Expected Action",
+                      "Action",
+                      "Assigned To",
+                      "Status",
+                    ].includes(header) &&
                     handleSort(header.toLowerCase().replace(/\s+/g, ""))
                   }
                   className="py-4 px-3 text-center cursor-pointer whitespace-nowrap"
                 >
                   <div className="flex items-center justify-center gap-1">
                     {header}
-                    {sortConfig?.key === header.toLowerCase().replace(/\s+/g, "") ? (
+                    {sortConfig?.key ===
+                    header.toLowerCase().replace(/\s+/g, "") ? (
                       sortConfig.direction === "ascending" ? (
                         <FaSortUp />
                       ) : (
                         <FaSortDown />
                       )
                     ) : (
-                      !["Expected Action", "Action", "Assigned To", "Status"].includes(header) && (
+                      ![
+                        "Expected Action",
+                        "Action",
+                        "Assigned To",
+                        "Status",
+                      ].includes(header) && (
                         <FaSort className="text-gray-300" />
                       )
                     )}
@@ -73,25 +109,47 @@ const ParentComplaintsTable = ({
               complaints.map((c, i) => (
                 <tr
                   key={c._id || i}
-                  className={`${i % 2 === 0 ? "bg-white" : "bg-gray-50"} hover:bg-indigo-50 transition`}
+                  className={`${
+                    i % 2 === 0 ? "bg-white" : "bg-gray-50"
+                  } hover:bg-indigo-50 transition`}
                 >
                   <td className="px-3 py-3">{c.parentName}</td>
-                  <td className="px-3 py-3 text-center">{c.relationToStudent}</td>
+                  <td className="px-3 py-3 text-center">
+                    {c.relationToStudent}
+                  </td>
                   <td className="px-3 py-3 text-center">{c.studentName}</td>
                   <td className="px-3 py-3 text-center">{c.class}</td>
-                  <td className="px-3 py-3 text-center">
-                    {new Date(c.date).toLocaleDateString()}
+
+                  {/* ✅ Date + Time Ago */}
+                  <td className="px-3 py-3 text-center text-nowrap">
+                    {c.date ? (
+                      <>
+                        <div>{new Date(c.date).toLocaleDateString()}</div>
+                        <div className="text-xs text-gray-500">
+                          {timeAgo(c.date)}
+                        </div>
+                      </>
+                    ) : (
+                      "-"
+                    )}
                   </td>
+
                   <td className="px-3 py-3 text-center">{c.complaintType}</td>
                   <td className="px-3 py-3 text-center">{c.severity}</td>
                   <td className="px-3 py-3 text-center">{c.impact}</td>
-                  <td className="px-3 py-3 text-center">{c.expectedAction}</td>
-                  <td className="px-3 py-3 text-center">{c.assignedTo?.name || "Unassigned"}</td>
+                  <td className="px-3 py-3 text-center">
+                    {c.expectedAction}
+                  </td>
+                  <td className="px-3 py-3 text-center">
+                    {c.assignedTo?.name || "Unassigned"}
+                  </td>
                   <td className="px-3 py-3 text-center">
                     <span className={statusClasses[c.status] || "text-gray-500"}>
                       {c.status}
                     </span>
                   </td>
+
+                  {/* Action Buttons */}
                   <td className="px-3 py-3 text-center flex justify-center gap-2">
                     <button
                       onClick={() => setViewModal(c)}
@@ -108,7 +166,7 @@ const ParentComplaintsTable = ({
                       <FaEdit />
                     </button>
                     <button
-                      onClick={() => onDelete(c._id)} // ✅ Delete directly from API
+                      onClick={() => onDelete(c._id)}
                       className="text-red-600 hover:bg-red-50 p-2 rounded-full"
                       title="Delete"
                     >
@@ -146,15 +204,29 @@ const ParentComplaintsTable = ({
                   {c.status}
                 </span>
               </div>
+
               <p className="text-sm text-gray-600">
                 <b>Student:</b> {c.studentName} ({c.class})
               </p>
               <p className="text-sm text-gray-600">
                 <b>Type:</b> {c.complaintType} | <b>Severity:</b> {c.severity}
               </p>
+
+              {/* ✅ Date + Time Ago for Mobile */}
               <p className="text-sm text-gray-600">
-                <b>Date:</b> {new Date(c.date).toLocaleDateString()}
+                <b>Date:</b>{" "}
+                {c.date ? (
+                  <>
+                    {new Date(c.date).toLocaleDateString()}{" "}
+                    <span className="text-gray-500 text-xs">
+                      ({timeAgo(c.date)})
+                    </span>
+                  </>
+                ) : (
+                  "-"
+                )}
               </p>
+
               <div className="flex justify-end mt-3 gap-2">
                 <button
                   onClick={() => setViewModal(c)}
@@ -169,7 +241,7 @@ const ParentComplaintsTable = ({
                   <FaEdit />
                 </button>
                 <button
-                  onClick={() => onDelete(c._id)} // ✅ Mobile delete support too
+                  onClick={() => onDelete(c._id)}
                   className="text-red-600 hover:bg-red-50 p-2 rounded-full"
                 >
                   <FaTrash />

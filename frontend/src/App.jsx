@@ -197,10 +197,6 @@ const router = createBrowserRouter([
       { path: "/nursing-department", element: <NursingDepartment /> },
       { path: "/gallery", element: <GallerySection /> },
       { path: "/registration-form", element: <RegistrationForm /> },
-
-
-
-
       // { path: '/services', element: <Event /> },
       { path: '/contact-us', element: <ContactUs /> },
       { path: '/news', element: <NewsPage /> },

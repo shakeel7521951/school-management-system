@@ -6,9 +6,36 @@ import {
   FaSort,
   FaSortUp,
   FaSortDown,
-  FaExclamationTriangle
+  FaExclamationTriangle,
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+
+// 🔹 Helper function: shows "x days/hours/minutes ago"
+const timeAgo = (date) => {
+  if (!date) return "-";
+
+  const now = new Date();
+  const past = new Date(date);
+  const seconds = Math.floor((now - past) / 1000);
+
+  const intervals = [
+    { label: "year", seconds: 31536000 },
+    { label: "month", seconds: 2592000 },
+    { label: "day", seconds: 86400 },
+    { label: "hour", seconds: 3600 },
+    { label: "minute", seconds: 60 },
+    { label: "second", seconds: 1 },
+  ];
+
+  for (let i = 0; i < intervals.length; i++) {
+    const interval = Math.floor(seconds / intervals[i].seconds);
+    if (interval >= 1) {
+      return `${interval} ${interval === 1 ? intervals[i].label : intervals[i].label + "s"} ago`;
+    }
+  }
+
+  return "Just now";
+};
 
 // Colors
 const typeColors = {
@@ -19,21 +46,21 @@ const typeColors = {
   Facilities: "bg-purple-100 text-purple-700",
   Bus: "bg-cyan-100 text-cyan-700",
   Emotions: "bg-pink-100 text-pink-700",
-  Rights: "bg-blue-100 text-blue-700"
+  Rights: "bg-blue-100 text-blue-700",
 };
 
 const severityColors = {
   "simple-note": "bg-gray-100 text-gray-700",
   urgent: "bg-red-100 text-red-700",
   "follow-up": "bg-amber-100 text-amber-700",
-  serious: "bg-purple-100 text-purple-700"
+  serious: "bg-purple-100 text-purple-700",
 };
 
 const statusColors = {
   pending: "bg-yellow-100 text-yellow-700",
   "in progress": "bg-blue-100 text-blue-700",
   resolved: "bg-green-100 text-green-700",
-  rejected: "bg-red-100 text-red-700"
+  rejected: "bg-red-100 text-red-700",
 };
 
 const ComplaintTable = ({
@@ -43,22 +70,21 @@ const ComplaintTable = ({
   handleSort,
   setViewModal,
   setEditModal,
-  setDeleteModal
+  setDeleteModal,
 }) => {
   const { t } = useTranslation("adminStudentComplaints");
 
-  // Columns now use studentClass key
   const columns = [
     { key: "name", label: t("table.columns.name"), width: "w-40" },
     { key: "studentClass", label: t("table.columns.class"), width: "w-20" },
     { key: "age", label: t("table.columns.age"), width: "w-20" },
-    { key: "date", label: t("table.columns.date"), width: "w-28" },
+    { key: "date", label: t("table.columns.date"), width: "w-32" },
     { key: "type", label: t("table.columns.type"), width: "w-32" },
     { key: "severity", label: t("table.columns.severity"), width: "w-28" },
     { key: "impact", label: t("table.columns.impact"), width: "w-28" },
     { key: "action", label: t("table.columns.action"), width: "w-32" },
     { key: "status", label: t("table.columns.status"), width: "w-28" },
-    { key: "actions", label: t("table.columns.actions"), width: "w-28" }
+    { key: "actions", label: t("table.columns.actions"), width: "w-28" },
   ];
 
   return (
@@ -116,8 +142,18 @@ const ComplaintTable = ({
                   {c.studentClass}
                 </td>
                 <td className="px-3 py-2 text-center text-nowrap">{c.age}</td>
+                {/* Date + Time Ago */}
                 <td className="px-3 py-2 text-center text-nowrap">
-                  {c.date ? new Date(c.date).toLocaleDateString() : "-"}
+                  {c.date ? (
+                    <>
+                      <div>{new Date(c.date).toLocaleDateString()}</div>
+                      <div className="text-xs text-gray-500">
+                        {timeAgo(c.date)}
+                      </div>
+                    </>
+                  ) : (
+                    "-"
+                  )}
                 </td>
                 <td className="px-3 py-2 text-center">
                   <span
@@ -138,7 +174,9 @@ const ComplaintTable = ({
                     {c.severity}
                   </span>
                 </td>
-                <td className="px-3 py-2 text-center text-nowrap">{c.impact}</td>
+                <td className="px-3 py-2 text-center text-nowrap">
+                  {c.impact}
+                </td>
                 <td className="px-3 py-2 text-center">
                   <span
                     className={`px-2 py-1 text-xs font-semibold rounded-full text-nowrap ${
@@ -225,7 +263,16 @@ const ComplaintTable = ({
                 </p>
                 <p>
                   <b>{t("table.columns.date")}:</b>{" "}
-                  {c.date ? new Date(c.date).toLocaleDateString() : "-"}
+                  {c.date ? (
+                    <>
+                      {new Date(c.date).toLocaleDateString()}{" "}
+                      <span className="text-gray-500 text-xs">
+                        ({timeAgo(c.date)})
+                      </span>
+                    </>
+                  ) : (
+                    "-"
+                  )}
                 </p>
                 <p>
                   <b>{t("table.columns.impact")}:</b> {c.impact}

@@ -11,6 +11,31 @@ import {
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 
+// ✅ Helper function to display "time ago"
+const timeAgo = (date) => {
+  if (!date) return "-";
+  const now = new Date();
+  const past = new Date(date);
+  const seconds = Math.floor((now - past) / 1000);
+
+  const intervals = [
+    { label: "year", seconds: 31536000 },
+    { label: "month", seconds: 2592000 },
+    { label: "day", seconds: 86400 },
+    { label: "hour", seconds: 3600 },
+    { label: "minute", seconds: 60 },
+    { label: "second", seconds: 1 },
+  ];
+
+  for (let i = 0; i < intervals.length; i++) {
+    const interval = Math.floor(seconds / intervals[i].seconds);
+    if (interval >= 1) {
+      return `${interval} ${interval === 1 ? intervals[i].label : intervals[i].label + "s"} ago`;
+    }
+  }
+  return "Just now";
+};
+
 const TeacherComplaintTable = ({
   paginatedComplaints,
   filteredComplaints,
@@ -79,8 +104,19 @@ const TeacherComplaintTable = ({
 
                 <td className="px-3 py-2 text-center">{c.jobTitle}</td>
                 <td className="px-3 py-2 text-center">{c.department}</td>
-                <td className="px-3 py-2 text-center">
-                  {c.date ? new Date(c.date).toLocaleDateString() : "-"}
+
+                {/* Date + Time Ago */}
+                <td className="px-3 py-2 text-center text-nowrap">
+                  {c.date ? (
+                    <>
+                      <div>{new Date(c.date).toLocaleDateString()}</div>
+                      <div className="text-xs text-gray-500">
+                        {timeAgo(c.date)}
+                      </div>
+                    </>
+                  ) : (
+                    "-"
+                  )}
                 </td>
 
                 {/* Type */}
@@ -181,7 +217,9 @@ const TeacherComplaintTable = ({
                 <div className="bg-indigo-100 p-2 rounded-full">
                   <FaUser className="text-indigo-600 text-sm" />
                 </div>
-                <h3 className="font-semibold text-gray-900">{c.employeeName}</h3>
+                <h3 className="font-semibold text-gray-900">
+                  {c.employeeName}
+                </h3>
               </div>
 
               {/* Info Grid */}
@@ -191,7 +229,14 @@ const TeacherComplaintTable = ({
                     c[key] && (
                       <p key={key} className="col-span-2">
                         <b>{label}:</b>{" "}
-                        {["type", "severity", "status"].includes(key) ? (
+                        {key === "date" ? (
+                          <>
+                            {new Date(c.date).toLocaleDateString()}{" "}
+                            <span className="text-gray-500 text-xs">
+                              ({timeAgo(c.date)})
+                            </span>
+                          </>
+                        ) : ["type", "severity", "status"].includes(key) ? (
                           <span
                             className={`px-2 py-1 text-xs rounded-full ${
                               t(`colors.${key}.${c[key]}`, {
