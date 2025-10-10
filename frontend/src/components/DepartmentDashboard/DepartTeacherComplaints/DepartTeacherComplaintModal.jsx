@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { FaTimes, FaExclamationTriangle, FaCheck } from "react-icons/fa";
+import { useUpdateComplaintStatusMutation } from "../../../redux/slices/TeacherComplaints"; // adjust import path if needed
 
 const DepartTeacherComplaintModal = ({
   editModal,
   setEditModal,
-  saveStatus,
   toast,
   showToast,
 }) => {
-
+  const [updateComplaintStatus] = useUpdateComplaintStatusMutation();
 
   // Form state
   const [formData, setFormData] = useState({
@@ -17,7 +17,7 @@ const DepartTeacherComplaintModal = ({
     department: "",
     date: "",
     status: "",
-    
+    message: "",
   });
 
   // Dummy fallback data
@@ -27,7 +27,7 @@ const DepartTeacherComplaintModal = ({
     department: "Academic Office",
     date: "2025-10-01",
     status: "pending",
-    
+    message: "",
   };
 
   // When modal opens, load selected or dummy data
@@ -41,26 +41,32 @@ const DepartTeacherComplaintModal = ({
           ? new Date(editModal.date).toISOString().split("T")[0]
           : dummyData.date,
         status: editModal.status || dummyData.status,
-        assignedTo: editModal.assignedTo || dummyData.assignedTo,
+        message: editModal.message || "",
       });
     }
   }, [editModal]);
 
   if (!editModal) return null;
 
-  // Handlers
+  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Handle save (update complaint status + message)
   const handleSave = async () => {
     try {
-      await saveStatus(editModal._id, formData.status, formData.assignedTo);
-      showToast("Status updated successfully!", "success");
+      const response = await updateComplaintStatus({
+        id: editModal._id,
+        status: formData.status,
+        message: formData.message,
+      }).unwrap();
+
+      showToast(response?.message || "Status updated successfully!", "success");
       setEditModal(null);
     } catch (error) {
-      showToast(error?.message || "Error updating status.", "error");
+      showToast(error?.data?.message || "Error updating complaint.", "error");
     }
   };
 
@@ -119,7 +125,20 @@ const DepartTeacherComplaintModal = ({
               </select>
             </div>
 
-          
+            {/* Message Box */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Message / Comments
+              </label>
+              <textarea
+                name="message"
+                rows="3"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Add your comments or feedback..."
+                className="w-full border border-gray-300 px-3 py-2 rounded-lg focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
+              />
+            </div>
           </div>
 
           {/* Footer */}
@@ -140,7 +159,7 @@ const DepartTeacherComplaintModal = ({
         </div>
       </div>
 
-      {/* Toast */}
+      {/* Toast Notification */}
       {toast?.show && (
         <div
           className={`fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg text-white font-medium flex items-center gap-2 ${

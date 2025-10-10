@@ -66,6 +66,9 @@ const complaintSchema = new mongoose.Schema(
       ref: "Department",
       default: null,
     },
+    departmentMessage: {
+      type: String
+    },
     submittedAt: {
       type: Date,
       default: Date.now,

@@ -81,6 +81,7 @@ export const  departmentStComplaints = async (req, res) => {
     });
   }
 };
+
 export const  departmentTeacherComplaints = async (req, res) => {
   try {
     const userId = req.user.id;
