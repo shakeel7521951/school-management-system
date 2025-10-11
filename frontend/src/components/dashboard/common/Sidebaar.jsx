@@ -20,7 +20,7 @@ const Sidebar = () => {
     profile?.department?.name ===
     "Department of Strategic Planning for Quality and School Accreditation";
 
-  const canViewComplaints = !restrictedDept; // ❌ Hide complaint routes for this department
+  const canViewComplaints = !restrictedDept; 
 
   useEffect(() => {
     const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
