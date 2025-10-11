@@ -9,7 +9,7 @@ import { toggleLanguage } from '../../redux/slices/languageSlice'
 import VisitorFormModal from './VisitorFormModal'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
-export default function Navbar () {
+export default function Navbar() {
   const { t } = useTranslation('navbar')
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -72,6 +72,13 @@ export default function Navbar () {
   const toggleDropdown = menu => {
     setOpenDropdown(openDropdown === menu ? null : menu)
   }
+
+  const dashboardAccessDepartments = [
+    "Office of the General Director",
+    "Office of the International Educational Development Advisor",
+    "Department of Strategic Planning for Quality and School Accreditation"
+  ];
+
 
   return (
     <>
@@ -304,10 +311,9 @@ export default function Navbar () {
                   <NavLink
                     to={link.path}
                     className={({ isActive }) =>
-                      `relative pb-1 transition duration-300 px-3 py-2 ${
-                        isActive
-                          ? 'text-indigo-300 font-semibold after:w-full'
-                          : 'text-gray-200 hover:text-indigo-300  after:w-0 hover:after:w-full'
+                      `relative pb-1 transition duration-300 px-3 py-2 ${isActive
+                        ? 'text-indigo-300 font-semibold after:w-full'
+                        : 'text-gray-200 hover:text-indigo-300  after:w-0 hover:after:w-full'
                       } after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-gradient-to-r after:from-indigo-400 after:to-purple-400 after:transition-all after:duration-300`
                     }
                   >
@@ -368,14 +374,17 @@ export default function Navbar () {
                       >
                         {t('navbar.profile.myProfile')}{' '}
                       </NavLink>
-                      {profile?.role === 'admin' && (
-                        <NavLink
-                          to='/analytics'
-                          className='block px-4 py-2 hover:text-indigo-700'
-                        >
-                          {t('navbar.profile.adminDashboard')}
-                        </NavLink>
-                      )}
+                      {(
+                        profile?.role?.toLowerCase() === "admin" ||
+                        dashboardAccessDepartments.includes(profile?.department?.name)
+                      ) && (
+                          <NavLink
+                            to="/analytics"
+                            className="block px-4 py-2 hover:text-indigo-700"
+                          >
+                            {t("navbar.profile.adminDashboard")}
+                          </NavLink>
+                        )}
                       {profile?.role === 'teacher' && (
                         <NavLink
                           to='/teacherdocuments'
@@ -442,9 +451,8 @@ export default function Navbar () {
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 max-w-full bg-gradient-to-b from-[#1A3570] to-[#2E3A87] border-l border-indigo-400 shadow-2xl transform transition-transform duration-300 z-50 p-4 sm:p-6 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={`fixed top-0 right-0 h-full w-80 max-w-full bg-gradient-to-b from-[#1A3570] to-[#2E3A87] border-l border-indigo-400 shadow-2xl transform transition-transform duration-300 z-50 p-4 sm:p-6 ${isOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
       >
         {/* Header */}
         <div className='flex justify-between items-center mb-6'>
@@ -469,10 +477,9 @@ export default function Navbar () {
                   to={link.path}
                   onClick={() => setIsOpen(false)}
                   className={({ isActive }) =>
-                    `block py-3 px-4 rounded-lg transition duration-300 ${
-                      isActive
-                        ? 'bg-indigo-800 text-indigo-300 font-semibold'
-                        : 'text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30'
+                    `block py-3 px-4 rounded-lg transition duration-300 ${isActive
+                      ? 'bg-indigo-800 text-indigo-300 font-semibold'
+                      : 'text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30'
                     }`
                   }
                 >
