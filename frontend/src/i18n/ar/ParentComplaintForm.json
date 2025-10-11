@@ -1,0 +1,61 @@
+{
+  "parentComplaintForm": {
+    "title": "نموذج شكوى ولي الأمر",
+    "parentName": "اسم ولي الأمر",
+    "relationToStudent": "صلة القرابة بالطالب",
+    "studentName": "اسم الطالب",
+    "class": "الصف الدراسي",
+    "date": "تاريخ الشكوى",
+    "complaintType": {
+      "label": "نوع الشكوى",
+      "placeholder": "اختر النوع",
+      "options": {
+        "safety": "السلامة",
+        "wellbeing": "الرفاهية",
+        "bullying": "التنمر",
+        "staff": "الهيئة التعليمية",
+        "education": "التعليم",
+        "facilities": "المرافق",
+        "bus": "النقل المدرسي",
+        "rights": "الحقوق",
+        "other": "أخرى"
+      }
+    },
+    "impact": {
+      "label": "تأثير الشكوى على الطالب",
+      "placeholder": "اختر التأثير",
+      "options": {
+        "psychological": "نفسي",
+        "physical": "جسدي",
+        "academic": "أكاديمي",
+        "social": "اجتماعي"
+      }
+    },
+    "severity": {
+      "label": "درجة الخطورة",
+      "placeholder": "اختر الدرجة",
+      "options": {
+        "simpleNote": "ملاحظة بسيطة",
+        "urgent": "عاجلة",
+        "followUp": "تحتاج متابعة",
+        "serious": "خطيرة"
+      }
+    },
+    "details": {
+      "label": "تفاصيل الشكوى",
+      "placeholder": "صف الشكوى..."
+    },
+    "expectedAction": {
+      "label": "الإجراء المتوقع من المدرسة",
+      "placeholder": "ما الإجراء الذي تتوقعه من المدرسة؟"
+    },
+    "submitButton": {
+      "default": "إرسال الشكوى",
+      "loading": "جاري الإرسال..."
+    },
+    "toast": {
+      "success": "تم إرسال الشكوى بنجاح!",
+      "error": "فشل في إرسال الشكوى"
+    }
+  }
+}

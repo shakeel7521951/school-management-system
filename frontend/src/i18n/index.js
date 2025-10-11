@@ -25,6 +25,9 @@ import publicrelations_en from "./en/PublicRelations.json";
 import publicrelations_ar from "./ar/PublicRelations.json";
 import financialandadministrativeaffairs_en from "./en/FinancialAndAdministrativeAffairs.json";
 import financialandadministrativeaffairs_ar from "./ar/FinancialAndAdministrativeAffairs.json";
+import parentComplaintForm_en from "./en/ParentComplaintForm.json"
+import parentComplaintForm_ar from "./ar/ParentComplaintForm.json"
+
 
 
 import directorManager_en from "./en/Directormanager.json";
@@ -122,6 +125,19 @@ import studentNavbar_en from "./en/studentDashboard/StudentNavbar.json"
 import studentNavbar_ar from "./ar/studentDashboard/StudentNavbar.json"
 import studentSidebar_en from "./en/studentDashboard/StudentSidebar.json"
 import studentSidebar_ar from "./en/studentDashboard/StudentSidebar.json"
+import adminParentComplaints_en from "./en/AdminParentComplaints/AdminParentComplaints.json"
+import adminParentComplaints_ar from "./ar/AdminParentComplaints/AdminParentComplaints.json"
+import parentComplaintsModals_en from "./en/AdminParentComplaints/ParentComplaintsModals.json"
+import parentComplaintsModals_ar from "./ar/AdminParentComplaints/ParentComplaintsModals.json"
+import parentComplaintsTable_en from "./en/AdminParentComplaints/ParentComplaintsTable.json"
+import parentComplaintsTable_ar from "./ar/AdminParentComplaints/ParentComplaintsTable.json"
+import adminDepartmentPage_en from "./en/AdminDepartmentPage/AdminDepartmentPage.json"
+import adminDepartmentPage_ar from "./ar/AdminDepartmentPage/AdminDepartmentPage.json"
+import departmentTable_en from "./en/AdminDepartmentPage/DepartmentTable.json"
+import departmentTable_ar from "./ar/AdminDepartmentPage/DepartmentTable.json"
+import departmentModals_en from "./en/AdminDepartmentPage/DepartmentModals.json"
+import departmentModals_ar from "./ar/AdminDepartmentPage/DepartmentModals.json"
+
 
 
 
@@ -169,6 +185,7 @@ const resources = {
     securityVisitorForm:securityVisitorForm_en,
     visitorViewModal:visitorViewModal_en,
     visitorManagement:visitorManagement_en,
+    parentComplaintForm:parentComplaintForm_en,
     
 
 
@@ -186,7 +203,13 @@ const resources = {
     responseForm: responseForm_en,
     registrationForm: registrationForm_en,
     studentNavbar: studentNavbar_en,
-    studentSidebar: studentSidebar_en
+    studentSidebar: studentSidebar_en,
+    adminParentComplaints:adminParentComplaints_en,
+    parentComplaintsModals:parentComplaintsModals_en,
+    parentComplaintsTable:parentComplaintsTable_en,
+    adminDepartmentPage:adminDepartmentPage_en,
+    departmentTable:departmentTable_en,
+    departmentModals:departmentModals_en
   },
   ar: {
     home: home_ar,
@@ -231,6 +254,7 @@ const resources = {
     securityVisitorForm:securityVisitorForm_ar,
     visitorViewModal:visitorViewModal_ar,
     visitorManagement:visitorManagement_ar,
+    parentComplaintForm:parentComplaintForm_ar,
 
 
     navbar: navbar_ar,
@@ -246,7 +270,13 @@ const resources = {
     responseForm: responseForm_ar,
     registrationForm: registrationForm_ar,
     studentNavbar: studentNavbar_ar,
-    studentSidebar: studentSidebar_ar
+    studentSidebar: studentSidebar_ar,
+    adminParentComplaints:adminParentComplaints_ar,
+    parentComplaintsModals:parentComplaintsModals_ar,
+    parentComplaintsTable:parentComplaintsTable_ar,
+    adminDepartmentPage:adminDepartmentPage_ar,
+    departmentTable:departmentTable_ar,
+    departmentModals:departmentModals_ar
   },
 };
 

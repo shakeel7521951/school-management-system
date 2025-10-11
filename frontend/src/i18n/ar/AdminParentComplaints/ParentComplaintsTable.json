@@ -1,0 +1,49 @@
+{
+  "parentComplaintsTable": {
+    "headers": {
+      "parentName": "اسم ولي الأمر",
+      "relation": "العلاقة",
+      "studentName": "اسم الطالب",
+      "class": "الفصل",
+      "date": "التاريخ",
+      "type": "النوع",
+      "severity": "الخطورة",
+      "impact": "التأثير",
+      "expectedAction": "الإجراء المتوقع",
+      "assignedTo": "مُكلّف إلى",
+      "status": "الحالة",
+      "action": "الإجراء"
+    },
+
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+
+    "messages": {
+      "noComplaints": "لم يتم العثور على أي شكاوى.",
+      "unassigned": "غير مُكلّف",
+      "student": "الطالب",
+      "type": "النوع",
+      "severity": "الخطورة",
+      "date": "التاريخ"
+    },
+
+    "timeAgo": {
+      "year": "منذ {{count}} سنة",
+      "year_plural": "منذ {{count}} سنوات",
+      "month": "منذ {{count}} شهر",
+      "month_plural": "منذ {{count}} أشهر",
+      "day": "منذ {{count}} يوم",
+      "day_plural": "منذ {{count}} أيام",
+      "hour": "منذ {{count}} ساعة",
+      "hour_plural": "منذ {{count}} ساعات",
+      "minute": "منذ {{count}} دقيقة",
+      "minute_plural": "منذ {{count}} دقائق",
+      "second": "منذ {{count}} ثانية",
+      "second_plural": "منذ {{count}} ثوانٍ",
+      "justNow": "الآن"
+    }
+  }
+}

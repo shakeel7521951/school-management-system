@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaEye, FaEdit, FaTrash, FaExclamationTriangle } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const DepartmentTable = ({
   departments,
@@ -11,6 +12,8 @@ const DepartmentTable = ({
   setShowDeleteModal,
   setForm,
 }) => {
+  const { t } = useTranslation("departmentTable");
+
   return (
     <>
       {/* ===== TABLE VIEW (Desktop) ===== */}
@@ -18,11 +21,11 @@ const DepartmentTable = ({
         <table className="w-full text-sm">
           <thead className="bg-[#104C80] text-white text-center text-xs uppercase tracking-wider">
             <tr>
-              <th className="py-3 px-2">Name</th>
-              <th className="py-3 px-2">Total Complaints</th>
-              <th className="py-3 px-2">Pending</th>
-              <th className="py-3 px-2">Resolved</th>
-              <th className="py-3 px-2">Actions</th>
+              <th className="py-3 px-2">{t("departmentTable.headers.name")}</th>
+              <th className="py-3 px-2">{t("departmentTable.headers.totalComplaints")}</th>
+              <th className="py-3 px-2">{t("departmentTable.headers.pending")}</th>
+              <th className="py-3 px-2">{t("departmentTable.headers.resolved")}</th>
+              <th className="py-3 px-2">{t("departmentTable.headers.actions")}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
@@ -47,6 +50,7 @@ const DepartmentTable = ({
                           setShowViewModal(true);
                         }}
                         className="text-[#104C80] hover:bg-[#104C80]/10 p-2 rounded-full"
+                        title={t("departmentTable.buttons.view")}
                       >
                         <FaEye />
                       </button>
@@ -60,6 +64,7 @@ const DepartmentTable = ({
                           setShowAddModal(true);
                         }}
                         className="text-green-600 hover:bg-green-50 p-2 rounded-full"
+                        title={t("departmentTable.buttons.edit")}
                       >
                         <FaEdit />
                       </button>
@@ -69,6 +74,7 @@ const DepartmentTable = ({
                           setShowDeleteModal(true);
                         }}
                         className="text-red-600 hover:bg-red-50 p-2 rounded-full"
+                        title={t("departmentTable.buttons.delete")}
                       >
                         <FaTrash />
                       </button>
@@ -80,7 +86,7 @@ const DepartmentTable = ({
               <tr>
                 <td colSpan="6" className="text-center py-6 text-gray-400">
                   <FaExclamationTriangle className="mx-auto text-2xl mb-2" />
-                  No departments found.
+                  {t("departmentTable.noDepartments.title")}
                 </td>
               </tr>
             )}
@@ -103,21 +109,21 @@ const DepartmentTable = ({
                 {dept.name}
               </h3>
               <p className="text-sm text-gray-600 mb-4">
-                {dept.description || "No description provided."}
+                {dept.description || t("departmentTable.mobile.noDescription")}
               </p>
               <div className="grid grid-cols-3 text-center mb-4">
                 <div>
-                  <p className="text-gray-500 text-xs">Total</p>
+                  <p className="text-gray-500 text-xs">{t("departmentTable.mobile.total")}</p>
                   <p className="font-semibold text-gray-800">
                     {dept.totalComplaints}
                   </p>
                 </div>
                 <div>
-                  <p className="text-gray-500 text-xs">Pending</p>
+                  <p className="text-gray-500 text-xs">{t("departmentTable.mobile.pending")}</p>
                   <p className="font-semibold text-yellow-600">{dept.pending}</p>
                 </div>
                 <div>
-                  <p className="text-gray-500 text-xs">Resolved</p>
+                  <p className="text-gray-500 text-xs">{t("departmentTable.mobile.resolved")}</p>
                   <p className="font-semibold text-green-600">{dept.resolved}</p>
                 </div>
               </div>
@@ -129,6 +135,7 @@ const DepartmentTable = ({
                     setShowViewModal(true);
                   }}
                   className="text-[#104C80] hover:bg-[#104C80]/10 p-2 rounded-full"
+                  title={t("departmentTable.buttons.view")}
                 >
                   <FaEye />
                 </button>
@@ -142,6 +149,7 @@ const DepartmentTable = ({
                     setShowAddModal(true);
                   }}
                   className="text-green-600 hover:bg-green-50 p-2 rounded-full"
+                  title={t("departmentTable.buttons.edit")}
                 >
                   <FaEdit />
                 </button>
@@ -151,6 +159,7 @@ const DepartmentTable = ({
                     setShowDeleteModal(true);
                   }}
                   className="text-red-600 hover:bg-red-50 p-2 rounded-full"
+                  title={t("departmentTable.buttons.delete")}
                 >
                   <FaTrash />
                 </button>
@@ -160,7 +169,7 @@ const DepartmentTable = ({
         ) : (
           <div className="text-center py-6 text-gray-400">
             <FaExclamationTriangle className="mx-auto text-2xl mb-2" />
-            No departments found.
+            {t("departmentTable.noDepartments.title")}
           </div>
         )}
       </div>

@@ -1,0 +1,45 @@
+{
+  "departmentModals": {
+    "addEdit": {
+      "addTitle": "إضافة قسم",
+      "editTitle": "تعديل القسم",
+      "fields": {
+        "name": {
+          "label": "اسم القسم",
+          "placeholder": "أدخل اسم القسم"
+        },
+        "description": {
+          "label": "الوصف",
+          "placeholder": "أدخل وصفًا مختصرًا"
+        }
+      },
+      "buttons": {
+        "cancel": "إلغاء",
+        "add": "إضافة",
+        "update": "تحديث"
+      }
+    },
+    "view": {
+      "title": "تفاصيل القسم",
+      "fields": {
+        "name": "الاسم",
+        "description": "الوصف",
+        "totalComplaints": "إجمالي الشكاوى",
+        "pending": "قيد الانتظار",
+        "resolved": "تم الحل",
+        "noDescription": "لا يوجد وصف متاح."
+      },
+      "buttons": {
+        "close": "إغلاق"
+      }
+    },
+    "delete": {
+      "title": "تأكيد الحذف",
+      "message": "هل أنت متأكد أنك تريد حذف قسم {{department}}؟",
+      "buttons": {
+        "cancel": "إلغاء",
+        "delete": "حذف"
+      }
+    }
+  }
+}

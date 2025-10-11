@@ -1,0 +1,45 @@
+{
+  "departmentModals": {
+    "addEdit": {
+      "addTitle": "Add Department",
+      "editTitle": "Edit Department",
+      "fields": {
+        "name": {
+          "label": "Department Name",
+          "placeholder": "Enter department name"
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "Enter short description"
+        }
+      },
+      "buttons": {
+        "cancel": "Cancel",
+        "add": "Add",
+        "update": "Update"
+      }
+    },
+    "view": {
+      "title": "Department Details",
+      "fields": {
+        "name": "Name",
+        "description": "Description",
+        "totalComplaints": "Total Complaints",
+        "pending": "Pending",
+        "resolved": "Resolved",
+        "noDescription": "No description provided."
+      },
+      "buttons": {
+        "close": "Close"
+      }
+    },
+    "delete": {
+      "title": "Confirm Delete",
+      "message": "Are you sure you want to delete {{department}} department?",
+      "buttons": {
+        "cancel": "Cancel",
+        "delete": "Delete"
+      }
+    }
+  }
+}

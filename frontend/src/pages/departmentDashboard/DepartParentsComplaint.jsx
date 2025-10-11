@@ -82,7 +82,7 @@ const DepartmentParentComplaints = () => {
           Parents Complaint Management
         </h2>
         <p className="text-[#104c80]/80 text-sm md:text-base max-w-2xl leading-relaxed">
-        Manage.review and resolve parents complaints.
+        Manage review and resolve parents complaints.
         
         </p>
       </div>

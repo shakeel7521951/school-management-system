@@ -1,0 +1,54 @@
+{
+  "departmentPage": {
+    "title": "Department Management",
+    "addButton": "Add Department",
+    "stats": {
+      "totalDepartments": {
+        "label": "Total Departments"
+      },
+      "pendingComplaints": {
+        "label": "Pending Complaints"
+      },
+      "resolvedComplaints": {
+        "label": "Resolved Complaints"
+      }
+    },
+    "loading": "Loading departments...",
+    "table": {
+      "name": "Department Name",
+      "description": "Description",
+      "actions": "Actions",
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete",
+      "noData": "No departments found"
+    },
+    "modals": {
+      "addTitle": "Add New Department",
+      "editTitle": "Edit Department",
+      "viewTitle": "Department Details",
+      "deleteTitle": "Delete Department",
+      "deleteConfirm": "Are you sure you want to delete this department?",
+      "fields": {
+        "name": {
+          "label": "Department Name",
+          "placeholder": "Enter department name"
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "Enter short description"
+        }
+      },
+      "buttons": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "confirmDelete": "Yes, Delete",
+        "close": "Close"
+      },
+      "alerts": {
+        "saveError": "Error saving department",
+        "deleteError": "Error deleting department"
+      }
+    }
+  }
+}

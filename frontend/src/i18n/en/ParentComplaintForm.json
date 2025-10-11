@@ -1,0 +1,61 @@
+{
+  "parentComplaintForm": {
+    "title": "Parents Complaint Form",
+    "parentName": "Parent Name",
+    "relationToStudent": "Relation to Student",
+    "studentName": "Student Name",
+    "class": "Class",
+    "date": "Date of Complaint",
+    "complaintType": {
+      "label": "Complaint Type",
+      "placeholder": "Select Type",
+      "options": {
+        "safety": "Safety",
+        "wellbeing": "Wellbeing",
+        "bullying": "Bullying",
+        "staff": "Staff",
+        "education": "Education",
+        "facilities": "Facilities",
+        "bus": "Bus",
+        "rights": "Rights",
+        "other": "Other"
+      }
+    },
+    "impact": {
+      "label": "Impact on Student",
+      "placeholder": "Select Impact",
+      "options": {
+        "psychological": "Psychological",
+        "physical": "Physical",
+        "academic": "Academic",
+        "social": "Social"
+      }
+    },
+    "severity": {
+      "label": "Severity",
+      "placeholder": "Select Severity",
+      "options": {
+        "simpleNote": "Simple Note",
+        "urgent": "Urgent",
+        "followUp": "Follow-up",
+        "serious": "Serious"
+      }
+    },
+    "details": {
+      "label": "Complaint Details",
+      "placeholder": "Describe the complaint..."
+    },
+    "expectedAction": {
+      "label": "Expected Action from School",
+      "placeholder": "What do you expect the school to do?"
+    },
+    "submitButton": {
+      "default": "Submit Complaint",
+      "loading": "Submitting..."
+    },
+    "toast": {
+      "success": "Complaint submitted successfully!",
+      "error": "Failed to submit complaint"
+    }
+  }
+}

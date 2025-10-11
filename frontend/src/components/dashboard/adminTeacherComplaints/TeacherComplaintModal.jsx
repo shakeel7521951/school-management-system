@@ -52,10 +52,10 @@ const TeacherComplaintModal = ({
   const handleSave = async () => {
     try {
       await saveStatus(editModal._id, formData.status, formData.assignedTo);
-      showToast("Status updated successfully", "success");
+      showToast(t("teacherComplaintModal.toast.success"), "success");
       setEditModal(null);
     } catch (error) {
-      showToast(error?.message || "Error updating status", "error");
+      showToast(error?.message || t("teacherComplaintModal.toast.error"), "error");
     }
   };
 
@@ -67,11 +67,12 @@ const TeacherComplaintModal = ({
           {/* Header */}
           <div className="p-4 sm:p-6 border-b border-gray-200 flex justify-between items-center">
             <h2 className="text-lg sm:text-xl font-bold text-gray-800">
-              Complaint Details
+              {t("teacherComplaintModal.title")}
             </h2>
             <button
               onClick={() => setEditModal(null)}
               className="text-gray-400 hover:text-gray-600"
+              aria-label={t("teacherComplaintModal.close")}
             >
               <FaTimes className="text-xl" />
             </button>
@@ -84,7 +85,7 @@ const TeacherComplaintModal = ({
               {["employeeName", "jobTitle", "department", "date"].map((field) => (
                 <div key={field}>
                   <label className="block text-sm font-medium text-gray-700 mb-1 capitalize">
-                    {field.replace(/([A-Z])/g, " $1")}
+                    {t(`teacherComplaintModal.fields.${field}`)}
                   </label>
                   <input
                     type={field === "date" ? "date" : "text"}
@@ -100,7 +101,7 @@ const TeacherComplaintModal = ({
             {/* Status Dropdown */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Status
+                {t("teacherComplaintModal.status.label")}
               </label>
               <select
                 name="status"
@@ -108,17 +109,17 @@ const TeacherComplaintModal = ({
                 onChange={handleChange}
                 className="w-full border border-gray-300 px-3 py-2 rounded-lg focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
               >
-                <option value="pending">Pending</option>
-                <option value="in progress">In Progress</option>
-                <option value="resolved">Resolved</option>
-                <option value="rejected">Rejected</option>
+                <option value="pending">{t("teacherComplaintModal.status.pending")}</option>
+                <option value="in progress">{t("teacherComplaintModal.status.in_progress")}</option>
+                <option value="resolved">{t("teacherComplaintModal.status.resolved")}</option>
+                <option value="rejected">{t("teacherComplaintModal.status.rejected")}</option>
               </select>
             </div>
 
             {/* Assigned Department Dropdown */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Assigned To
+                {t("teacherComplaintModal.assignedTo.label")}
               </label>
               <select
                 name="assignedTo"
@@ -129,10 +130,10 @@ const TeacherComplaintModal = ({
               >
                 <option value="">
                   {isLoading
-                    ? "Loading departments..."
+                    ? t("teacherComplaintModal.assignedTo.loading")
                     : isError
-                      ? "Failed to load departments"
-                      : "Select Department"}
+                    ? t("teacherComplaintModal.assignedTo.error")
+                    : t("teacherComplaintModal.assignedTo.select")}
                 </option>
                 {departmentsData?.departments?.map((dept) => (
                   <option key={dept._id} value={dept._id}>
@@ -149,13 +150,13 @@ const TeacherComplaintModal = ({
               onClick={() => setEditModal(null)}
               className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition w-full sm:w-auto"
             >
-              Cancel
+              {t("teacherComplaintModal.buttons.cancel")}
             </button>
             <button
               onClick={handleSave}
               className="px-4 py-2 bg-[#1a4480] text-white rounded-lg hover:bg-[#0d3260] transition w-full sm:w-auto"
             >
-              Save
+              {t("teacherComplaintModal.buttons.save")}
             </button>
           </div>
         </div>
@@ -164,8 +165,9 @@ const TeacherComplaintModal = ({
       {/* Toast Notification */}
       {toast?.show && (
         <div
-          className={`fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg text-white font-medium flex items-center gap-2 ${toast.type === "success" ? "bg-green-500" : "bg-red-500"
-            }`}
+          className={`fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg text-white font-medium flex items-center gap-2 ${
+            toast.type === "success" ? "bg-green-500" : "bg-red-500"
+          }`}
         >
           {toast.type === "success" ? <FaCheck /> : <FaExclamationTriangle />}
           {toast.message}

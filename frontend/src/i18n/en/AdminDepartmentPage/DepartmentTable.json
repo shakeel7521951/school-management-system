@@ -1,0 +1,26 @@
+{
+  "departmentTable": {
+    "headers": {
+      "name": "Department Name",
+      "totalComplaints": "Total Complaints",
+      "pending": "Pending",
+      "resolved": "Resolved",
+      "actions": "Actions"
+    },
+    "noDepartments": {
+      "title": "No departments found.",
+      "description": "There are currently no departments available."
+    },
+    "mobile": {
+      "total": "Total",
+      "pending": "Pending",
+      "resolved": "Resolved",
+      "noDescription": "No description provided."
+    },
+    "buttons": {
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "parentComplaintsTable": {
+    "headers": {
+      "parentName": "Parent Name",
+      "relation": "Relation",
+      "studentName": "Student Name",
+      "class": "Class",
+      "date": "Date",
+      "type": "Type",
+      "severity": "Severity",
+      "impact": "Impact",
+      "expectedAction": "Expected Action",
+      "assignedTo": "Assigned To",
+      "status": "Status",
+      "action": "Action"
+    },
+
+    "actions": {
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+
+    "messages": {
+      "noComplaints": "No complaints found.",
+      "unassigned": "Unassigned",
+      "student": "Student",
+      "type": "Type",
+      "severity": "Severity",
+      "date": "Date"
+    },
+
+    "timeAgo": {
+      "year": "{{count}} year ago",
+      "year_plural": "{{count}} years ago",
+      "month": "{{count}} month ago",
+      "month_plural": "{{count}} months ago",
+      "day": "{{count}} day ago",
+      "day_plural": "{{count}} days ago",
+      "hour": "{{count}} hour ago",
+      "hour_plural": "{{count}} hours ago",
+      "minute": "{{count}} minute ago",
+      "minute_plural": "{{count}} minutes ago",
+      "second": "{{count}} second ago",
+      "second_plural": "{{count}} seconds ago",
+      "justNow": "Just now"
+    }
+  }
+}

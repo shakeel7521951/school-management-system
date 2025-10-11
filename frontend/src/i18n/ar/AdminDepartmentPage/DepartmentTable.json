@@ -1,0 +1,26 @@
+{
+  "departmentTable": {
+    "headers": {
+      "name": "اسم القسم",
+      "totalComplaints": "إجمالي الشكاوى",
+      "pending": "قيد الانتظار",
+      "resolved": "تم الحل",
+      "actions": "الإجراءات"
+    },
+    "noDepartments": {
+      "title": "لم يتم العثور على أقسام.",
+      "description": "لا توجد أقسام متاحة حالياً."
+    },
+    "mobile": {
+      "total": "الإجمالي",
+      "pending": "قيد الانتظار",
+      "resolved": "تم الحل",
+      "noDescription": "لا يوجد وصف متاح."
+    },
+    "buttons": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    }
+  }
+}

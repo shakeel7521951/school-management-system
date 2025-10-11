@@ -42,7 +42,7 @@
         "title": "النماذج",
         "dropdown": {
           "visitorForm": "نموذج الزائر",
-          "parentsForm": "نموذج أولياء الأمور",
+          "parentsForm": "نموذج شكاوى أولياء الأمور",
           "registrationForm": "نموذج التسجيل"
         }
       }

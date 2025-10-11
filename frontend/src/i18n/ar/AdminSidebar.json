@@ -66,11 +66,12 @@
     },
       {
   "id": "departments",
-  "label": "Departments",
+  "label": "الأقسام",
   "icon": "Building2",
   "color": "text-[#3B82F6]",
   "hover": "hover:bg-amber-50"
 }
+
   ],
   "logout": "تسجيل الخروج"
 }

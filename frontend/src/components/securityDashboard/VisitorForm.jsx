@@ -2,32 +2,41 @@ import { useState } from "react";
 import {
   User,
   IdCard,
-  Mail,
   ClipboardList,
   CheckCircle2,
   UserCheck,
+  Phone,
+  Building2,
+  FileSignature,
 } from "lucide-react";
 import { useAddVisitorMutation } from "../../redux/slices/VisitorApi";
 import { useTranslation } from "react-i18next";
 
 const VisitorForm = ({ onClose }) => {
-  const { t } = useTranslation("securityVisitorForm");
+  const { t, i18n } = useTranslation("securityVisitorForm");
 
   const [form, setForm] = useState({
     name: "",
     governmentId: "",
-    visitorType: "parent", // ✅ new field
+    phone: "",
+    visitorType: "parent",
     reason: "meeting",
-    hostEmail: "",
+    hostDepartment: "",
+    agreeRules: false,
+    signature: "",
   });
 
   const [addVisitor, { isLoading }] = useAddVisitorMutation();
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!form.name || !form.governmentId) {
+    if (!form.name || !form.governmentId || !form.phone) {
       return alert(t("visitorForm.alerts.missingFields"));
     }
+    if (!form.agreeRules) {
+      return alert(t("visitorForm.alerts.mustAgree"));
+    }
+
     try {
       await addVisitor(form).unwrap();
       onClose();
@@ -38,125 +47,189 @@ const VisitorForm = ({ onClose }) => {
   }
 
   return (
-    <div className="p-6">
-      <div className="mb-4">
-        <h2 className="text-lg font-bold text-[#104c80]">
-          {t("visitorForm.title")}
+    <div
+      className="p-6 max-w-8xl mx-auto" // ✅ Increased max width
+      dir={i18n.language === "ar" ? "rtl" : "ltr"}
+    >
+      <div className="mb-6 text-center">
+        <h2 className="text-2xl font-bold text-[#104c80]">
+        {t("visitorForm.title")}
         </h2>
         <p className="text-sm text-slate-500">{t("visitorForm.subtitle")}</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
-        {/* Name */}
-        <div>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* First Row - Name & ID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Name */}
+          <div>
+            <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
+              <User size={16} className="text-[#104c80]" />
+              {t("visitorForm.fields.name.label")}
+            </label>
+            <input
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              placeholder={t("visitorForm.fields.name.placeholder")}
+              required
+              className="mt-2 w-full border rounded-lg px-3 py-2"
+            />
+          </div>
+
+          {/* Government ID */}
+          <div>
+            <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
+              <IdCard size={16} className="text-[#104c80]" />
+              {t("visitorForm.fields.governmentId.label")}
+            </label>
+            <input
+              value={form.governmentId}
+              onChange={(e) =>
+                setForm({ ...form, governmentId: e.target.value })
+              }
+              placeholder={t("visitorForm.fields.governmentId.placeholder")}
+              required
+              className="mt-2 w-full border rounded-lg px-3 py-2"
+            />
+          </div>
+        </div>
+
+        {/* Second Row - Phone & Visitor Type */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Phone */}
+          <div>
+            <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
+              <Phone size={16} className="text-[#104c80]" />
+              {t("visitorForm.fields.phone.label")}
+            </label>
+            <input
+              value={form.phone}
+              onChange={(e) => setForm({ ...form, phone: e.target.value })}
+              placeholder={t("visitorForm.fields.phone.placeholder")}
+              required
+              className="mt-2 w-full border rounded-lg px-3 py-2"
+            />
+          </div>
+
+          {/* Visitor Type */}
+          <div>
+            <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
+              <UserCheck size={16} className="text-[#104c80]" />
+              {t("visitorForm.fields.visitorType.label")}
+            </label>
+            <select
+              value={form.visitorType}
+              onChange={(e) =>
+                setForm({ ...form, visitorType: e.target.value })
+              }
+              className="mt-2 w-full border rounded-lg px-3 py-2"
+            >
+              <option value="parent">
+                {t("visitorForm.fields.visitorType.options.parent")}
+              </option>
+              <option value="teacher">
+                {t("visitorForm.fields.visitorType.options.teacher")}
+              </option>
+              <option value="student">
+                {t("visitorForm.fields.visitorType.options.student")}
+              </option>
+              <option value="other">
+                {t("visitorForm.fields.visitorType.options.other")}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        {/* Third Row - Reason & Host Department */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Reason */}
+          <div>
+            <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
+              <ClipboardList size={16} className="text-[#104c80]" />
+              {t("visitorForm.fields.reason.label")}
+            </label>
+            <select
+              value={form.reason}
+              onChange={(e) => setForm({ ...form, reason: e.target.value })}
+              className="mt-2 w-full border rounded-lg px-3 py-2"
+            >
+              <option value="parentMeeting">
+                {t("visitorForm.fields.reason.options.parentMeeting")}
+              </option>
+              <option value="teacherMeeting">
+                {t("visitorForm.fields.reason.options.teacherMeeting")}
+              </option>
+              <option value="interview">
+                {t("visitorForm.fields.reason.options.interview")}
+              </option>
+              <option value="delivery">
+                {t("visitorForm.fields.reason.options.delivery")}
+              </option>
+              <option value="maintenance">
+                {t("visitorForm.fields.reason.options.maintenance")}
+              </option>
+              <option value="other">
+                {t("visitorForm.fields.reason.options.other")}
+              </option>
+            </select>
+          </div>
+
+          {/* Host Department */}
+          <div>
+            <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
+              <Building2 size={16} className="text-[#104c80]" />
+              {t("visitorForm.fields.hostDepartment.label")}
+            </label>
+            <input
+              value={form.hostDepartment}
+              onChange={(e) =>
+                setForm({ ...form, hostDepartment: e.target.value })
+              }
+              placeholder={t("visitorForm.fields.hostDepartment.placeholder")}
+              className="mt-2 w-full border rounded-lg px-3 py-2"
+            />
+          </div>
+        </div>
+
+
+          {/* Signature Row */}
+        <div className="mt-4">
           <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
-            <User size={16} className="text-[#104c80]" />{" "}
-            {t("visitorForm.fields.name.label")}
+            <FileSignature size={16} className="text-[#104c80]" />
+            {t("visitorForm.fields.signature.label")}
           </label>
           <input
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            required
-            placeholder={t("visitorForm.fields.name.placeholder")}
-            className="mt-2 w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#104c80] outline-none transition"
+            value={form.signature}
+            onChange={(e) => setForm({ ...form, signature: e.target.value })}
+            placeholder={t("visitorForm.fields.signature.placeholder")}
+            className="mt-2 w-full border rounded-lg px-3 py-2"
           />
         </div>
 
-        {/* Government ID */}
-        <div>
-          <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
-            <IdCard size={16} className="text-[#104c80]" />{" "}
-            {t("visitorForm.fields.governmentId.label")}
-          </label>
+        {/* Agreement Row */}
+        <div className="mt-4 flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
           <input
-            value={form.governmentId}
+            type="checkbox"
+            checked={form.agreeRules}
             onChange={(e) =>
-              setForm({ ...form, governmentId: e.target.value })
+              setForm({ ...form, agreeRules: e.target.checked })
             }
-            required
-            placeholder={t("visitorForm.fields.governmentId.placeholder")}
-            className="mt-2 w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#104c80] outline-none transition"
+            className="w-4 h-4 accent-[#104c80]"
           />
-        </div>
-
-        {/* Visitor Type ✅ */}
-        <div>
-          <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
-            <UserCheck size={16} className="text-[#104c80]" />{" "}
-            {t("visitorForm.fields.visitorType.label")}
+          <label className="text-sm text-slate-700">
+            {t("visitorForm.fields.agreeRules.label")}
           </label>
-          <select
-            value={form.visitorType}
-            onChange={(e) => setForm({ ...form, visitorType: e.target.value })}
-            className="mt-2 w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#104c80] outline-none transition"
-          >
-            <option value="parent">
-              {t("visitorForm.fields.visitorType.options.parent")}
-            </option>
-            <option value="teacher">
-              {t("visitorForm.fields.visitorType.options.teacher")}
-            </option>
-            <option value="student">
-              {t("visitorForm.fields.visitorType.options.student")}
-            </option>
-            <option value="other">
-              {t("visitorForm.fields.visitorType.options.other")}
-            </option>
-          </select>
         </div>
 
-        {/* Reason */}
-        <div>
-          <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
-            <ClipboardList size={16} className="text-[#104c80]" />{" "}
-            {t("visitorForm.fields.reason.label")}
-          </label>
-          <select
-            value={form.reason}
-            onChange={(e) => setForm({ ...form, reason: e.target.value })}
-            className="mt-2 w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#104c80] outline-none transition"
-          >
-            <option value="meeting">
-              {t("visitorForm.fields.reason.options.meeting")}
-            </option>
-            <option value="interview">
-              {t("visitorForm.fields.reason.options.interview")}
-            </option>
-            <option value="delivery">
-              {t("visitorForm.fields.reason.options.delivery")}
-            </option>
-            <option value="maintenance">
-              {t("visitorForm.fields.reason.options.maintenance")}
-            </option>
-            <option value="other">
-              {t("visitorForm.fields.reason.options.other")}
-            </option>
-          </select>
-        </div>
+      
 
-        {/* Host Email */}
-        <div>
-          <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
-            <Mail size={16} className="text-[#104c80]" />{" "}
-            {t("visitorForm.fields.hostEmail.label")}
-          </label>
-          <input
-            value={form.hostEmail}
-            onChange={(e) =>
-              setForm({ ...form, hostEmail: e.target.value })
-            }
-            placeholder={t("visitorForm.fields.hostEmail.placeholder")}
-            className="mt-2 w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#104c80] outline-none transition"
-          />
-        </div>
-
-        {/* Submit */}
+        {/* Submit Button */}
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full py-3 flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#104c80] to-[#0d3a62] text-white font-semibold shadow-md hover:shadow-lg transition disabled:opacity-50"
+          className="w-full py-3 mt-6 flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#104c80] to-[#0d3a62] text-white font-semibold shadow-md hover:shadow-lg transition disabled:opacity-50"
         >
-          <CheckCircle2 size={20} />{" "}
+          <CheckCircle2 size={20} />
           {isLoading
             ? t("visitorForm.button.submitting")
             : t("visitorForm.button.submit")}

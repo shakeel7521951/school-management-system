@@ -49,12 +49,12 @@ const ComplaintModals = ({
         assignedTo,
       }).unwrap();
 
-      showToast(t("modals.toast.status_updated"), "success");
+      showToast(t("toast.status_updated"), "success");
       setEditModal(null);
     } catch (error) {
       console.error(error);
       showToast(
-        error?.data?.message || t("modals.toast.status_error"),
+        error?.data?.message || t("toast.status_error"),
         "error"
       );
     }
@@ -91,59 +91,88 @@ const ComplaintModals = ({
             {/* Body */}
             <div className="p-4 sm:p-6 space-y-5">
               {/* ✅ Student Details (Read-only section) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Student Name
-                  </label>
-                  <input
-                    type="text"
-                    value={editModal.name|| "N/A"}
-                    readOnly
-                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-lg text-gray-700"
-                  />
-                </div>
+            {/* ✅ Student Details (Read-only section) */}
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200">
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1">
+      {t("modals.edit_modal.student_name")}
+    </label>
+    <input
+      type="text"
+      value={editModal.name || "N/A"}
+      readOnly
+      className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-lg text-gray-700"
+    />
+  </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Class
-                  </label>
-                  <input
-                    type="text"
-                    value={editModal.studentClass || "N/A"}
-                    readOnly
-                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-lg text-gray-700"
-                  />
-                </div>
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1">
+      {t("modals.edit_modal.class")}
+    </label>
+    <input
+      type="text"
+      value={editModal.studentClass || "N/A"}
+      readOnly
+      className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-lg text-gray-700"
+    />
+  </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Age
-                  </label>
-                  <input
-                    type="text"
-                    value={editModal.age || "N/A"}
-                    readOnly
-                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-lg text-gray-700"
-                  />
-                </div>
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1">
+      {t("modals.edit_modal.age")}
+    </label>
+    <input
+      type="text"
+      value={editModal.age || "N/A"}
+      readOnly
+      className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-lg text-gray-700"
+    />
+  </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Complaint Date
-                  </label>
-                  <input
-                    type="text"
-                    value={
-                      editModal.date
-                        ? new Date(editModal.date).toLocaleDateString()
-                        : "N/A"
-                    }
-                    readOnly
-                    className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-lg text-gray-700"
-                  />
-                </div>
-              </div>
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1">
+      {t("modals.edit_modal.complaint_date")}
+    </label>
+    <input
+      type="text"
+      value={
+        editModal.date
+          ? new Date(editModal.date).toLocaleDateString()
+          : "N/A"
+      }
+      readOnly
+      className="w-full border border-gray-300 bg-gray-100 px-3 py-2 rounded-lg text-gray-700"
+    />
+  </div>
+</div>
+
+{/* Assigned To */}
+<select
+  className="w-full border border-gray-300 px-3 py-2 rounded-lg focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
+  value={assignedTo}
+  onChange={(e) => setAssignedTo(e.target.value)}
+  disabled={deptLoading}
+>
+  <option value="">
+    {deptLoading
+      ? t("modals.edit_modal.loading_departments")
+      : t("modals.edit_modal.select_department")}
+  </option>
+  {!deptLoading &&
+    !deptError &&
+    departmentsData?.departments?.map((dept) => (
+      <option key={dept._id} value={dept._id}>
+        {dept.name}
+      </option>
+    ))}
+</select>
+
+{deptError && (
+  <p className="text-red-500 text-sm mt-1">
+    {t("modals.edit_modal.load_error")}
+  </p>
+)}
+
 
 
               {/* Update Status */}

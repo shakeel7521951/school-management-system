@@ -1,0 +1,54 @@
+{
+  "departmentPage": {
+    "title": "إدارة الأقسام",
+    "addButton": "إضافة قسم",
+    "stats": {
+      "totalDepartments": {
+        "label": "إجمالي الأقسام"
+      },
+      "pendingComplaints": {
+        "label": "الشكاوى المعلقة"
+      },
+      "resolvedComplaints": {
+        "label": "الشكاوى المحلولة"
+      }
+    },
+    "loading": "جاري تحميل الأقسام...",
+    "table": {
+      "name": "اسم القسم",
+      "description": "الوصف",
+      "actions": "الإجراءات",
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "noData": "لا توجد أقسام حالياً"
+    },
+    "modals": {
+      "addTitle": "إضافة قسم جديد",
+      "editTitle": "تعديل القسم",
+      "viewTitle": "تفاصيل القسم",
+      "deleteTitle": "حذف القسم",
+      "deleteConfirm": "هل أنت متأكد أنك تريد حذف هذا القسم؟",
+      "fields": {
+        "name": {
+          "label": "اسم القسم",
+          "placeholder": "أدخل اسم القسم"
+        },
+        "description": {
+          "label": "الوصف",
+          "placeholder": "أدخل وصفًا مختصرًا"
+        }
+      },
+      "buttons": {
+        "save": "حفظ",
+        "cancel": "إلغاء",
+        "confirmDelete": "نعم، احذف",
+        "close": "إغلاق"
+      },
+      "alerts": {
+        "saveError": "حدث خطأ أثناء حفظ القسم",
+        "deleteError": "حدث خطأ أثناء حذف القسم"
+      }
+    }
+  }
+}

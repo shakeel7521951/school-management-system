@@ -1,0 +1,46 @@
+{
+  "parentComplaintsModals": {
+    "view": {
+      "title": "تفاصيل الشكوى",
+      "close": "إغلاق",
+      "fields": {
+        "parent": "ولي الأمر",
+        "relation": "العلاقة",
+        "student": "الطالب",
+        "class": "الصف",
+        "date": "التاريخ",
+        "type": "نوع الشكوى",
+        "severity": "الحدة",
+        "impact": "التأثير",
+        "expectedAction": "الإجراء المتوقع",
+        "assignedTo": "مكلف إلى",
+        "status": "الحالة"
+      }
+    },
+
+    "edit": {
+      "title": "تعديل تفاصيل الشكوى",
+      "parentName": "اسم ولي الأمر",
+      "studentName": "اسم الطالب",
+      "assignToLabel": "تعيين إلى",
+      "unassignedOption": "غير معين",
+      "changeStatusLabel": "تغيير الحالة",
+      "save": "حفظ",
+      "cancel": "إلغاء"
+    },
+
+    "delete": {
+      "title": "تأكيد الحذف",
+      "message": "هل أنت متأكد أنك تريد حذف الشكوى المقدمة من {{parentName}} بخصوص {{studentName}}؟",
+      "confirm": "حذف",
+      "cancel": "إلغاء",
+      "iconMessage": "هذا الإجراء لا يمكن التراجع عنه!"
+    },
+
+    "common": {
+      "loading": "جاري التحميل...",
+      "error": "حدث خطأ ما!",
+      "noData": "لا توجد معلومات متاحة."
+    }
+  }
+}

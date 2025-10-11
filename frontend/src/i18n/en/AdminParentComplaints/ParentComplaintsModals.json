@@ -1,0 +1,46 @@
+{
+  "parentComplaintsModals": {
+    "view": {
+      "title": "Complaint Details",
+      "close": "Close",
+      "fields": {
+        "parent": "Parent",
+        "relation": "Relation",
+        "student": "Student",
+        "class": "Class",
+        "date": "Date",
+        "type": "Complaint Type",
+        "severity": "Severity",
+        "impact": "Impact",
+        "expectedAction": "Expected Action",
+        "assignedTo": "Assigned To",
+        "status": "Status"
+      }
+    },
+
+    "edit": {
+      "title": "Edit Complaint Details",
+      "parentName": "Parent Name",
+      "studentName": "Student Name",
+      "assignToLabel": "Assign To",
+      "unassignedOption": "Unassigned",
+      "changeStatusLabel": "Change Status",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+
+    "delete": {
+      "title": "Confirm Delete",
+      "message": "Are you sure you want to delete the complaint by {{parentName}} about {{studentName}}?",
+      "confirm": "Delete",
+      "cancel": "Cancel",
+      "iconMessage": "This action cannot be undone!"
+    },
+
+    "common": {
+      "loading": "Loading...",
+      "error": "Something went wrong!",
+      "noData": "No information available."
+    }
+  }
+}

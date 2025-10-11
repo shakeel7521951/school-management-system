@@ -1,0 +1,81 @@
+{
+  "adminParentComplaints": {
+    "title": "Parent Complaints Management",
+    "subtitle": "Manage and track all complaints submitted by parents regarding students.",
+    
+    "stats": {
+      "total": {
+        "title": "Total Complaints",
+        "note": "All complaints submitted"
+      },
+      "pending": {
+        "title": "Pending",
+        "note": "Awaiting action"
+      },
+      "rejected": {
+        "title": "Rejected",
+        "note": "Declined complaints"
+      },
+      "resolved": {
+        "title": "Resolved",
+        "note": "Successfully handled"
+      }
+    },
+
+    "table": {
+      "headers": {
+        "parentName": "Parent Name",
+        "relation": "Relation to Student",
+        "studentName": "Student Name",
+        "class": "Class",
+        "date": "Date",
+        "type": "Complaint Type",
+        "impact": "Impact",
+        "severity": "Severity",
+        "status": "Status",
+        "assignedTo": "Assigned Department",
+        "actions": "Actions"
+      },
+      "noData": "No complaints found.",
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+
+    "modals": {
+      "view": {
+        "title": "Complaint Details",
+        "close": "Close"
+      },
+      "edit": {
+        "title": "Update Complaint",
+        "statusLabel": "Change Status",
+        "departmentLabel": "Assign to Department",
+        "save": "Save Changes",
+        "cancel": "Cancel"
+      },
+      "delete": {
+        "title": "Delete Complaint",
+        "message": "Are you sure you want to delete this complaint?",
+        "confirm": "Yes, Delete",
+        "cancel": "Cancel"
+      }
+    },
+
+    "status": {
+      "pending": "Pending",
+      "resolved": "Resolved",
+      "rejected": "Rejected"
+    },
+
+    "toast": {
+      "deleteSuccess": "Complaint deleted successfully!",
+      "deleteError": "Failed to delete complaint!",
+      "updateSuccess": "Complaint updated successfully!",
+      "updateError": "Failed to update complaint!",
+      "fetchError": "Failed to fetch complaints!"
+    },
+
+    "loading": "Loading data..."
+  }
+}

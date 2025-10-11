@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   FaEye,
   FaTrash,
@@ -9,8 +10,8 @@ import {
   FaExclamationTriangle,
 } from "react-icons/fa";
 
-// ✅ Helper function to display "time ago"
-const timeAgo = (date) => {
+// ✅ Helper function to display "time ago" using i18n translations
+const timeAgo = (date, t) => {
   if (!date) return "-";
   const now = new Date();
   const past = new Date(date);
@@ -28,10 +29,15 @@ const timeAgo = (date) => {
   for (let i = 0; i < intervals.length; i++) {
     const interval = Math.floor(seconds / intervals[i].seconds);
     if (interval >= 1) {
-      return `${interval} ${interval === 1 ? intervals[i].label : intervals[i].label + "s"} ago`;
+      const key =
+        interval === 1
+          ? `parentComplaintsTable.timeAgo.${intervals[i].label}`
+          : `parentComplaintsTable.timeAgo.${intervals[i].label}_plural`;
+
+      return t(key, { count: interval });
     }
   }
-  return "Just now";
+  return t("parentComplaintsTable.timeAgo.justNow");
 };
 
 const ParentComplaintsTable = ({
@@ -40,9 +46,26 @@ const ParentComplaintsTable = ({
   handleSort,
   setViewModal,
   setEditModal,
+  setDeleteModal,
   statusClasses,
-  onDelete,
 }) => {
+  const { t } = useTranslation("parentComplaintsTable");
+
+  const headers = [
+    { key: "parentName", sortable: true },
+    { key: "relation", sortable: true },
+    { key: "studentName", sortable: true },
+    { key: "class", sortable: true },
+    { key: "date", sortable: true },
+    { key: "type", sortable: true },
+    { key: "severity", sortable: true },
+    { key: "impact", sortable: true },
+    { key: "expectedAction", sortable: false },
+    { key: "assignedTo", sortable: false },
+    { key: "status", sortable: false },
+    { key: "action", sortable: false },
+  ];
+
   return (
     <>
       {/* ✅ DESKTOP TABLE */}
@@ -50,41 +73,26 @@ const ParentComplaintsTable = ({
         <table className="w-full border-collapse text-sm">
           <thead>
             <tr className="bg-[#104c80] text-white text-center">
-              {[
-                "Parent Name",
-                "Relation",
-                "Student Name",
-                "Class",
-                "Date",
-                "Type",
-                "Severity",
-                "Impact",
-                "Expected Action",
-                "Assigned To",
-                "Status",
-                "Action",
-              ].map((header, idx) => (
+              {headers.map(({ key, sortable }) => (
                 <th
-                  key={idx}
-                  onClick={() =>
-                    !["Expected Action", "Action", "Assigned To", "Status"].includes(header) &&
-                    handleSort(header.toLowerCase().replace(/\s+/g, ""))
-                  }
-                  className="py-3 px-4 cursor-pointer select-none align-middle whitespace-nowrap"
+                  key={key}
+                  onClick={() => sortable && handleSort(key)}
+                  className={`py-3 px-4 ${
+                    sortable ? "cursor-pointer select-none" : ""
+                  } align-middle whitespace-nowrap`}
                 >
                   <div className="flex items-center justify-center gap-1">
-                    {header}
-                    {sortConfig?.key === header.toLowerCase().replace(/\s+/g, "") ? (
-                      sortConfig.direction === "ascending" ? (
-                        <FaSortUp />
+                    {t(`parentComplaintsTable.headers.${key}`)}
+                    {sortable &&
+                      (sortConfig?.key === key ? (
+                        sortConfig.direction === "ascending" ? (
+                          <FaSortUp />
+                        ) : (
+                          <FaSortDown />
+                        )
                       ) : (
-                        <FaSortDown />
-                      )
-                    ) : (
-                      !["Expected Action", "Action", "Assigned To", "Status"].includes(header) && (
                         <FaSort className="text-gray-300" />
-                      )
-                    )}
+                      ))}
                   </div>
                 </th>
               ))}
@@ -100,55 +108,59 @@ const ParentComplaintsTable = ({
                     i % 2 === 0 ? "bg-white" : "bg-gray-50"
                   } hover:bg-indigo-50 transition-all duration-200 text-center align-middle`}
                 >
-                  <td className="px-4 py-3 align-middle">{c.parentName}</td>
-                  <td className="px-4 py-3 align-middle">{c.relationToStudent}</td>
-                  <td className="px-4 py-3 align-middle">{c.studentName}</td>
-                  <td className="px-4 py-3 align-middle">{c.class}</td>
+                  <td className="px-4 py-3">{c.parentName}</td>
+                  <td className="px-4 py-3">{c.relationToStudent}</td>
+                  <td className="px-4 py-3">{c.studentName}</td>
+                  <td className="px-4 py-3">{c.class}</td>
 
                   {/* ✅ Date + Time Ago */}
-                  <td className="px-4 py-3 align-middle">
+                  <td className="px-4 py-3">
                     {c.date ? (
                       <>
                         <div>{new Date(c.date).toLocaleDateString()}</div>
-                        <div className="text-xs text-gray-500">{timeAgo(c.date)}</div>
+                        <div className="text-xs text-gray-500">
+                          {timeAgo(c.date, t)}
+                        </div>
                       </>
                     ) : (
                       "-"
                     )}
                   </td>
 
-                  <td className="px-4 py-3 align-middle">{c.complaintType}</td>
-                  <td className="px-4 py-3 align-middle">{c.severity}</td>
-                  <td className="px-4 py-3 align-middle">{c.impact}</td>
-                  <td className="px-4 py-3 align-middle">{c.expectedAction}</td>
-                  <td className="px-4 py-3 align-middle">{c.assignedTo?.name || "Unassigned"}</td>
-                  <td className="px-4 py-3 align-middle">
+                  <td className="px-4 py-3">{c.complaintType}</td>
+                  <td className="px-4 py-3">{c.severity}</td>
+                  <td className="px-4 py-3">{c.impact}</td>
+                  <td className="px-4 py-3">{c.expectedAction}</td>
+                  <td className="px-4 py-3">
+                    {c.assignedTo?.name || t("parentComplaintsTable.messages.unassigned")}
+                  </td>
+                  <td className="px-4 py-3">
                     <span className={`${statusClasses[c.status] || "text-gray-500"} font-medium`}>
                       {c.status}
                     </span>
                   </td>
 
-                  {/* ✅ Action Buttons Centered */}
-                  <td className="px-4 py-3 align-middle">
+                  {/* ✅ Action Buttons */}
+                  <td className="px-4 py-3">
                     <div className="flex justify-center items-center gap-2">
                       <button
                         onClick={() => setViewModal(c)}
                         className="text-indigo-600 hover:bg-indigo-50 p-2 rounded-full"
-                        title="View"
+                        title={t("parentComplaintsTable.actions.view")}
                       >
                         <FaEye />
                       </button>
                       <button
                         onClick={() => setEditModal(c)}
                         className="text-green-600 hover:bg-green-50 p-2 rounded-full"
-                        title="Edit"
+                        title={t("parentComplaintsTable.actions.edit")}
                       >
                         <FaEdit />
                       </button>
                       <button
-                        onClick={() => onDelete(c._id)}
+                        onClick={() => setDeleteModal(c)}
                         className="text-red-600 hover:bg-red-50 p-2 rounded-full"
-                        title="Delete"
+                        title={t("parentComplaintsTable.actions.delete")}
                       >
                         <FaTrash />
                       </button>
@@ -160,7 +172,7 @@ const ParentComplaintsTable = ({
               <tr>
                 <td colSpan="12" className="px-4 py-6 text-center text-gray-400 text-sm">
                   <FaExclamationTriangle className="mx-auto text-2xl mb-2" />
-                  No complaints found.
+                  {t("parentComplaintsTable.messages.noComplaints")}
                 </td>
               </tr>
             )}
@@ -168,7 +180,7 @@ const ParentComplaintsTable = ({
         </table>
       </div>
 
-      {/* ✅ MOBILE CARDS */}
+      {/* ✅ MOBILE VIEW */}
       <div className="md:hidden space-y-4 mt-4">
         {Array.isArray(complaints) && complaints.length > 0 ? (
           complaints.map((c, i) => (
@@ -178,23 +190,22 @@ const ParentComplaintsTable = ({
             >
               <div className="flex justify-between items-center mb-2">
                 <h4 className="font-bold text-[#104c80]">{c.parentName}</h4>
-                <span className={statusClasses[c.status] || "text-gray-500"}>
-                  {c.status}
-                </span>
+                <span className={statusClasses[c.status] || "text-gray-500"}>{c.status}</span>
               </div>
 
               <p className="text-sm text-gray-600">
-                <b>Student:</b> {c.studentName} ({c.class})
+                <b>{t("parentComplaintsTable.messages.student")}:</b> {c.studentName} ({c.class})
               </p>
               <p className="text-sm text-gray-600">
-                <b>Type:</b> {c.complaintType} | <b>Severity:</b> {c.severity}
+                <b>{t("parentComplaintsTable.messages.type")}:</b> {c.complaintType} |{" "}
+                <b>{t("parentComplaintsTable.messages.severity")}:</b> {c.severity}
               </p>
               <p className="text-sm text-gray-600">
-                <b>Date:</b>{" "}
+                <b>{t("parentComplaintsTable.messages.date")}:</b>{" "}
                 {c.date ? (
                   <>
                     {new Date(c.date).toLocaleDateString()}{" "}
-                    <span className="text-gray-500 text-xs">({timeAgo(c.date)})</span>
+                    <span className="text-gray-500 text-xs">({timeAgo(c.date, t)})</span>
                   </>
                 ) : (
                   "-"
@@ -205,18 +216,21 @@ const ParentComplaintsTable = ({
                 <button
                   onClick={() => setViewModal(c)}
                   className="text-indigo-600 hover:bg-indigo-50 p-2 rounded-full"
+                  title={t("parentComplaintsTable.actions.view")}
                 >
                   <FaEye />
                 </button>
                 <button
                   onClick={() => setEditModal(c)}
                   className="text-green-600 hover:bg-green-50 p-2 rounded-full"
+                  title={t("parentComplaintsTable.actions.edit")}
                 >
                   <FaEdit />
                 </button>
                 <button
-                  onClick={() => onDelete(c._id)}
+                  onClick={() => setDeleteModal(c)}
                   className="text-red-600 hover:bg-red-50 p-2 rounded-full"
+                  title={t("parentComplaintsTable.actions.delete")}
                 >
                   <FaTrash />
                 </button>
@@ -226,7 +240,7 @@ const ParentComplaintsTable = ({
         ) : (
           <div className="text-center py-6 text-gray-400 text-sm">
             <FaExclamationTriangle className="mx-auto text-2xl mb-2" />
-            No complaints found.
+            {t("parentComplaintsTable.messages.noComplaints")}
           </div>
         )}
       </div>

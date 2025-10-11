@@ -1,28 +1,33 @@
 {
-  "title": "تعديل الشكوى",
-  "placeholders": {
-    "employeeName": "اسم الموظف",
-    "jobTitle": "المسمى الوظيفي",
-    "department": "القسم",
-    "date": "التاريخ"
-  },
-  "statusOptions": {
-    "label": "تحديث الحالة",
-    "pending": "قيد الانتظار",
-    "in_progress": "قيد المعالجة",
-    "resolved": "تم الحل",
-    "rejected": "مرفوضة"
-  },
- 
-  "buttons": {
-    "cancel": "إلغاء",
-    "save": "حفظ"
-  },
-  "modals": {
-    "toast": {
-      "status_updated": "تم تحديث الحالة بنجاح!",
-      "status_error": "فشل في تحديث الحالة."
+  "teacherComplaintModal": {
+    "title": "تفاصيل الشكوى",
+    "close": "إغلاق",
+    "fields": {
+      "employeeName": "اسم الموظف",
+      "jobTitle": "المسمى الوظيفي",
+      "department": "القسم",
+      "date": "التاريخ"
     },
-    "select_department": "اختر القسم"
+    "status": {
+      "label": "الحالة",
+      "pending": "قيد الانتظار",
+      "in_progress": "قيد المعالجة",
+      "resolved": "تم الحل",
+      "rejected": "مرفوضة"
+    },
+    "assignedTo": {
+      "label": "مُعين إلى",
+      "loading": "جارٍ تحميل الأقسام...",
+      "error": "فشل في تحميل الأقسام",
+      "select": "اختر القسم"
+    },
+    "buttons": {
+      "cancel": "إلغاء",
+      "save": "حفظ"
+    },
+    "toast": {
+      "success": "تم تحديث الحالة بنجاح",
+      "error": "حدث خطأ أثناء تحديث الحالة"
+    }
   }
 }

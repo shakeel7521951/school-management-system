@@ -1,15 +1,19 @@
 {
   "visitorForm": {
-    "title": "Visitor Check-in",
-    "subtitle": "Please fill out the form to check in",
+    "title": "Visitors Form",
+    "subtitle": "Please fill in the following details",
     "fields": {
       "name": {
-        "label": "Full name",
+        "label": "Full Name",
         "placeholder": "Enter your full name"
       },
       "governmentId": {
-        "label": "Government ID / Badge",
-        "placeholder": "e.g. CNIC, Employee Badge"
+        "label": "Qatar ID / Passport Number",
+        "placeholder": "Enter your Qatar ID or Passport number"
+      },
+      "phone": {
+        "label": "Phone Number",
+        "placeholder": "Enter your phone number"
       },
       "visitorType": {
         "label": "Visitor Type",
@@ -21,27 +25,36 @@
         }
       },
       "reason": {
-        "label": "Reason",
+        "label": "Purpose of Visit",
         "options": {
-          "meeting": "Meeting (Host)",
+          "parentMeeting": "Parent Meeting",
+          "teacherMeeting": "Teacher Meeting",
           "interview": "Interview",
           "delivery": "Delivery",
-          "maintenance": "Maintenance / Contractor",
+          "maintenance": "Maintenance",
           "other": "Other"
         }
       },
-      "hostEmail": {
-        "label": "Host email",
-        "placeholder": "Enter host's email"
+      "hostDepartment": {
+        "label": "Person or Department to Visit",
+        "placeholder": "Enter the name or department to visit"
+      },
+      "agreeRules": {
+        "label": "I agree to follow the school’s safety and security rules"
+      },
+      "signature": {
+        "label": "Signature (type your name)",
+        "placeholder": "Enter your signature"
       }
     },
     "button": {
-      "submit": "Check in",
+      "submit": "Submit Form",
       "submitting": "Submitting..."
     },
     "alerts": {
-      "missingFields": "Please enter name and ID",
-      "failed": "Failed to add visitor"
+      "missingFields": "Please fill all required fields (Name, ID, Phone)",
+      "mustAgree": "You must agree to follow the school rules before submitting",
+      "failed": "Failed to register visitor"
     }
   }
 }

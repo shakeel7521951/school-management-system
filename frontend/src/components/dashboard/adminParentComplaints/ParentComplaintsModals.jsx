@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { FaExclamationTriangle, FaTimes } from "react-icons/fa";
 
 const ParentComplaintsModals = ({
@@ -14,33 +15,23 @@ const ParentComplaintsModals = ({
   onStatusChange,
   onDelete,
 }) => {
+  const { t,i18n } = useTranslation("parentComplaintsModals");
+
   // Helper to safely convert values to displayable strings.
   const formatDisplay = (val) => {
     if (val === null || val === undefined || val === "") return "N/A";
-
-    // Arrays: join their displayable items
     if (Array.isArray(val)) return val.map((v) => formatDisplay(v)).join(", ");
-
-    // Objects: prefer `.name`, fall back to `_id` or JSON
     if (typeof val === "object") {
-      if ("name" in val && val.name !== undefined && val.name !== null) {
-        return String(val.name);
-      }
-      if ("_id" in val && Object.keys(val).length === 1) {
-        return String(val._id);
-      }
+      if ("name" in val && val.name) return String(val.name);
+      if ("_id" in val && Object.keys(val).length === 1) return String(val._id);
       try {
         return JSON.stringify(val);
       } catch {
         return "N/A";
       }
     }
-
-    // Date-like strings/numbers
     const maybeDate = new Date(val);
     if (!isNaN(maybeDate.getTime())) return maybeDate.toLocaleDateString();
-
-    // Fallback to string
     return String(val);
   };
 
@@ -56,20 +47,25 @@ const ParentComplaintsModals = ({
             >
               <FaTimes />
             </button>
-            <h3 className="text-xl font-bold mb-4 text-[#104c80]">Complaint Details</h3>
+            <h3 className="text-xl font-bold mb-4 text-[#104c80]">
+              {t("parentComplaintsModals.view.title")}
+            </h3>
 
             <div className="space-y-2 text-gray-700">
               {Object.entries({
-                Parent: viewModal.parentName,
-                Relation: viewModal.relationToStudent,
-                Student: viewModal.studentName,
-                Class: viewModal.class,
-                Date: viewModal.date ? new Date(viewModal.date).toLocaleDateString() : "N/A",
-                Type: viewModal.complaintType,
-                Severity: viewModal.severity,
-                Impact: viewModal.impact,
-                "Expected Action": viewModal.expectedAction,
-                "Assigned To": viewModal.assignedToName || viewModal.assignedTo,
+                [t("parentComplaintsModals.view.fields.parent")]: viewModal.parentName,
+                [t("parentComplaintsModals.view.fields.relation")]: viewModal.relationToStudent,
+                [t("parentComplaintsModals.view.fields.student")]: viewModal.studentName,
+                [t("parentComplaintsModals.view.fields.class")]: viewModal.class,
+                [t("parentComplaintsModals.view.fields.date")]: viewModal.date
+                  ? new Date(viewModal.date).toLocaleDateString()
+                  : "N/A",
+                [t("parentComplaintsModals.view.fields.type")]: viewModal.complaintType,
+                [t("parentComplaintsModals.view.fields.severity")]: viewModal.severity,
+                [t("parentComplaintsModals.view.fields.impact")]: viewModal.impact,
+                [t("parentComplaintsModals.view.fields.expectedAction")]: viewModal.expectedAction,
+                [t("parentComplaintsModals.view.fields.assignedTo")]:
+                  viewModal.assignedToName || viewModal.assignedTo,
               }).map(([label, value]) => (
                 <p key={label}>
                   <b>{label}:</b> {formatDisplay(value)}
@@ -77,7 +73,7 @@ const ParentComplaintsModals = ({
               ))}
 
               <p>
-                <b>Status:</b>{" "}
+                <b>{t("parentComplaintsModals.view.fields.status")}:</b>{" "}
                 <span className={statusClasses?.[viewModal.status] || ""}>
                   {formatDisplay(viewModal.status)}
                 </span>
@@ -91,17 +87,19 @@ const ParentComplaintsModals = ({
       {editModal && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-xl w-11/12 md:w-1/3 shadow-lg">
-            <h3 className="text-lg font-bold mb-4 text-[#104c80]">Edit Complaint Details</h3>
+            <h3 className="text-lg font-bold mb-4 text-[#104c80]">
+              {t("parentComplaintsModals.edit.title")}
+            </h3>
             <p className="mb-2">
-              <b>Parent Name:</b> {formatDisplay(editModal.parentName)}
+              <b>{t("parentComplaintsModals.edit.parentName")}:</b> {formatDisplay(editModal.parentName)}
             </p>
             <p className="mb-2">
-              <b>Student Name:</b> {formatDisplay(editModal.studentName)}
+              <b>{t("parentComplaintsModals.edit.studentName")}:</b> {formatDisplay(editModal.studentName)}
             </p>
 
-            <label className="block mb-2 font-semibold">Assign To:</label>
-
-            {/* Ensure select value is an id string (if assignedTo is an object use its _id) */}
+            <label className="block mb-2 font-semibold">
+              {t("parentComplaintsModals.edit.assignToLabel")}:
+            </label>
             {(() => {
               const assignedToValue =
                 typeof editModal.assignedTo === "object" && editModal.assignedTo !== null
@@ -115,7 +113,7 @@ const ParentComplaintsModals = ({
                     setEditModal({ ...editModal, assignedTo: e.target.value })
                   }
                 >
-                  <option value="">Unassigned</option>
+                  <option value="">{t("parentComplaintsModals.edit.unassignedOption")}</option>
                   {departments.map((dept) => (
                     <option key={dept._id} value={dept._id}>
                       {dept.name}
@@ -125,7 +123,9 @@ const ParentComplaintsModals = ({
               );
             })()}
 
-            <label className="block mb-2 font-semibold">Change Status:</label>
+            <label className="block mb-2 font-semibold">
+              {t("parentComplaintsModals.edit.changeStatusLabel")}:
+            </label>
             <select
               className="w-full border border-gray-300 rounded-xl p-2 mb-4"
               value={editModal.status || ""}
@@ -153,13 +153,13 @@ const ParentComplaintsModals = ({
                 }}
                 className="px-4 py-2 bg-[#104c80] text-white rounded-xl hover:bg-[#0d3b65] transition"
               >
-                Save
+                {t("parentComplaintsModals.edit.save")}
               </button>
               <button
                 onClick={() => setEditModal(null)}
                 className="px-4 py-2 bg-gray-200 text-gray-800 rounded-xl hover:bg-gray-300 transition"
               >
-                Cancel
+                {t("parentComplaintsModals.edit.cancel")}
               </button>
             </div>
           </div>
@@ -171,24 +171,27 @@ const ParentComplaintsModals = ({
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-xl w-11/12 md:w-1/3 shadow-lg text-center">
             <FaExclamationTriangle className="text-red-500 text-3xl mx-auto mb-3" />
-            <h3 className="text-lg font-bold mb-2 text-gray-800">Confirm Delete</h3>
-            <p className="text-sm text-gray-500 mb-4">
-              Are you sure you want to delete the complaint by{" "}
-              <b>{formatDisplay(deleteModal.parentName)}</b> about{" "}
-              <b>{formatDisplay(deleteModal.studentName)}</b>?
+            <h3 className="text-lg font-bold mb-2 text-gray-800">
+              {t("parentComplaintsModals.delete.title")}
+            </h3>
+            <p className="text-sm text-gray-700 mb-4">
+              {t("parentComplaintsModals.delete.message", {
+                parentName: formatDisplay(deleteModal.parentName),
+                studentName: formatDisplay(deleteModal.studentName),
+              })}
             </p>
             <div className="flex justify-center gap-3">
               <button
                 onClick={() => onDelete(deleteModal)}
                 className="px-4 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 transition"
               >
-                Delete
+                {t("parentComplaintsModals.delete.confirm")}
               </button>
               <button
                 onClick={() => setDeleteModal(null)}
                 className="px-4 py-2 bg-gray-200 text-gray-800 rounded-xl hover:bg-gray-300 transition"
               >
-                Cancel
+                {t("parentComplaintsModals.delete.cancel")}
               </button>
             </div>
           </div>

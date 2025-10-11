@@ -6,7 +6,7 @@
     "approved": "Approved",
     "rejected": "Rejected",
     "pending": "Pending",
-    "in_progress":"In Progress"
+    "in_progress": "In Progress"
   },
   "filters": {
     "header": "Filters",
@@ -81,11 +81,20 @@
     "delete_confirmation": "Are you sure you want to delete this complaint filed by {{name}}?",
     "cancel": "Cancel",
     "confirm": "Confirm",
-    "saving":"Saving",
+    "saving": "Saving",
     "current_status": "Current Status",
     "update_status": "Update Status",
     "assigned_to": "Assigned To",
     "comments": "Comments",
+    "edit_modal": {
+      "student_name": "Student Name",
+      "class": "Class",
+      "age": "Age",
+      "complaint_date": "Complaint Date",
+      "select_department": "Select Department",
+      "loading_departments": "Loading departments...",
+      "load_error": "Failed to load departments. Try again later."
+    },
     "status_options": {
       "pending": "Pending",
       "in_progress": "In Progress",

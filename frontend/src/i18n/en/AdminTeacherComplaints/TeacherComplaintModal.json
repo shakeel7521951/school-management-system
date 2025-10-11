@@ -1,28 +1,33 @@
 {
-  "title": "Edit Complaint",
-  "placeholders": {
-    "employeeName": "Employee Name",
-    "jobTitle": "Job Title",
-    "department": "Department",
-    "date": "Date"
-  },
-  "statusOptions": {
-    "label": "Update Status",
-    "pending": "Pending",
-    "in_progress": "In Progress",
-    "resolved": "Resolved",
-    "rejected": "Rejected"
-  },
-
-  "buttons": {
-    "cancel": "Cancel",
-    "save": "Save"
-  },
-  "modals": {
-    "toast": {
-      "status_updated": "Status updated successfully!",
-      "status_error": "Failed to update status."
+  "teacherComplaintModal": {
+    "title": "Complaint Details",
+    "close": "Close",
+    "fields": {
+      "employeeName": "Employee Name",
+      "jobTitle": "Job Title",
+      "department": "Department",
+      "date": "Date"
     },
-    "select_department": "Select Department"
+    "status": {
+      "label": "Status",
+      "pending": "Pending",
+      "in_progress": "In Progress",
+      "resolved": "Resolved",
+      "rejected": "Rejected"
+    },
+    "assignedTo": {
+      "label": "Assigned To",
+      "loading": "Loading departments...",
+      "error": "Failed to load departments",
+      "select": "Select Department"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "save": "Save"
+    },
+    "toast": {
+      "success": "Status updated successfully",
+      "error": "Error updating status"
+    }
   }
 }
