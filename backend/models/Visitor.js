@@ -5,11 +5,15 @@ const visitorSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    hostEmail: {
+    governmentId: {
         type: String,
         required: true
     },
-    governmentId: {
+    phone: {
+        type: String, 
+        required: true
+    },
+    signature: {
         type: String,
         required: true
     },

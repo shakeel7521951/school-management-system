@@ -2,18 +2,20 @@ import Visitor from "../models/Visitor.js";
 
 export const addVisitor = async (req, res) => {
     try {
-        const { name, hostEmail, governmentId, reason, visitorType } = req.body;
-        if (!name || !hostEmail || !governmentId || !reason) {
+        const { name, governmentId, reason, visitorType,phone,signature } = req.body;
+        console.log(req.body);
+        if (!name || !governmentId || !reason) {
             return res.status(400).json({ message: "All fields are required" });
         }
         const status = visitorType?.toLowerCase() === "parent" ? "approved" : "pending";
         const newVisitor = await Visitor.create({
             name,
-            hostEmail,
             governmentId,
             reason,
             visitorType,
             status,
+            phone,
+            signature
         });
 
         return res.status(201).json({
