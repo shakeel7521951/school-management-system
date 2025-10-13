@@ -86,8 +86,6 @@ import DepartTeacherComplaint from './pages/departmentDashboard/DepartTeacherCom
 import AdminDepartmentPage from './pages/dashboard/AdminDepartmentPage'
 import ParentComplaintForm from './pages/ParentComplaintForm'
 
-
-
 // import MyProfile from './pages/MyProfile'
 import AdminParentComplaints from './pages/dashboard/AdminComplaints/AdminParentsComplaints';
 import ScrollToTop from './components/common/ScrollToTop'
@@ -102,13 +100,11 @@ const MainFunction = () => {
       <main className="flex-grow">
         <Outlet />
       </main>
-
       <Footer />
       <BackToTopButton />
     </div>
   )
 }
-
 
 const AdminRoute = () => {
   return (
@@ -202,7 +198,6 @@ const router = createBrowserRouter([
       { path: '/contact-us', element: <ContactUs /> },
       { path: '/news', element: <NewsPage /> },
       { path: "/news/:slug", element: <NewsDetail /> },
-
       // { path: '/complainform', element: <ComplaintForm /> },
       // { path: '/complainstatus', element: <ComplaintForm /> },
       { path: '/my-profile', element: <ProfilePage /> },
@@ -222,10 +217,8 @@ const router = createBrowserRouter([
       { path: 'teachercomplain', element: <AdminTeacherComplain /> },
       { path: 'parentcomplain', element: <AdminParentComplaints /> },
       { path: 'visitortable', element: <VisitorTable /> },
-
       { path: 'documents/uploaded', element: <UploadedDocuments /> },
       { path: 'documents/requests', element: <RequestedDocuments /> },
-
       // { path: 'overview', element: <Overview /> },
       { path: 'users', element: <Users /> },
       { path: 'registration-data', element: <RegistrationData /> },
@@ -275,8 +268,6 @@ const router = createBrowserRouter([
 
     ]
   },
-
-
 ])
 
 function App() {
