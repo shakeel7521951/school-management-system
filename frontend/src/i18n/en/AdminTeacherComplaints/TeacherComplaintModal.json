@@ -23,6 +23,7 @@
     },
     "buttons": {
       "cancel": "Cancel",
+      "saving":"Saving",
       "save": "Save"
     },
     "toast": {

@@ -55,12 +55,14 @@ const VisitorForm = ({ onClose }) => {
       className="p-6 max-w-8xl mx-auto" // ✅ Increased max width
       dir={i18n.language === "ar" ? "rtl" : "ltr"}
     >
-      <div className="mb-6 text-center">
-        <h2 className="text-2xl font-bold text-[#104c80]">
-        {t("visitorForm.title")}
-        </h2>
-        <p className="text-sm text-slate-500">{t("visitorForm.subtitle")}</p>
-      </div>
+     <div className="mb-6 text-center">
+  <h2 className="text-2xl font-bold text-[#104c80]">
+    {t("visitorForm.title")}
+  </h2>
+  <p className="text-sm text-slate-500">{t("visitorForm.subtitle")}</p>
+
+ 
+</div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* First Row - Name & ID */}
@@ -210,34 +212,36 @@ const VisitorForm = ({ onClose }) => {
           />
         </div>
 
-        {/* Agreement Row */}
-        <div className="mt-4 flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
-          <input
-            type="checkbox"
-            checked={form.agreeRules}
-            onChange={(e) =>
-              setForm({ ...form, agreeRules: e.target.checked })
-            }
-            className="w-4 h-4 accent-[#104c80]"
-          />
-          <label className="text-sm text-slate-700">
-            {t("visitorForm.fields.agreeRules.label")}
-          </label>
-        </div>
+     {/* Agreement Row */}
+<div className="mt-4 flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
+  <input
+    type="checkbox"
+    checked={form.agreeRules}
+    onChange={(e) => setForm({ ...form, agreeRules: e.target.checked })}
+    className="w-4 h-4 accent-[#104c80]"
+  />
+  <label className="text-sm text-slate-700">
+    {t("visitorForm.fields.agreeRules.label")}
+  </label>
+</div>
 
-      
+{/* ✅ Thank-you Note (placed before Submit Button) */}
+ {/* ✅ New line below subtitle */}
+  <p className="text-sm md:text-[15px] text-green-600 mt-2 text-center">
+    {t("visitorForm.note")}
+  </p>
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full py-3 mt-6 flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#104c80] to-[#0d3a62] text-white font-semibold shadow-md hover:shadow-lg transition disabled:opacity-50"
-        >
-          <CheckCircle2 size={20} />
-          {isLoading
-            ? t("visitorForm.button.submitting")
-            : t("visitorForm.button.submit")}
-        </button>
+{/* Submit Button */}
+<button
+  type="submit"
+  disabled={isLoading}
+  className="w-full py-3 mt-6 flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#104c80] to-[#0d3a62] text-white font-semibold shadow-md hover:shadow-lg transition disabled:opacity-50"
+>
+  <CheckCircle2 size={20} />
+  {isLoading
+    ? t("visitorForm.button.submitting")
+    : t("visitorForm.button.submit")}
+</button>
       </form>
     </div>
   );
