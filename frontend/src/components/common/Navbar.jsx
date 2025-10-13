@@ -149,20 +149,7 @@ export default function Navbar() {
                           'navbar.navLinks.tamakon.dropdown.actingDirectorMessage'
                         )}
                       </NavLink>
-                      <NavLink
-                        to='#'
-                        onClick={e => e.preventDefault()}
-                        className='block px-4 py-2 text-gray-400 cursor-not-allowed'
-                      >
-                        {t('navbar.navLinks.tamakon.dropdown.schoolFees')}
-                      </NavLink>
-                      <NavLink
-                        to='#'
-                        onClick={e => e.preventDefault()}
-                        className='block px-4 py-2 text-gray-400 cursor-not-allowed'
-                      >
-                        {t('navbar.navLinks.tamakon.dropdown.recruitment')}
-                      </NavLink>
+                     
                       <NavLink
                         to='/faqs'
                         className='block px-4 py-2 hover:text-indigo-700'
@@ -339,7 +326,7 @@ export default function Navbar() {
               {!profile ? (
                 <NavLink
                   to='/login'
-                  className='px-4 py-2 md:px-5 md:py-2 bg-[#104c80]/80 backdrop-blur-md border border-white/30 
+                  className='px-4 py-2  md:px-5 md:py-2 bg-[#104c80]/80 backdrop-blur-md border border-white/30 
                              rounded-full text-white font-semibold shadow-md text-sm md:text-base
                              hover:bg-[#104c80] hover:shadow-lg hover:shadow-[#104c80]/40 
                              hover:scale-105 transition-all duration-300 whitespace-nowrap'
@@ -367,7 +354,7 @@ export default function Navbar() {
                   </button>
 
                   {profileOpen && (
-                    <div className='absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-50 animate-fadeIn'>
+                    <div className='absolute right-0 mt-2 w-52 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-50 animate-fadeIn'>
                       <NavLink
                         to='/my-profile'
                         className='block px-4 py-2 hover:text-indigo-700'
@@ -415,6 +402,14 @@ export default function Navbar() {
                           className='block px-4 py-2 hover:text-indigo-700'
                         >
                           {t('navbar.profile.securityDashboard')}
+                        </NavLink>
+                      )}
+                       {profile?.role?.toLowerCase() === 'manager' && (
+                        <NavLink
+                          to='/student-complaint'
+                          className='block px-4 py-2 hover:text-indigo-700'
+                        >
+                          {t('navbar.profile.departmentDashboard')}
                         </NavLink>
                       )}
                       <button
@@ -536,20 +531,8 @@ export default function Navbar() {
                       >
                         {t('navbar.navLinks.tamakon.dropdown.directorMessage')}
                       </NavLink>
-                      <NavLink
-                        to='/school-fees'
-                        onClick={e => e.preventDefault()}
-                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
-                      >
-                        {t('navbar.navLinks.tamakon.dropdown.schoolFees')}
-                      </NavLink>
-                      <NavLink
-                        to='/recruitment'
-                        onClick={e => e.preventDefault()}
-                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
-                      >
-                        {t('navbar.navLinks.tamakon.dropdown.recruitment')}
-                      </NavLink>
+                     
+                     
                       <NavLink
                         to='/faqs'
                         onClick={() => setIsOpen(false)}
@@ -838,6 +821,14 @@ export default function Navbar() {
                       {t('navbar.profile.studentDashboard')}
                     </NavLink>
                   )}
+                   {profile?.role?.toLowerCase() === 'manager' && (
+                        <NavLink
+                          to='/student-complaint'
+                          className='block px-4 py-2 hover:text-indigo-700'
+                        >
+                          {t('navbar.profile.departmentDashboard')}
+                        </NavLink>
+                      )}
                   <button
                     onClick={handleLogout}
                     disabled={isLoading}

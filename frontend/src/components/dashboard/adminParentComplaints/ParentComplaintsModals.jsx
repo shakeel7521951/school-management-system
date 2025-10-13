@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaExclamationTriangle, FaTimes } from "react-icons/fa";
 
@@ -15,9 +15,9 @@ const ParentComplaintsModals = ({
   onStatusChange,
   onDelete,
 }) => {
-  const { t,i18n } = useTranslation("parentComplaintsModals");
+  const { t } = useTranslation("parentComplaintsModals");
+  const [saving, setSaving] = useState(false);
 
-  // Helper to safely convert values to displayable strings.
   const formatDisplay = (val) => {
     if (val === null || val === undefined || val === "") return "N/A";
     if (Array.isArray(val)) return val.map((v) => formatDisplay(v)).join(", ");
@@ -33,6 +33,28 @@ const ParentComplaintsModals = ({
     const maybeDate = new Date(val);
     if (!isNaN(maybeDate.getTime())) return maybeDate.toLocaleDateString();
     return String(val);
+  };
+
+  // 🔹 Updated: Silent save, no alert
+  const handleSave = async () => {
+    try {
+      setSaving(true);
+      const payload = {
+        id: editModal._id,
+        status: editModal.status,
+        assignedTo:
+          typeof editModal.assignedTo === "object" && editModal.assignedTo !== null
+            ? editModal.assignedTo._id
+            : editModal.assignedTo || null,
+      };
+
+      await onStatusChange(payload);
+      setSaving(false);
+      setEditModal(null); // Close modal only
+    } catch (error) {
+      console.error("Error updating complaint:", error);
+      setSaving(false);
+    }
   };
 
   return (
@@ -90,46 +112,57 @@ const ParentComplaintsModals = ({
             <h3 className="text-lg font-bold mb-4 text-[#104c80]">
               {t("parentComplaintsModals.edit.title")}
             </h3>
+
+            {saving && (
+              <p className="text-sm text-blue-600 font-medium mb-3">
+                {t("parentComplaintsModals.edit.saving")}...
+              </p>
+            )}
+
             <p className="mb-2">
-              <b>{t("parentComplaintsModals.edit.parentName")}:</b> {formatDisplay(editModal.parentName)}
+              <b>{t("parentComplaintsModals.edit.parentName")}:</b>{" "}
+              {formatDisplay(editModal.parentName)}
             </p>
             <p className="mb-2">
-              <b>{t("parentComplaintsModals.edit.studentName")}:</b> {formatDisplay(editModal.studentName)}
+              <b>{t("parentComplaintsModals.edit.studentName")}:</b>{" "}
+              {formatDisplay(editModal.studentName)}
             </p>
 
+            {/* Assign Department */}
             <label className="block mb-2 font-semibold">
               {t("parentComplaintsModals.edit.assignToLabel")}:
             </label>
-            {(() => {
-              const assignedToValue =
+            <select
+              className="w-full border border-gray-300 rounded-xl p-2 mb-4"
+              value={
                 typeof editModal.assignedTo === "object" && editModal.assignedTo !== null
                   ? editModal.assignedTo._id
-                  : editModal.assignedTo || "";
-              return (
-                <select
-                  className="w-full border border-gray-300 rounded-xl p-2 mb-4"
-                  value={assignedToValue}
-                  onChange={(e) =>
-                    setEditModal({ ...editModal, assignedTo: e.target.value })
-                  }
-                >
-                  <option value="">{t("parentComplaintsModals.edit.unassignedOption")}</option>
-                  {departments.map((dept) => (
-                    <option key={dept._id} value={dept._id}>
-                      {dept.name}
-                    </option>
-                  ))}
-                </select>
-              );
-            })()}
+                  : editModal.assignedTo || ""
+              }
+              onChange={(e) =>
+                setEditModal({ ...editModal, assignedTo: e.target.value })
+              }
+            >
+              <option value="">
+                {t("parentComplaintsModals.edit.unassignedOption")}
+              </option>
+              {departments.map((dept) => (
+                <option key={dept._id} value={dept._id}>
+                  {dept.name}
+                </option>
+              ))}
+            </select>
 
+            {/* Change Status */}
             <label className="block mb-2 font-semibold">
               {t("parentComplaintsModals.edit.changeStatusLabel")}:
             </label>
             <select
               className="w-full border border-gray-300 rounded-xl p-2 mb-4"
               value={editModal.status || ""}
-              onChange={(e) => setEditModal({ ...editModal, status: e.target.value })}
+              onChange={(e) =>
+                setEditModal({ ...editModal, status: e.target.value })
+              }
             >
               {statuses.map((status) => (
                 <option key={status} value={status}>
@@ -140,22 +173,21 @@ const ParentComplaintsModals = ({
 
             <div className="flex justify-end gap-3">
               <button
-                onClick={() => {
-                  onStatusChange({
-                    id: editModal._id,
-                    status: editModal.status,
-                    assignedTo:
-                      typeof editModal.assignedTo === "object"
-                        ? editModal.assignedTo._id
-                        : editModal.assignedTo || null,
-                  });
-                  setEditModal(null);
-                }}
-                className="px-4 py-2 bg-[#104c80] text-white rounded-xl hover:bg-[#0d3b65] transition"
+                disabled={saving}
+                onClick={handleSave}
+                className={`px-4 py-2 rounded-xl text-white transition ${
+                  saving
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-[#104c80] hover:bg-[#0d3b65]"
+                }`}
               >
-                {t("parentComplaintsModals.edit.save")}
+                {saving
+                  ? t("parentComplaintsModals.edit.saving")
+                  : t("parentComplaintsModals.edit.save")}
               </button>
+
               <button
+                disabled={saving}
                 onClick={() => setEditModal(null)}
                 className="px-4 py-2 bg-gray-200 text-gray-800 rounded-xl hover:bg-gray-300 transition"
               >

@@ -154,13 +154,22 @@ const DepartStudentComplaints = () => {
     );
   }
 
-  if (error) {
-    return (
-      <div className="flex justify-center items-center h-screen text-red-600 text-lg">
-        Failed to load complaints. <button onClick={refetch}>Retry</button>
+ if (error || !data?.complaints?.length) {
+  return (
+    <div className="lg:ml-[270px] flex flex-col items-center justify-center min-h-screen bg-gray-50 px-6">
+      <div className="bg-white p-10 rounded-2xl shadow-md border border-gray-100 text-center max-w-lg w-full">
+        <FaExclamationTriangle className="text-5xl text-amber-500 mx-auto mb-4" />
+        <h2 className="text-2xl font-semibold text-gray-700 mb-2">No Complaints Found</h2>
+        <p className="text-gray-500 mb-4">
+          There are currently no students complaints available to display.
+        </p>
+        
+        
       </div>
-    );
-  }
+    </div>
+  );
+}
+
 
   // ✅ UI
   return (

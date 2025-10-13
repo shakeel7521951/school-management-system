@@ -2,6 +2,7 @@
   "visitorForm": {
     "title": "Visitors Form",
     "subtitle": "Please fill in the following details",
+    "note":"Thank you! Your visit will be registered once you submit this form.",
     "fields": {
       "name": {
         "label": "Full Name",

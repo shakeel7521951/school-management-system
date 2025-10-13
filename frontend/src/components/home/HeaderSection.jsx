@@ -149,18 +149,20 @@ export default function HeaderSection() {
       </Swiper>
 
       {/* Navigation Buttons */}
-      <div className="absolute inset-0 flex justify-between items-center px-4 sm:px-6 md:px-8 z-40 pointer-events-none">
-        <button 
-          className="custom-prev p-3 bg-white/15 hover:bg-white/30 backdrop-blur-xl rounded-full border border-white/40 transition pointer-events-auto"
-        >
-          <ChevronLeft className="text-white w-6 h-6 md:w-7 md:h-7" />
-        </button>
-        <button 
-          className="custom-next p-3 bg-white/15 hover:bg-white/30 backdrop-blur-xl rounded-full border border-white/40 transition pointer-events-auto"
-        >
-          <ChevronRight className="text-white w-6 h-6 md:w-7 md:h-7" />
-        </button>
-      </div>
+    {/* Navigation Buttons */}
+<div className="absolute inset-0 justify-between items-center px-4 sm:px-6 md:px-8 z-40 pointer-events-none hidden sm:flex">
+  <button
+    className="custom-prev p-3 bg-white/15 hover:bg-white/30 backdrop-blur-xl rounded-full border border-white/40 transition pointer-events-auto"
+  >
+    <ChevronLeft className="text-white w-6 h-6 md:w-7 md:h-7" />
+  </button>
+  <button
+    className="custom-next p-3 bg-white/15 hover:bg-white/30 backdrop-blur-xl rounded-full border border-white/40 transition pointer-events-auto"
+  >
+    <ChevronRight className="text-white w-6 h-6 md:w-7 md:h-7" />
+  </button>
+</div>
+
 
       {/* Progress Bar */}
       <div className="absolute top-0 left-0 w-full h-[3px] bg-white/30 z-30 pointer-events-none">

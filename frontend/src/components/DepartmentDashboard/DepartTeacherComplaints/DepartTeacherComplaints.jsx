@@ -125,13 +125,21 @@ const DepartTeacherComplaints = () => {
     );
   }
 
-  if (isError) {
-    return (
-      <div className="flex justify-center items-center h-screen text-gray-600 text-lg">
-        Failed to load complaints. Please try again later.
-      </div>
-    );
-  }
+  if (isError|| !data?.complaints?.length) {
+   return (
+     <div className="lg:ml-[270px] flex flex-col items-center justify-center min-h-screen bg-gray-50 px-6">
+       <div className="bg-white p-10 rounded-2xl shadow-md border border-gray-100 text-center max-w-lg w-full">
+         <FaExclamationTriangle className="text-5xl text-amber-500 mx-auto mb-4" />
+         <h2 className="text-2xl font-semibold text-gray-700 mb-2">No Complaints Found</h2>
+         <p className="text-gray-500 mb-4">
+           There are currently no teachers complaints available to display.
+         </p>
+         
+         
+       </div>
+     </div>
+   );
+ }
 
   return (
     <div className="lg:ml-[270px] max-w-8xl bg-gray-50 py-4 px-4 sm:px-6 lg:px-10 flex flex-col gap-8 min-h-screen">

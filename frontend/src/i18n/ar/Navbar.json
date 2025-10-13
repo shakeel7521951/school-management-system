@@ -11,8 +11,6 @@
           "team": "الفريق",
           "directorMessage": "رسالة المدير العام",
           "actingDirectorMessage": "رسالة المدير العام المكلف",
-          "schoolFees": "الرسوم الدراسية",
-          "recruitment": "التوظيف",
           "faqs": "الأسئلة الشائعة"
         }
       },
@@ -55,6 +53,7 @@
       "studentDashboard": "لوحة تحكم الطالب",
       "visitorDashboard": "لوحة تحكم الزائر",
       "securityDashboard": "لوحة تحكم الأمن",
+      "departmentDashboard": "لوحة قسم الإدارة",
       "logout": "تسجيل الخروج",
       "loggingOut": "جاري تسجيل الخروج..."
     },

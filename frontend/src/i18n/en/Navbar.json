@@ -11,9 +11,7 @@
           "team": "Team",
           "directorMessage": "Director Manager Message",
           "actingDirectorMessage": "Acting Director General Message",
-          "schoolFees": "School Fees",
-          "recruitment": "Recruitment",
-          "faqs": "FAQs"
+       "faqs": "FAQs"
         }
       },
       "services": {
@@ -56,6 +54,7 @@
       "studentDashboard": "Student Dashboard",
       "visitorDashboard": "Visitor Dashboard",
       "securityDashboard": "Security Dashboard",
+      "departmentDashboard": "Department Dashboard",
       "logout": "Logout",
       "loggingOut": "Logging out..."
     },

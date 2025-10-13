@@ -2,9 +2,10 @@
   "title": "Visitor Details",
   "fields": {
     "name": "Name",
-    "badge": "Badge",
-    "reason": "Reason",
-    "host": "Host",
+    "badge": "Qatar ID / Passport",
+    "reason": "Purpose of Viist",
+    "phoneNumber":"Phone Number",
+    "host": "Person / Department To Visit",
     "checkin": "Check-in Time",
     "status": "Status"
   },
