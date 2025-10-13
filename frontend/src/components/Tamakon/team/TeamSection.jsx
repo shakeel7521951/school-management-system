@@ -4,18 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 export default function TeamSection() {
-  const { t, i18n } = useTranslation("team");
+  const { t } = useTranslation("team");
   const [activeCategory, setActiveCategory] = useState("all");
   const navigate = useNavigate();
 
-  // ✅ Get data from translations (team.json)
   const teamMembers = t("teamMembers", { returnObjects: true });
   const teamCategories = t("teamCategories", { returnObjects: true });
   const departmentColors = t("departmentColors", { returnObjects: true });
 
-  const lang = i18n.language;
-
-  // ✅ Slug generator for English/Arabic names
   const slugify = (text) =>
     text
       .toString()
@@ -24,140 +20,188 @@ export default function TeamSection() {
       .replace(/\s+/g, "-")
       .replace(/[^\u0600-\u06FFa-z0-9-]/g, "");
 
-  // ✅ Filter members by category
   const filteredTeam =
     activeCategory === "all"
       ? teamMembers
       : teamMembers.filter((m) => m.category === activeCategory);
 
-  // ✅ Animation Variants
   const containerVariants = {
     hidden: {},
-    visible: {
-      transition: { staggerChildren: 0.1 },
-    },
+    visible: { transition: { staggerChildren: 0.15 } },
   };
+
   const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
+    hidden: { opacity: 0, scale: 0.9, y: 40 },
+    visible: (i) => ({
       opacity: 1,
+      scale: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
+      transition: { duration: 0.8, ease: "easeOut", delay: i * 0.1 },
+    }),
   };
 
   return (
-    <section className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
-      {/* ✅ Hero Section */}
+    <section className="relative bg-gradient-to-br from-[#eef3fb] via-[#eaf1ff] to-[#f3f6ff] overflow-hidden">
+      {/* 🌄 Banner (unchanged) */}
       <section
         className="relative w-full h-[40vh] sm:h-[50vh] bg-cover bg-center flex items-center justify-center"
         style={{ backgroundImage: `url(${t("heroSection.backgroundImage")})` }}
       >
         <div className="absolute inset-0 bg-[#104c80]/70"></div>
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
           className="relative z-10 text-center text-white px-4"
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mt-10 sm:mt-14 mb-4">
+          <h1 className="text-4xl sm:text-5xl font-extrabold drop-shadow-xl mb-4">
             {t("heroSection.title")}
           </h1>
-          <p className="text-base sm:text-lg text-indigo-200 mb-6">
+          <p className="text-lg sm:text-xl text-indigo-200 max-w-2xl mx-auto leading-relaxed">
             {t("heroSection.subtitle")}
           </p>
         </motion.div>
       </section>
 
-      {/* ✅ Content Wrapper */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10">
-        {/* ✅ Council Description */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 mb-10 sm:mb-12 shadow-lg border border-white/20">
+      {/* ✨ Main Content */}
+      <motion.div
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        {/* 🏛️ Council Section */}
+        <motion.div
+          className="relative bg-white/70 backdrop-blur-2xl rounded-3xl p-10 mb-16 shadow-2xl border border-white/40"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <div className="text-center mb-6">
-            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+            <h3 className="text-3xl sm:text-4xl font-extrabold text-[#0C3570] mb-3 tracking-tight">
               {t("councilSection.heading")}
             </h3>
-            <div className="w-12 sm:w-16 h-1 bg-gradient-to-r from-[#1A3C77] to-purple-700 mx-auto rounded-full"></div>
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: "5rem" }}
+              transition={{ duration: 0.6 }}
+              className="h-1 bg-gradient-to-r from-[#0C3570] to-[#3471b3] mx-auto rounded-full"
+            ></motion.div>
           </div>
-          <p className="text-gray-700 text-base sm:text-lg leading-relaxed text-center italic">
+          <p className="text-gray-700 text-base sm:text-lg leading-relaxed text-center italic max-w-3xl mx-auto">
             {t("councilSection.description")}
           </p>
-        </div>
 
-        {/* ✅ Category Filters */}
-        <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 mt-6 sm:mt-10">
-          {teamCategories.map((category) => {
-            const count =
-              category.id === "all"
-                ? teamMembers.length
-                : teamMembers.filter((m) => m.category === category.id).length;
+          {/* Floating Glow Effect */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-gradient-to-r from-indigo-300/30 via-blue-200/30 to-cyan-300/30 rounded-full blur-3xl animate-pulse"></div>
+          </div>
+        </motion.div>
 
-            return (
-              <button
-                key={category.id}
-                onClick={() => setActiveCategory(category.id)}
-                className={`px-1 sm:px-6 py-2 sm:py-3 md:rounded-full rounded-xl md:font-medium text-[12px] md:text-xl transition-all duration-300 transform hover:scale-105 ${
-                  activeCategory === category.id
-                    ? "bg-gradient-to-r from-[#0C3570] to-[#3471b3] text-white shadow-lg"
-                    : "bg-white text-gray-700 border border-gray-200 hover:border-indigo-300 hover:text-[#3471b3]"
-                }`}
-              >
-                {category.name}
-                <span className="ml-1 sm:ml-2 bg-white/20 px-2 py-0.5 rounded-full text-[12px] sm:text-sm">
-                  ({count})
-                </span>
-              </button>
-            );
-          })}
-        </div>
+       {/* 🎨 Category Filters */}
+<motion.div
+  className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-3 mb-12"
+  initial={{ opacity: 0 }}
+  whileInView={{ opacity: 1 }}
+  transition={{ duration: 0.8 }}
+  viewport={{ once: true }}
+>
+  {teamCategories.map((category) => {
+    const count =
+      category.id === "all"
+        ? teamMembers.length
+        : teamMembers.filter((m) => m.category === category.id).length;
 
-        {/* ✅ Team Grid */}
+    return (
+      <motion.button
+        whileHover={{
+          scale: 1.1,
+          background: "linear-gradient(to right, #0C3570, #3471b3)",
+          color: "#fff",
+        }}
+        whileTap={{ scale: 0.95 }}
+        key={category.id}
+        onClick={() => setActiveCategory(category.id)}
+        className={`flex items-center justify-center md:px-4 px-2 sm:px-6 py-2.5 rounded-full text-xs sm:text-base font-semibold tracking-wide shadow-md transition-all duration-300 text-center w-full sm:w-auto ${
+          activeCategory === category.id
+            ? "bg-gradient-to-r from-[#0C3570] to-[#3471b3] text-white"
+            : "bg-white/90 text-gray-700 border border-gray-200 hover:shadow-lg"
+        }`}
+      >
+        <span>{category.name}</span>
+        <span className="ml-1 bg-white/30 px-2 py-0.5 rounded-full text-[11px] sm:text-xs">
+          {count}
+        </span>
+      </motion.button>
+    );
+  })}
+</motion.div>
+
+
+
+
+        {/* 🧑‍💼 Team Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          {filteredTeam.map((member) => (
+          {filteredTeam.map((member, i) => (
             <motion.div
               key={member.id}
-              className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden group h-full flex flex-col"
+              custom={i}
               variants={cardVariants}
+              whileHover={{
+                y: -8,
+                scale: 1.04,
+                boxShadow:
+                  "0 20px 40px rgba(52,113,179,0.25), 0 0 20px rgba(12,53,112,0.25)",
+              }}
+              className="group relative bg-white/80 backdrop-blur-2xl rounded-3xl shadow-xl border border-gray-100 overflow-hidden flex flex-col transition-all duration-500"
             >
-              {/* Department Color Bar */}
+              {/* Dept Color Bar */}
               <div
                 className={`h-2 bg-gradient-to-r ${
-                  departmentColors[member.department] || "from-gray-500 to-gray-700"
+                  departmentColors[member.department] ||
+                  "from-gray-500 to-gray-700"
                 }`}
               ></div>
 
-              {/* Content */}
-              <div className="p-5 sm:p-6 flex flex-col flex-grow">
-                {/* Avatar + Name */}
-                <div className="flex flex-col justify-center items-center mb-4">
-                  <div className="w-36 h-36 border-2 border-gray-200 shadow-lg rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
+              {/* Profile */}
+              <div className="p-7 flex flex-col flex-grow">
+                <div className="flex flex-col items-center mb-5">
+                  <motion.div
+                    whileHover={{ rotate: 2, scale: 1.07 }}
+                    transition={{ duration: 0.3 }}
+                    className="w-36 h-36 rounded-full border-4 border-indigo-100 overflow-hidden shadow-inner relative bg-gradient-to-br from-slate-50 to-indigo-50"
+                  >
                     {member.photo ? (
                       <img
                         src={member.photo}
                         alt={member.name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
-                      <span className="text-2xl font-bold text-[#3471b3]">
-                        {member.name.split(" ").map((n) => n[0]).join("")}
+                      <span className="absolute inset-0 flex items-center justify-center text-2xl font-bold text-[#3471b3]">
+                        {member.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
                       </span>
                     )}
-                  </div>
+                  </motion.div>
 
-                  <div className="mt-3 sm:mt-4 text-center">
-                    <h3 className="text-base sm:text-lg font-bold text-gray-900 line-clamp-1 min-h-[28px]">
+                  <div className="mt-4 text-center">
+                    <h3 className="text-lg font-semibold text-gray-900">
                       {member.name}
                     </h3>
-                    <p className="text-xs sm:text-sm text-indigo-600 font-medium min-h-[20px]">
+                    <p className="text-sm text-indigo-600 font-medium">
                       {member.department}
                     </p>
-
-                    <span className="inline-block px-2 py-0.5 sm:px-2 sm:py-1 bg-indigo-50 text-indigo-700 text-[10px] sm:text-xs rounded-full mt-1">
+                    <span className="inline-block mt-2 px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full font-medium">
                       {teamCategories.find((c) => c.id === member.category)?.name ||
                         member.category}
                     </span>
@@ -165,28 +209,33 @@ export default function TeamSection() {
                 </div>
 
                 {/* Title */}
-                <p className="text-gray-700 font-medium mb-3 sm:mb-4 text-center bg-gradient-to-r from-gray-100 to-gray-200 py-1.5 sm:py-2 rounded-lg text-sm sm:text-base min-h-[40px] flex items-center justify-center">
+                <p className="text-gray-700 font-medium mb-4 text-center bg-gradient-to-r from-gray-100 to-gray-200 py-2 rounded-lg text-sm sm:text-base shadow-inner">
                   {member.title}
                 </p>
 
-                {/* View Profile Button */}
+                {/* Button */}
                 <div className="text-center mt-auto">
-                  <button
+                  <motion.button
+                    whileHover={{
+                      scale: 1.08,
+                      boxShadow:
+                        "0 0 20px rgba(12,53,112,0.4), 0 0 30px rgba(52,113,179,0.3)",
+                    }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() =>
                       navigate(`/tamakon-team/${slugify(member.name)}`)
                     }
-                    className="px-4 sm:px-5 py-2 rounded-lg bg-gradient-to-r from-[#0C3570] to-[#3471b3] text-white text-sm sm:text-base font-medium shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
+                    className="px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#0C3570] to-[#3471b3] text-white text-sm sm:text-base font-semibold shadow-md transition-all duration-300"
                   >
                     {member.button}
-                  </button>
+                  </motion.button>
                 </div>
               </div>
             </motion.div>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
 
-      {/* ✅ Utility CSS */}
       <style jsx>{`
         .line-clamp-1 {
           display: -webkit-box;

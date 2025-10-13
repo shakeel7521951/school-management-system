@@ -6,6 +6,7 @@ import {
 } from "../../redux/slices/ParentComplaintApi";
 import DepartParentComplaintTable from "../../components/DepartmentDashboard/DepartParentsComplaints/DepartParentComplaintTable";
 import DepartParentComplaintModals from "../../components/DepartmentDashboard/DepartParentsComplaints/DepartParentComplaintsModals";
+import {FaExclamationTriangle} from "react-icons/fa"
 
 const DepartmentParentComplaints = () => {
   // ✅ Fetch complaints
@@ -71,8 +72,21 @@ const DepartmentParentComplaints = () => {
 
   if (isLoading)
     return <p className="text-center text-gray-500 mt-10">Loading complaints...</p>;
-  if (isError)
-    return <p className="text-center text-red-500 mt-10">Failed to fetch complaints!</p>;
+ if (isError || !complaintsData?.complaints?.length) {
+  return (
+    <div className="lg:ml-[270px] flex flex-col items-center justify-center min-h-screen bg-gray-50 px-6">
+      <div className="bg-white p-10 rounded-2xl shadow-md border border-gray-100 text-center max-w-lg w-full">
+        <FaExclamationTriangle className="text-5xl text-amber-500 mx-auto mb-4" />
+        <h2 className="text-2xl font-semibold text-gray-700 mb-2">No Complaints Found</h2>
+        <p className="text-gray-500 mb-4">
+          There are currently no parents complaints available to display.
+        </p>
+        
+        
+      </div>
+    </div>
+  );
+}
 
   return (
     <div className="p-6 lg:ml-[292px] bg-gray-50 min-h-screen">

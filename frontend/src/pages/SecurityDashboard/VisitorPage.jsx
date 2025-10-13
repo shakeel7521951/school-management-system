@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Eye, Plus, X } from "lucide-react";
-import VisitorViewModal from "../../components/securityDashboard/VisitorViewModal";
 import VisitorForm from "../../components/securityDashboard/VisitorForm";
 import { useGetVisitorsQuery } from "../../redux/slices/VisitorApi"; 
 import { useTranslation } from "react-i18next";
+import VisitorFormModal from './../../components/common/VisitorFormModal';
 
 
 
@@ -35,6 +35,8 @@ const VisitorPage = () => {
         >
           <Plus size={18} /> {t("buttons.add")}
         </button>
+        
+      <VisitorFormModal open={isFormOpen} onClose={() => setIsFormOpen(false)} />
       </div>
 
       {/* Filters */}
@@ -70,6 +72,7 @@ const VisitorPage = () => {
               <tr>
                 <th className="px-3 py-2">{t("table.name")}</th>
                 <th className="px-3 py-2">{t("table.id")}</th>
+                <th className="px-3 py-2">{t("table.type")}</th>
                 <th className="px-3 py-2">{t("table.reason")}</th>
                 <th className="px-3 py-2">{t("table.host")}</th>
                 <th className="px-3 py-2">{t("table.checkin")}</th>

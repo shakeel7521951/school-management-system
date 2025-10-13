@@ -12,9 +12,11 @@
   },
   "table": {
     "name": "Name",
-    "id": "ID",
-    "reason": "Reason",
-    "host": "Host",
+    "id": "Qatar ID / Passport",
+    "type": "Visitor Type",
+    "reason": "Purpose of Viist",
+    "host": "Person / Department",
+    "phoneNumber":"Phone Number",
     "checkin": "Check-in",
     "status": "Status",
     "action": "Action"

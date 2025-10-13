@@ -90,6 +90,9 @@ import ParentComplaintForm from './pages/ParentComplaintForm'
 import AdminParentComplaints from './pages/dashboard/AdminComplaints/AdminParentsComplaints';
 import ScrollToTop from './components/common/ScrollToTop'
 import DepartParentsComplaint from './pages/departmentDashboard/DepartParentsComplaint'
+import ReceptionistDashboard from './pages/ReceptionistDashboard'
+import ReceptionistNavbar from './components/ReceptionistDashboard/common/ReceptionistNavbar'
+import ReceptionistSidebar from './components/ReceptionistDashboard/common/ReceptionistSidebar'
 
 const MainFunction = () => {
   return (
@@ -169,6 +172,20 @@ const DepartmentRoute = () => {
     </div>
   )
 }
+
+const ReceptionistRoute = () => {
+  return (
+    <div>
+        <ReceptionistNavbar/>
+        <ReceptionistSidebar/>
+        <Outlet />
+        <ScrollToTop />
+    </div>
+  )
+}
+
+
+
 
 
 const router = createBrowserRouter([
@@ -266,6 +283,13 @@ const router = createBrowserRouter([
       { path: '/teacher-complaint', element: <DepartTeacherComplaint /> },
       { path: '/parent-complaint', element: <DepartParentsComplaint /> },
 
+    ]
+  },
+   {
+    element: <ReceptionistRoute />,
+    children: [
+      { path: '/visitors', element: <ReceptionistDashboard /> },
+      
     ]
   },
 ])
