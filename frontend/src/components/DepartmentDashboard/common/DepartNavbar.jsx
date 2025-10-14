@@ -16,8 +16,8 @@ const DepartNavbar = ({ onMenuClick }) => {
   const userProfile = useSelector(selectUserProfile);
 
   // Default fallback values from translations
-  const userName = userProfile?.name || t("user.defaultName");
-  const userRole = userProfile?.role || t("user.defaultRole");
+  const userName = userProfile?.name || t("departNavbar.user.defaultName");
+  const userRole = userProfile?.role || t("departNavbar.user.defaultRole");
   const initial = userName ? userName.charAt(0).toUpperCase() : "?";
 
   // RTK Query logout mutation
@@ -51,7 +51,7 @@ const DepartNavbar = ({ onMenuClick }) => {
         <button
           className="md:hidden p-2 rounded-lg mr-3 bg-gray-100 hover:bg-gray-200 transition-all"
           onClick={onMenuClick}
-          aria-label={t("aria.toggleMenu")}
+          aria-label={t("departNavbar.aria.toggleMenu")}
         >
           <Menu size={20} className="text-gray-700" />
         </button>
@@ -106,7 +106,7 @@ const DepartNavbar = ({ onMenuClick }) => {
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-600 mr-2">
                   <User size={16} />
                 </div>
-                {t("profile.myProfile")}
+                {t("departNavbar.profile.myProfile")}
               </button>
 
               <div className="border-t border-gray-100 my-1"></div>
@@ -119,7 +119,7 @@ const DepartNavbar = ({ onMenuClick }) => {
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 text-red-600 mr-2">
                   <LogOut size={16} />
                 </div>
-                {isLoading ? t("profile.loggingOut") : t("profile.logout")}
+                {isLoading ? t("departNavbar.profile.loggingOut") : t("departNavbar.profile.logout")}
               </button>
             </div>
           )}

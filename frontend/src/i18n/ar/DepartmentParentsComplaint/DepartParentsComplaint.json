@@ -1,0 +1,43 @@
+{
+  "header": {
+    "title": "إدارة شكاوى أولياء الأمور",
+    "subtitle": "إدارة، مراجعة، وحل شكاوى أولياء الأمور."
+  },
+  "stats": {
+    "total": {
+      "label": "إجمالي الشكاوى"
+    },
+    "pending": {
+      "label": "قيد الانتظار"
+    },
+    "rejected": {
+      "label": "مرفوضة"
+    },
+    "resolved": {
+      "label": "تم حلها"
+    }
+  },
+  "statusColors": {
+    "Pending": "bg-yellow-100 text-yellow-700 border border-yellow-300 px-3 py-1 rounded-full text-xs font-semibold shadow-sm",
+    "Rejected": "bg-red-100 text-red-700 border border-red-300 px-3 py-1 rounded-full text-xs font-semibold shadow-sm",
+    "Resolved": "bg-green-100 text-green-700 border border-green-300 px-3 py-1 rounded-full text-xs font-semibold shadow-sm"
+  },
+  "loading": {
+    "message": "جاري تحميل الشكاوى..."
+  },
+  "noData": {
+    "title": "لم يتم العثور على شكاوى",
+    "message": "لا توجد حالياً أي شكاوى من أولياء الأمور لعرضها."
+  },
+  "notifications": {
+    "updateSuccess": "تم تحديث الشكوى بنجاح!",
+    "updateError": "فشل في تحديث الشكوى!"
+  },
+  "table": {
+    "viewButton": "عرض",
+    "editButton": "تعديل"
+  },
+  "modals": {
+    "statuses": ["قيد الانتظار", "تم حلها", "مرفوضة"]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "table": {
+    "headers": {
+      "parentName": "Parent Name",
+      "relation": "Relation",
+      "studentName": "Student Name",
+      "class": "Class",
+      "type": "Type",
+      "severity": "Severity",
+      "impact": "Impact",
+      "expectedAction": "Expected Action",
+      "date": "Date",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "actions": {
+      "view": "View",
+      "edit": "Edit"
+    },
+    "noData": {
+      "title": "No complaints found for your department."
+    },
+    "mobile": {
+      "student": "Student",
+      "class": "Class",
+      "type": "Type",
+      "severity": "Severity",
+      "impact": "Impact",
+      "expectedAction": "Expected Action",
+      "date": "Date"
+    }
+  }
+}

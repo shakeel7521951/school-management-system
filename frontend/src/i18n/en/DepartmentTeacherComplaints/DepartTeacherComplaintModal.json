@@ -1,0 +1,31 @@
+{
+  "title": "Edit Teacher Complaint",
+  "labels": {
+    "employeeName": "Employee Name",
+    "jobTitle": "Job Title",
+    "department": "Department",
+    "date": "Date",
+    "status": "Complaint Status",
+    "message": "Message / Comments"
+  },
+  "placeholders": {
+    "message": "Add your comments or feedback..."
+  },
+  "statusOptions": {
+    "pending": "Pending",
+    "inProgress": "In Progress",
+    "resolved": "Resolved",
+    "rejected": "Rejected"
+  },
+  "buttons": {
+    "cancel": "Cancel",
+    "save": "Save Changes"
+  },
+  "toast": {
+    "success": "Status updated successfully!",
+    "error": "Error updating complaint."
+  },
+  "aria": {
+    "closeModal": "Close Modal"
+  }
+}

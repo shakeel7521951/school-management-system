@@ -1,37 +1,17 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const DepartTeacherComplaintViewModal = ({ viewModal, setViewModal }) => {
+  const { t } = useTranslation("departTeacherComplaintViewModal");
+
   if (!viewModal) return null;
 
-  // ✅ Local color mappings (no translation JSON)
-  const typeColors = {
-    Behavioral: "bg-red-100 text-red-700",
-    Performance: "bg-yellow-100 text-yellow-700",
-    Other: "bg-gray-100 text-gray-700",
-    default: "bg-gray-100 text-gray-600",
-  };
-
-  const severityColors = {
-    high: "bg-red-100 text-red-700",
-    medium: "bg-yellow-100 text-yellow-700",
-    low: "bg-green-100 text-green-700",
-    default: "bg-gray-100 text-gray-600",
-  };
-
-  const statusColors = {
-    pending: "bg-yellow-100 text-yellow-700",
-    "in progress": "bg-blue-100 text-blue-700",
-    resolved: "bg-green-100 text-green-700",
-    default: "bg-gray-100 text-gray-600",
-  };
-
-  const impactColors = {
-    critical: "bg-red-100 text-red-700",
-    moderate: "bg-yellow-100 text-yellow-700",
-    minimal: "bg-green-100 text-green-700",
-    default: "bg-gray-100 text-gray-600",
-  };
+  // ✅ Color mappings from localization file
+  const typeColors = t("colors.type", { returnObjects: true });
+  const severityColors = t("colors.severity", { returnObjects: true });
+  const statusColors = t("colors.status", { returnObjects: true });
+  const impactColors = t("colors.impact", { returnObjects: true });
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
@@ -40,7 +20,7 @@ const DepartTeacherComplaintViewModal = ({ viewModal, setViewModal }) => {
         <div className="p-6 border-b border-gray-200">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-bold text-gray-800">
-              Complaint Details
+              {t("labels.modalTitle")}
             </h2>
             <button
               onClick={() => setViewModal(null)}
@@ -57,15 +37,16 @@ const DepartTeacherComplaintViewModal = ({ viewModal, setViewModal }) => {
             {/* Complainant */}
             <div>
               <h3 className="text-sm font-medium text-gray-500 mb-1">
-                Complainant
+                {t("labels.complainant")}
               </h3>
               <p className="text-lg font-medium text-gray-900">
                 {viewModal.employeeName}
               </p>
               <p className="text-sm text-gray-600">
-                <span className="font-bold">Job Title:</span> {viewModal.jobTitle}
+                <span className="font-bold">{t("labels.jobTitle")}:</span>{" "}
+                {viewModal.jobTitle}
                 <br />
-                <span className="font-bold">Department:</span>{" "}
+                <span className="font-bold">{t("labels.department")}:</span>{" "}
                 {viewModal.department}
               </p>
             </div>
@@ -73,7 +54,7 @@ const DepartTeacherComplaintViewModal = ({ viewModal, setViewModal }) => {
             {/* Date */}
             <div>
               <h3 className="text-sm font-medium text-gray-500 mb-1">
-                Date Submitted
+                {t("labels.dateSubmitted")}
               </h3>
               <p className="text-lg text-gray-900">
                 {viewModal.date
@@ -84,7 +65,9 @@ const DepartTeacherComplaintViewModal = ({ viewModal, setViewModal }) => {
 
             {/* Type */}
             <div>
-              <h3 className="text-sm font-medium text-gray-500 mb-1">Type</h3>
+              <h3 className="text-sm font-medium text-gray-500 mb-1">
+                {t("labels.type")}
+              </h3>
               <span
                 className={`px-3 py-1 text-sm font-medium rounded-full ${
                   typeColors[viewModal.type] || typeColors.default
@@ -97,7 +80,7 @@ const DepartTeacherComplaintViewModal = ({ viewModal, setViewModal }) => {
             {/* Severity */}
             <div>
               <h3 className="text-sm font-medium text-gray-500 mb-1">
-                Severity
+                {t("labels.severity")}
               </h3>
               <span
                 className={`px-3 py-1 text-sm font-medium rounded-full ${
@@ -112,7 +95,7 @@ const DepartTeacherComplaintViewModal = ({ viewModal, setViewModal }) => {
             {/* Expected Action */}
             <div>
               <h3 className="text-sm font-medium text-gray-500 mb-1">
-                Expected Action
+                {t("labels.expectedAction")}
               </h3>
               <span
                 className={`px-3 py-1 text-sm font-medium rounded-full ${
@@ -127,7 +110,7 @@ const DepartTeacherComplaintViewModal = ({ viewModal, setViewModal }) => {
             {/* Impact */}
             <div>
               <h3 className="text-sm font-medium text-gray-500 mb-1">
-                Impact
+                {t("labels.impact")}
               </h3>
               <span
                 className={`px-3 py-1 text-sm font-medium rounded-full ${
@@ -143,10 +126,10 @@ const DepartTeacherComplaintViewModal = ({ viewModal, setViewModal }) => {
           {/* Complaint details */}
           <div className="mb-6">
             <h3 className="text-sm font-medium text-gray-500 mb-1">
-              Complaint Description
+              {t("labels.complaintDetails")}
             </h3>
             <p className="text-gray-900 bg-gray-50 p-4 rounded-lg">
-              {viewModal.details || "No additional details provided."}
+              {viewModal.details || t("noDetails", { defaultValue: "No additional details provided." })}
             </p>
           </div>
         </div>
@@ -157,7 +140,7 @@ const DepartTeacherComplaintViewModal = ({ viewModal, setViewModal }) => {
             onClick={() => setViewModal(null)}
             className="px-4 py-2 bg-[#1a4480] text-white rounded-lg hover:bg-[#0d3260] transition"
           >
-            Close
+            {t("labels.closeButton")}
           </button>
         </div>
       </div>

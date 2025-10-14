@@ -1,0 +1,46 @@
+{
+  "table": {
+    "headers": {
+      "employeeName": "Employee Name",
+      "jobTitle": "Job Title",
+      "department": "Department",
+      "date": "Date",
+      "type": "Type",
+      "severity": "Severity",
+      "impact": "Impact",
+      "expectedAction": "Expected Action",
+      "status": "Status",
+      "action": "Actions"
+    },
+    "noData": {
+      "iconAlt": "No complaints found icon",
+      "message": "No complaints found."
+    },
+    "status": {
+      "pending": "Pending",
+      "inProgress": "In Progress",
+      "resolved": "Resolved",
+      "default": "Unknown"
+    },
+    "mobile": {
+      "labels": {
+        "department": "Department",
+        "date": "Date",
+        "type": "Type",
+        "severity": "Severity",
+        "impact": "Impact",
+        "expectedAction": "Expected Action",
+        "status": "Status"
+      }
+    },
+    "buttons": {
+      "view": "View",
+      "edit": "Edit"
+    },
+    "aria": {
+      "sortAsc": "Sort ascending",
+      "sortDesc": "Sort descending",
+      "noSort": "Sortable column"
+    }
+  }
+}

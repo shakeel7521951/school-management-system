@@ -1,0 +1,43 @@
+{
+  "header": {
+    "title": "Parents Complaint Management",
+    "subtitle": "Manage, review, and resolve parent complaints."
+  },
+  "stats": {
+    "total": {
+      "label": "Total Complaints"
+    },
+    "pending": {
+      "label": "Pending"
+    },
+    "rejected": {
+      "label": "Rejected"
+    },
+    "resolved": {
+      "label": "Resolved"
+    }
+  },
+  "statusColors": {
+    "Pending": "bg-yellow-100 text-yellow-700 border border-yellow-300 px-3 py-1 rounded-full text-xs font-semibold shadow-sm",
+    "Rejected": "bg-red-100 text-red-700 border border-red-300 px-3 py-1 rounded-full text-xs font-semibold shadow-sm",
+    "Resolved": "bg-green-100 text-green-700 border border-green-300 px-3 py-1 rounded-full text-xs font-semibold shadow-sm"
+  },
+  "loading": {
+    "message": "Loading complaints..."
+  },
+  "noData": {
+    "title": "No Complaints Found",
+    "message": "There are currently no parent complaints available to display."
+  },
+  "notifications": {
+    "updateSuccess": "Complaint updated successfully!",
+    "updateError": "Failed to update complaint!"
+  },
+  "table": {
+    "viewButton": "View",
+    "editButton": "Edit"
+  },
+  "modals": {
+    "statuses": ["Pending", "Resolved", "Rejected"]
+  }
+}

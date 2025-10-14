@@ -6,20 +6,26 @@ import {
 } from "../../redux/slices/ParentComplaintApi";
 import DepartParentComplaintTable from "../../components/DepartmentDashboard/DepartParentsComplaints/DepartParentComplaintTable";
 import DepartParentComplaintModals from "../../components/DepartmentDashboard/DepartParentsComplaints/DepartParentComplaintsModals";
-import {FaExclamationTriangle} from "react-icons/fa"
+import { FaExclamationTriangle } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const DepartmentParentComplaints = () => {
+  const { t } = useTranslation("departParentsComplaint");
+
   // ✅ Fetch complaints
   const { data: complaintsData, isLoading, isError, refetch } =
     useGetAllParentComplaintsQuery();
+
+  console.log("complaintsData from API:", complaintsData);
 
   const [changeParentComplaintStatus] = useChangeParentComplaintStatusMutation();
   const [sortConfig, setSortConfig] = useState({ key: "", direction: "" });
   const [viewModal, setViewModal] = useState(null);
   const [editModal, setEditModal] = useState(null);
 
+  // ✅ Use data directly (API returns array)
   const complaints = complaintsData || [];
-  const statuses = ["Pending", "Resolved", "Rejected"];
+  const statuses = t("modals.statuses", { returnObjects: true }); // ✅ from JSON array
 
   // --- Sort handler ---
   const handleSort = (key) => {
@@ -43,14 +49,7 @@ const DepartmentParentComplaints = () => {
     return sortable;
   }, [complaints, sortConfig]);
 
-  const statusClasses = {
-    Pending:
-      "bg-yellow-100 text-yellow-700 border border-yellow-300 px-3 py-1 rounded-full text-xs font-semibold shadow-sm",
-    Rejected:
-      "bg-red-100 text-red-700 border border-red-300 px-3 py-1 rounded-full text-xs font-semibold shadow-sm",
-    Resolved:
-      "bg-green-100 text-green-700 border border-green-300 px-3 py-1 rounded-full text-xs font-semibold shadow-sm",
-  };
+  const statusClasses = t("statusColors", { returnObjects: true });
 
   // --- Stats ---
   const totalComplaints = complaints.length;
@@ -62,52 +61,72 @@ const DepartmentParentComplaints = () => {
   const handleStatusChange = async ({ id, status, feedback }) => {
     try {
       await changeParentComplaintStatus({ id, status, feedback }).unwrap();
-      toast.success("Complaint updated successfully!");
+      toast.success(t("notifications.updateSuccess"));
       setEditModal(null);
       refetch();
     } catch (error) {
-      toast.error("Failed to update complaint!");
+      toast.error(t("notifications.updateError"));
     }
   };
 
+  // --- Loading State ---
   if (isLoading)
-    return <p className="text-center text-gray-500 mt-10">Loading complaints...</p>;
- if (isError || !complaintsData?.complaints?.length) {
-  return (
-    <div className="lg:ml-[270px] flex flex-col items-center justify-center min-h-screen bg-gray-50 px-6">
-      <div className="bg-white p-10 rounded-2xl shadow-md border border-gray-100 text-center max-w-lg w-full">
-        <FaExclamationTriangle className="text-5xl text-amber-500 mx-auto mb-4" />
-        <h2 className="text-2xl font-semibold text-gray-700 mb-2">No Complaints Found</h2>
-        <p className="text-gray-500 mb-4">
-          There are currently no parents complaints available to display.
-        </p>
-        
-        
+    return (
+      <p className="text-center text-gray-500 mt-10">
+        {t("loading.message")}
+      </p>
+    );
+
+  // ✅ FIXED: check array length directly
+  if (isError || complaints.length === 0) {
+    return (
+      <div className="lg:ml-[270px] flex flex-col items-center justify-center min-h-screen bg-gray-50 px-6">
+        <div className="bg-white p-10 rounded-2xl shadow-md border border-gray-100 text-center max-w-lg w-full">
+          <FaExclamationTriangle className="text-5xl text-amber-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-semibold text-gray-700 mb-2">
+            {t("noData.title")}
+          </h2>
+          <p className="text-gray-500 mb-4">{t("noData.message")}</p>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
   return (
-    <div className="p-6 lg:ml-[292px] bg-gray-50 min-h-screen">
+    <div className="p-6 lg:ml-[292px] bg-gray-50 min-h-screen" >
       {/* --- HEADER --- */}
       <div className="mb-10 text-center md:text-left">
         <h2 className="text-3xl md:text-4xl font-extrabold text-[#104c80] mb-2">
-          Parents Complaint Management
+          {t("header.title")}
         </h2>
         <p className="text-[#104c80]/80 text-sm md:text-base max-w-2xl leading-relaxed">
-        Manage review and resolve parents complaints.
-        
+          {t("header.subtitle")}
         </p>
       </div>
 
       {/* --- STATS --- */}
       <div className="grid md:grid-cols-4 gap-5 mb-10">
         {[
-          { title: "Total Complaints", count: totalComplaints, color: "#104c80" },
-          { title: "Pending", count: pendingComplaints, color: "#eab308" },
-          { title: "Rejected", count: rejectedComplaints, color: "#dc2626" },
-          { title: "Resolved", count: resolvedComplaints, color: "#16a34a" },
+          {
+            title: t("stats.total.label"),
+            count: totalComplaints,
+            color: "#104c80",
+          },
+          {
+            title: t("stats.pending.label"),
+            count: pendingComplaints,
+            color: "#eab308",
+          },
+          {
+            title: t("stats.rejected.label"),
+            count: rejectedComplaints,
+            color: "#dc2626",
+          },
+          {
+            title: t("stats.resolved.label"),
+            count: resolvedComplaints,
+            color: "#16a34a",
+          },
         ].map((item, i) => (
           <div
             key={i}
@@ -130,8 +149,6 @@ const DepartmentParentComplaints = () => {
       {/* --- TABLE --- */}
       <DepartParentComplaintTable
         complaints={sortedComplaints}
-        sortConfig={sortConfig}
-        handleSort={handleSort}
         setViewModal={setViewModal}
         setEditModal={setEditModal}
         statusClasses={statusClasses}

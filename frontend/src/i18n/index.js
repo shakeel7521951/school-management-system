@@ -145,6 +145,24 @@ import departmentNavbar_en from './en/DepartmentDashboard/DepartmentNavbar.json'
 import departmentNavbar_ar from "./ar/DepartmentDashboard/DepartmentNavbar.json"
 import departmentSidebar_en from "./en/DepartmentDashboard/DepartmentSidebar.json"
 import departmentSidebar_ar from "./ar/DepartmentDashboard/DepartmentSidebar.json"
+import departTeacherComplaintFilter_en from "./en/DepartmentTeacherComplaints/DepartComplaintTeacherFilter.json"
+import departTeacherComplaints_en from "./en/DepartmentTeacherComplaints/DepartTeacherComplaints.json"
+import departTeacherComplaintStats_en from "./en/DepartmentTeacherComplaints/DepartTeacherComplaintStats.json"
+import departTeacherComplaintTable_en from "./en/DepartmentTeacherComplaints/DepartTeacherComplaintTable.json"
+import departTeacherComplaintViewModal_en from "./en/DepartmentTeacherComplaints/DepartTeacherComplaintViewModal.json"
+import departTeacherComplaintModal_en from "./en/DepartmentTeacherComplaints/DepartTeacherComplaintModal.json"
+import departTeacherComplaintFilter_ar from "./ar/DepartmentTeacherComplaints/DepartComplaintTeacherFilter.json"
+import departTeacherComplaints_ar from "./ar/DepartmentTeacherComplaints/DepartTeacherComplaints.json"
+import departTeacherComplaintStats_ar from "./ar/DepartmentTeacherComplaints/DepartTeacherComplaintStats.json"
+import departTeacherComplaintTable_ar from "./ar/DepartmentTeacherComplaints/DepartTeacherComplaintTable.json"
+import departTeacherComplaintViewModal_ar from "./ar/DepartmentTeacherComplaints/DepartTeacherComplaintViewModal.json"
+import departTeacherComplaintModal_ar from "./ar/DepartmentTeacherComplaints/DepartTeacherComplaintModal.json"
+import departParentsComplaint_en from "./en/DepartmentParentsComplaint/DepartParentsComplaint.json"
+import departParentComplaintTable_en from "./en/DepartmentParentsComplaint/DepartParentComplaintTable.json"
+import departParentComplaintsModals_en from "./en/DepartmentParentsComplaint/DepartParentComplaintsModals.json"
+import departParentsComplaint_ar from "./ar/DepartmentParentsComplaint/DepartParentsComplaint.json"
+import departParentComplaintTable_ar from "./ar/DepartmentParentsComplaint/DepartParentComplaintTable.json"
+import departParentComplaintsModals_ar from "./ar/DepartmentParentsComplaint/DepartParentComplaintsModals.json"
 
 
 
@@ -219,6 +237,15 @@ const resources = {
     departmentModals:departmentModals_en,
     departmentNavbar:departmentNavbar_en,
     departmentSidebar:departmentSidebar_en,
+    departTeacherComplaintFilter:departTeacherComplaintFilter_en,
+    departTeacherComplaints:departTeacherComplaints_en,
+    departTeacherComplaintStats:departTeacherComplaintStats_en,
+    departTeacherComplaintTable:departTeacherComplaintTable_en,
+    departTeacherComplaintViewModal:departTeacherComplaintViewModal_en,
+    departTeacherComplaintModal:departTeacherComplaintModal_en,
+    departParentsComplaint:departParentsComplaint_en,
+    departParentComplaintTable:departParentComplaintTable_en,
+    departParentComplaintsModals:departParentComplaintsModals_en
   },
   ar: {
     home: home_ar,
@@ -288,6 +315,15 @@ const resources = {
     departmentModals:departmentModals_ar,
     departmentNavbar:departmentNavbar_ar,
     departmentSidebar:departmentSidebar_ar,
+     departTeacherComplaintFilter:departTeacherComplaintFilter_ar,
+    departTeacherComplaints:departTeacherComplaints_ar,
+    departTeacherComplaintStats:departTeacherComplaintStats_ar,
+    departTeacherComplaintTable:departTeacherComplaintTable_ar,
+    departTeacherComplaintViewModal:departTeacherComplaintViewModal_ar,
+    departTeacherComplaintModal:departTeacherComplaintModal_ar,
+        departParentsComplaint:departParentsComplaint_ar,
+    departParentComplaintTable:departParentComplaintTable_ar,
+    departParentComplaintsModals:departParentComplaintsModals_ar
   },
 };
 

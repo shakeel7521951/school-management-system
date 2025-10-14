@@ -1,0 +1,16 @@
+{
+  "stats": {
+    "pending": {
+      "label": "الشكاوى قيد الانتظار"
+    },
+    "inProgress": {
+      "label": "قيد المعالجة"
+    },
+    "resolved": {
+      "label": "تم الحل"
+    },
+    "total": {
+      "label": "إجمالي الشكاوى"
+    }
+  }
+}

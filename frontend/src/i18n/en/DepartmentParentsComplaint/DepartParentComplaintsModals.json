@@ -1,0 +1,40 @@
+{
+  "departmentParentComplaintModals": {
+    "viewModal": {
+      "title": "Complaint Details",
+      "parent": "Parent",
+      "relation": "Relation",
+      "student": "Student",
+      "class": "Class",
+      "type": "Type",
+      "severity": "Severity",
+      "impact": "Impact",
+      "expectedAction": "Expected Action",
+      "date": "Date",
+      "status": "Status",
+      "feedbackTitle": "Department Feedback",
+      "closeButton": "Close"
+    },
+    "editModal": {
+      "title": "Edit Parent Complaint",
+      "parent": "Parent",
+      "student": "Student",
+      "class": "Class",
+      "type": "Type",
+      "status": "Status",
+      "statusOptions": {
+        "pending": "Pending",
+        "resolved": "Resolved",
+        "rejected": "Rejected"
+      },
+      "feedbackLabel": "Feedback / Comments",
+      "feedbackPlaceholder": "Enter remarks, actions taken, or feedback to parent...",
+      "cancelButton": "Cancel",
+      "saveButton": "Save Changes",
+      "saving": "Saving..."
+    },
+    "alerts": {
+      "updateError": "Failed to update complaint status."
+    }
+  }
+}

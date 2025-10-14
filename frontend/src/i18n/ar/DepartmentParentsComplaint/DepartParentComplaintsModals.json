@@ -1,0 +1,40 @@
+{
+  "departmentParentComplaintModals": {
+    "viewModal": {
+      "title": "تفاصيل الشكوى",
+      "parent": "ولي الأمر",
+      "relation": "العلاقة",
+      "student": "الطالب",
+      "class": "الصف",
+      "type": "النوع",
+      "severity": "الحدة",
+      "impact": "التأثير",
+      "expectedAction": "الإجراء المتوقع",
+      "date": "التاريخ",
+      "status": "الحالة",
+      "feedbackTitle": "ملاحظات القسم",
+      "closeButton": "إغلاق"
+    },
+    "editModal": {
+      "title": "تعديل شكوى ولي الأمر",
+      "parent": "ولي الأمر",
+      "student": "الطالب",
+      "class": "الصف",
+      "type": "النوع",
+      "status": "الحالة",
+      "statusOptions": {
+        "pending": "قيد الانتظار",
+        "resolved": "تم الحل",
+        "rejected": "مرفوضة"
+      },
+      "feedbackLabel": "الملاحظات / التعليقات",
+      "feedbackPlaceholder": "أدخل الملاحظات أو الإجراءات المتخذة أو التعليقات لولي الأمر...",
+      "cancelButton": "إلغاء",
+      "saveButton": "حفظ التغييرات",
+      "saving": "جارٍ الحفظ..."
+    },
+    "alerts": {
+      "updateError": "فشل في تحديث حالة الشكوى."
+    }
+  }
+}

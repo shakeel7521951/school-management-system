@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { FaEye, FaEdit, FaExclamationTriangle } from "react-icons/fa";
 
 const DepartParentComplaintTable = ({
@@ -7,6 +8,8 @@ const DepartParentComplaintTable = ({
   setViewModal,
   setEditModal,
 }) => {
+  const { t } = useTranslation("departParentComplaintTable");
+
   return (
     <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-x-auto">
       {/* --- TABLE VIEW (for md & above) --- */}
@@ -15,17 +18,17 @@ const DepartParentComplaintTable = ({
           <thead className="bg-[#104c80]/10 text-[#104c80] uppercase text-xs font-semibold">
             <tr>
               {[
-                "Parent Name",
-                "Relation",
-                "Student Name",
-                "Class",
-                "Type",
-                "Severity",
-                "Impact",
-                "Expected Action",
-                "Date",
-                "Status",
-                "Actions",
+                t("table.headers.parentName"),
+                t("table.headers.relation"),
+                t("table.headers.studentName"),
+                t("table.headers.class"),
+                t("table.headers.type"),
+                t("table.headers.severity"),
+                t("table.headers.impact"),
+                t("table.headers.expectedAction"),
+                t("table.headers.date"),
+                t("table.headers.status"),
+                t("table.headers.actions"),
               ].map((header, idx) => (
                 <th
                   key={idx}
@@ -86,13 +89,13 @@ const DepartParentComplaintTable = ({
                         onClick={() => setViewModal(c)}
                         className="px-3 py-1 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-xs flex items-center gap-1"
                       >
-                        <FaEye /> View
+                        <FaEye /> {t("table.actions.view")}
                       </button>
                       <button
                         onClick={() => setEditModal(c)}
                         className="px-3 py-1 bg-[#104c80] text-white rounded-lg hover:bg-[#0d3c68] text-xs flex items-center gap-1"
                       >
-                        <FaEdit /> Edit
+                        <FaEdit /> {t("table.actions.edit")}
                       </button>
                     </div>
                   </td>
@@ -105,7 +108,7 @@ const DepartParentComplaintTable = ({
                   className="p-5 text-center text-gray-500 align-middle"
                 >
                   <FaExclamationTriangle className="mx-auto text-2xl mb-2 text-gray-400" />
-                  No complaints found for your department.
+                  {t("table.noData.title")}
                 </td>
               </tr>
             )}
@@ -136,25 +139,26 @@ const DepartParentComplaintTable = ({
 
               <div className="text-gray-700 text-xs space-y-1">
                 <p>
-                  <strong>Student:</strong> {c.studentName}
+                  <strong>{t("table.mobile.student")}:</strong> {c.studentName}
                 </p>
                 <p>
-                  <strong>Class:</strong> {c.class}
+                  <strong>{t("table.mobile.class")}:</strong> {c.class}
                 </p>
                 <p>
-                  <strong>Type:</strong> {c.complaintType}
+                  <strong>{t("table.mobile.type")}:</strong> {c.complaintType}
                 </p>
                 <p>
-                  <strong>Severity:</strong> {c.severity}
+                  <strong>{t("table.mobile.severity")}:</strong> {c.severity}
                 </p>
                 <p>
-                  <strong>Impact:</strong> {c.impact}
+                  <strong>{t("table.mobile.impact")}:</strong> {c.impact}
                 </p>
                 <p>
-                  <strong>Expected Action:</strong> {c.expectedAction}
+                  <strong>{t("table.mobile.expectedAction")}:</strong>{" "}
+                  {c.expectedAction}
                 </p>
                 <p>
-                  <strong>Date:</strong>{" "}
+                  <strong>{t("table.mobile.date")}:</strong>{" "}
                   {new Date(c.date).toLocaleDateString()}
                 </p>
               </div>
@@ -164,13 +168,13 @@ const DepartParentComplaintTable = ({
                   onClick={() => setViewModal(c)}
                   className="px-3 py-1 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-xs flex items-center gap-1"
                 >
-                  <FaEye /> View
+                  <FaEye /> {t("table.actions.view")}
                 </button>
                 <button
                   onClick={() => setEditModal(c)}
                   className="px-3 py-1 bg-[#104c80] text-white rounded-lg hover:bg-[#0d3c68] text-xs flex items-center gap-1"
                 >
-                  <FaEdit /> Edit
+                  <FaEdit /> {t("table.actions.edit")}
                 </button>
               </div>
             </div>
@@ -178,7 +182,7 @@ const DepartParentComplaintTable = ({
         ) : (
           <div className="text-center text-gray-500">
             <FaExclamationTriangle className="mx-auto text-2xl mb-2 text-gray-400" />
-            No complaints found for your department.
+            {t("table.noData.title")}
           </div>
         )}
       </div>

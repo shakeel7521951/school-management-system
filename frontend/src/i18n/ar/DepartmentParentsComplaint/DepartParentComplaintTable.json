@@ -1,0 +1,33 @@
+{
+  "table": {
+    "headers": {
+      "parentName": "اسم ولي الأمر",
+      "relation": "العلاقة",
+      "studentName": "اسم الطالب",
+      "class": "الصف",
+      "type": "النوع",
+      "severity": "الحدة",
+      "impact": "التأثير",
+      "expectedAction": "الإجراء المتوقع",
+      "date": "التاريخ",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل"
+    },
+    "noData": {
+      "title": "لم يتم العثور على شكاوى لقسمك."
+    },
+    "mobile": {
+      "student": "الطالب",
+      "class": "الصف",
+      "type": "النوع",
+      "severity": "الحدة",
+      "impact": "التأثير",
+      "expectedAction": "الإجراء المتوقع",
+      "date": "التاريخ"
+    }
+  }
+}
