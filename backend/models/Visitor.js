@@ -10,7 +10,7 @@ const visitorSchema = new mongoose.Schema({
         required: true
     },
     phone: {
-        type: String, 
+        type: String,
         required: true
     },
     signature: {
@@ -24,6 +24,10 @@ const visitorSchema = new mongoose.Schema({
     visitorType: {
         type: String,
         enum: ["parent", "teacher", "student", "other"],
+        required: true
+    },
+    hostDepartment: {
+        type: String,
         required: true
     },
     status: {

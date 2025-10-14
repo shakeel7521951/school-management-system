@@ -2,7 +2,8 @@ import Visitor from "../models/Visitor.js";
 
 export const addVisitor = async (req, res) => {
     try {
-        const { name, governmentId, reason, visitorType,phone,signature } = req.body;
+        const { name, governmentId, reason, visitorType, phone, signature, hostDepartment } = req.body;
+        console.log(req.body);
         if (!name || !governmentId || !reason) {
             return res.status(400).json({ message: "All fields are required" });
         }
@@ -14,7 +15,8 @@ export const addVisitor = async (req, res) => {
             visitorType,
             status,
             phone,
-            signature
+            signature,
+            hostDepartment
         });
 
         return res.status(201).json({
