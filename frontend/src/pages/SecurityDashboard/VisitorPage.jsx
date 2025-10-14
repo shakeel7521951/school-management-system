@@ -11,6 +11,9 @@ const VisitorPage = () => {
 
   const { t } = useTranslation("visitorManagement");
   const { data: visitors = [], isLoading, isError } = useGetVisitorsQuery();
+  
+
+  
 
   const filteredVisitors =
     filter === "All" ? visitors : visitors.filter((v) => v.status === filter);
@@ -96,7 +99,7 @@ const VisitorPage = () => {
                       <td className="px-2 py-2">
                         {v.reason || v.purpose || "-"}
                       </td>
-                      <td className="px-2 py-2">
+                      <td className="px-2 py-2 text-center">
                         {v.hostDepartment ||
                           v.hostEmail ||
                           v.personToVisit ||
@@ -175,7 +178,10 @@ const VisitorPage = () => {
                     </p>
                     <p>
                       <span className="font-medium">{t("table.host")}:</span>{" "}
-                      {v.hostEmail || v.personToVisit || "-"}
+                     {v.hostDepartment ||
+                          v.hostEmail ||
+                          v.personToVisit ||
+                          "-"}
                     </p>
                     <p>
                       <span className="font-medium">

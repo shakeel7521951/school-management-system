@@ -86,8 +86,8 @@ const VisitorTable = () => {
                   <td className="px-5 py-4 text-gray-700 whitespace-nowrap">
                     {v.reason || v.purpose || "-"}
                   </td>
-                  <td className="px-5 py-4 text-gray-700 whitespace-nowrap">
-                    {v.hostEmail || v.personToVisit || "-"}
+                  <td className="px-5 py-4 text-gray-700 whitespace-nowrap text-center">
+                    {v.hostDepartment || v.personToVisit || "-"}
                   </td>
                   <td className="px-5 py-4 text-gray-700 whitespace-nowrap">
                     {v.signature || "—"}
@@ -171,7 +171,7 @@ const VisitorTable = () => {
                 </p>
                 <p>
                   <strong>Person / Department:</strong>{" "}
-                  {v.hostEmail || v.personToVisit || "-"}
+                  {v.hostDepartment || v.personToVisit || "-"}
                 </p>
                 <p>
                   <strong>Signature:</strong> {v.signature || "—"}

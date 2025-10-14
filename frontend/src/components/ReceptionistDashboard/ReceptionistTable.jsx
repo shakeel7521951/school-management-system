@@ -38,7 +38,7 @@ const ReceptionistTable = ({ visitors, onView, onEdit, onDelete }) => {
                 <td className="px-5 py-3">{v.phone}</td>
                 <td className="px-5 py-3 capitalize">{v.visitorType}</td> {/* ✅ NEW DATA */}
                 <td className="px-5 py-3">{v.reason}</td>
-                <td className="px-5 py-3">{v.hostEmail}</td>
+                <td className="px-5 py-3 text-center">{v.hostDepartment}</td>
                 <td className="px-5 py-3">{v.signature || "—"}</td>
                 <td className="px-5 py-3">
                   {new Date(v.createdAt).toLocaleString()}
@@ -118,7 +118,7 @@ const ReceptionistTable = ({ visitors, onView, onEdit, onDelete }) => {
               <strong>Purpose:</strong> {v.reason}
             </p>
             <p className="text-sm text-gray-700">
-              <strong>Person/Dept:</strong> {v.hostEmail}
+              <strong>Person/Department To Visit:</strong> {v.hostDepartment}
             </p>
             <p className="text-sm text-gray-700">
               <strong>Submitted:</strong>{" "}
