@@ -52,7 +52,7 @@ const VisitorForm = ({ onClose }) => {
 
   return (
     <div
-      className="p-6 max-w-8xl mx-auto h-[650px] md:h-[590px] overflow-auto" // ✅ Increased max width
+      className="p-6 max-w-8xl mx-auto h-[650px] md:h-[590px]" // ✅ Increased max width
       dir={i18n.language === "ar" ? "rtl" : "ltr"}
     >
      <div className="mb-6 text-center">
