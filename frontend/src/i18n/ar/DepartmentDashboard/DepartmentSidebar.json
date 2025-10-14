@@ -1,0 +1,21 @@
+{
+  "complaintsSidebar": {
+    "brand": {
+      "title": "التمكُّن",
+      "subtitle": "لوحة القسم"
+    },
+    "menu": {
+      "complaints": {
+        "label": "الشكاوى",
+        "dropdown": {
+          "students": "شكاوى الطلاب",
+          "teachers": "شكاوى المعلمين",
+          "parents": "شكاوى أولياء الأمور"
+        }
+      }
+    },
+    "aria": {
+      "toggleMenu": "تبديل القائمة"
+    }
+  }
+}

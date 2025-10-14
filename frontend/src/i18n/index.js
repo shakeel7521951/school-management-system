@@ -92,6 +92,10 @@ import rejectDocumentModal_ar from "./ar/AdminUploadedDocumentsData/RejectDocume
 import adminRequestedDocuments_en from "./en/AdminRequestedDocuments.json"
 import adminRequestedDocuments_ar from "./ar/AdminRequestedDocuments.json"
 import teacherComplaints_ar from "./ar/TeacherComplaints/TeacherComplaints.json"
+import studentComplaints_en from "./en/studentDashboard/StudentComplaints.json"
+import studentComplaints_ar from "./ar/studentDashboard/StudentComplaints.json"
+import studentComplaintModal_en from "./en/studentDashboard/StudentComplaintModal.json"
+import studentComplaintModal_ar from "./ar/studentDashboard/StudentComplaintModal.json"
 
 
 
@@ -124,7 +128,7 @@ import visitorManagement_ar from "./ar/SecurityDashboard/VisitorManagement.json"
 import studentNavbar_en from "./en/studentDashboard/StudentNavbar.json"
 import studentNavbar_ar from "./ar/studentDashboard/StudentNavbar.json"
 import studentSidebar_en from "./en/studentDashboard/StudentSidebar.json"
-import studentSidebar_ar from "./en/studentDashboard/StudentSidebar.json"
+import studentSidebar_ar from "./ar/studentDashboard/StudentSidebar.json"
 import adminParentComplaints_en from "./en/AdminParentComplaints/AdminParentComplaints.json"
 import adminParentComplaints_ar from "./ar/AdminParentComplaints/AdminParentComplaints.json"
 import parentComplaintsModals_en from "./en/AdminParentComplaints/ParentComplaintsModals.json"
@@ -137,6 +141,10 @@ import departmentTable_en from "./en/AdminDepartmentPage/DepartmentTable.json"
 import departmentTable_ar from "./ar/AdminDepartmentPage/DepartmentTable.json"
 import departmentModals_en from "./en/AdminDepartmentPage/DepartmentModals.json"
 import departmentModals_ar from "./ar/AdminDepartmentPage/DepartmentModals.json"
+import departmentNavbar_en from './en/DepartmentDashboard/DepartmentNavbar.json'
+import departmentNavbar_ar from "./ar/DepartmentDashboard/DepartmentNavbar.json"
+import departmentSidebar_en from "./en/DepartmentDashboard/DepartmentSidebar.json"
+import departmentSidebar_ar from "./ar/DepartmentDashboard/DepartmentSidebar.json"
 
 
 
@@ -186,9 +194,8 @@ const resources = {
     visitorViewModal:visitorViewModal_en,
     visitorManagement:visitorManagement_en,
     parentComplaintForm:parentComplaintForm_en,
-    
-
-
+    studentComplaints:studentComplaints_en,
+    studentComplaintModal:studentComplaintModal_en,
     navbar: navbar_en,
     footerbrand: footerbrand_en,
     footermenu: footermenu_en,
@@ -209,7 +216,9 @@ const resources = {
     parentComplaintsTable:parentComplaintsTable_en,
     adminDepartmentPage:adminDepartmentPage_en,
     departmentTable:departmentTable_en,
-    departmentModals:departmentModals_en
+    departmentModals:departmentModals_en,
+    departmentNavbar:departmentNavbar_en,
+    departmentSidebar:departmentSidebar_en,
   },
   ar: {
     home: home_ar,
@@ -255,8 +264,8 @@ const resources = {
     visitorViewModal:visitorViewModal_ar,
     visitorManagement:visitorManagement_ar,
     parentComplaintForm:parentComplaintForm_ar,
-
-
+     studentComplaints:studentComplaints_ar,
+    studentComplaintModal:studentComplaintModal_ar,
     navbar: navbar_ar,
     footerbrand: footerbrand_ar,
     footermenu: footermenu_ar,
@@ -276,7 +285,9 @@ const resources = {
     parentComplaintsTable:parentComplaintsTable_ar,
     adminDepartmentPage:adminDepartmentPage_ar,
     departmentTable:departmentTable_ar,
-    departmentModals:departmentModals_ar
+    departmentModals:departmentModals_ar,
+    departmentNavbar:departmentNavbar_ar,
+    departmentSidebar:departmentSidebar_ar,
   },
 };
 

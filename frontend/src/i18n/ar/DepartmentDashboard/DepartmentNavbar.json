@@ -1,0 +1,29 @@
+{
+  "departNavbar": {
+    "aria": {
+      "toggleMenu": "تبديل القائمة"
+    },
+    "user": {
+      "defaultName": "المستخدم",
+      "defaultRole": "المسؤول"
+    },
+    "profile": {
+      "myProfile": "ملفي الشخصي",
+      "logout": "تسجيل الخروج",
+      "loggingOut": "جارٍ تسجيل الخروج..."
+    },
+    "dropdown": {
+      "viewProfile": {
+        "title": "ملفي الشخصي",
+        "description": "عرض وتعديل معلوماتك الشخصية"
+      },
+      "logoutSection": {
+        "title": "تسجيل الخروج",
+        "description": "تسجيل الخروج من حسابك"
+      }
+    },
+    "errors": {
+      "logoutFailed": "فشل تسجيل الخروج. يرجى المحاولة مرة أخرى."
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "complaintModal": {
+    "title": "نموذج شكوى الطالب",
+    "errorRequired": "⚠️ يرجى تعبئة جميع الحقول المطلوبة!",
+    "successMessage": "تم إرسال الشكوى بنجاح",
+    "errorMessage": "فشل في إرسال الشكوى",
+
+    "fields": {
+      "name": "الاسم",
+      "class": "الصف",
+      "age": "العمر",
+      "date": "تاريخ الشكوى",
+      "type": "نوع الشكوى",
+      "severity": "درجة الخطورة",
+      "impact": "الأثر",
+      "details": "تفاصيل الشكوى",
+      "action": "الإجراء المتوقع"
+    },
+
+    "options": {
+      "select": "اختر",
+      "types": {
+        "physicalSafety": "السلامة الجسدية",
+        "emotions": "المشاعر",
+        "bullying": "التنمر",
+        "staff": "الطاقم",
+        "learning": "التعلم",
+        "facilities": "المرافق",
+        "bus": "النقل المدرسي",
+        "rights": "الحقوق",
+        "other": "أخرى"
+      },
+      "severity": {
+        "simpleNote": "ملاحظة بسيطة",
+        "urgent": "عاجلة",
+        "followUp": "متابعة",
+        "serious": "خطيرة"
+      },
+      "impact": {
+        "psychological": "نفسي",
+        "physical": "جسدي",
+        "academic": "أكاديمي",
+        "social": "اجتماعي"
+      }
+    },
+
+    "buttons": {
+      "submit": "إرسال",
+      "submitting": "جارٍ الإرسال...",
+      "cancel": "إلغاء"
+    }
+  }
+}

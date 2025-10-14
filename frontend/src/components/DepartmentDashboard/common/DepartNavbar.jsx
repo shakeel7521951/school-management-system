@@ -4,8 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectUserProfile, clearProfile } from "../../../redux/slices/UserSlice";
 import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../../redux/slices/UserApi";
+import { useTranslation } from "react-i18next";
 
 const DepartNavbar = ({ onMenuClick }) => {
+  const { t } = useTranslation("departmentNavbar");
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -13,9 +15,9 @@ const DepartNavbar = ({ onMenuClick }) => {
   // Redux user profile
   const userProfile = useSelector(selectUserProfile);
 
-  // Default fallback values
-  const userName = userProfile?.name || "User";
-  const userRole = userProfile?.role || "Administrator";
+  // Default fallback values from translations
+  const userName = userProfile?.name || t("user.defaultName");
+  const userRole = userProfile?.role || t("user.defaultRole");
   const initial = userName ? userName.charAt(0).toUpperCase() : "?";
 
   // RTK Query logout mutation
@@ -33,11 +35,11 @@ const DepartNavbar = ({ onMenuClick }) => {
   // Handle logout
   const handleLogout = async () => {
     try {
-      await logout().unwrap(); // call API
-      dispatch(clearProfile()); // clear redux store
-      navigate("/login"); // redirect to login
+      await logout().unwrap();
+      dispatch(clearProfile());
+      navigate("/login");
     } catch (error) {
-      console.error("Logout failed:", error);
+      console.error(t("errors.logoutFailed"), error);
     }
   };
 
@@ -49,7 +51,7 @@ const DepartNavbar = ({ onMenuClick }) => {
         <button
           className="md:hidden p-2 rounded-lg mr-3 bg-gray-100 hover:bg-gray-200 transition-all"
           onClick={onMenuClick}
-          aria-label="Toggle Menu"
+          aria-label={t("aria.toggleMenu")}
         >
           <Menu size={20} className="text-gray-700" />
         </button>
@@ -104,7 +106,7 @@ const DepartNavbar = ({ onMenuClick }) => {
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-600 mr-2">
                   <User size={16} />
                 </div>
-                My Profile
+                {t("profile.myProfile")}
               </button>
 
               <div className="border-t border-gray-100 my-1"></div>
@@ -117,7 +119,7 @@ const DepartNavbar = ({ onMenuClick }) => {
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 text-red-600 mr-2">
                   <LogOut size={16} />
                 </div>
-                {isLoading ? "Logging out..." : "Logout"}
+                {isLoading ? t("profile.loggingOut") : t("profile.logout")}
               </button>
             </div>
           )}

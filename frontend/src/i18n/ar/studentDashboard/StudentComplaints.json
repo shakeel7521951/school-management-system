@@ -1,0 +1,44 @@
+{
+  "studentComplaints": {
+    "title": "الشكاوى",
+    "description": "قدّم وتتبع شكاواك أو مخاوفك مع الإدارة بسهولة.",
+
+    "stats": {
+      "complaints": {
+        "title": "الشكاوى",
+        "countDescription": "تم تقديمها بواسطتك"
+      },
+      "pending": {
+        "title": "قيد الانتظار",
+        "countDescription": "في انتظار الموافقة"
+      },
+      "rejected": {
+        "title": "مرفوضة",
+        "countDescription": "مرفوضة من قبل الإدارة"
+      }
+    },
+
+    "button": {
+      "submitComplaint": "تقديم شكوى"
+    },
+
+    "table": {
+      "title": "شكاواك",
+      "loading": "جارٍ تحميل الشكاوى...",
+      "error": "فشل في جلب الشكاوى.",
+      "empty": "لم يتم تقديم أي شكاوى بعد.",
+      "headers": {
+        "name": "الاسم",
+        "class": "الصف",
+        "age": "العمر",
+        "date": "التاريخ",
+        "type": "النوع",
+        "severity": "درجة الخطورة",
+        "impact": "الأثر",
+        "details": "التفاصيل",
+        "expectedAction": "الإجراء المتوقع",
+        "status": "الحالة"
+      }
+    }
+  }
+}

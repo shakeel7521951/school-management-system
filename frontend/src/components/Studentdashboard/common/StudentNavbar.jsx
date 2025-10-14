@@ -8,14 +8,10 @@ import { useTranslation } from "react-i18next";
 const StudentNavbar = () => {
   const { t } = useTranslation("studentNavbar");
   const [menuOpen, setMenuOpen] = useState(false);
-
-  // Get user profile from Redux
   const userProfile = useSelector(selectUserProfile);
 
-  // Get name (fallback: Guest Student from i18n)
   const userName = userProfile?.name || t("guestStudent");
-
-  // First letter for avatar fallback
+  const role = userProfile?.role || t("guestStudent");
   const initial = userName ? userName.charAt(0).toUpperCase() : "?";
 
   return (
@@ -33,13 +29,13 @@ const StudentNavbar = () => {
         </button>
       </div>
 
-      {/* Right: Profile + Name */}
-      <div className="flex items-center gap-6">
+      {/* Right: Profile + Name + Role */}
+      <div className="flex items-center gap-3">
         <Link
           to="/my-profile"
           className="flex items-center gap-3 cursor-pointer hover:opacity-90 transition"
         >
-          {/* Avatar (image or initial fallback) */}
+          {/* Avatar */}
           {userProfile?.image ? (
             <img
               src={userProfile.image}
@@ -55,7 +51,12 @@ const StudentNavbar = () => {
               {initial}
             </div>
           )}
-          <span className="text-sm font-medium text-gray-700">{userName}</span>
+
+          {/* Name + Role vertically */}
+          <div className="flex flex-col leading-tight">
+            <span className="text-sm font-medium text-gray-800">{userName}</span>
+            <span className="text-xs text-gray-500">{role}</span>
+          </div>
         </Link>
       </div>
 
@@ -86,15 +87,7 @@ const StudentNavbar = () => {
             />
           </div>
 
-          {/* Notifications */}
-          <button className="relative flex items-center gap-3 text-gray-700 hover:text-[#104C80] transition">
-            <Bell size={22} />
-            <span>{t("notifications")}</span>
-            <span className="absolute -top-1 left-4 bg-red-500 text-white text-xs w-4 h-4 
-                           flex items-center justify-center rounded-full shadow">
-              {t("notificationCount")}
-            </span>
-          </button>
+          
 
           {/* Profile inside mobile menu */}
           <Link
@@ -117,7 +110,10 @@ const StudentNavbar = () => {
                 {initial}
               </div>
             )}
-            <span className="text-sm font-medium text-gray-700">{userName}</span>
+            <div className="flex flex-col">
+              <span className="text-sm font-medium text-gray-800">{userName}</span>
+              <span className="text-xs text-gray-500">{role}</span>
+            </div>
           </Link>
         </div>
       )}

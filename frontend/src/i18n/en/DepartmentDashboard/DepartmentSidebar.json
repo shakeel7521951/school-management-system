@@ -1,0 +1,21 @@
+{
+  "complaintsSidebar": {
+    "brand": {
+      "title": "Al-Tamakon",
+      "subtitle": "Department Panel"
+    },
+    "menu": {
+      "complaints": {
+        "label": "Complaints",
+        "dropdown": {
+          "students": "Students Complaints",
+          "teachers": "Teachers Complaints",
+          "parents": "Parents Complaints"
+        }
+      }
+    },
+    "aria": {
+      "toggleMenu": "Toggle Menu"
+    }
+  }
+}

@@ -11,15 +11,16 @@
     "pending": "Pending"
   },
   "table": {
-    "name": "Name",
-    "id": "Qatar ID / Passport",
+    "index": "#",
+    "name": "Full Name",
     "type": "Visitor Type",
-    "reason": "Purpose of Viist",
+    "id": "Qatar ID / Passport",
+    "phone": "Phone Number",
+    "reason": "Purpose of Visit",
     "host": "Person / Department",
-    "phoneNumber":"Phone Number",
-    "checkin": "Check-in",
-    "status": "Status",
-    "action": "Action"
+    "signature": "Signature",
+    "submitted": "Submitted On",
+    "status": "Status"
   },
   "messages": {
     "loading": "Loading visitors...",

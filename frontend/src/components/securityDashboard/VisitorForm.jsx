@@ -52,7 +52,7 @@ const VisitorForm = ({ onClose }) => {
 
   return (
     <div
-      className="p-6 max-w-8xl mx-auto" // ✅ Increased max width
+      className="p-6 max-w-8xl mx-auto h-[650px] md:h-[590px] overflow-auto" // ✅ Increased max width
       dir={i18n.language === "ar" ? "rtl" : "ltr"}
     >
      <div className="mb-6 text-center">
@@ -182,7 +182,7 @@ const VisitorForm = ({ onClose }) => {
 
           {/* Host Department */}
           <div>
-            <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
+            <label className="text-sm font-medium text-slate-700 flex items-center gap-1">
               <Building2 size={16} className="text-[#104c80]" />
               {t("visitorForm.fields.hostDepartment.label")}
             </label>

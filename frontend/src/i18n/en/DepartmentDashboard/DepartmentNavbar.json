@@ -1,0 +1,29 @@
+{
+  "departNavbar": {
+    "aria": {
+      "toggleMenu": "Toggle Menu"
+    },
+    "user": {
+      "defaultName": "User",
+      "defaultRole": "Administrator"
+    },
+    "profile": {
+      "myProfile": "My Profile",
+      "logout": "Logout",
+      "loggingOut": "Logging out..."
+    },
+    "dropdown": {
+      "viewProfile": {
+        "title": "My Profile",
+        "description": "View and edit your personal information"
+      },
+      "logoutSection": {
+        "title": "Logout",
+        "description": "Sign out from your account"
+      }
+    },
+    "errors": {
+      "logoutFailed": "Logout failed. Please try again."
+    }
+  }
+}

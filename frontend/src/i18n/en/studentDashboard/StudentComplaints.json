@@ -1,0 +1,44 @@
+{
+  "studentComplaints": {
+    "title": "Complaints",
+    "description": "Submit and track your complaints or concerns with the administration easily.",
+
+    "stats": {
+      "complaints": {
+        "title": "Complaints",
+        "countDescription": "Submitted by you"
+      },
+      "pending": {
+        "title": "Pending",
+        "countDescription": "Waiting for approval"
+      },
+      "rejected": {
+        "title": "Rejected",
+        "countDescription": "Rejected by administration"
+      }
+    },
+
+    "button": {
+      "submitComplaint": "Submit Complaint"
+    },
+
+    "table": {
+      "title": "Your Complaints",
+      "loading": "Loading complaints...",
+      "error": "Failed to fetch complaints.",
+      "empty": "No complaints submitted yet.",
+      "headers": {
+        "name": "Name",
+        "class": "Class",
+        "age": "Age",
+        "date": "Date",
+        "type": "Type",
+        "severity": "Severity",
+        "impact": "Impact",
+        "details": "Details",
+        "expectedAction": "Expected Action",
+        "status": "Status"
+      }
+    }
+  }
+}

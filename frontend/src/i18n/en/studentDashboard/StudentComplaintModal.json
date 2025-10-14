@@ -1,0 +1,53 @@
+{
+  "complaintModal": {
+    "title": "Student Complaint Form",
+    "errorRequired": "⚠️ Please fill in all required fields!",
+    "successMessage": "Complaint submitted successfully",
+    "errorMessage": "Failed to submit complaint",
+
+    "fields": {
+      "name": "Name",
+      "class": "Class",
+      "age": "Age",
+      "date": "Date of Complaint",
+      "type": "Complaint Type",
+      "severity": "Severity",
+      "impact": "Impact",
+      "details": "Complaint Details",
+      "action": "Expected Action"
+    },
+
+    "options": {
+      "select": "Select",
+      "types": {
+        "physicalSafety": "Physical Safety",
+        "emotions": "Emotions",
+        "bullying": "Bullying",
+        "staff": "Staff",
+        "learning": "Learning",
+        "facilities": "Facilities",
+        "bus": "Bus",
+        "rights": "Rights",
+        "other": "Other"
+      },
+      "severity": {
+        "simpleNote": "Simple Note",
+        "urgent": "Urgent",
+        "followUp": "Follow-up",
+        "serious": "Serious"
+      },
+      "impact": {
+        "psychological": "Psychological",
+        "physical": "Physical",
+        "academic": "Academic",
+        "social": "Social"
+      }
+    },
+
+    "buttons": {
+      "submit": "Submit",
+      "submitting": "Submitting...",
+      "cancel": "Cancel"
+    }
+  }
+}
