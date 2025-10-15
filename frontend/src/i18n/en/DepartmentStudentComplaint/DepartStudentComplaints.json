@@ -1,0 +1,29 @@
+{
+    "header": {
+        "title": "Students Complaints Management",
+        "subtitle": "Manage and resolve students’ complaints efficiently"
+    },
+    "accessDenied": {
+        "title": "Access Denied",
+        "message": "You do not have permission to view complaints"
+    },
+    "loading": "Loading department complaints...",
+    "noComplaints": {
+        "title": "No Complaints Found",
+        "message": "There are currently no student complaints available to display."
+    },
+    "pagination": {
+        "showing": "Showing",
+        "to": "to",
+        "of": "of",
+        "results": "results",
+        "prev": "Prev",
+        "next": "Next"
+    },
+    "toast": {
+        "statusUpdated": "Status updated to \"{{status}}\"",
+        "updateFailed": "Failed to update status",
+        "deleteSuccess": "Complaint deleted successfully",
+        "deleteFailed": "Failed to delete complaint"
+    }
+}

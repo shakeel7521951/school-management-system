@@ -1,33 +1,30 @@
 import React, { useState, useMemo, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { FaExclamationTriangle, FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import DepartComplaintTable from "./DepartComplaintTable";
 import DepartComplaintStats from "./DepartComplaintStats";
 import DepartStudentComplaintFilters from "./DepartStudentComplaintFilters";
 import DepartDeleteModal from "./DepartDeleteModal";
 import DepartComplaintModals from "./DepartComplaintModals";
-import {
-  useGetDepartmentComplaintsQuery,
-} from "../../../redux/slices/DepartmentApi"; // ✅ import all hooks
+import { useGetDepartmentComplaintsQuery } from "../../../redux/slices/DepartmentApi";
 import { useChangeStComplaintStatusMutation, useDeleteStComplaintMutation } from "../../../redux/slices/StComplaintApi";
 
 const DepartStudentComplaints = () => {
+  const { t } = useTranslation("departStudentComplaints");
   const USER_ROLE = "manager";
 
   // ✅ RTK Query Hooks
-  const { data, error, isLoading, refetch } = useGetDepartmentComplaintsQuery();
+  const { data, error, isLoading } = useGetDepartmentComplaintsQuery();
   const [changeStComplaintStatus] = useChangeStComplaintStatusMutation();
   const [deleteStComplaint] = useDeleteStComplaintMutation();
 
-  // ✅ Local state for complaints
+  // ✅ Local state
   const [complaints, setComplaints] = useState([]);
-
   useEffect(() => {
-    if (data?.complaints) {
-      setComplaints(data.complaints);
-    }
+    if (data?.complaints) setComplaints(data.complaints);
   }, [data]);
 
-  // ✅ States
+  // ✅ Filters & UI state
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterImpact, setFilterImpact] = useState("all");
   const [filterType, setFilterType] = useState("all");
@@ -46,19 +43,17 @@ const DepartStudentComplaints = () => {
     setTimeout(() => setToast({ show: false, message: "", type: "" }), 3000);
   };
 
-  // ✅ Update Complaint Status (and backend if needed)
+  // ✅ Update Status
   const saveStatus = async (id, newStatus) => {
-    console.log(id,newStatus);
     try {
       await changeStComplaintStatus({ id, status: newStatus }).unwrap();
       setComplaints((prev) =>
         prev.map((c) => (c._id === id ? { ...c, status: newStatus } : c))
       );
-      showToast(`Status updated to "${newStatus}"`);
+      showToast(t("toast.statusUpdated", { status: newStatus }));
       setEditModal(null);
     } catch (err) {
-      console.error("Error updating department:", err);
-      showToast("Failed to update status", "error");
+      showToast(t("toast.updateFailed"), "error");
     }
   };
 
@@ -67,15 +62,14 @@ const DepartStudentComplaints = () => {
     try {
       await deleteStComplaint(id).unwrap();
       setComplaints((prev) => prev.filter((c) => c._id !== id));
-      showToast(`Complaint deleted successfully`, "success");
+      showToast(t("toast.deleteSuccess"), "success");
       setDeleteModal(null);
     } catch (err) {
-      console.error("Error deleting department:", err);
-      showToast("Failed to delete complaint", "error");
+      showToast(t("toast.deleteFailed"), "error");
     }
   };
 
-  // ✅ Filter & Sort Logic
+  // ✅ Filtering & Sorting
   const filteredComplaints = useMemo(() => {
     const q = searchTerm.trim().toLowerCase();
     return complaints
@@ -83,17 +77,14 @@ const DepartStudentComplaints = () => {
         const statusValue = c.status?.toLowerCase().replace(/\s+/g, "-");
         const impactValue = c.impact?.toLowerCase();
         const typeValue = c.type?.toLowerCase();
-
         const statusMatch = filterStatus === "all" || statusValue === filterStatus;
         const impactMatch = filterImpact === "all" || impactValue === filterImpact;
         const typeMatch = filterType === "all" || typeValue === filterType;
-
         const searchMatch =
           !q ||
           [c.name, c.detail, c.impact, c.type, c.status]
             .filter(Boolean)
             .some((field) => field.toLowerCase().includes(q));
-
         return statusMatch && impactMatch && typeMatch && searchMatch;
       })
       .sort((a, b) => {
@@ -138,49 +129,47 @@ const DepartStudentComplaints = () => {
       <div className="flex justify-center items-center h-screen text-gray-500 text-xl font-medium bg-gray-50">
         <div className="text-center p-8 bg-white rounded-2xl shadow-lg max-w-md border border-gray-100">
           <FaExclamationTriangle className="mx-auto text-4xl text-amber-500 mb-4" />
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Access Denied</h2>
-          <p className="text-gray-600">You do not have permission to view complaints</p>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+            {t("accessDenied.title")}
+          </h2>
+          <p className="text-gray-600">{t("accessDenied.message")}</p>
         </div>
       </div>
     );
   }
 
-  // ✅ Loading / Error UI
+  // ✅ Loading
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen text-gray-500 text-lg">
-        Loading department complaints...
+        {t("loading")}
       </div>
     );
   }
 
- if (error || !data?.complaints?.length) {
-  return (
-    <div className="lg:ml-[270px] flex flex-col items-center justify-center min-h-screen bg-gray-50 px-6">
-      <div className="bg-white p-10 rounded-2xl shadow-md border border-gray-100 text-center max-w-lg w-full">
-        <FaExclamationTriangle className="text-5xl text-amber-500 mx-auto mb-4" />
-        <h2 className="text-2xl font-semibold text-gray-700 mb-2">No Complaints Found</h2>
-        <p className="text-gray-500 mb-4">
-          There are currently no students complaints available to display.
-        </p>
-        
-        
+  // ✅ Empty / Error
+  if (error || !data?.complaints?.length) {
+    return (
+      <div className="lg:ml-[270px] flex flex-col items-center justify-center min-h-screen bg-gray-50 px-6">
+        <div className="bg-white p-10 rounded-2xl shadow-md border border-gray-100 text-center max-w-lg w-full">
+          <FaExclamationTriangle className="text-5xl text-amber-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-semibold text-gray-700 mb-2">
+            {t("noComplaints.title")}
+          </h2>
+          <p className="text-gray-500 mb-4">{t("noComplaints.message")}</p>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
-
-  // ✅ UI
+  // ✅ Main UI
   return (
     <div className="lg:ml-[270px] max-w-8xl bg-gray-50 py-4 px-4 sm:px-6 lg:px-10 flex flex-col gap-8 min-h-screen">
       <header>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1a4480]">
-          Students Complaints Management
+          {t("header.title")}
         </h1>
-        <p className="text-gray-500 mt-1 text-sm sm:text-base">
-          Manage and resolve students’ complaints efficiently
-        </p>
+        <p className="text-gray-500 mt-1 text-sm sm:text-base">{t("header.subtitle")}</p>
         <hr className="mt-4 border-gray-200" />
       </header>
 
@@ -215,12 +204,15 @@ const DepartStudentComplaints = () => {
       {pageCount > 1 && (
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white p-4 rounded-2xl shadow-md border border-gray-100">
           <div className="text-sm text-gray-700">
-            Showing{" "}
-            <span className="font-medium">{(currentPage - 1) * itemsPerPage + 1}</span> to{" "}
+            {t("pagination.showing")}{" "}
+            <span className="font-medium">{(currentPage - 1) * itemsPerPage + 1}</span>{" "}
+            {t("pagination.to")}{" "}
             <span className="font-medium">
               {Math.min(currentPage * itemsPerPage, filteredComplaints.length)}
             </span>{" "}
-            of <span className="font-medium">{filteredComplaints.length}</span> results
+            {t("pagination.of")}{" "}
+            <span className="font-medium">{filteredComplaints.length}</span>{" "}
+            {t("pagination.results")}
           </div>
 
           <div className="flex gap-2 flex-wrap">
@@ -229,14 +221,14 @@ const DepartStudentComplaints = () => {
               disabled={currentPage === 1}
               className="px-3 py-1.5 rounded-lg border border-gray-300 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 flex items-center gap-1 text-sm"
             >
-              <FaArrowLeft className="text-xs" /> Prev
+              <FaArrowLeft className="text-xs" /> {t("pagination.prev")}
             </button>
             <button
               onClick={() => setCurrentPage((prev) => Math.min(prev + 1, pageCount))}
               disabled={currentPage === pageCount}
               className="px-3 py-1.5 rounded-lg border border-gray-300 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 flex items-center gap-1 text-sm"
             >
-              Next <FaArrowRight className="text-xs" />
+              {t("pagination.next")} <FaArrowRight className="text-xs" />
             </button>
           </div>
         </div>

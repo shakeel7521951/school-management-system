@@ -1,0 +1,44 @@
+{
+    "filtersTitle": "Filters",
+    "resetFilters": "Reset Filters",
+    "search": {
+        "label": "Search",
+        "placeholder": "Search by name, impact, type..."
+    },
+    "status": {
+        "label": "Status",
+        "all": "All Status",
+        "pending": "Pending",
+        "in-progress": "In Progress",
+        "resolved": "Resolved",
+        "rejected": "Rejected"
+    },
+    "impact": {
+        "label": "Impact",
+        "all": "All Impact",
+        "physical": "Physical",
+        "psychological": "Psychological",
+        "social": "Social",
+        "academic": "Academic"
+    },
+    "type": {
+        "label": "Type",
+        "all": "All Types",
+        "physical": "Physical Safety",
+        "emotions": "Emotions",
+        "bullying": "Bullying",
+        "staff": "Staff",
+        "learning": "Learning",
+        "facilities": "Facilities",
+        "bus": "Bus",
+        "rights": "Rights",
+        "other": "Other"
+    },
+    "footer": {
+        "showing": "Showing {{count}} complaints",
+        "export": "Export",
+        "show5": "Show 5",
+        "show10": "Show 10",
+        "show20": "Show 20"
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "title": "عرض الشكوى",
+    "complainant": "المشتكي",
+    "class": "الصف",
+    "age": "العمر",
+    "dateSubmitted": "تاريخ التقديم",
+    "complaintType": "نوع الشكوى",
+    "severity": "درجة الخطورة",
+    "expectedAction": "الإجراء المتوقع",
+    "impact": "الأثر",
+    "details": "تفاصيل الشكوى",
+    "close": "إغلاق",
+    "typeColors": {
+        "Facilities": "المرافق",
+        "Emotions": "العواطف",
+        "Learning": "التعلم",
+        "Work Environment": "بيئة العمل",
+        "Rights": "الحقوق",
+        "Safety at Work": "السلامة في العمل"
+    },
+    "severityColors": {
+        "simple-note": "ملاحظة بسيطة",
+        "urgent": "عاجلة",
+        "follow-up": "متابعة",
+        "serious": "خطيرة"
+    },
+    "statusColors": {
+        "resolve": "تم الحل",
+        "pending": "قيد الانتظار",
+        "rejected": "مرفوضة",
+        "any": "أي حالة"
+    },
+    "impactColors": {
+        "physical": "جسدي",
+        "emotional": "عاطفي",
+        "academic": "أكاديمي"
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "name": "الاسم",
+    "class": "الصف",
+    "age": "العمر",
+    "date": "التاريخ",
+    "type": "النوع",
+    "severity": "الخطورة",
+    "impact": "التأثير",
+    "action": "الإجراء",
+    "status": "الحالة",
+    "actions": "الإجراءات",
+    "noComplaints": "لا توجد شكاوى",
+    "types": {
+        "Bullying": "تنمر",
+        "Physical Safety": "السلامة الجسدية",
+        "Staff": "الموظفون",
+        "Learning": "التعلّم",
+        "Facilities": "المرافق",
+        "Bus": "النقل المدرسي",
+        "Emotions": "المشاعر",
+        "Rights": "الحقوق"
+    },
+    "severities": {
+        "simple-note": "ملاحظة بسيطة",
+        "urgent": "عاجل",
+        "follow-up": "متابعة",
+        "serious": "خطير"
+    },
+    "statuses": {
+        "pending": "قيد الانتظار",
+        "in progress": "قيد المعالجة",
+        "resolved": "تم الحل",
+        "rejected": "مرفوض"
+    }
+}

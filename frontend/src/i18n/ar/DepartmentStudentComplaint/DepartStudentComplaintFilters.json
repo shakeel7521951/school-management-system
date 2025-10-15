@@ -1,0 +1,44 @@
+{
+    "filtersTitle": "الفلاتر",
+    "resetFilters": "إعادة تعيين الفلاتر",
+    "search": {
+        "label": "بحث",
+        "placeholder": "ابحث بالاسم أو التأثير أو النوع..."
+    },
+    "status": {
+        "label": "الحالة",
+        "all": "جميع الحالات",
+        "pending": "قيد الانتظار",
+        "in-progress": "قيد المعالجة",
+        "resolved": "تم الحل",
+        "rejected": "مرفوض"
+    },
+    "impact": {
+        "label": "التأثير",
+        "all": "جميع التأثيرات",
+        "physical": "جسدي",
+        "psychological": "نفسي",
+        "social": "اجتماعي",
+        "academic": "أكاديمي"
+    },
+    "type": {
+        "label": "النوع",
+        "all": "جميع الأنواع",
+        "physical": "السلامة الجسدية",
+        "emotions": "المشاعر",
+        "bullying": "تنمر",
+        "staff": "الموظفون",
+        "learning": "التعلّم",
+        "facilities": "المرافق",
+        "bus": "النقل المدرسي",
+        "rights": "الحقوق",
+        "other": "أخرى"
+    },
+    "footer": {
+        "showing": "عرض {{count}} شكوى",
+        "export": "تصدير",
+        "show5": "عرض 5",
+        "show10": "عرض 10",
+        "show20": "عرض 20"
+    }
+}
