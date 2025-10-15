@@ -4,8 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectUserProfile, clearProfile } from "../../../redux/slices/UserSlice";
 import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../../redux/slices/UserApi";
+import { useTranslation } from "react-i18next";
 
 const ReceptionistNavbar = ({ onMenuClick }) => {
+  const { t } = useTranslation("receptionistNavbar");
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -13,9 +15,9 @@ const ReceptionistNavbar = ({ onMenuClick }) => {
   // Redux user profile
   const userProfile = useSelector(selectUserProfile);
 
-  // Default fallback values
-  const userName = userProfile?.name || "User";
-  const userRole = userProfile?.role || "Administrator";
+  // Default fallback values from JSON
+  const userName = userProfile?.name || t("navbar.userNameFallback");
+  const userRole = userProfile?.role || t("navbar.userRoleFallback");
   const initial = userName ? userName.charAt(0).toUpperCase() : "?";
 
   // RTK Query logout mutation
@@ -33,9 +35,9 @@ const ReceptionistNavbar = ({ onMenuClick }) => {
   // Handle logout
   const handleLogout = async () => {
     try {
-      await logout().unwrap(); // call API
-      dispatch(clearProfile()); // clear redux store
-      navigate("/login"); // redirect to login
+      await logout().unwrap();
+      dispatch(clearProfile());
+      navigate("/login");
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -49,7 +51,7 @@ const ReceptionistNavbar = ({ onMenuClick }) => {
         <button
           className="md:hidden p-2 rounded-lg mr-3 bg-gray-100 hover:bg-gray-200 transition-all"
           onClick={onMenuClick}
-          aria-label="Toggle Menu"
+          aria-label={t("navbar.menuAriaLabel")}
         >
           <Menu size={20} className="text-gray-700" />
         </button>
@@ -104,7 +106,7 @@ const ReceptionistNavbar = ({ onMenuClick }) => {
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-600 mr-2">
                   <User size={16} />
                 </div>
-                My Profile
+                {t("navbar.myProfile")}
               </button>
 
               <div className="border-t border-gray-100 my-1"></div>
@@ -117,7 +119,7 @@ const ReceptionistNavbar = ({ onMenuClick }) => {
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 text-red-600 mr-2">
                   <LogOut size={16} />
                 </div>
-                {isLoading ? "Logging out..." : "Logout"}
+                {isLoading ? t("navbar.loggingOut") : t("navbar.logout")}
               </button>
             </div>
           )}

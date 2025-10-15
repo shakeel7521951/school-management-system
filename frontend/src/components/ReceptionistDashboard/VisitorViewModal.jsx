@@ -1,6 +1,9 @@
 import { X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const VisitorViewModal = ({ visitor, onClose }) => {
+  const { t } = useTranslation("receptionistViewModal");
+
   if (!visitor) return null;
 
   return (
@@ -16,51 +19,45 @@ const VisitorViewModal = ({ visitor, onClose }) => {
 
         {/* --- Modal Title --- */}
         <h2 className="text-lg font-bold text-[#104c80] mb-5 text-center">
-          Visitor Details
+          {t("visitorViewModal.title")}
         </h2>
 
         {/* --- Visitor Information --- */}
         <div className="space-y-3 text-sm">
           <p>
-            <span className="font-bold text-slate-700">Full Name:</span>{" "}
-            {visitor.name || "—"}
+            <span className="font-bold text-slate-700">{t("visitorViewModal.labels.fullName")}:</span>{" "}
+            {visitor.name || t("visitorViewModal.fallback.empty")}
           </p>
           <p>
-            <span className="font-bold text-slate-700">
-              Qatar ID / Passport:
-            </span>{" "}
-            {visitor.governmentId || "—"}
+            <span className="font-bold text-slate-700">{t("visitorViewModal.labels.idOrPassport")}:</span>{" "}
+            {visitor.governmentId || t("visitorViewModal.fallback.empty")}
           </p>
           <p>
-            <span className="font-bold text-slate-700">Phone Number:</span>{" "}
-            {visitor.phone || "—"}
+            <span className="font-bold text-slate-700">{t("visitorViewModal.labels.phone")}:</span>{" "}
+            {visitor.phone || t("visitorViewModal.fallback.empty")}
           </p>
           <p>
-            <span className="font-bold text-slate-700">Purpose of Visit:</span>{" "}
-            {visitor.reason || "—"}
+            <span className="font-bold text-slate-700">{t("visitorViewModal.labels.purpose")}:</span>{" "}
+            {visitor.reason || t("visitorViewModal.fallback.empty")}
           </p>
           <p>
-            <span className="font-bold text-slate-700">Person or Department To Visit:</span>{" "}
-            {visitor.hostEmail || "—"}
+            <span className="font-bold text-slate-700">{t("visitorViewModal.labels.department")}:</span>{" "}
+            {visitor.hostDepartment || t("visitorViewModal.fallback.empty")}
           </p>
           <p>
-            <span className="font-bold text-slate-700">Signature:</span>{" "}
-            {visitor.signature || "—"}
+            <span className="font-bold text-slate-700">{t("visitorViewModal.labels.signature")}:</span>{" "}
+            {visitor.signature || t("visitorViewModal.fallback.empty")}
           </p>
           <p>
-            <span className="font-bold text-slate-700">Submitted On:</span>{" "}
-            {visitor.createdAt
-              ? new Date(visitor.createdAt).toLocaleString()
-              : "—"}
+            <span className="font-bold text-slate-700">{t("visitorViewModal.labels.submittedOn")}:</span>{" "}
+            {visitor.createdAt ? new Date(visitor.createdAt).toLocaleString() : t("visitorViewModal.fallback.empty")}
           </p>
           <p>
-            <span className="font-bold text-slate-700">Updated On:</span>{" "}
-            {visitor.updatedAt
-              ? new Date(visitor.updatedAt).toLocaleString()
-              : "—"}
+            <span className="font-bold text-slate-700">{t("visitorViewModal.labels.updatedOn")}:</span>{" "}
+            {visitor.updatedAt ? new Date(visitor.updatedAt).toLocaleString() : t("visitorViewModal.fallback.empty")}
           </p>
           <p>
-            <span className="font-bold text-slate-700">Status:</span>{" "}
+            <span className="font-bold text-slate-700">{t("visitorViewModal.labels.status")}:</span>{" "}
             <span
               className={`px-2 py-0.5 rounded-md text-xs font-medium ${
                 visitor.status === "approved"
@@ -70,10 +67,7 @@ const VisitorViewModal = ({ visitor, onClose }) => {
                   : "bg-yellow-100 text-yellow-700"
               }`}
             >
-              {visitor.status
-                ? visitor.status.charAt(0).toUpperCase() +
-                  visitor.status.slice(1)
-                : "—"}
+              {visitor.status ? t(`visitorViewModal.status.${visitor.status}`) : t("visitorViewModal.fallback.empty")}
             </span>
           </p>
         </div>

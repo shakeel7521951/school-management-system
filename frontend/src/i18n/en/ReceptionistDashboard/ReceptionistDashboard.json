@@ -1,0 +1,15 @@
+{
+  "receptionistDashboard": {
+    "pageTitle": {
+      "title": "Visitor Management",
+      "description": "Efficiently manage, review, and track all visitor applications in one place."
+    },
+    "stats": {
+      "total": "Total Visitors",
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "loading": "Loading visitors..."
+  }
+}

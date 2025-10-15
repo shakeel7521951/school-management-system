@@ -53,8 +53,6 @@ import users_en from "./en/Users.json";
 import users_ar from "./ar/Users.json";
 import adminRegistrationData_en from "./en/AdminRegistrationData.json";
 import adminRegistrationData_ar from "./ar/AdminRegistrationData.json";
-import adminVisitorData_en from "./en/AdminVisitorData.json";
-import adminVisitorData_ar from "./ar/AdminVisitorData.json";
 import navbar_en from "./en/Navbar.json";
 import navbar_ar from "./ar/Navbar.json";
 import footerbrand_en from "./en/Footer/FooterBrand.json";
@@ -164,6 +162,23 @@ import departParentsComplaint_ar from "./ar/DepartmentParentsComplaint/DepartPar
 import departParentComplaintTable_ar from "./ar/DepartmentParentsComplaint/DepartParentComplaintTable.json"
 import departParentComplaintsModals_ar from "./ar/DepartmentParentsComplaint/DepartParentComplaintsModals.json"
 
+import adminVisitorsApplications_en from "./en/AdminVisitorsApplications.json"
+import adminVisitorsApplications_ar from "./ar/AdminVisitorsApplications.json"
+import receptionistNavbar_en from "./en/ReceptionistDashboard/ReceptionistNavbar.json"
+import receptionistSidebar_en from "./en/ReceptionistDashboard/ReceptionistSidebar.json"
+import receptionistTable_en from "./en/ReceptionistDashboard/ReceptionistTable.json"
+import receptionistDeleteModal_en from "./en/ReceptionistDashboard/ReceptionistDeleteModal.json"
+import receptionistEditModal_en from "./en/ReceptionistDashboard/ReceptionistEditModal.json"
+import receptionistViewModal_en from "./en/ReceptionistDashboard/ReceptionistViewModal.json"
+import receptionistNavbar_ar from "./ar/ReceptionistDashboard/ReceptionistNavbar.json"
+import receptionistSidebar_ar from "./ar/ReceptionistDashboard/ReceptionistSidebar.json"
+import receptionistTable_ar from "./ar/ReceptionistDashboard/ReceptionistTable.json"
+import receptionistDeleteModal_ar from "./ar/ReceptionistDashboard/ReceptionistDeleteModal.json"
+import receptionistEditModal_ar from "./ar/ReceptionistDashboard/ReceptionistEditModal.json"
+import receptionistViewModal_ar from "./ar/ReceptionistDashboard/ReceptionistViewModal.json"
+import receptionistDashboard_en from "./en/ReceptionistDashboard/ReceptionistDashboard.json"
+import receptionistDashboard_ar from "./ar/ReceptionistDashboard/ReceptionistDashboard.json"
+
 
 
 
@@ -191,7 +206,6 @@ const resources = {
     adminStudentComplaints: adminStudentComplaints_en,
     users: users_en,
     adminRegistrationData: adminRegistrationData_en,
-    adminVisitorData: adminVisitorData_en,
     teacherComplain:teacherComplain_en,
     teacherComplaintFilters:teacherComplaintFilters_en,
     teacherComplaintModal:teacherComplaintModal_en,
@@ -245,7 +259,15 @@ const resources = {
     departTeacherComplaintModal:departTeacherComplaintModal_en,
     departParentsComplaint:departParentsComplaint_en,
     departParentComplaintTable:departParentComplaintTable_en,
-    departParentComplaintsModals:departParentComplaintsModals_en
+    departParentComplaintsModals:departParentComplaintsModals_en,
+    adminVisitorsApplications:adminVisitorsApplications_en,
+    receptionistDashboard:receptionistDashboard_en,
+    receptionistNavbar:receptionistNavbar_en,
+    receptionistSidebar:receptionistSidebar_en,
+    receptionistTable:receptionistTable_en,
+    receptionistDeleteModal:receptionistDeleteModal_en,
+    receptionistEditModal:receptionistEditModal_en,
+    receptionistViewModal:receptionistViewModal_en
   },
   ar: {
     home: home_ar,
@@ -271,7 +293,6 @@ const resources = {
     adminStudentComplaints: adminStudentComplaints_ar,
     users: users_ar,
     adminRegistrationData: adminRegistrationData_ar,
-    adminVisitorData: adminVisitorData_ar,
       teacherComplain:teacherComplain_ar,
     teacherComplaintFilters:teacherComplaintFilters_ar,
     teacherComplaintModal:teacherComplaintModal_ar,
@@ -323,7 +344,15 @@ const resources = {
     departTeacherComplaintModal:departTeacherComplaintModal_ar,
         departParentsComplaint:departParentsComplaint_ar,
     departParentComplaintTable:departParentComplaintTable_ar,
-    departParentComplaintsModals:departParentComplaintsModals_ar
+    departParentComplaintsModals:departParentComplaintsModals_ar,
+    adminVisitorsApplications:adminVisitorsApplications_ar,
+    receptionistDashboard:receptionistDashboard_ar,
+    receptionistNavbar:receptionistNavbar_ar,
+    receptionistSidebar:receptionistSidebar_ar,
+    receptionistTable:receptionistTable_ar,
+    receptionistDeleteModal:receptionistDeleteModal_ar,
+    receptionistEditModal:receptionistEditModal_ar,
+    receptionistViewModal:receptionistViewModal_ar,
   },
 };
 

@@ -1,0 +1,38 @@
+{
+  "receptionistTable": {
+    "table": {
+      "number": "#",
+      "fullName": "Full Name",
+      "idOrPassport": "Qatar ID / Passport",
+      "phoneNumber": "Phone Number",
+      "visitorType": "Visitor Type",
+      "purpose": "Purpose of Visit",
+      "department": "Person / Department",
+      "signature": "Signature",
+      "submittedOn": "Submitted On",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "mobile": {
+      "idOrPassport": "ID / Passport",
+      "phone": "Phone",
+      "visitorType": "Visitor Type",
+      "purpose": "Purpose",
+      "department": "Person/Department To Visit",
+      "submittedOn": "Submitted"
+    },
+    "status": {
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "pending": "Pending"
+    },
+    "actions": {
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "fallback": {
+      "noSignature": "—"
+    }
+  }
+}

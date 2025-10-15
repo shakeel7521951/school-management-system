@@ -1,0 +1,38 @@
+{
+  "receptionistTable": {
+    "table": {
+      "number": "#",
+      "fullName": "الاسم الكامل",
+      "idOrPassport": "رقم الهوية / جواز السفر",
+      "phoneNumber": "رقم الهاتف",
+      "visitorType": "نوع الزائر",
+      "purpose": "هدف الزيارة",
+      "department": "الشخص / القسم",
+      "signature": "التوقيع",
+      "submittedOn": "تاريخ التقديم",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "mobile": {
+      "idOrPassport": "الهوية / جواز السفر",
+      "phone": "الهاتف",
+      "visitorType": "نوع الزائر",
+      "purpose": "الهدف",
+      "department": "الشخص / القسم المراد زيارته",
+      "submittedOn": "تاريخ التقديم"
+    },
+    "status": {
+      "approved": "موافق عليه",
+      "rejected": "مرفوض",
+      "pending": "قيد الانتظار"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "fallback": {
+      "noSignature": "—"
+    }
+  }
+}

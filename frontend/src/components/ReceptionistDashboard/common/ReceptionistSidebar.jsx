@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import * as Icons from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ReceptionistSidebar = () => {
+  const { t } = useTranslation("receptionistSidebar");
   const [isOpen, setIsOpen] = useState(false);
   const [activeItem, setActiveItem] = useState("/visitors");
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
@@ -21,7 +23,7 @@ const ReceptionistSidebar = () => {
 
   const visitors = {
     id: "/visitors",
-    label: "Visitors",
+    label: t("sidebar.nav.visitors"),
     icon: "Users",
   };
 
@@ -50,9 +52,11 @@ const ReceptionistSidebar = () => {
           {isOpen && (
             <>
               <h2 className="mt-3 text-3xl font-bold text-[#1a4480] tracking-wide">
-                Al-Tamakon
+                {t("sidebar.logoTitle")}
               </h2>
-              <p className="text-[15px] text-gray-500">Receptionist Panel</p>
+              <p className="text-[15px] text-gray-500">
+                {t("sidebar.panelDescription")}
+              </p>
             </>
           )}
         </div>
@@ -64,7 +68,6 @@ const ReceptionistSidebar = () => {
               onClick={() => {
                 setActiveItem(visitors.id);
                 navigate(visitors.id);
-                // ✅ Close sidebar on mobile after navigation
                 if (!isDesktop) setIsOpen(false);
               }}
               className={`w-full flex items-center gap-4 px-4 py-3 rounded-lg transition-all
@@ -77,15 +80,11 @@ const ReceptionistSidebar = () => {
               <Icon
                 size={20}
                 className={`${
-                  activeItem === visitors.id
-                    ? "text-blue-700"
-                    : "text-blue-600"
+                  activeItem === visitors.id ? "text-blue-700" : "text-blue-600"
                 }`}
               />
               {isOpen && (
-                <span className="text-[15px] font-medium">
-                  {visitors.label}
-                </span>
+                <span className="text-[15px] font-medium">{visitors.label}</span>
               )}
             </button>
           </div>
@@ -99,6 +98,11 @@ const ReceptionistSidebar = () => {
           text-white shadow-lg rounded-full
           transition duration-300 hover:scale-110 active:scale-95"
           onClick={() => setIsOpen(!isOpen)}
+          aria-label={
+            isOpen
+              ? t("sidebar.mobileToggle.closeMenuAria")
+              : t("sidebar.mobileToggle.openMenuAria")
+          }
         >
           {isOpen ? <Icons.X size={20} /> : <Icons.Menu size={20} />}
         </button>

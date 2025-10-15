@@ -1,0 +1,25 @@
+{
+  "visitorEditModal": {
+    "title": "تعديل حالة الزائر",
+    "labels": {
+      "fullName": "الاسم الكامل",
+      "idOrPassport": "بطاقة قطر / جواز السفر",
+      "department": "الشخص / القسم",
+      "purpose": "غرض الزيارة",
+      "status": "تغيير الحالة"
+    },
+    "statusOptions": {
+      "pending": "قيد الانتظار",
+      "approved": "تمت الموافقة",
+      "rejected": "مرفوض"
+    },
+    "buttons": {
+      "cancel": "إلغاء",
+      "saveChanges": "حفظ التغييرات",
+      "saving": "جارٍ الحفظ..."
+    },
+    "fallback": {
+      "empty": "—"
+    }
+  }
+}

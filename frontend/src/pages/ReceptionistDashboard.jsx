@@ -13,10 +13,10 @@ import ReceptionistTable from "../components/ReceptionistDashboard/ReceptionistT
 import VisitorViewModal from "../components/ReceptionistDashboard/VisitorViewModal";
 import VisitorEditModal from "../components/ReceptionistDashboard/VisitorEditModal";
 import VisitorDeleteModal from "../components/ReceptionistDashboard/VisitorDeleteModal";
-
-
+import { useTranslation } from "react-i18next";
 
 const ReceptionistDashboard = () => {
+  const { t } = useTranslation("receptionistDashboard");
   const { data: visitors = [], isLoading } = useGetVisitorsQuery();
   const [updateVisitorStatus] = useUpdateVisitorStatusMutation();
 
@@ -48,7 +48,7 @@ const ReceptionistDashboard = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen text-[#104c80] font-semibold">
-        Loading visitors...
+        {t("receptionistDashboard.loading")}
       </div>
     );
   }
@@ -58,10 +58,10 @@ const ReceptionistDashboard = () => {
       {/* --- PAGE TITLE --- */}
       <div className="text-left mb-10">
         <h1 className="text-4xl font-extrabold text-[#104c80] mb-2">
-          Visitor Management
+          {t("receptionistDashboard.pageTitle.title")}
         </h1>
         <p className="text-[#517ca3] text-base font-medium">
-          Efficiently manage, review, and track all visitor applications in one place.
+          {t("receptionistDashboard.pageTitle.description")}
         </p>
       </div>
 
@@ -70,28 +70,28 @@ const ReceptionistDashboard = () => {
         <div className="bg-white p-6 rounded-2xl shadow-md border-t-4 border-[#104c80] flex items-center gap-4">
           <Users className="text-[#104c80] w-10 h-10" />
           <div>
-            <h3 className="text-base font-semibold text-gray-700">Total Visitors</h3>
+            <h3 className="text-base font-semibold text-gray-700">{t("receptionistDashboard.stats.total")}</h3>
             <p className="text-2xl font-bold text-[#104c80]">{stats.total}</p>
           </div>
         </div>
         <div className="bg-white p-6 rounded-2xl shadow-md border-t-4 border-yellow-500 flex items-center gap-4">
           <Clock className="text-yellow-500 w-10 h-10" />
           <div>
-            <h3 className="text-base font-semibold text-gray-700">Pending</h3>
+            <h3 className="text-base font-semibold text-gray-700">{t("receptionistDashboard.stats.pending")}</h3>
             <p className="text-2xl font-bold text-[#104c80]">{stats.pending}</p>
           </div>
         </div>
         <div className="bg-white p-6 rounded-2xl shadow-md border-t-4 border-green-500 flex items-center gap-4">
           <UserCheck className="text-green-500 w-10 h-10" />
           <div>
-            <h3 className="text-base font-semibold text-gray-700">Approved</h3>
+            <h3 className="text-base font-semibold text-gray-700">{t("receptionistDashboard.stats.approved")}</h3>
             <p className="text-2xl font-bold text-[#104c80]">{stats.approved}</p>
           </div>
         </div>
         <div className="bg-white p-6 rounded-2xl shadow-md border-t-4 border-red-500 flex items-center gap-4">
           <UserX className="text-red-500 w-10 h-10" />
           <div>
-            <h3 className="text-base font-semibold text-gray-700">Rejected</h3>
+            <h3 className="text-base font-semibold text-gray-700">{t("receptionistDashboard.stats.rejected")}</h3>
             <p className="text-2xl font-bold text-[#104c80]">{stats.rejected}</p>
           </div>
         </div>

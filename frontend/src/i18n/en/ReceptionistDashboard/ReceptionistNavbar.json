@@ -1,0 +1,10 @@
+{
+  "navbar": {
+    "menuAriaLabel": "Toggle Menu",
+    "myProfile": "My Profile",
+    "logout": "Logout",
+    "loggingOut": "Logging out...",
+    "userRoleFallback": "Administrator",
+    "userNameFallback": "User"
+  }
+}

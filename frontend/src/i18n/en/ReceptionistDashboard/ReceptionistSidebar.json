@@ -1,0 +1,13 @@
+{
+  "sidebar": {
+    "logoTitle": "Al-Tamakon",
+    "panelDescription": "Receptionist Panel",
+    "nav": {
+      "visitors": "Visitors"
+    },
+    "mobileToggle": {
+      "openMenuAria": "Open Menu",
+      "closeMenuAria": "Close Menu"
+    }
+  }
+}

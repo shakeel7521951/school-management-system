@@ -1,0 +1,10 @@
+{
+  "navbar": {
+    "menuAriaLabel": "تبديل القائمة",
+    "myProfile": "ملفي الشخصي",
+    "logout": "تسجيل الخروج",
+    "loggingOut": "جاري تسجيل الخروج...",
+    "userRoleFallback": "مسؤول",
+    "userNameFallback": "المستخدم"
+  }
+}

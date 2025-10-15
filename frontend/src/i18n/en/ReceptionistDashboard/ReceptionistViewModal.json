@@ -1,0 +1,24 @@
+{
+  "visitorViewModal": {
+    "title": "Visitor Details",
+    "labels": {
+      "fullName": "Full Name",
+      "idOrPassport": "Qatar ID / Passport",
+      "phone": "Phone Number",
+      "purpose": "Purpose of Visit",
+      "department": "Person or Department To Visit",
+      "signature": "Signature",
+      "submittedOn": "Submitted On",
+      "updatedOn": "Updated On",
+      "status": "Status"
+    },
+    "status": {
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "pending": "Pending"
+    },
+    "fallback": {
+      "empty": "—"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "visitorEditModal": {
+    "title": "Edit Visitor Status",
+    "labels": {
+      "fullName": "Full Name",
+      "idOrPassport": "Qatar ID / Passport",
+      "department": "Person / Department",
+      "purpose": "Purpose of Visit",
+      "status": "Change Status"
+    },
+    "statusOptions": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "saveChanges": "Save Changes",
+      "saving": "Saving..."
+    },
+    "fallback": {
+      "empty": "—"
+    }
+  }
+}

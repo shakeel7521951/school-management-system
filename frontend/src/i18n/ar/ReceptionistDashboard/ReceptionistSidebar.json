@@ -1,0 +1,13 @@
+{
+  "sidebar": {
+    "logoTitle": "التمكن",
+    "panelDescription": "لوحة موظف الاستقبال",
+    "nav": {
+      "visitors": "الزوار"
+    },
+    "mobileToggle": {
+      "openMenuAria": "فتح القائمة",
+      "closeMenuAria": "إغلاق القائمة"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "loading": "جاري تحميل طلبات الزوار...",
+  "loadingTitle": "جاري تحميل طلبات الزوار...",
+  "error": "فشل في تحميل الطلبات.",
+  "title": "طلبات الزوار",
+  "subtitle": "عرض نماذج الزوار وحالاتها الحالية.",
+  "noData": "لم يتم العثور على طلبات زوار.",
+  "headers": {
+    "number": "#",
+    "fullName": "الاسم الكامل",
+    "visitorType": "نوع الزائر",
+    "idOrPassport": "الهوية / جواز السفر القطري",
+    "phoneNumber": "رقم الهاتف",
+    "purpose": "غرض الزيارة",
+    "department": "الشخص / القسم",
+    "signature": "التوقيع",
+    "submittedOn": "تاريخ الإرسال",
+    "status": "الحالة"
+  },
+  "status": {
+    "approved": "موافق عليه",
+    "rejected": "مرفوض",
+    "pending": "قيد الانتظار"
+  },
+  "mobile": {
+    "unknownVisitor": "زائر غير معروف",
+    "visitorType": "نوع الزائر",
+    "idOrPassport": "الهوية / جواز السفر القطري",
+    "phone": "الهاتف",
+    "purpose": "الغرض",
+    "department": "الشخص / القسم",
+    "signature": "التوقيع",
+    "submittedOn": "تاريخ الإرسال"
+  }
+}

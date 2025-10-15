@@ -1,0 +1,35 @@
+{
+  "loading": "Loading visitor applications...",
+  "loadingTitle": "Loading visitor applications...",
+  "error": "Failed to load applications.",
+  "title": "Visitors Applications",
+  "subtitle": "View visitor form submissions and their current statuses.",
+  "noData": "No visitor applications found.",
+  "headers": {
+    "number": "#",
+    "fullName": "Full Name",
+    "visitorType": "Visitor Type",
+    "idOrPassport": "Qatar ID / Passport",
+    "phoneNumber": "Phone Number",
+    "purpose": "Purpose of Visit",
+    "department": "Person / Department",
+    "signature": "Signature",
+    "submittedOn": "Submitted On",
+    "status": "Status"
+  },
+  "status": {
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "pending": "Pending"
+  },
+  "mobile": {
+    "unknownVisitor": "Unknown Visitor",
+    "visitorType": "Visitor Type",
+    "idOrPassport": "Qatar ID / Passport",
+    "phone": "Phone",
+    "purpose": "Purpose",
+    "department": "Person / Department",
+    "signature": "Signature",
+    "submittedOn": "Submitted On"
+  }
+}

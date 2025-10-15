@@ -1,0 +1,11 @@
+{
+  "visitorDeleteModal": {
+    "title": "Delete Visitor Record",
+    "description": "Are you sure you want to delete {{name}}’s record? This action cannot be undone.",
+    "buttons": {
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "deleting": "Deleting..."
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "visitorViewModal": {
+    "title": "تفاصيل الزائر",
+    "labels": {
+      "fullName": "الاسم الكامل",
+      "idOrPassport": "رقم الهوية / جواز السفر",
+      "phone": "رقم الهاتف",
+      "purpose": "هدف الزيارة",
+      "department": "الشخص أو القسم المراد زيارته",
+      "signature": "التوقيع",
+      "submittedOn": "تاريخ التقديم",
+      "updatedOn": "تاريخ التحديث",
+      "status": "الحالة"
+    },
+    "status": {
+      "approved": "موافق عليه",
+      "rejected": "مرفوض",
+      "pending": "قيد الانتظار"
+    },
+    "fallback": {
+      "empty": "—"
+    }
+  }
+}
