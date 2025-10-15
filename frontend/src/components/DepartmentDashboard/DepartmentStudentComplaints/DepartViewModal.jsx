@@ -1,7 +1,7 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
-// Colors
 const typeColors = {
   Facilities: "bg-purple-100 text-purple-700",
   Emotions: "bg-pink-100 text-pink-700",
@@ -32,6 +32,8 @@ const impactColors = {
 };
 
 const DepartViewModal = ({ viewModal, setViewModal }) => {
+  const { t } = useTranslation("departViewModal");
+
   if (!viewModal) return null;
 
   return (
@@ -40,7 +42,9 @@ const DepartViewModal = ({ viewModal, setViewModal }) => {
         {/* Header */}
         <div className="p-6 border-b border-gray-200">
           <div className="flex justify-between items-center">
-            <h2 className="text-xl font-bold text-gray-800">View Complaint</h2>
+            <h2 className="text-xl font-bold text-gray-800">
+              {t("title")}
+            </h2>
             <button
               onClick={() => setViewModal(null)}
               className="text-gray-400 hover:text-gray-600"
@@ -55,17 +59,21 @@ const DepartViewModal = ({ viewModal, setViewModal }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             {/* Complainant */}
             <div>
-              <h3 className="text-sm font-medium text-gray-500 mb-1">Complainant</h3>
+              <h3 className="text-sm font-medium text-gray-500 mb-1">
+                {t("complainant")}
+              </h3>
               <p className="text-lg font-medium text-gray-900">{viewModal.name}</p>
               <p className="text-sm text-gray-600">
-                <span className="font-bold">Class:</span> {viewModal.studentClass} <br />
-                <span className="font-bold">Age:</span> {viewModal.age}
+                <span className="font-bold">{t("class")}:</span> {viewModal.studentClass} <br />
+                <span className="font-bold">{t("age")}:</span> {viewModal.age}
               </p>
             </div>
 
             {/* Date */}
             <div>
-              <h3 className="text-sm font-medium text-gray-500 mb-1">Date Submitted</h3>
+              <h3 className="text-sm font-medium text-gray-500 mb-1">
+                {t("dateSubmitted")}
+              </h3>
               <p className="text-lg text-gray-900">
                 {viewModal.date ? new Date(viewModal.date).toLocaleDateString() : "-"}
               </p>
@@ -73,59 +81,65 @@ const DepartViewModal = ({ viewModal, setViewModal }) => {
 
             {/* Type */}
             <div>
-              <h3 className="text-sm font-medium text-gray-500 mb-1">Complaint Type</h3>
+              <h3 className="text-sm font-medium text-gray-500 mb-1">
+                {t("complaintType")}
+              </h3>
               <span
-                className={`px-3 py-1 text-sm font-medium rounded-full ${
-                  typeColors[viewModal.type] || "bg-gray-100 text-gray-700"
-                }`}
+                className={`px-3 py-1 text-sm font-medium rounded-full ${typeColors[viewModal.type] || "bg-gray-100 text-gray-700"
+                  }`}
               >
-                {viewModal.type}
+                {t(`typeColors.${viewModal.type}`) || viewModal.type}
               </span>
             </div>
 
             {/* Severity */}
             <div>
-              <h3 className="text-sm font-medium text-gray-500 mb-1">Severity</h3>
+              <h3 className="text-sm font-medium text-gray-500 mb-1">
+                {t("severity")}
+              </h3>
               <span
-                className={`px-3 py-1 text-sm font-medium rounded-full ${
-                  severityColors[viewModal.severity?.toLowerCase()] ||
+                className={`px-3 py-1 text-sm font-medium rounded-full ${severityColors[viewModal.severity?.toLowerCase()] ||
                   "bg-gray-100 text-gray-700"
-                }`}
+                  }`}
               >
-                {viewModal.severity}
+                {t(`severityColors.${viewModal.severity?.toLowerCase()}`) || viewModal.severity}
               </span>
             </div>
 
             {/* Expected Action */}
             <div>
-              <h3 className="text-sm font-medium text-gray-500 mb-1">Expected Action</h3>
+              <h3 className="text-sm font-medium text-gray-500 mb-1">
+                {t("expectedAction")}
+              </h3>
               <span
-                className={`px-3 py-1 text-sm font-medium rounded-full ${
-                  statusColors[viewModal.action?.toLowerCase()] ||
+                className={`px-3 py-1 text-sm font-medium rounded-full ${statusColors[viewModal.action?.toLowerCase()] ||
                   "bg-gray-100 text-gray-700"
-                }`}
+                  }`}
               >
-                {viewModal.action}
+                {t(`statusColors.${viewModal.action?.toLowerCase()}`) || viewModal.action}
               </span>
             </div>
 
             {/* Impact */}
             <div>
-              <h3 className="text-sm font-medium text-gray-500 mb-1">Impact</h3>
+              <h3 className="text-sm font-medium text-gray-500 mb-1">
+                {t("impact")}
+              </h3>
               <span
-                className={`px-3 py-1 text-sm font-medium rounded-full ${
-                  impactColors[viewModal.impact?.toLowerCase()] ||
+                className={`px-3 py-1 text-sm font-medium rounded-full ${impactColors[viewModal.impact?.toLowerCase()] ||
                   "bg-gray-100 text-gray-700"
-                }`}
+                  }`}
               >
-                {viewModal.impact}
+                {t(`impactColors.${viewModal.impact?.toLowerCase()}`) || viewModal.impact}
               </span>
             </div>
           </div>
 
           {/* Complaint Details */}
           <div className="mb-6">
-            <h3 className="text-sm font-medium text-gray-500 mb-1">Complaint Details</h3>
+            <h3 className="text-sm font-medium text-gray-500 mb-1">
+              {t("details")}
+            </h3>
             <p className="text-gray-900 bg-gray-50 p-4 rounded-lg">
               {viewModal.details}
             </p>
@@ -138,7 +152,7 @@ const DepartViewModal = ({ viewModal, setViewModal }) => {
             onClick={() => setViewModal(null)}
             className="px-4 py-2 bg-[#1a4480] text-white rounded-lg hover:bg-[#0d3260] transition"
           >
-            Close
+            {t("close")}
           </button>
         </div>
       </div>

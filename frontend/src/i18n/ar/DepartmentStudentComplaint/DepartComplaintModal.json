@@ -1,0 +1,19 @@
+{
+    "edit_student_complaint": "تعديل شكوى الطالب",
+    "student_name": "اسم الطالب",
+    "class": "الصف",
+    "date": "التاريخ",
+    "age": "العمر",
+    "update_status": "تحديث الحالة",
+    "pending": "قيد الانتظار",
+    "in_progress": "قيد المعالجة",
+    "resolved": "تم الحل",
+    "rejected": "مرفوضة",
+    "message_comments": "الرسالة / الملاحظات",
+    "comments_placeholder": "أضف ملاحظاتك أو تعليقاتك...",
+    "cancel": "إلغاء",
+    "save_changes": "حفظ التغييرات",
+    "saving": "جارٍ الحفظ...",
+    "success_update": "تم تحديث حالة الشكوى بنجاح",
+    "failed_update": "فشل في تحديث حالة الشكوى"
+}

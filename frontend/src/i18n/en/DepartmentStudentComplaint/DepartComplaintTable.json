@@ -1,0 +1,35 @@
+{
+    "name": "Name",
+    "class": "Class",
+    "age": "Age",
+    "date": "Date",
+    "type": "Type",
+    "severity": "Severity",
+    "impact": "Impact",
+    "action": "Action",
+    "status": "Status",
+    "actions": "Actions",
+    "noComplaints": "No complaints found",
+    "types": {
+        "Bullying": "Bullying",
+        "Physical Safety": "Physical Safety",
+        "Staff": "Staff",
+        "Learning": "Learning",
+        "Facilities": "Facilities",
+        "Bus": "Bus",
+        "Emotions": "Emotions",
+        "Rights": "Rights"
+    },
+    "severities": {
+        "simple-note": "Simple Note",
+        "urgent": "Urgent",
+        "follow-up": "Follow-Up",
+        "serious": "Serious"
+    },
+    "statuses": {
+        "pending": "Pending",
+        "in progress": "In Progress",
+        "resolved": "Resolved",
+        "rejected": "Rejected"
+    }
+}

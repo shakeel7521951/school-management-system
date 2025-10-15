@@ -1,0 +1,38 @@
+{
+    "title": "View Complaint",
+    "complainant": "Complainant",
+    "class": "Class",
+    "age": "Age",
+    "dateSubmitted": "Date Submitted",
+    "complaintType": "Complaint Type",
+    "severity": "Severity",
+    "expectedAction": "Expected Action",
+    "impact": "Impact",
+    "details": "Complaint Details",
+    "close": "Close",
+    "typeColors": {
+        "Facilities": "Facilities",
+        "Emotions": "Emotions",
+        "Learning": "Learning",
+        "Work Environment": "Work Environment",
+        "Rights": "Rights",
+        "Safety at Work": "Safety at Work"
+    },
+    "severityColors": {
+        "simple-note": "Simple Note",
+        "urgent": "Urgent",
+        "follow-up": "Follow Up",
+        "serious": "Serious"
+    },
+    "statusColors": {
+        "resolve": "Resolve",
+        "pending": "Pending",
+        "rejected": "Rejected",
+        "any": "Any"
+    },
+    "impactColors": {
+        "physical": "Physical",
+        "emotional": "Emotional",
+        "academic": "Academic"
+    }
+}

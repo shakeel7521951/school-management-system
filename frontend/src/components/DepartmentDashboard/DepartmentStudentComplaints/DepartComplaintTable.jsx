@@ -7,6 +7,7 @@ import {
   FaSortUp,
   FaSortDown,
 } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const typeColors = {
   Bullying: "bg-indigo-100 text-indigo-700",
@@ -41,17 +42,18 @@ const DepartComplaintTable = ({
   setViewModal,
   setEditModal,
 }) => {
+  const { t } = useTranslation("departComplaintTable")
   const columns = [
-    { key: "name", label: "Name", width: "w-40" },
-    { key: "studentClass", label: "Class", width: "w-20" },
-    { key: "age", label: "Age", width: "w-20" },
-    { key: "date", label: "Date", width: "w-28" },
-    { key: "type", label: "Type", width: "w-32" },
-    { key: "severity", label: "Severity", width: "w-28" },
-    { key: "impact", label: "Impact", width: "w-28" },
-    { key: "action", label: "Action", width: "w-32" },
-    { key: "status", label: "Status", width: "w-28" },
-    { key: "actions", label: "Actions", width: "w-28" },
+    { key: "name", label: t("name"), width: "w-40" },
+    { key: "studentClass", label: t("class"), width: "w-20" },
+    { key: "age", label: t("age"), width: "w-20" },
+    { key: "date", label: t("date"), width: "w-28" },
+    { key: "type", label: t("type"), width: "w-32" },
+    { key: "severity", label: t("severity"), width: "w-28" },
+    { key: "impact", label: t("impact"), width: "w-28" },
+    { key: "action", label: t("action"), width: "w-32" },
+    { key: "status", label: t("status"), width: "w-28" },
+    { key: "actions", label: t("actions"), width: "w-28" },
   ];
 
   return (
@@ -95,9 +97,8 @@ const DepartComplaintTable = ({
             {paginatedComplaints.map((c, i) => (
               <tr
                 key={c._id}
-                className={`${
-                  i % 2 === 0 ? "bg-white" : "bg-gray-50"
-                } hover:bg-gray-100 transition text-sm`}
+                className={`${i % 2 === 0 ? "bg-white" : "bg-gray-50"
+                  } hover:bg-gray-100 transition text-sm`}
               >
                 <td className="px-3 py-3 align-middle text-center">
                   <div className="flex items-center justify-center gap-2">
@@ -120,9 +121,8 @@ const DepartComplaintTable = ({
 
                 <td className="px-3 py-3 align-middle text-center">
                   <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      typeColors[c.type] || "bg-gray-100 text-gray-700"
-                    }`}
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${typeColors[c.type] || "bg-gray-100 text-gray-700"
+                      }`}
                   >
                     {c.type}
                   </span>
@@ -130,10 +130,9 @@ const DepartComplaintTable = ({
 
                 <td className="px-3 py-3 align-middle text-center">
                   <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      severityColors[c.severity?.toLowerCase()] ||
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${severityColors[c.severity?.toLowerCase()] ||
                       "bg-gray-100 text-gray-700"
-                    }`}
+                      }`}
                   >
                     {c.severity}
                   </span>
@@ -145,13 +144,12 @@ const DepartComplaintTable = ({
 
                 <td className="px-3 py-3 align-middle text-center">
                   <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      c.action === "resolve"
-                        ? "bg-green-100 text-green-700"
-                        : c.action === "pending"
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${c.action === "resolve"
+                      ? "bg-green-100 text-green-700"
+                      : c.action === "pending"
                         ? "bg-yellow-100 text-yellow-700"
                         : "bg-red-100 text-red-700"
-                    }`}
+                      }`}
                   >
                     {c.action}
                   </span>
@@ -159,10 +157,9 @@ const DepartComplaintTable = ({
 
                 <td className="px-3 py-3 align-middle text-center">
                   <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      statusColors[c.status?.toLowerCase()] ||
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[c.status?.toLowerCase()] ||
                       "bg-gray-100 text-gray-700"
-                    }`}
+                      }`}
                   >
                     {c.status}
                   </span>
@@ -234,9 +231,8 @@ const DepartComplaintTable = ({
                 <p className="col-span-2">
                   <b>Type:</b>{" "}
                   <span
-                    className={`px-2 py-1 text-xs rounded-full ${
-                      typeColors[c.type] || "bg-gray-100 text-gray-700"
-                    }`}
+                    className={`px-2 py-1 text-xs rounded-full ${typeColors[c.type] || "bg-gray-100 text-gray-700"
+                      }`}
                   >
                     {c.type}
                   </span>
@@ -244,10 +240,9 @@ const DepartComplaintTable = ({
                 <p className="col-span-2">
                   <b>Severity:</b>{" "}
                   <span
-                    className={`px-2 py-1 text-xs rounded-full ${
-                      severityColors[c.severity?.toLowerCase()] ||
+                    className={`px-2 py-1 text-xs rounded-full ${severityColors[c.severity?.toLowerCase()] ||
                       "bg-gray-100 text-gray-700"
-                    }`}
+                      }`}
                   >
                     {c.severity}
                   </span>
@@ -255,13 +250,12 @@ const DepartComplaintTable = ({
                 <p className="col-span-2">
                   <b>Action:</b>{" "}
                   <span
-                    className={`px-2 py-1 text-xs rounded-full ${
-                      c.action === "resolve"
-                        ? "bg-green-100 text-green-700"
-                        : c.action === "pending"
+                    className={`px-2 py-1 text-xs rounded-full ${c.action === "resolve"
+                      ? "bg-green-100 text-green-700"
+                      : c.action === "pending"
                         ? "bg-yellow-100 text-yellow-700"
                         : "bg-red-100 text-red-700"
-                    }`}
+                      }`}
                   >
                     {c.action}
                   </span>
@@ -269,10 +263,9 @@ const DepartComplaintTable = ({
                 <p className="col-span-2">
                   <b>Status:</b>{" "}
                   <span
-                    className={`px-2 py-1 text-xs rounded-full ${
-                      statusColors[c.status?.toLowerCase()] ||
+                    className={`px-2 py-1 text-xs rounded-full ${statusColors[c.status?.toLowerCase()] ||
                       "bg-gray-100 text-gray-700"
-                    }`}
+                      }`}
                   >
                     {c.status}
                   </span>

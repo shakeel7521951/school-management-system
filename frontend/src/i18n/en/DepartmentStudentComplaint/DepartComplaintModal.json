@@ -1,0 +1,19 @@
+{
+  "edit_student_complaint": "Edit Student Complaint",
+  "student_name": "Student Name",
+  "class": "Class",
+  "date": "Date",
+  "age": "Age",
+  "update_status": "Update Status",
+  "pending": "Pending",
+  "in_progress": "In Progress",
+  "resolved": "Resolved",
+  "rejected": "Rejected",
+  "message_comments": "Message / Comments",
+  "comments_placeholder": "Add your comments or feedback...",
+  "cancel": "Cancel",
+  "save_changes": "Save Changes",
+  "saving": "Saving...",
+  "success_update": "Complaint status updated successfully",
+  "failed_update": "Failed to update complaint status"
+}

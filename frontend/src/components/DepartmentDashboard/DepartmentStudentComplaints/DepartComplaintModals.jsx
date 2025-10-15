@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaTimes, FaExclamationTriangle, FaCheck } from "react-icons/fa";
 import DepartViewModal from "./DepartViewModal";
 import { useChangeStComplaintStatusMutation } from "../../../redux/slices/StComplaintApi";
+import { useTranslation } from "react-i18next";
 
 const DepartComplaintModals = ({
   viewModal,
@@ -12,20 +13,14 @@ const DepartComplaintModals = ({
   showToast,
   setComplaints,
 }) => {
+  const { t } = useTranslation("departComplaintModal"); // ✅ Using i18next namespace "complaint"
+
   const [changeStComplaintStatus, { isLoading: isUpdating }] =
     useChangeStComplaintStatusMutation();
-
-  const statusColors = {
-    resolve: "bg-green-100 text-green-700",
-    pending: "bg-yellow-100 text-yellow-700",
-    rejected: "bg-red-100 text-red-700",
-    "in progress": "bg-blue-100 text-blue-700",
-  };
 
   const [updatedStatus, setUpdatedStatus] = useState("");
   const [comments, setComments] = useState("");
 
-  // ✅ To hold complaint details for view
   const [complaintInfo, setComplaintInfo] = useState({
     name: "",
     studentClass: "",
@@ -48,7 +43,6 @@ const DepartComplaintModals = ({
     }
   }, [editModal]);
 
-  // ✅ Save Changes - Backend Integration
   const handleSaveChanges = async () => {
     if (!editModal?._id) return;
 
@@ -61,7 +55,6 @@ const DepartComplaintModals = ({
 
       await changeStComplaintStatus(payload).unwrap();
 
-      // ✅ Update UI instantly
       setComplaints((prev) =>
         prev.map((c) =>
           c._id === editModal._id
@@ -70,14 +63,12 @@ const DepartComplaintModals = ({
         )
       );
 
-      // ✅ Reset only comment field
       setComments("");
-
-      showToast("Complaint status updated successfully", "success");
+      showToast(t("success_update"), "success");
       setEditModal(null);
     } catch (error) {
       console.error("Error updating department complaint:", error);
-      showToast("Failed to update complaint status", "error");
+      showToast(t("failed_update"), "error");
     }
   };
 
@@ -99,7 +90,7 @@ const DepartComplaintModals = ({
             {/* Header */}
             <div className="p-4 sm:p-6 border-b border-gray-200 flex justify-between items-center">
               <h2 className="text-lg sm:text-xl font-bold text-gray-800">
-                Edit Student Complaint
+                {t("edit_student_complaint")}
               </h2>
               <button
                 onClick={handleCancelEdit}
@@ -114,10 +105,10 @@ const DepartComplaintModals = ({
               {/* Read-only Info */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
-                  { label: "Student Name", value: complaintInfo.name },
-                  { label: "Class", value: complaintInfo.studentClass },
-                  { label: "Date", value: complaintInfo.date },
-                  { label: "Age", value: complaintInfo.age },
+                  { label: t("student_name"), value: complaintInfo.name },
+                  { label: t("class"), value: complaintInfo.studentClass },
+                  { label: t("date"), value: complaintInfo.date },
+                  { label: t("age"), value: complaintInfo.age },
                 ].map(({ label, value }) => (
                   <div key={label}>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -133,36 +124,34 @@ const DepartComplaintModals = ({
                 ))}
               </div>
 
-              
-
               {/* Update Status */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Update Status
+                  {t("update_status")}
                 </label>
                 <select
                   className="w-full border border-gray-300 px-3 py-2 rounded-lg focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
                   value={updatedStatus}
                   onChange={(e) => setUpdatedStatus(e.target.value)}
                 >
-                  <option value="Pending">Pending</option>
-                  <option value="In Progress">In Progress</option>
-                  <option value="Resolved">Resolved</option>
-                  <option value="Rejected">Rejected</option>
+                  <option value="Pending">{t("pending")}</option>
+                  <option value="In Progress">{t("in_progress")}</option>
+                  <option value="Resolved">{t("resolved")}</option>
+                  <option value="Rejected">{t("rejected")}</option>
                 </select>
               </div>
 
               {/* Comments Field */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-            Message / Comments
+                  {t("message_comments")}
                 </label>
                 <textarea
                   rows="3"
                   className="w-full border border-gray-300 px-3 py-2 rounded-lg focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
                   value={comments}
                   onChange={(e) => setComments(e.target.value)}
-                  placeholder="Add your comments or feedback..."
+                  placeholder={t("comments_placeholder")}
                 ></textarea>
               </div>
             </div>
@@ -174,7 +163,7 @@ const DepartComplaintModals = ({
                 disabled={isUpdating}
                 className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition w-full sm:w-auto disabled:opacity-50"
               >
-                Cancel
+                {t("cancel")}
               </button>
               <button
                 onClick={handleSaveChanges}
@@ -184,10 +173,10 @@ const DepartComplaintModals = ({
                 {isUpdating ? (
                   <>
                     <span className="animate-spin border-2 border-white border-t-transparent rounded-full w-4 h-4"></span>
-                    Saving...
+                    {t("saving")}
                   </>
                 ) : (
-                  "Save Changes"
+                  t("save_changes")
                 )}
               </button>
             </div>
@@ -198,9 +187,8 @@ const DepartComplaintModals = ({
       {/* ✅ Toast Notification */}
       {toast?.show && (
         <div
-          className={`fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg text-white font-medium flex items-center gap-2 transition-opacity duration-300 ${
-            toast.type === "success" ? "bg-green-500" : "bg-red-500"
-          }`}
+          className={`fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg text-white font-medium flex items-center gap-2 transition-opacity duration-300 ${toast.type === "success" ? "bg-green-500" : "bg-red-500"
+            }`}
         >
           {toast.type === "success" ? <FaCheck /> : <FaExclamationTriangle />}
           {toast.message}
