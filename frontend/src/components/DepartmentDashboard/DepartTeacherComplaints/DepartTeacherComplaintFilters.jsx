@@ -113,13 +113,14 @@ const DepartTeacherComplaintFilters = ({
             className="border border-gray-300 px-3 py-2.5 rounded-lg shadow-sm focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
           >
             <option value="all">{t("type.options.all")}</option>
-            <option value="safety">{t("type.options.safety")}</option>
-            <option value="stress">{t("type.options.stress")}</option>
-            <option value="work_env">{t("type.options.work_env")}</option>
-            <option value="colleagues">{t("type.options.colleagues")}</option>
-            <option value="management">{t("type.options.management")}</option>
-            <option value="rights">{t("type.options.rights")}</option>
-            <option value="other">{t("type.options.other")}</option>
+<option value="Safety at Work">{t("type.options.safety")}</option>
+<option value="Stress">{t("type.options.stress")}</option>
+<option value="Work Environment">{t("type.options.work_env")}</option>
+<option value="Colleagues">{t("type.options.colleagues")}</option>
+<option value="Management">{t("type.options.management")}</option>
+<option value="Rights">{t("type.options.rights")}</option>
+<option value="Other">{t("type.options.other")}</option>
+
           </select>
         </div>
       </div>

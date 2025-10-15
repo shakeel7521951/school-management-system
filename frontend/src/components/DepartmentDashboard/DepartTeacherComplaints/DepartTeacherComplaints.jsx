@@ -41,8 +41,8 @@ const DepartTeacherComplaints = () => {
     setCurrentPage(1);
   }, [filterStatus, filterImpact, filterType, searchTerm]);
 
-  // ✅ Filtered complaints
- const normalize = (str) => str?.toLowerCase().replace(/[_\s]+/g, " ").trim();
+const normalize = (str) =>
+  str?.toLowerCase().replace(/[_\s]+/g, "").trim();
 
 const filteredComplaints = useMemo(() => {
   return complaints.filter((c) => {
@@ -60,7 +60,6 @@ const filteredComplaints = useMemo(() => {
     return matchesStatus && matchesImpact && matchesType && matchesSearch;
   });
 }, [complaints, filterStatus, filterImpact, filterType, searchTerm]);
-
 
   // ✅ Sorting
   const sortedComplaints = useMemo(() => {

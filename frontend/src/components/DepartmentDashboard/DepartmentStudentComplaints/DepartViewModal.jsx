@@ -31,10 +31,18 @@ const impactColors = {
   academic: "bg-indigo-100 text-indigo-700",
 };
 
+// ✅ normalize any string to lowercase-with-hyphens format
+const normalizeKey = (key) => key?.toLowerCase().replace(/\s+/g, "-");
+
 const DepartViewModal = ({ viewModal, setViewModal }) => {
   const { t } = useTranslation("departViewModal");
 
   if (!viewModal) return null;
+
+  // normalize values so "Follow Up" → "follow-up"
+  const severityKey = normalizeKey(viewModal.severity);
+  const actionKey = normalizeKey(viewModal.action);
+  const impactKey = normalizeKey(viewModal.impact);
 
   return (
     <div className="fixed inset-0 bg-black/90 flex items-center justify-center p-4 z-50">
@@ -42,9 +50,7 @@ const DepartViewModal = ({ viewModal, setViewModal }) => {
         {/* Header */}
         <div className="p-6 border-b border-gray-200">
           <div className="flex justify-between items-center">
-            <h2 className="text-xl font-bold text-gray-800">
-              {t("title")}
-            </h2>
+            <h2 className="text-xl font-bold text-gray-800">{t("title")}</h2>
             <button
               onClick={() => setViewModal(null)}
               className="text-gray-400 hover:text-gray-600"
@@ -62,9 +68,12 @@ const DepartViewModal = ({ viewModal, setViewModal }) => {
               <h3 className="text-sm font-medium text-gray-500 mb-1">
                 {t("complainant")}
               </h3>
-              <p className="text-lg font-medium text-gray-900">{viewModal.name}</p>
+              <p className="text-lg font-medium text-gray-900">
+                {viewModal.name}
+              </p>
               <p className="text-sm text-gray-600">
-                <span className="font-bold">{t("class")}:</span> {viewModal.studentClass} <br />
+                <span className="font-bold">{t("class")}:</span>{" "}
+                {viewModal.studentClass} <br />
                 <span className="font-bold">{t("age")}:</span> {viewModal.age}
               </p>
             </div>
@@ -75,7 +84,9 @@ const DepartViewModal = ({ viewModal, setViewModal }) => {
                 {t("dateSubmitted")}
               </h3>
               <p className="text-lg text-gray-900">
-                {viewModal.date ? new Date(viewModal.date).toLocaleDateString() : "-"}
+                {viewModal.date
+                  ? new Date(viewModal.date).toLocaleDateString()
+                  : "-"}
               </p>
             </div>
 
@@ -85,8 +96,10 @@ const DepartViewModal = ({ viewModal, setViewModal }) => {
                 {t("complaintType")}
               </h3>
               <span
-                className={`px-3 py-1 text-sm font-medium rounded-full ${typeColors[viewModal.type] || "bg-gray-100 text-gray-700"
-                  }`}
+                className={`px-3 py-1 text-sm font-medium rounded-full ${
+                  typeColors[viewModal.type] ||
+                  "bg-gray-100 text-gray-700"
+                }`}
               >
                 {t(`typeColors.${viewModal.type}`) || viewModal.type}
               </span>
@@ -98,11 +111,12 @@ const DepartViewModal = ({ viewModal, setViewModal }) => {
                 {t("severity")}
               </h3>
               <span
-                className={`px-3 py-1 text-sm font-medium rounded-full ${severityColors[viewModal.severity?.toLowerCase()] ||
+                className={`px-3 py-1 text-sm font-medium rounded-full ${
+                  severityColors[severityKey] ||
                   "bg-gray-100 text-gray-700"
-                  }`}
+                }`}
               >
-                {t(`severityColors.${viewModal.severity?.toLowerCase()}`) || viewModal.severity}
+                {t(`severityColors.${severityKey}`) || viewModal.severity}
               </span>
             </div>
 
@@ -111,13 +125,14 @@ const DepartViewModal = ({ viewModal, setViewModal }) => {
               <h3 className="text-sm font-medium text-gray-500 mb-1">
                 {t("expectedAction")}
               </h3>
-              <span
-                className={`px-3 py-1 text-sm font-medium rounded-full ${statusColors[viewModal.action?.toLowerCase()] ||
-                  "bg-gray-100 text-gray-700"
-                  }`}
-              >
-                {t(`statusColors.${viewModal.action?.toLowerCase()}`) || viewModal.action}
-              </span>
+            <span
+  className={`px-3 py-1 text-sm font-medium rounded-full ${
+    statusColors[actionKey] || "bg-gray-100 text-gray-700"
+  }`}
+>
+  {t(`statusColors.${actionKey}`, viewModal.action)}
+</span>
+
             </div>
 
             {/* Impact */}
@@ -126,11 +141,12 @@ const DepartViewModal = ({ viewModal, setViewModal }) => {
                 {t("impact")}
               </h3>
               <span
-                className={`px-3 py-1 text-sm font-medium rounded-full ${impactColors[viewModal.impact?.toLowerCase()] ||
+                className={`px-3 py-1 text-sm font-medium rounded-full ${
+                  impactColors[impactKey] ||
                   "bg-gray-100 text-gray-700"
-                  }`}
+                }`}
               >
-                {t(`impactColors.${viewModal.impact?.toLowerCase()}`) || viewModal.impact}
+                {t(`impactColors.${impactKey}`) || viewModal.impact}
               </span>
             </div>
           </div>
