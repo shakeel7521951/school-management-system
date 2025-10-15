@@ -1,0 +1,53 @@
+{
+  "header": {
+    "title": "Filters",
+    "reset": "Reset Filters"
+  },
+  "search": {
+    "label": "Search",
+    "placeholder": "Search by name, impact, type..."
+  },
+  "status": {
+    "label": "Status",
+    "options": {
+      "all": "All Status",
+      "pending": "Pending",
+      "in_progress": "In Progress",
+      "resolved": "Resolved",
+      "rejected": "Rejected"
+    }
+  },
+  "impact": {
+    "label": "Impact",
+    "options": {
+      "all": "All Impact",
+      "stress": "Stress",
+      "performance": "Performance",
+      "health": "Health",
+      "isolation": "Isolation"
+    }
+  },
+  "type": {
+    "label": "Type",
+    "options": {
+      "all": "All Types",
+      "safety": "Safety at Work",
+      "stress": "Stress",
+      "work_env": "Work Environment",
+      "colleagues": "Colleagues",
+      "management": "Management",
+      "rights": "Rights",
+      "other": "Other"
+    }
+  },
+  "footer": {
+    "showing": "Showing {{count}} complaints",
+    "items_per_page": {
+      "5": "5 per page",
+      "10": "10 per page",
+      "20": "20 per page",
+      "50": "50 per page"
+    },
+    "export": "Export"
+  }
+}

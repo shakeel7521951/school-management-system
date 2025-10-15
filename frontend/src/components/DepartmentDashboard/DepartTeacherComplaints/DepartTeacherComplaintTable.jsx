@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   FaUser,
   FaEye,
@@ -16,20 +17,10 @@ const DepartTeacherComplaintTable = ({
   handleSort,
   setViewModal,
   setEditModal,
-  setDeleteModal,
 }) => {
-  const headers = {
-    employeeName: "Employee Name",
-    jobTitle: "Job Title",
-    department: "Department",
-    date: "Date",
-    type: "Type",
-    severity: "Severity",
-    impact: "Impact",
-    expectedAction: "Expected Action",
-    status: "Status",
-    action: "Actions",
-  };
+  const { t } = useTranslation("departTeacherComplaintTable"); // namespace
+
+  const headers = t("table.headers", { returnObjects: true });
 
   const getStatusColor = (status) => {
     switch (status?.toLowerCase()) {
@@ -46,7 +37,7 @@ const DepartTeacherComplaintTable = ({
 
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-      {/* --- TABLE VIEW (Desktop) --- */}
+      {/* Desktop Table */}
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full border-collapse rounded-lg overflow-hidden shadow-sm">
           <thead>
@@ -97,16 +88,16 @@ const DepartTeacherComplaintTable = ({
                       <span className="font-medium">{c.employeeName}</span>
                     </div>
                   </td>
-                  <td className="px-3 py-3 text-center align-middle">{c.jobTitle}</td>
-                  <td className="px-3 py-3 text-center align-middle">{c.department}</td>
-                  <td className="px-3 py-3 text-center align-middle">
+                  <td className="px-3 py-3 text-center">{c.jobTitle}</td>
+                  <td className="px-3 py-3 text-center">{c.department}</td>
+                  <td className="px-3 py-3 text-center">
                     {c.date ? new Date(c.date).toLocaleDateString() : "-"}
                   </td>
-                  <td className="px-3 py-3 text-center align-middle">{c.type}</td>
-                  <td className="px-3 py-3 text-center align-middle">{c.severity}</td>
-                  <td className="px-3 py-3 text-center align-middle">{c.impact}</td>
-                  <td className="px-3 py-3 text-center align-middle">{c.expectedAction}</td>
-                  <td className="px-3 py-3 text-center align-middle whitespace-nowrap">
+                  <td className="px-3 py-3 text-center">{c.type}</td>
+                  <td className="px-3 py-3 text-center">{c.severity}</td>
+                  <td className="px-3 py-3 text-center">{c.impact}</td>
+                  <td className="px-3 py-3 text-center">{c.expectedAction}</td>
+                  <td className="px-3 py-3 text-center whitespace-nowrap">
                     <span
                       className={`inline-block px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(
                         c.status
@@ -115,7 +106,7 @@ const DepartTeacherComplaintTable = ({
                       {c.status}
                     </span>
                   </td>
-                  <td className="px-3 py-3 text-center align-middle">
+                  <td className="px-3 py-3 text-center">
                     <div className="flex justify-center gap-2">
                       <button
                         onClick={() => setViewModal(c)}
@@ -135,62 +126,14 @@ const DepartTeacherComplaintTable = ({
               ))
             ) : (
               <tr>
-                <td
-                  colSpan="10"
-                  className="px-4 py-6 text-center text-gray-400 text-sm"
-                >
+                <td colSpan="10" className="py-6 text-center text-gray-400 text-sm">
                   <FaExclamationTriangle className="mx-auto text-2xl mb-2" />
-                  No complaints found.
+                  {t("table.noData.message")}
                 </td>
               </tr>
             )}
           </tbody>
         </table>
-      </div>
-
-      {/* --- CARD VIEW (Mobile) --- */}
-      <div className="block md:hidden p-3">
-        {paginatedComplaints.length > 0 ? (
-          paginatedComplaints.map((c) => (
-            <div
-              key={c._id}
-              className="bg-white border border-gray-200 rounded-xl p-4 mb-3 shadow-sm"
-            >
-              <div className="flex items-center gap-3 mb-2">
-                <FaUser className="text-indigo-600" />
-                <div>
-                  <p className="font-semibold text-gray-800">{c.employeeName}</p>
-                  <p className="text-xs text-gray-500">{c.jobTitle}</p>
-                </div>
-              </div>
-
-              <div className="text-sm text-gray-700 space-y-1">
-                <p><strong>Department:</strong> {c.department}</p>
-                <p><strong>Date:</strong> {c.date ? new Date(c.date).toLocaleDateString() : "-"}</p>
-                <p><strong>Type:</strong> {c.type}</p>
-                <p><strong>Severity:</strong> {c.severity}</p>
-                <p><strong>Impact:</strong> {c.impact}</p>
-                <p><strong>Expected Action:</strong> {c.expectedAction}</p>
-                <p>
-                  <strong>Status:</strong>{" "}
-                  <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(c.status)}`}>
-                    {c.status}
-                  </span>
-                </p>
-              </div>
-
-              <div className="flex justify-end gap-3 mt-3">
-                <button onClick={() => setViewModal(c)} className="text-indigo-600"><FaEye /></button>
-                <button onClick={() => setEditModal(c)} className="text-green-600"><FaEdit /></button>
-              </div>
-            </div>
-          ))
-        ) : (
-          <div className="text-center text-gray-400 py-5">
-            <FaExclamationTriangle className="mx-auto text-2xl mb-2" />
-            No complaints found.
-          </div>
-        )}
       </div>
     </div>
   );

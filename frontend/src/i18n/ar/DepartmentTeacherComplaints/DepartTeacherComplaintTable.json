@@ -1,0 +1,46 @@
+{
+  "table": {
+    "headers": {
+      "employeeName": "اسم الموظف",
+      "jobTitle": "المسمى الوظيفي",
+      "department": "القسم",
+      "date": "التاريخ",
+      "type": "النوع",
+      "severity": "الخطورة",
+      "impact": "التأثير",
+      "expectedAction": "الإجراء المتوقع",
+      "status": "الحالة",
+      "action": "الإجراءات"
+    },
+    "noData": {
+      "iconAlt": "أيقونة عدم وجود شكاوى",
+      "message": "لا توجد شكاوى."
+    },
+    "status": {
+      "pending": "قيد الانتظار",
+      "inProgress": "قيد المعالجة",
+      "resolved": "تم الحل",
+      "default": "غير معروف"
+    },
+    "mobile": {
+      "labels": {
+        "department": "القسم",
+        "date": "التاريخ",
+        "type": "النوع",
+        "severity": "الخطورة",
+        "impact": "التأثير",
+        "expectedAction": "الإجراء المتوقع",
+        "status": "الحالة"
+      }
+    },
+    "buttons": {
+      "view": "عرض",
+      "edit": "تعديل"
+    },
+    "aria": {
+      "sortAsc": "ترتيب تصاعدي",
+      "sortDesc": "ترتيب تنازلي",
+      "noSort": "عمود قابل للفرز"
+    }
+  }
+}

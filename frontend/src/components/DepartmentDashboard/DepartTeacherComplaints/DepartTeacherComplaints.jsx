@@ -7,10 +7,13 @@ import DepartTeacherComplaintViewModal from "./DepartTeacherComplaintViewModal";
 import DepartTeacherComplaintModal from "./DepartTeacherComplaintModal";
 import DepartTeacherDeleteModal from "./DepartTeacherDeleteModal";
 import { useGetTeacherDepartmentComplaintsQuery } from "../../../redux/slices/DepartmentApi";
+import { useTranslation } from "react-i18next";
 
 const USER_ROLE = "manager"; // example role — replace with actual logged-in user role
 
 const DepartTeacherComplaints = () => {
+  const { t } = useTranslation("departTeacherComplaints");
+
   // ✅ Role-based conditional fetching
   const shouldFetch = ["manager", "protection_committee"].includes(USER_ROLE);
   const { data, isLoading, isError } = useGetTeacherDepartmentComplaintsQuery(undefined, {
@@ -39,20 +42,25 @@ const DepartTeacherComplaints = () => {
   }, [filterStatus, filterImpact, filterType, searchTerm]);
 
   // ✅ Filtered complaints
-  const filteredComplaints = useMemo(() => {
-    return complaints.filter((c) => {
-      const matchesStatus =
-        filterStatus === "all" || c.status?.toLowerCase() === filterStatus.toLowerCase();
-      const matchesImpact =
-        filterImpact === "all" || c.impact?.toLowerCase() === filterImpact.toLowerCase();
-      const matchesType =
-        filterType === "all" || c.type?.toLowerCase() === filterType.toLowerCase();
-      const matchesSearch =
-        c.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        c.details?.toLowerCase().includes(searchTerm.toLowerCase());
-      return matchesStatus && matchesImpact && matchesType && matchesSearch;
-    });
-  }, [complaints, filterStatus, filterImpact, filterType, searchTerm]);
+ const normalize = (str) => str?.toLowerCase().replace(/[_\s]+/g, " ").trim();
+
+const filteredComplaints = useMemo(() => {
+  return complaints.filter((c) => {
+    const matchesStatus =
+      filterStatus === "all" || normalize(c.status) === normalize(filterStatus);
+    const matchesImpact =
+      filterImpact === "all" || normalize(c.impact) === normalize(filterImpact);
+    const matchesType =
+      filterType === "all" || normalize(c.type) === normalize(filterType);
+    const matchesSearch =
+      c.employeeName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      c.jobTitle?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      c.department?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      c.type?.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesStatus && matchesImpact && matchesType && matchesSearch;
+  });
+}, [complaints, filterStatus, filterImpact, filterType, searchTerm]);
+
 
   // ✅ Sorting
   const sortedComplaints = useMemo(() => {
@@ -93,14 +101,14 @@ const DepartTeacherComplaints = () => {
   // ✅ Status update (dummy for now)
   const saveStatus = (id, newStatus) => {
     console.log("Status updated for complaint", id, "to", newStatus);
-    setToast({ show: true, message: "Status updated successfully.", type: "success" });
+    setToast({ show: true, message: t("toast.statusUpdated"), type: "success" });
     setViewModal(null);
   };
 
   // ✅ Delete handler (dummy)
   const confirmDelete = (id) => {
     console.log("Complaint deleted:", id);
-    setToast({ show: true, message: "Complaint deleted successfully.", type: "success" });
+    setToast({ show: true, message: t("toast.deleted"), type: "success" });
     setDeleteModal(null);
   };
 
@@ -110,8 +118,8 @@ const DepartTeacherComplaints = () => {
       <div className="flex justify-center items-center h-screen text-gray-500 text-xl font-medium bg-gray-50">
         <div className="text-center p-8 bg-white rounded-2xl shadow-lg max-w-md border border-gray-100">
           <FaExclamationTriangle className="mx-auto text-4xl text-amber-500 mb-4" />
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Access Denied</h2>
-          <p className="text-gray-600">You do not have permission to view this page.</p>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">{t("accessDenied.title")}</h2>
+          <p className="text-gray-600">{t("accessDenied.message")}</p>
         </div>
       </div>
     );
@@ -120,36 +128,32 @@ const DepartTeacherComplaints = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen text-gray-600 text-lg">
-        Loading complaints...
+        {t("loading.message")}
       </div>
     );
   }
 
-  if (isError|| !data?.complaints?.length) {
-   return (
-     <div className="lg:ml-[270px] flex flex-col items-center justify-center min-h-screen bg-gray-50 px-6">
-       <div className="bg-white p-10 rounded-2xl shadow-md border border-gray-100 text-center max-w-lg w-full">
-         <FaExclamationTriangle className="text-5xl text-amber-500 mx-auto mb-4" />
-         <h2 className="text-2xl font-semibold text-gray-700 mb-2">No Complaints Found</h2>
-         <p className="text-gray-500 mb-4">
-           There are currently no teachers complaints available to display.
-         </p>
-         
-         
-       </div>
-     </div>
-   );
- }
+  if (isError || !data?.complaints?.length) {
+    return (
+      <div className="lg:ml-[270px] flex flex-col items-center justify-center min-h-screen bg-gray-50 px-6">
+        <div className="bg-white p-10 rounded-2xl shadow-md border border-gray-100 text-center max-w-lg w-full">
+          <FaExclamationTriangle className="text-5xl text-amber-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-semibold text-gray-700 mb-2">{t("noData.title")}</h2>
+          <p className="text-gray-500 mb-4">{t("noData.message")}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="lg:ml-[270px] max-w-8xl bg-gray-50 py-4 px-4 sm:px-6 lg:px-10 flex flex-col gap-8 min-h-screen">
       {/* Header */}
       <header>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1a4480]">
-          Teacher Complaints
+          {t("page.title")}
         </h1>
         <p className="text-gray-500 mt-1 text-sm sm:text-base">
-          Manage, review and resolve teacher complaints.
+          {t("page.subtitle")}
         </p>
         <hr className="mt-4 border-gray-200" />
       </header>
@@ -194,10 +198,11 @@ const DepartTeacherComplaints = () => {
       {filteredComplaints.length > 0 && pageCount > 1 && (
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white p-4 rounded-2xl shadow-md border border-gray-100">
           <div className="text-sm text-gray-700">
-            Showing{" "}
-            {Math.min((currentPage - 1) * itemsPerPage + 1, filteredComplaints.length)} to{" "}
-            {Math.min(currentPage * itemsPerPage, filteredComplaints.length)} of{" "}
-            {filteredComplaints.length} complaints
+            {t("pagination.showing", {
+              from: Math.min((currentPage - 1) * itemsPerPage + 1, filteredComplaints.length),
+              to: Math.min(currentPage * itemsPerPage, filteredComplaints.length),
+              total: filteredComplaints.length,
+            })}
           </div>
           <div className="flex gap-2 flex-wrap">
             <button
@@ -205,14 +210,14 @@ const DepartTeacherComplaints = () => {
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               className="px-3 py-1.5 rounded-lg border border-gray-300 text-gray-700 disabled:opacity-50"
             >
-              <FaArrowLeft className="text-xs" /> Previous
+              <FaArrowLeft className="text-xs" /> {t("pagination.previous")}
             </button>
             <button
               disabled={currentPage === pageCount}
               onClick={() => setCurrentPage((p) => Math.min(pageCount, p + 1))}
               className="px-3 py-1.5 rounded-lg border border-gray-300 text-gray-700 disabled:opacity-50"
             >
-              Next <FaArrowRight className="text-xs" />
+              {t("pagination.next")} <FaArrowRight className="text-xs" />
             </button>
           </div>
         </div>

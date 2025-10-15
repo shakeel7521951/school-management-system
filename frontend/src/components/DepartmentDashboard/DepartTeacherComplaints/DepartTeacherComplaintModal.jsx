@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaTimes, FaExclamationTriangle, FaCheck } from "react-icons/fa";
-import { useUpdateComplaintStatusMutation } from "../../../redux/slices/TeacherComplaints"; // adjust import path if needed
+import { useUpdateComplaintStatusMutation } from "../../../redux/slices/TeacherComplaints";
+import { useTranslation } from "react-i18next";
 
 const DepartTeacherComplaintModal = ({
   editModal,
@@ -8,6 +9,7 @@ const DepartTeacherComplaintModal = ({
   toast,
   showToast,
 }) => {
+  const { t } = useTranslation("departTeacherComplaintModal");
   const [updateComplaintStatus] = useUpdateComplaintStatusMutation();
 
   // Form state
@@ -63,10 +65,13 @@ const DepartTeacherComplaintModal = ({
         message: formData.message,
       }).unwrap();
 
-      showToast(response?.message || "Status updated successfully!", "success");
+      showToast(
+        response?.message || t("toast.success"),
+        "success"
+      );
       setEditModal(null);
     } catch (error) {
-      showToast(error?.data?.message || "Error updating complaint.", "error");
+      showToast(error?.data?.message || t("toast.error"), "error");
     }
   };
 
@@ -77,10 +82,11 @@ const DepartTeacherComplaintModal = ({
           {/* Header */}
           <div className="p-4 sm:p-6 border-b border-gray-200 flex justify-between items-center">
             <h2 className="text-lg sm:text-xl font-bold text-gray-800">
-              Edit Teacher Complaint
+              {t("title")}
             </h2>
             <button
               onClick={() => setEditModal(null)}
+              aria-label={t("aria.closeModal")}
               className="text-gray-400 hover:text-gray-600"
             >
               <FaTimes className="text-xl" />
@@ -93,8 +99,8 @@ const DepartTeacherComplaintModal = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {["employeeName", "jobTitle", "department", "date"].map((field) => (
                 <div key={field}>
-                  <label className="block text-sm font-medium text-gray-700 mb-1 capitalize">
-                    {field.replace(/([A-Z])/g, " $1")}
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    {t(`labels.${field}`)}
                   </label>
                   <input
                     type={field === "date" ? "date" : "text"}
@@ -110,7 +116,7 @@ const DepartTeacherComplaintModal = ({
             {/* Update Status */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Complaint Status
+                {t("labels.status")}
               </label>
               <select
                 name="status"
@@ -118,24 +124,24 @@ const DepartTeacherComplaintModal = ({
                 onChange={handleChange}
                 className="w-full border border-gray-300 px-3 py-2 rounded-lg focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
               >
-                <option value="pending">Pending</option>
-                <option value="in progress">In Progress</option>
-                <option value="resolved">Resolved</option>
-                <option value="rejected">Rejected</option>
+                <option value="pending">{t("statusOptions.pending")}</option>
+                <option value="in progress">{t("statusOptions.inProgress")}</option>
+                <option value="resolved">{t("statusOptions.resolved")}</option>
+                <option value="rejected">{t("statusOptions.rejected")}</option>
               </select>
             </div>
 
             {/* Message Box */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Message / Comments
+                {t("labels.message")}
               </label>
               <textarea
                 name="message"
                 rows="3"
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="Add your comments or feedback..."
+                placeholder={t("placeholders.message")}
                 className="w-full border border-gray-300 px-3 py-2 rounded-lg focus:ring-1 focus:ring-indigo-200 focus:border-indigo-400"
               />
             </div>
@@ -147,13 +153,13 @@ const DepartTeacherComplaintModal = ({
               onClick={() => setEditModal(null)}
               className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition w-full sm:w-auto"
             >
-              Cancel
+              {t("buttons.cancel")}
             </button>
             <button
               onClick={handleSave}
               className="px-4 py-2 bg-[#1a4480] text-white rounded-lg hover:bg-[#0d3260] transition w-full sm:w-auto"
             >
-              Save Changes
+              {t("buttons.save")}
             </button>
           </div>
         </div>

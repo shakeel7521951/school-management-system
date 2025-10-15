@@ -1,0 +1,46 @@
+{
+  "labels": {
+    "modalTitle": "تفاصيل الشكوى",
+    "complainant": "مقدم الشكوى",
+    "jobTitle": "المسمى الوظيفي",
+    "department": "القسم",
+    "dateSubmitted": "تاريخ التقديم",
+    "type": "النوع",
+    "severity": "درجة الخطورة",
+    "expectedAction": "الإجراء المتوقع",
+    "impact": "التأثير",
+    "complaintDetails": "تفاصيل الشكوى",
+    "closeButton": "إغلاق"
+  },
+  "colors": {
+    "type": {
+      "Facilities": "bg-purple-100 text-purple-700",
+      "Emotions": "bg-pink-100 text-pink-700",
+      "Learning": "bg-indigo-100 text-indigo-700",
+      "Work Environment": "bg-yellow-100 text-yellow-700",
+      "Rights": "bg-blue-100 text-blue-700",
+      "Safety at Work": "bg-red-100 text-red-700",
+      "default": "bg-gray-100 text-gray-700"
+    },
+    "severity": {
+      "simple-note": "bg-gray-100 text-gray-700",
+      "urgent": "bg-red-100 text-red-700",
+      "follow-up": "bg-amber-100 text-amber-700",
+      "serious": "bg-purple-100 text-purple-700",
+      "default": "bg-gray-100 text-gray-700"
+    },
+    "status": {
+      "resolve": "bg-green-100 text-green-700",
+      "pending": "bg-yellow-100 text-yellow-700",
+      "rejected": "bg-red-100 text-red-700",
+      "any": "bg-gray-100 text-gray-700",
+      "default": "bg-gray-100 text-gray-700"
+    },
+    "impact": {
+      "physical": "bg-blue-100 text-blue-700",
+      "emotional": "bg-pink-100 text-pink-700",
+      "academic": "bg-indigo-100 text-indigo-700",
+      "default": "bg-gray-100 text-gray-700"
+    }
+  }
+}

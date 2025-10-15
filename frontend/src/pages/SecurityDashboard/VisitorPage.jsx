@@ -3,6 +3,7 @@ import { Plus, X } from "lucide-react";
 import VisitorForm from "../../components/securityDashboard/VisitorForm";
 import { useGetVisitorsQuery } from "../../redux/slices/VisitorApi";
 import { useTranslation } from "react-i18next";
+import VisitorFormModal from "../../components/common/VisitorFormModal";
 
 const VisitorPage = () => {
   const [filter, setFilter] = useState("All");
@@ -10,6 +11,9 @@ const VisitorPage = () => {
 
   const { t } = useTranslation("visitorManagement");
   const { data: visitors = [], isLoading, isError } = useGetVisitorsQuery();
+  
+
+  
 
   const filteredVisitors =
     filter === "All" ? visitors : visitors.filter((v) => v.status === filter);
@@ -95,7 +99,7 @@ const VisitorPage = () => {
                       <td className="px-2 py-2">
                         {v.reason || v.purpose || "-"}
                       </td>
-                      <td className="px-2 py-2">
+                      <td className="px-2 py-2 text-center">
                         {v.hostDepartment ||
                           v.hostEmail ||
                           v.personToVisit ||
@@ -174,7 +178,10 @@ const VisitorPage = () => {
                     </p>
                     <p>
                       <span className="font-medium">{t("table.host")}:</span>{" "}
-                      {v.hostEmail || v.personToVisit || "-"}
+                     {v.hostDepartment ||
+                          v.hostEmail ||
+                          v.personToVisit ||
+                          "-"}
                     </p>
                     <p>
                       <span className="font-medium">
@@ -200,17 +207,9 @@ const VisitorPage = () => {
 
       {/* ✅ Form Modal */}
       {isFormOpen && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="relative bg-white rounded-xl shadow-xl w-full max-w-lg">
-            <button
-              onClick={() => setIsFormOpen(false)}
-              className="absolute top-3 right-3 text-slate-500 hover:text-slate-700"
-            >
-              <X size={20} />
-            </button>
-            <VisitorForm onClose={() => setIsFormOpen(false)} />
-          </div>
-        </div>
+       
+            <VisitorFormModal open={isFormOpen} onClose={() => setIsFormOpen(false)} />
+          
       )}
     </div>
   );

@@ -1,0 +1,16 @@
+{
+  "stats": {
+    "pending": {
+      "label": "Pending Complaints"
+    },
+    "inProgress": {
+      "label": "In Progress"
+    },
+    "resolved": {
+      "label": "Resolved"
+    },
+    "total": {
+      "label": "Total Complaints"
+    }
+  }
+}

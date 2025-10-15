@@ -3,7 +3,7 @@ import { addVisitor, deleteVisitor, getVisitorById, getVisitors, updateVisitorSt
 import auth from "../middlewares/AuthMiddleWare.js";
 const router = express.Router();
 
-router.post("/add-visitor",auth, addVisitor);
+router.post("/add-visitor", addVisitor);
 router.get("/get-visitors",auth, getVisitors);
 router.get("/get-visitor-by-id/:id",auth, getVisitorById);
 router.patch("/update-visitor-status/:id",auth, updateVisitorStatus);

@@ -1,0 +1,31 @@
+{
+  "title": "تعديل شكوى المعلم",
+  "labels": {
+    "employeeName": "اسم الموظف",
+    "jobTitle": "المسمى الوظيفي",
+    "department": "القسم",
+    "date": "التاريخ",
+    "status": "حالة الشكوى",
+    "message": "الرسالة / الملاحظات"
+  },
+  "placeholders": {
+    "message": "أضف ملاحظاتك أو تعليقاتك..."
+  },
+  "statusOptions": {
+    "pending": "قيد الانتظار",
+    "inProgress": "قيد المعالجة",
+    "resolved": "تم الحل",
+    "rejected": "مرفوض"
+  },
+  "buttons": {
+    "cancel": "إلغاء",
+    "save": "حفظ التغييرات"
+  },
+  "toast": {
+    "success": "تم تحديث الحالة بنجاح!",
+    "error": "حدث خطأ أثناء تحديث الشكوى."
+  },
+  "aria": {
+    "closeModal": "إغلاق النافذة"
+  }
+}
