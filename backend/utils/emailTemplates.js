@@ -30,7 +30,7 @@ Al Tamakon Team
         <p><b>Important:</b> Please log in and change your password immediately for your account’s security.</p>
         <p>Welcome aboard, we’re happy to have you with us! 🚀</p>
         <br>
-        <p>Best Regards,<br><b>Academy Team</b></p>
+        <p>Best Regards,<br><b>Al Tamakon Team</b></p>
       </div>
     `,
   };
@@ -58,7 +58,7 @@ Al Tamakon Team
         <p>This could be due to incomplete information or not meeting the eligibility criteria.</p>
         <p>You may re-apply after reviewing the requirements.</p>
         <br>
-        <p>Best Regards,<br><b>Academy Team</b></p>
+        <p>Best Regards,<br><b>Al Tamakon Team</b></p>
       </div>
     `,
   };
@@ -86,7 +86,7 @@ Al Tamakon Team
         <p>Your application is now under review. You will be notified via email once the status is updated.</p>
         <p>Thank you for choosing our Academy!</p>
         <br>
-        <p>Best Regards,<br><b>Academy Team</b></p>
+        <p>Best Regards,<br><b>Al Tamakon Team</b></p>
       </div>
     `,
   };
@@ -120,13 +120,12 @@ Visitor Management Team
   };
 };
 
-
 export const visitorStatusUpdateTemplate = (name, status) => {
   let statusMessage = "";
   let emoji = "";
   let color = "";
 
-  if (status === "accepted") {
+  if (status === "approved") {
     statusMessage = "🎉 Congratulations! Your visitor application has been accepted. We look forward to seeing you soon!";
     emoji = "✅";
     color = "#27ae60";
