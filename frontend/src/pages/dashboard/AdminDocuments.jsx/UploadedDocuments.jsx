@@ -10,7 +10,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 const UploadedDocuments = () => {
-  const { t } = useTranslation("uploadedDocuments"); // JSON namespace
+  const { t } = useTranslation("uploadedDocuments");
 
   const { data: submissions = [], isLoading, refetch } = useAllSubmittedFormsQuery();
   const [updateStatus] = useUpdateSubmissionStatusMutation();
@@ -25,22 +25,16 @@ const UploadedDocuments = () => {
     () =>
       submissions.map((item) => ({
         id: item._id,
-        title: item.formData?.subject || "Untitled",
-        // uploader: item.formData?.full_name || "Unknown",
-        // role: item.formData?.class ? `Class ${item.formData.class}` : "N/A",
+        title: item.formId?.title || "Untitled", // <-- use formId.title here
         type: "Form Submission",
         date: item.submittedAt,
         status: item.status || "Pending",
-        // note: item.note || "",
         formData: item.formData || {},
-        // fileUrl: item.fileUrl || null,
-        // ipAddress: item.ipAddress || null,
-        // userAgent: item.userAgent || null,
+        formId: item.formId || null, // pass formId to modal
       })),
     [submissions]
   );
 
-  // Approve
   const handleApprove = async (id) => {
     try {
       await updateStatus({ id, status: "Resolved" }).unwrap();
@@ -50,7 +44,6 @@ const UploadedDocuments = () => {
     }
   };
 
-  // Reject
   const handleRejectSubmit = async () => {
     if (!rejectNote.trim() || !selectedDoc) return;
     try {
@@ -69,19 +62,16 @@ const UploadedDocuments = () => {
     }
   };
 
-  // Status badge
   const getStatusClass = (status) => {
     const classes = t("statusClasses", { returnObjects: true });
     return classes[status] || classes.default;
   };
 
-  // Table columns from JSON
   const tableColumns = t("tableColumns", { returnObjects: true });
 
   return (
     <div className="lg:ml-64 p-4 md:p-6 bg-gray-50 min-h-screen">
       <div className="bg-white rounded-xl shadow-md p-4 md:p-6">
-        {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 pb-4 border-b border-gray-200">
           <h2 className="text-xl md:text-2xl font-bold text-[#104c80] flex items-center gap-2">
             <FileText className="w-5 h-5 md:w-6 md:h-6" />
@@ -89,7 +79,6 @@ const UploadedDocuments = () => {
           </h2>
         </div>
 
-        {/* Table */}
         {isLoading ? (
           <div className="text-center py-12 text-gray-500">{t("loading")}</div>
         ) : (
@@ -112,13 +101,11 @@ const UploadedDocuments = () => {
         )}
       </div>
 
-      {/* Modals */}
       {showViewModal && selectedDoc && (
         <ViewDocumentModal
           selectedDoc={selectedDoc}
           onClose={() => setShowViewModal(false)}
           getStatusClass={getStatusClass}
-          title={t("modals.view.title")}
         />
       )}
 

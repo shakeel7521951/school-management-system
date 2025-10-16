@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 
-// ✅ Helper: Exact Date + Time (with seconds)
+// ✅ Format full date & time (with seconds)
 const formatDateTime = (dateString) => {
   if (!dateString) return "-";
   const date = new Date(dateString);
@@ -24,6 +24,33 @@ const formatDateTime = (dateString) => {
     second: "2-digit",
     hour12: true,
   });
+};
+
+// ✅ Convert timestamp into "time ago"
+const timeAgo = (dateString) => {
+  if (!dateString) return "-";
+  const now = new Date();
+  const past = new Date(dateString);
+  const diffInSeconds = Math.floor((now - past) / 1000);
+
+  const intervals = [
+    { label: "year", seconds: 31536000 },
+    { label: "month", seconds: 2592000 },
+    { label: "week", seconds: 604800 },
+    { label: "day", seconds: 86400 },
+    { label: "hour", seconds: 3600 },
+    { label: "minute", seconds: 60 },
+    { label: "second", seconds: 1 },
+  ];
+
+  for (const { label, seconds } of intervals) {
+    const count = Math.floor(diffInSeconds / seconds);
+    if (count > 0) {
+      return `${count} ${label}${count > 1 ? "s" : ""} ago`;
+    }
+  }
+
+  return "just now";
 };
 
 const TeacherComplaintTable = ({
@@ -39,7 +66,7 @@ const TeacherComplaintTable = ({
 
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-      {/* --- TABLE VIEW (Desktop) --- */}
+      {/* ===== Desktop Table ===== */}
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full border-collapse rounded-lg overflow-hidden shadow-sm">
           <thead>
@@ -84,8 +111,7 @@ const TeacherComplaintTable = ({
                   i % 2 === 0 ? "bg-white" : "bg-gray-50"
                 } hover:bg-gray-100 transition text-sm whitespace-nowrap`}
               >
-                {/* Employee Name */}
-                <td className="px-3 py-2 flex items-center gap-3 whitespace-nowrap">
+                <td className="px-3 py-2 flex items-center gap-3">
                   <div className="bg-indigo-100 p-2 rounded-full">
                     <FaUser className="text-indigo-600 text-sm" />
                   </div>
@@ -95,55 +121,30 @@ const TeacherComplaintTable = ({
                 <td className="px-3 py-2 text-center">{c.jobTitle}</td>
                 <td className="px-3 py-2 text-center">{c.department}</td>
 
-                {/* ✅ CreatedAt (Exact Date + Time) */}
+                {/* ✅ CreatedAt (Exact Date + Time + Time Ago) */}
                 <td className="px-3 py-2 text-center text-nowrap">
-                  {c.createdAt ? formatDateTime(c.createdAt) : "-"}
+                  <div className="flex flex-col items-center">
+                    <span className="font-medium text-gray-800">
+                      {c.createdAt ? formatDateTime(c.createdAt) : "-"}
+                    </span>
+                    <span className="text-xs text-gray-500">
+                      {timeAgo(c.createdAt)}
+                    </span>
+                  </div>
                 </td>
 
-                {/* Type */}
-                <td className="px-3 py-2 text-center">
-                  <span
-                    className={`px-2 py-1 text-xs rounded-full ${
-                      t(`colors.type.${c.type}`, {
-                        defaultValue: t("colors.type.default"),
-                      })
-                    }`}
-                  >
-                    {c.type}
-                  </span>
-                </td>
-
-                {/* Severity */}
-                <td className="px-3 py-2 text-center">
-                  <span
-                    className={`px-2 py-1 text-xs rounded-full ${
-                      t(`colors.severity.${c.severity}`, {
-                        defaultValue: t("colors.severity.default"),
-                      })
-                    }`}
-                  >
-                    {c.severity}
-                  </span>
-                </td>
-
+                <td className="px-3 py-2 text-center">{c.type}</td>
+                <td className="px-3 py-2 text-center">{c.severity}</td>
                 <td className="px-3 py-2 text-center">{c.impact}</td>
                 <td className="px-3 py-2 text-center">{c.expectedAction}</td>
                 <td className="px-3 py-2 text-center">{c.assignedTo?.name}</td>
 
-                {/* Status */}
                 <td className="px-3 py-2 text-center">
-                  <span
-                    className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                      t(`colors.status.${c.status}`, {
-                        defaultValue: t("colors.status.default"),
-                      })
-                    }`}
-                  >
+                  <span className="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
                     {c.status}
                   </span>
                 </td>
 
-                {/* Actions */}
                 <td className="px-3 py-2 text-center">
                   <div className="flex justify-center gap-2">
                     <button
@@ -169,7 +170,6 @@ const TeacherComplaintTable = ({
               </tr>
             ))}
 
-            {/* No Data */}
             {filteredComplaints.length === 0 && (
               <tr>
                 <td
@@ -185,7 +185,7 @@ const TeacherComplaintTable = ({
         </table>
       </div>
 
-      {/* --- CARD VIEW (Mobile) --- */}
+      {/* ===== Mobile Card View ===== */}
       <div className="block md:hidden p-4 space-y-4">
         {paginatedComplaints.length > 0 ? (
           paginatedComplaints.map((c) => (
@@ -204,7 +204,10 @@ const TeacherComplaintTable = ({
 
               <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm mt-2">
                 <p className="col-span-2">
-                  <b>Created At:</b> {formatDateTime(c.createdAt)}
+                  <b>Created:</b> {formatDateTime(c.createdAt)}
+                </p>
+                <p className="col-span-2 text-xs text-gray-500">
+                  ({timeAgo(c.createdAt)})
                 </p>
                 <p>
                   <b>Job Title:</b> {c.jobTitle}
@@ -213,40 +216,13 @@ const TeacherComplaintTable = ({
                   <b>Department:</b> {c.department}
                 </p>
                 <p>
-                  <b>Type:</b>{" "}
-                  <span
-                    className={`px-2 py-1 text-xs rounded-full ${
-                      t(`colors.type.${c.type}`, {
-                        defaultValue: t("colors.type.default"),
-                      })
-                    }`}
-                  >
-                    {c.type}
-                  </span>
+                  <b>Type:</b> {c.type}
                 </p>
                 <p>
-                  <b>Severity:</b>{" "}
-                  <span
-                    className={`px-2 py-1 text-xs rounded-full ${
-                      t(`colors.severity.${c.severity}`, {
-                        defaultValue: t("colors.severity.default"),
-                      })
-                    }`}
-                  >
-                    {c.severity}
-                  </span>
+                  <b>Severity:</b> {c.severity}
                 </p>
                 <p>
-                  <b>Status:</b>{" "}
-                  <span
-                    className={`px-2 py-1 text-xs rounded-full ${
-                      t(`colors.status.${c.status}`, {
-                        defaultValue: t("colors.status.default"),
-                      })
-                    }`}
-                  >
-                    {c.status}
-                  </span>
+                  <b>Status:</b> {c.status}
                 </p>
               </div>
 

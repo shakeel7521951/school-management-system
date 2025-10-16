@@ -16,6 +16,10 @@
         "label": "Phone Number",
         "placeholder": "Enter your phone number"
       },
+      "email":{
+        "label":"Email",
+        "placeholder":"Enter your email"
+      },
       "visitorType": {
         "label": "Visitor Type",
         "options": {

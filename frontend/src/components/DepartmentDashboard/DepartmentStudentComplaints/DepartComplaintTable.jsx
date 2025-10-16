@@ -9,6 +9,23 @@ import {
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 
+// 🕒 Helper: Time ago formatter
+const getTimeAgo = (dateString) => {
+  if (!dateString) return "-";
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffMs = now - date;
+  const diffMinutes = Math.floor(diffMs / (1000 * 60));
+  const diffHours = Math.floor(diffMinutes / 60);
+  const diffDays = Math.floor(diffHours / 24);
+
+  if (diffMinutes < 1) return "just now";
+  if (diffMinutes < 60) return `${diffMinutes} min ago`;
+  if (diffHours < 24) return `${diffHours} hr${diffHours > 1 ? "s" : ""} ago`;
+  return `${diffDays} day${diffDays > 1 ? "s" : ""} ago`;
+};
+
+// 🎨 Tag color maps
 const typeColors = {
   Bullying: "bg-indigo-100 text-indigo-700",
   "Physical Safety": "bg-red-100 text-red-700",
@@ -21,7 +38,7 @@ const typeColors = {
 };
 
 const severityColors = {
-  "simple-note": "bg-gray-100 text-gray-700",
+  "simple note": "bg-gray-100 text-gray-700",
   urgent: "bg-red-100 text-red-700",
   "follow-up": "bg-amber-100 text-amber-700",
   serious: "bg-purple-100 text-purple-700",
@@ -42,12 +59,13 @@ const DepartComplaintTable = ({
   setViewModal,
   setEditModal,
 }) => {
-  const { t } = useTranslation("departComplaintTable")
+  const { t } = useTranslation("departComplaintTable");
+
   const columns = [
     { key: "name", label: t("name"), width: "w-40" },
     { key: "studentClass", label: t("class"), width: "w-20" },
     { key: "age", label: t("age"), width: "w-20" },
-    { key: "date", label: t("date"), width: "w-28" },
+    { key: "date", label: t("date"), width: "w-36" },
     { key: "type", label: t("type"), width: "w-32" },
     { key: "severity", label: t("severity"), width: "w-28" },
     { key: "impact", label: t("impact"), width: "w-28" },
@@ -97,8 +115,9 @@ const DepartComplaintTable = ({
             {paginatedComplaints.map((c, i) => (
               <tr
                 key={c._id}
-                className={`${i % 2 === 0 ? "bg-white" : "bg-gray-50"
-                  } hover:bg-gray-100 transition text-sm`}
+                className={`${
+                  i % 2 === 0 ? "bg-white" : "bg-gray-50"
+                } hover:bg-gray-100 transition text-sm whitespace-nowrap`}
               >
                 <td className="px-3 py-3 align-middle text-center">
                   <div className="flex items-center justify-center gap-2">
@@ -115,14 +134,35 @@ const DepartComplaintTable = ({
 
                 <td className="px-3 py-3 align-middle text-center">{c.age}</td>
 
+                {/* 🕒 Exact Date + Time Ago */}
                 <td className="px-3 py-3 align-middle text-center">
-                  {c.date ? new Date(c.date).toLocaleDateString() : "-"}
+                  {c.createdAt ? (
+                    <>
+                      <div>
+                        {new Date(c.createdAt).toLocaleString(undefined, {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          second: "2-digit",
+                          hour12: true,
+                        })}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {getTimeAgo(c.createdAt)}
+                      </div>
+                    </>
+                  ) : (
+                    "-"
+                  )}
                 </td>
 
                 <td className="px-3 py-3 align-middle text-center">
                   <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${typeColors[c.type] || "bg-gray-100 text-gray-700"
-                      }`}
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      typeColors[c.type] || "bg-gray-100 text-gray-700"
+                    }`}
                   >
                     {c.type}
                   </span>
@@ -130,9 +170,10 @@ const DepartComplaintTable = ({
 
                 <td className="px-3 py-3 align-middle text-center">
                   <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${severityColors[c.severity?.toLowerCase()] ||
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      severityColors[c.severity?.toLowerCase()] ||
                       "bg-gray-100 text-gray-700"
-                      }`}
+                    }`}
                   >
                     {c.severity}
                   </span>
@@ -143,23 +184,15 @@ const DepartComplaintTable = ({
                 </td>
 
                 <td className="px-3 py-3 align-middle text-center">
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${c.action === "resolve"
-                      ? "bg-green-100 text-green-700"
-                      : c.action === "pending"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-red-100 text-red-700"
-                      }`}
-                  >
-                    {c.action}
-                  </span>
+                  {c.action}
                 </td>
 
                 <td className="px-3 py-3 align-middle text-center">
                   <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[c.status?.toLowerCase()] ||
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      statusColors[c.status?.toLowerCase()] ||
                       "bg-gray-100 text-gray-700"
-                      }`}
+                    }`}
                   >
                     {c.status}
                   </span>
@@ -221,51 +254,60 @@ const DepartComplaintTable = ({
                 <p>
                   <b>Age:</b> {c.age}
                 </p>
-                <p>
+                <p className="col-span-2">
                   <b>Date:</b>{" "}
-                  {c.date ? new Date(c.date).toLocaleDateString() : "-"}
+                  {c.createdAt ? (
+                    <>
+                      {new Date(c.createdAt).toLocaleString(undefined, {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                        hour12: true,
+                      })}
+                      <br />
+                      <span className="text-xs text-gray-500">
+                        {getTimeAgo(c.createdAt)}
+                      </span>
+                    </>
+                  ) : (
+                    "-"
+                  )}
                 </p>
+
                 <p>
                   <b>Impact:</b> {c.impact}
                 </p>
-                <p className="col-span-2">
+                <p>
                   <b>Type:</b>{" "}
                   <span
-                    className={`px-2 py-1 text-xs rounded-full ${typeColors[c.type] || "bg-gray-100 text-gray-700"
-                      }`}
+                    className={`px-2 py-1 text-xs rounded-full ${
+                      typeColors[c.type] || "bg-gray-100 text-gray-700"
+                    }`}
                   >
                     {c.type}
                   </span>
                 </p>
-                <p className="col-span-2">
+                <p>
                   <b>Severity:</b>{" "}
                   <span
-                    className={`px-2 py-1 text-xs rounded-full ${severityColors[c.severity?.toLowerCase()] ||
+                    className={`px-2 py-1 text-xs rounded-full ${
+                      severityColors[c.severity?.toLowerCase()] ||
                       "bg-gray-100 text-gray-700"
-                      }`}
+                    }`}
                   >
                     {c.severity}
                   </span>
                 </p>
-                <p className="col-span-2">
-                  <b>Action:</b>{" "}
-                  <span
-                    className={`px-2 py-1 text-xs rounded-full ${c.action === "resolve"
-                      ? "bg-green-100 text-green-700"
-                      : c.action === "pending"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-red-100 text-red-700"
-                      }`}
-                  >
-                    {c.action}
-                  </span>
-                </p>
-                <p className="col-span-2">
+                <p>
                   <b>Status:</b>{" "}
                   <span
-                    className={`px-2 py-1 text-xs rounded-full ${statusColors[c.status?.toLowerCase()] ||
+                    className={`px-2 py-1 text-xs rounded-full ${
+                      statusColors[c.status?.toLowerCase()] ||
                       "bg-gray-100 text-gray-700"
-                      }`}
+                    }`}
                   >
                     {c.status}
                   </span>
