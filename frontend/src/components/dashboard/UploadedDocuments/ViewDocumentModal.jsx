@@ -33,6 +33,7 @@ const ViewDocumentModal = ({ selectedDoc, onClose, getStatusClass }) => {
         {/* Body */}
         <div className="p-5 space-y-6 max-h-[80vh] overflow-y-auto">
           {/* Form Data */}
+        
           {selectedDoc.formData && (
             <div className="bg-gray-50 rounded-lg shadow-sm border border-gray-200 p-4">
               <div
@@ -111,7 +112,7 @@ const ViewDocumentModal = ({ selectedDoc, onClose, getStatusClass }) => {
 };
 
 const Detail = ({ label, value }) => (
-  <div className="flex justify-between items-center text-sm">
+  <div className="flex justify-between items-center text-sm border border-amber-950" >
     <span className="font-medium text-gray-500">{label}:</span>
     <span className="text-gray-900">{value ?? "N/A"}</span>
   </div>

@@ -10,31 +10,16 @@ import {
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 
-// 🔹 Helper function: shows "x days/hours/minutes ago"
-const timeAgo = (date) => {
-  if (!date) return "-";
-
-  const now = new Date();
-  const past = new Date(date);
-  const seconds = Math.floor((now - past) / 1000);
-
-  const intervals = [
-    { label: "year", seconds: 31536000 },
-    { label: "month", seconds: 2592000 },
-    { label: "day", seconds: 86400 },
-    { label: "hour", seconds: 3600 },
-    { label: "minute", seconds: 60 },
-    { label: "second", seconds: 1 },
-  ];
-
-  for (let i = 0; i < intervals.length; i++) {
-    const interval = Math.floor(seconds / intervals[i].seconds);
-    if (interval >= 1) {
-      return `${interval} ${interval === 1 ? intervals[i].label : intervals[i].label + "s"} ago`;
-    }
-  }
-
-  return "Just now";
+// 🔹 Format date & time nicely (no "ago")
+const formatDateTime = (date) => {
+  return new Date(date).toLocaleString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true, // change to false for 24-hour format
+  });
 };
 
 // Colors
@@ -78,7 +63,7 @@ const ComplaintTable = ({
     { key: "name", label: t("table.columns.name"), width: "w-40" },
     { key: "studentClass", label: t("table.columns.class"), width: "w-20" },
     { key: "age", label: t("table.columns.age"), width: "w-20" },
-    { key: "date", label: t("table.columns.date"), width: "w-32" },
+    { key: "date", label: t("table.columns.date"), width: "w-40" },
     { key: "type", label: t("table.columns.type"), width: "w-32" },
     { key: "severity", label: t("table.columns.severity"), width: "w-28" },
     { key: "impact", label: t("table.columns.impact"), width: "w-28" },
@@ -89,7 +74,7 @@ const ComplaintTable = ({
 
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-      {/* Table view */}
+      {/* ===== Table view (Desktop) ===== */}
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full border-collapse rounded-lg overflow-hidden shadow-sm">
           <thead>
@@ -138,23 +123,14 @@ const ComplaintTable = ({
                   </div>
                   <span className="font-medium text-nowrap">{c.name}</span>
                 </td>
-                <td className="px-3 py-2 text-center text-nowrap">
-                  {c.studentClass}
-                </td>
+                <td className="px-3 py-2 text-center text-nowrap">{c.studentClass}</td>
                 <td className="px-3 py-2 text-center text-nowrap">{c.age}</td>
-                {/* Date + Time Ago */}
+
+                {/* ✅ Date + Time only */}
                 <td className="px-3 py-2 text-center text-nowrap">
-                  {c.date ? (
-                    <>
-                      <div>{new Date(c.date).toLocaleDateString()}</div>
-                      <div className="text-xs text-gray-500">
-                        {timeAgo(c.date)}
-                      </div>
-                    </>
-                  ) : (
-                    "-"
-                  )}
+                  {c.date ? formatDateTime(c.date) : "-"}
                 </td>
+
                 <td className="px-3 py-2 text-center">
                   <span
                     className={`px-2 py-1 text-md rounded-full text-nowrap ${
@@ -164,6 +140,7 @@ const ComplaintTable = ({
                     {c.type}
                   </span>
                 </td>
+
                 <td className="px-3 py-2 text-center">
                   <span
                     className={`px-1 py-1 text-md rounded-full text-nowrap ${
@@ -174,9 +151,9 @@ const ComplaintTable = ({
                     {c.severity}
                   </span>
                 </td>
-                <td className="px-3 py-2 text-center text-nowrap">
-                  {c.impact}
-                </td>
+
+                <td className="px-3 py-2 text-center text-nowrap">{c.impact}</td>
+
                 <td className="px-3 py-2 text-center">
                   <span
                     className={`px-2 py-1 text-xs font-semibold rounded-full text-nowrap ${
@@ -190,6 +167,7 @@ const ComplaintTable = ({
                     {c.action}
                   </span>
                 </td>
+
                 <td className="px-2 py-2 text-center">
                   <span
                     className={`px-1 py-1 text-xs font-semibold rounded-full text-nowrap ${
@@ -199,6 +177,7 @@ const ComplaintTable = ({
                     {c.status}
                   </span>
                 </td>
+
                 <td className="px-3 py-2 text-center">
                   <div className="flex justify-center gap-2">
                     <button
@@ -239,7 +218,7 @@ const ComplaintTable = ({
         </table>
       </div>
 
-      {/* Card view for small screens */}
+      {/* ===== Card View (Mobile) ===== */}
       <div className="block md:hidden p-4 space-y-4">
         {paginatedComplaints.length > 0 ? (
           paginatedComplaints.map((c) => (
@@ -261,18 +240,9 @@ const ComplaintTable = ({
                 <p>
                   <b>{t("table.columns.age")}:</b> {c.age}
                 </p>
-                <p>
+                <p className="col-span-2">
                   <b>{t("table.columns.date")}:</b>{" "}
-                  {c.date ? (
-                    <>
-                      {new Date(c.date).toLocaleDateString()}{" "}
-                      <span className="text-gray-500 text-xs">
-                        ({timeAgo(c.date)})
-                      </span>
-                    </>
-                  ) : (
-                    "-"
-                  )}
+                  {c.date ? formatDateTime(c.date) : "-"}
                 </p>
                 <p>
                   <b>{t("table.columns.impact")}:</b> {c.impact}

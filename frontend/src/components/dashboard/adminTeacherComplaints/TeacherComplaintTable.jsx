@@ -11,30 +11,16 @@ import {
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 
-// ✅ Helper function to display "time ago"
-const timeAgo = (date) => {
-  if (!date) return "-";
-  const now = new Date();
-  const past = new Date(date);
-  const seconds = Math.floor((now - past) / 1000);
-
-  const intervals = [
-    { label: "year", seconds: 31536000 },
-    { label: "month", seconds: 2592000 },
-    { label: "day", seconds: 86400 },
-    { label: "hour", seconds: 3600 },
-    { label: "minute", seconds: 60 },
-    { label: "second", seconds: 1 },
-  ];
-
-  for (let i = 0; i < intervals.length; i++) {
-    const interval = Math.floor(seconds / intervals[i].seconds);
-    if (interval >= 1) {
-      return `${interval} ${interval === 1 ? intervals[i].label : intervals[i].label + "s"} ago`;
-    }
-  }
-  return "Just now";
-};
+// ✅ Helper: Date + Time formatting
+const formatDateTime = (date) =>
+  new Date(date).toLocaleString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
 
 const TeacherComplaintTable = ({
   paginatedComplaints,
@@ -62,7 +48,7 @@ const TeacherComplaintTable = ({
                       !["expectedAction", "action"].includes(key) &&
                       handleSort(key)
                     }
-                    className={`py-4 px-2 text-center text-[12px] font-semibold uppercase tracking-wide cursor-pointer whitespace-nowrap`}
+                    className="py-4 px-2 text-center text-[12px] font-semibold uppercase tracking-wide cursor-pointer whitespace-nowrap"
                   >
                     <div className="flex items-center justify-center gap-1 whitespace-nowrap">
                       {label}
@@ -105,18 +91,9 @@ const TeacherComplaintTable = ({
                 <td className="px-3 py-2 text-center">{c.jobTitle}</td>
                 <td className="px-3 py-2 text-center">{c.department}</td>
 
-                {/* Date + Time Ago */}
+                {/* ✅ Date + Time (removed timeAgo) */}
                 <td className="px-3 py-2 text-center text-nowrap">
-                  {c.date ? (
-                    <>
-                      <div>{new Date(c.date).toLocaleDateString()}</div>
-                      <div className="text-xs text-gray-500">
-                        {timeAgo(c.date)}
-                      </div>
-                    </>
-                  ) : (
-                    "-"
-                  )}
+                  {c.date ? formatDateTime(c.date) : "-"}
                 </td>
 
                 {/* Type */}
@@ -212,7 +189,6 @@ const TeacherComplaintTable = ({
               key={c._id}
               className="bg-white rounded-xl shadow-md border border-gray-200 p-4 space-y-2"
             >
-              {/* Header */}
               <div className="flex items-center gap-3 border-b pb-2">
                 <div className="bg-indigo-100 p-2 rounded-full">
                   <FaUser className="text-indigo-600 text-sm" />
@@ -222,7 +198,6 @@ const TeacherComplaintTable = ({
                 </h3>
               </div>
 
-              {/* Info Grid */}
               <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm mt-2">
                 {Object.entries(t("card.labels", { returnObjects: true })).map(
                   ([key, label]) =>
@@ -230,12 +205,7 @@ const TeacherComplaintTable = ({
                       <p key={key} className="col-span-2">
                         <b>{label}:</b>{" "}
                         {key === "date" ? (
-                          <>
-                            {new Date(c.date).toLocaleDateString()}{" "}
-                            <span className="text-gray-500 text-xs">
-                              ({timeAgo(c.date)})
-                            </span>
-                          </>
+                          formatDateTime(c.date)
                         ) : ["type", "severity", "status"].includes(key) ? (
                           <span
                             className={`px-2 py-1 text-xs rounded-full ${
@@ -254,7 +224,6 @@ const TeacherComplaintTable = ({
                 )}
               </div>
 
-              {/* Actions */}
               <div className="flex justify-end gap-4 pt-3 border-t mt-2">
                 <button
                   onClick={() => setViewModal({ ...c })}

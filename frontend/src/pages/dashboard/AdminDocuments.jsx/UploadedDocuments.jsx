@@ -26,16 +26,16 @@ const UploadedDocuments = () => {
       submissions.map((item) => ({
         id: item._id,
         title: item.formData?.subject || "Untitled",
-        uploader: item.formData?.full_name || "Unknown",
-        role: item.formData?.class ? `Class ${item.formData.class}` : "N/A",
+        // uploader: item.formData?.full_name || "Unknown",
+        // role: item.formData?.class ? `Class ${item.formData.class}` : "N/A",
         type: "Form Submission",
         date: item.submittedAt,
         status: item.status || "Pending",
-        note: item.note || "",
+        // note: item.note || "",
         formData: item.formData || {},
-        fileUrl: item.fileUrl || null,
-        ipAddress: item.ipAddress || null,
-        userAgent: item.userAgent || null,
+        // fileUrl: item.fileUrl || null,
+        // ipAddress: item.ipAddress || null,
+        // userAgent: item.userAgent || null,
       })),
     [submissions]
   );
