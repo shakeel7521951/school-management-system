@@ -13,7 +13,7 @@ const UsersDetail = () => {
   const departments = data?.departments;
   console.log(data)
   const [search, setSearch] = useState("");
-  const roles = ["user", "admin", "teacher", "guard", "student", "manager"];
+  const roles = ["user", "admin", "teacher", "guard", "student", "manager","reception"];
   // Update Role or Department
   const handleUserUpdate = async (userId, field, newValue) => {
     try {

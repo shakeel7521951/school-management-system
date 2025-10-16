@@ -20,7 +20,7 @@ const VisitorForm = ({ onClose }) => {
     name: "",
     governmentId: "",
     phone: "",
-    visitorType: "",
+    visitorType: "parent",
     reason: "",
     hostDepartment: "",
     agreeRules: false,

@@ -38,7 +38,8 @@
         "teacher": "معلم",
         "guard": "حارس",
         "student": "طالب",
-        "manager": "مدير"
+        "manager": "مدير",
+        "reception": "استقبال"
       },
       "toast": {
         "updateSuccess": "تم تحديث الدور إلى {{role}}",
