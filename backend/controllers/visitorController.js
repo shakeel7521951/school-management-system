@@ -1,5 +1,5 @@
 import Visitor from "../models/Visitor.js";
-import { visitorStatusUpdateTemplate } from "../utils/emailTemplates.js";
+import { visitorRequestSubmittedTemplate, visitorStatusUpdateTemplate } from "../utils/emailTemplates.js";
 import SendMail from "../utils/SendMail.js";
 
 export const addVisitor = async (req, res) => {

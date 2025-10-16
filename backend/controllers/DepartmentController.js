@@ -50,7 +50,7 @@ export const editDepartment = async (req, res) => {
     }
 }
 
-export const  departmentStComplaints = async (req, res) => {
+export const departmentStComplaints = async (req, res) => {
   try {
     const userId = req.user.id;
     const user = await User.findById(userId).populate("department", "name");

@@ -125,7 +125,7 @@ export const visitorStatusUpdateTemplate = (name, status) => {
   let emoji = "";
   let color = "";
 
-  if (status === "accepted") {
+  if (status === "approved") {
     statusMessage = "🎉 Congratulations! Your visitor application has been accepted. We look forward to seeing you soon!";
     emoji = "✅";
     color = "#27ae60";
