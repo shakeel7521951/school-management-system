@@ -21,7 +21,7 @@ const VisitorForm = ({ onClose }) => {
     governmentId: "",
     phone: "",
     visitorType: "parent",
-    reason: "",
+    reason: "parentMeeting",
     hostDepartment: "",
     agreeRules: false,
     signature: "",
