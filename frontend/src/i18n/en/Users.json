@@ -38,7 +38,8 @@
         "teacher": "Teacher",
         "guard": "Guard",
         "student": "Student",
-        "manager": "Manager"
+        "manager": "Manager",
+        "reception": "Reception"
       },
       "toast": {
         "updateSuccess": "Role updated to {{role}}",
