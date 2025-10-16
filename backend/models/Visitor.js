@@ -34,7 +34,11 @@ const visitorSchema = new mongoose.Schema({
         type: String,
         enum: ["pending", "approved", "rejected"],
         default: "pending"
-    }
+    },
+    submittedAt: {
+        type: Date,
+        default: Date.now,
+    },
 }, { timestamps: true });
 
 const Visitor = mongoose.model("Visitor", visitorSchema);
