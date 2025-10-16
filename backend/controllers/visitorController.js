@@ -27,10 +27,10 @@ export const addVisitor = async (req, res) => {
 
         if (status === "approved") {
             const emailContent = visitorStatusUpdateTemplate(name, "accepted");
-            await SendMail(email, emailContent.subject, emailContent.text, emailContent.html);
+            await SendMail(email, emailContent.subject, emailContent.html);
         } else {
             const emailContent = visitorRequestSubmittedTemplate(name);
-            await SendMail(email, emailContent.subject, emailContent.text, emailContent.html);
+            await SendMail(email, emailContent.subject, emailContent.html);
         }
 
         return res.status(201).json({
@@ -89,7 +89,7 @@ export const updateVisitorStatus = async (req, res) => {
 
         if (visitor.email) {
             const emailContent = visitorStatusUpdateTemplate(visitor.name, status);
-            await SendMail(visitor.email, emailContent.subject, emailContent.text, emailContent.html);
+            await SendMail(visitor.email, emailContent.subject, emailContent.html);
         }
 
         return res.status(200).json({
