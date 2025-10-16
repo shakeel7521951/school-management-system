@@ -11,16 +11,20 @@ import {
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 
-// ✅ Helper: Date + Time formatting
-const formatDateTime = (date) =>
-  new Date(date).toLocaleString("en-GB", {
+// ✅ Helper: Exact Date + Time (with seconds)
+const formatDateTime = (dateString) => {
+  if (!dateString) return "-";
+  const date = new Date(dateString);
+  return date.toLocaleString("en-GB", {
     day: "2-digit",
     month: "short",
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
+    second: "2-digit",
     hour12: true,
   });
+};
 
 const TeacherComplaintTable = ({
   paginatedComplaints,
@@ -91,9 +95,9 @@ const TeacherComplaintTable = ({
                 <td className="px-3 py-2 text-center">{c.jobTitle}</td>
                 <td className="px-3 py-2 text-center">{c.department}</td>
 
-                {/* ✅ Date + Time (removed timeAgo) */}
+                {/* ✅ CreatedAt (Exact Date + Time) */}
                 <td className="px-3 py-2 text-center text-nowrap">
-                  {c.date ? formatDateTime(c.date) : "-"}
+                  {c.createdAt ? formatDateTime(c.createdAt) : "-"}
                 </td>
 
                 {/* Type */}
@@ -199,29 +203,51 @@ const TeacherComplaintTable = ({
               </div>
 
               <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm mt-2">
-                {Object.entries(t("card.labels", { returnObjects: true })).map(
-                  ([key, label]) =>
-                    c[key] && (
-                      <p key={key} className="col-span-2">
-                        <b>{label}:</b>{" "}
-                        {key === "date" ? (
-                          formatDateTime(c.date)
-                        ) : ["type", "severity", "status"].includes(key) ? (
-                          <span
-                            className={`px-2 py-1 text-xs rounded-full ${
-                              t(`colors.${key}.${c[key]}`, {
-                                defaultValue: t(`colors.${key}.default`),
-                              })
-                            }`}
-                          >
-                            {c[key]}
-                          </span>
-                        ) : (
-                          c[key]
-                        )}
-                      </p>
-                    )
-                )}
+                <p className="col-span-2">
+                  <b>Created At:</b> {formatDateTime(c.createdAt)}
+                </p>
+                <p>
+                  <b>Job Title:</b> {c.jobTitle}
+                </p>
+                <p>
+                  <b>Department:</b> {c.department}
+                </p>
+                <p>
+                  <b>Type:</b>{" "}
+                  <span
+                    className={`px-2 py-1 text-xs rounded-full ${
+                      t(`colors.type.${c.type}`, {
+                        defaultValue: t("colors.type.default"),
+                      })
+                    }`}
+                  >
+                    {c.type}
+                  </span>
+                </p>
+                <p>
+                  <b>Severity:</b>{" "}
+                  <span
+                    className={`px-2 py-1 text-xs rounded-full ${
+                      t(`colors.severity.${c.severity}`, {
+                        defaultValue: t("colors.severity.default"),
+                      })
+                    }`}
+                  >
+                    {c.severity}
+                  </span>
+                </p>
+                <p>
+                  <b>Status:</b>{" "}
+                  <span
+                    className={`px-2 py-1 text-xs rounded-full ${
+                      t(`colors.status.${c.status}`, {
+                        defaultValue: t("colors.status.default"),
+                      })
+                    }`}
+                  >
+                    {c.status}
+                  </span>
+                </p>
               </div>
 
               <div className="flex justify-end gap-4 pt-3 border-t mt-2">

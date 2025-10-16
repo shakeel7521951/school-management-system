@@ -33,6 +33,8 @@ const TeacherComplain = () => {
 
   // API hooks
   const { data, isLoading, isError } = useGetComplaintsQuery();
+  console.log(data);
+  
   const complaints = data?.data || [];
   const [updateComplaintStatus] = useUpdateComplaintStatusMutation();
   const [deleteComplaint] = useDeleteComplaintMutation();
