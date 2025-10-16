@@ -91,22 +91,22 @@ const AdminDepartmentPage = () => {
             {departments.length}
           </p>
         </div>
-        <div className="bg-yellow-50 border-l-4 border-yellow-500 p-5 rounded-2xl shadow-sm">
+        {/* <div className="bg-yellow-50 border-l-4 border-yellow-500 p-5 rounded-2xl shadow-sm">
           <h2 className="text-gray-700 text-sm">
             {t("departmentPage.stats.pendingComplaints.label")}
           </h2>
           <p className="text-3xl font-bold text-yellow-600 mt-1">
             {departments.reduce((sum, d) => sum + (d.pending || 0), 0)}
           </p>
-        </div>
-        <div className="bg-green-50 border-l-4 border-green-500 p-5 rounded-2xl shadow-sm">
+        </div> */}
+        {/* <div className="bg-green-50 border-l-4 border-green-500 p-5 rounded-2xl shadow-sm">
           <h2 className="text-gray-700 text-sm">
             {t("departmentPage.stats.resolvedComplaints.label")}
           </h2>
           <p className="text-3xl font-bold text-green-600 mt-1">
             {departments.reduce((sum, d) => sum + (d.resolved || 0), 0)}
           </p>
-        </div>
+        </div> */}
       </div>
 
       {/* Department Table */}

@@ -22,9 +22,9 @@ const DepartmentTable = ({
           <thead className="bg-[#104C80] text-white text-center text-xs uppercase tracking-wider">
             <tr>
               <th className="py-3 px-2">{t("departmentTable.headers.name")}</th>
-              <th className="py-3 px-2">{t("departmentTable.headers.totalComplaints")}</th>
-              <th className="py-3 px-2">{t("departmentTable.headers.pending")}</th>
-              <th className="py-3 px-2">{t("departmentTable.headers.resolved")}</th>
+              {/* <th className="py-3 px-2">{t("departmentTable.headers.totalComplaints")}</th> */}
+              {/* <th className="py-3 px-2">{t("departmentTable.headers.pending")}</th> */}
+              {/* <th className="py-3 px-2">{t("departmentTable.headers.resolved")}</th> */}
               <th className="py-3 px-2">{t("departmentTable.headers.actions")}</th>
             </tr>
           </thead>
@@ -39,9 +39,9 @@ const DepartmentTable = ({
                   className="hover:bg-[#104C80]/5 text-center"
                 >
                   <td className="py-2 font-medium text-gray-800">{dept.name}</td>
-                  <td className="text-gray-700">{dept.totalComplaints}</td>
-                  <td className="text-yellow-600 font-semibold">{dept.pending}</td>
-                  <td className="text-green-600 font-semibold">{dept.resolved}</td>
+                  {/* <td className="text-gray-700">{dept.totalComplaints}</td> */}
+                  {/* <td className="text-yellow-600 font-semibold">{dept.pending}</td> */}
+                  {/* <td className="text-green-600 font-semibold">{dept.resolved}</td> */}
                   <td>
                     <div className="flex justify-center gap-3">
                       <button
@@ -111,7 +111,7 @@ const DepartmentTable = ({
               <p className="text-sm text-gray-600 mb-4">
                 {dept.description || t("departmentTable.mobile.noDescription")}
               </p>
-              <div className="grid grid-cols-3 text-center mb-4">
+              {/* <div className="grid grid-cols-3 text-center mb-4">
                 <div>
                   <p className="text-gray-500 text-xs">{t("departmentTable.mobile.total")}</p>
                   <p className="font-semibold text-gray-800">
@@ -126,7 +126,7 @@ const DepartmentTable = ({
                   <p className="text-gray-500 text-xs">{t("departmentTable.mobile.resolved")}</p>
                   <p className="font-semibold text-green-600">{dept.resolved}</p>
                 </div>
-              </div>
+              </div> */}
 
               <div className="flex justify-center gap-3">
                 <button
