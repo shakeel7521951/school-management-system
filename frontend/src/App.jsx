@@ -284,7 +284,7 @@ const router = createBrowserRouter([
       { path: '/student-complaint', element: <DepartStudentComplaint /> },
       { path: '/teacher-complaint', element: <DepartTeacherComplaint /> },
       { path: '/parent-complaint', element: <DepartParentsComplaint /> },
-      {path: "/depart-documents", element: <DepartmentDocuments />}
+      {path: "/depart-documents", element: <DepartmentDocuments />},
       { path: '/submit-complaint', element: <DepartmentSubmitComplaints /> },
 
 
