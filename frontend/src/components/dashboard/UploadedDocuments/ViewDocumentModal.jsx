@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { X, Download, ChevronDown, ChevronUp } from "lucide-react";
-import { useTranslation } from "react-i18next";
 
 const ViewDocumentModal = ({ selectedDoc, onClose, getStatusClass }) => {
-  const { t } = useTranslation("viewDocumentModal"); // JSON namespace
   const [formOpen, setFormOpen] = useState(true);
 
   const renderValue = (value) => {
-    if (value === null || value === undefined) return t("modal.placeholders.nA");
+    if (value === null || value === undefined) return "N/A";
     if (Array.isArray(value)) return value.map((v) => renderValue(v)).join(", ");
     if (typeof value === "object")
       return Object.entries(value)
@@ -21,7 +19,7 @@ const ViewDocumentModal = ({ selectedDoc, onClose, getStatusClass }) => {
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-gray-200">
-          <h3 className="text-xl font-semibold text-[#104c80]">{t("modal.title")}</h3>
+          <h3 className="text-xl font-semibold text-[#104c80]">View Submission</h3>
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600 transition-colors"
@@ -32,57 +30,51 @@ const ViewDocumentModal = ({ selectedDoc, onClose, getStatusClass }) => {
 
         {/* Body */}
         <div className="p-5 space-y-6 max-h-[80vh] overflow-y-auto">
+          {/* Form Summary: Form ID, Title, Status */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex justify-between items-center">
+            <div className="flex flex-col gap-1">
+              <p>
+                <span className="font-semibold text-[#104c80]">Form ID:</span>{" "}
+                {selectedDoc.formId?._id || "N/A"}
+              </p>
+              <p>
+                <span className="font-semibold text-[#104c80]">Title:</span>{" "}
+                {selectedDoc.formId?.title || "Untitled"}
+              </p>
+            </div>
+            <span
+              className={`px-3 py-1 text-sm font-medium rounded-full ${getStatusClass(
+                selectedDoc.status
+              )}`}
+            >
+              {selectedDoc.status || "Pending"}
+            </span>
+          </div>
+
           {/* Form Data */}
-          {selectedDoc.formData && (
+          {selectedDoc.formData && Object.keys(selectedDoc.formData).length > 0 && (
             <div className="bg-gray-50 rounded-lg shadow-sm border border-gray-200 p-4">
               <div
                 className="flex justify-between items-center cursor-pointer"
                 onClick={() => setFormOpen(!formOpen)}
               >
-                <h4 className="text-md font-semibold text-gray-700">{t("modal.sections.formData.title")}</h4>
+                <h4 className="text-md font-semibold text-gray-700">Form Data</h4>
                 {formOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
               </div>
+
               {formOpen && (
                 <div className="mt-3 space-y-2 text-sm text-gray-700">
                   {Object.entries(selectedDoc.formData).map(([key, value]) => (
-                    <div key={key} className="flex justify-between border-b border-gray-100 pb-1">
+                    <div
+                      key={key}
+                      className="flex justify-between border-b border-gray-100 pb-1"
+                    >
                       <span className="font-medium text-gray-500">{formatLabel(key)}:</span>
                       <span className="text-gray-900">{renderValue(value)}</span>
                     </div>
                   ))}
                 </div>
               )}
-            </div>
-          )}
-
-          {/* Meta Info */}
-          <div className="grid grid-cols-2 gap-4">
-            <Detail label={t("modal.sections.metaInfo.formId")} value={selectedDoc.formId} />
-            <Detail
-              label={t("modal.sections.metaInfo.submittedAt")}
-              value={new Date(selectedDoc.submittedAt).toLocaleString()}
-            />
-            <Detail label={t("modal.sections.metaInfo.ipAddress")} value={selectedDoc.ipAddress} />
-            <Detail label={t("modal.sections.metaInfo.userAgent")} value={selectedDoc.userAgent} />
-            <Detail
-              label={t("modal.sections.metaInfo.status")}
-              value={
-                <span
-                  className={`px-2.5 py-1 rounded-full text-sm font-medium ${getStatusClass(
-                    selectedDoc.status || "Pending"
-                  )}`}
-                >
-                  {selectedDoc.status || t("modal.placeholders.nA")}
-                </span>
-              }
-            />
-          </div>
-
-          {/* Rejection Note */}
-          {selectedDoc.status === "Rejected" && (
-            <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded-lg">
-              <h4 className="font-semibold mb-1">{t("modal.sections.rejectionNote.title")}</h4>
-              <p className="text-sm">{selectedDoc.note || t("modal.sections.rejectionNote.noNote")}</p>
             </div>
           )}
         </div>
@@ -95,27 +87,20 @@ const ViewDocumentModal = ({ selectedDoc, onClose, getStatusClass }) => {
               download
               className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
             >
-              <Download size={16} /> {t("modal.actions.download")}
+              <Download size={16} /> Download
             </a>
           )}
           <button
             onClick={onClose}
             className="px-4 py-2 bg-[#104c80] text-white rounded-md font-medium hover:bg-[#0d3a66] transition-colors"
           >
-            {t("modal.actions.close")}
+            Close
           </button>
         </div>
       </div>
     </div>
   );
 };
-
-const Detail = ({ label, value }) => (
-  <div className="flex justify-between items-center text-sm">
-    <span className="font-medium text-gray-500">{label}:</span>
-    <span className="text-gray-900">{value ?? "N/A"}</span>
-  </div>
-);
 
 const formatLabel = (key) =>
   key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());

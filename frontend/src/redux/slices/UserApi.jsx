@@ -74,6 +74,14 @@ export const userApi = createApi({
       }),
     }),
 
+    deleteOneUser: builder.mutation({
+      query: (id) => ({
+        url: `/delete-user/${id}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+    }),
+
     updateUserRole: builder.mutation({
       query: (body) => ({
         url: "/update-user-role",
@@ -130,5 +138,6 @@ export const {
   useUpdateUserRoleMutation,
   useForgotpasswordotpMutation,
   useVerifyOTPMutation,
-  useResetPasswordMutation
+  useResetPasswordMutation,
+  useDeleteOneUserMutation,
 } = userApi;

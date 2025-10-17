@@ -412,6 +412,14 @@ export default function Navbar() {
                           {t('navbar.profile.departmentDashboard')}
                         </NavLink>
                       )}
+                       {profile?.role?.toLowerCase() === 'reception' && (
+                        <NavLink
+                          to='/visitors'
+                          className='block px-4 py-2 hover:text-indigo-700'
+                        >
+                          {t('navbar.profile.receptionDashboard')}
+                        </NavLink>
+                      )}
                       <button
                         onClick={handleLogout}
                         disabled={isLoading}

@@ -15,12 +15,26 @@ const AdminDocumentsTable = ({
   handleApprove,
   getStatusClass,
 }) => {
-  const { t } = useTranslation("adminDocumentsTable"); // <- your JSON namespace
+  const { t } = useTranslation("adminDocumentsTable"); // JSON namespace
 
   const tableColumns = t("table.columns", { returnObjects: true });
   const headerStyles = t("table.headerStyles", { returnObjects: true });
   const mobileFields = t("mobileCard.fields", { returnObjects: true });
   const mobileActions = t("mobileCard.actions", { returnObjects: true });
+
+  // Format exact date
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    }).format(date);
+  };
 
   return (
     <div className="rounded-lg border border-gray-200 overflow-hidden">
@@ -64,6 +78,12 @@ const AdminDocumentsTable = ({
                           >
                             {doc.status}
                           </span>
+                        </td>
+                      );
+                    case "date":
+                      return (
+                        <td key={col.key} className="px-4 py-3 text-sm text-gray-600">
+                          {formatDate(doc.date)}
                         </td>
                       );
                     case "actions":
@@ -114,7 +134,7 @@ const AdminDocumentsTable = ({
 
       {/* Mobile Cards */}
       <div className="block md:hidden divide-y divide-gray-200">
-        {uploads.map((doc, i) => (
+        {uploads.map((doc) => (
           <div key={doc.id} className="p-4 flex flex-col gap-3 bg-white">
             {mobileFields.map((field) => (
               <p key={field.key} className="text-sm text-gray-600">
@@ -127,6 +147,8 @@ const AdminDocumentsTable = ({
                   >
                     {doc.status}
                   </span>
+                ) : field.key === "date" ? (
+                  <span>{formatDate(doc.date)}</span>
                 ) : field.key === "title" ? (
                   <span className={`font-${field.fontWeight} text-${field.fontSize}`}>
                     {doc.title}

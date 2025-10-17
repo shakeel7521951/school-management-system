@@ -6,6 +6,7 @@ import {
   CheckCircle2,
   UserCheck,
   Phone,
+  Mail,
   Building2,
   FileSignature,
 } from "lucide-react";
@@ -20,8 +21,9 @@ const VisitorForm = ({ onClose }) => {
     name: "",
     governmentId: "",
     phone: "",
-    visitorType: "",
-    reason: "",
+    email: "",
+    visitorType: "parent",
+    reason: "parentMeeting",
     hostDepartment: "",
     agreeRules: false,
     signature: "",
@@ -31,7 +33,7 @@ const VisitorForm = ({ onClose }) => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!form.name || !form.governmentId || !form.phone) {
+    if (!form.name || !form.governmentId || !form.phone || !form.email) {
       return alert(t("visitorForm.alerts.missingFields"));
     }
     if (!form.agreeRules) {
@@ -52,17 +54,15 @@ const VisitorForm = ({ onClose }) => {
 
   return (
     <div
-      className="p-6 max-w-8xl mx-auto h-[650px] md:h-[590px]" // ✅ Increased max width
+      className="p-6 max-w-8xl mx-auto h-[650px] md:h-[590px]"
       dir={i18n.language === "ar" ? "rtl" : "ltr"}
     >
-     <div className="mb-6 text-center">
-  <h2 className="text-2xl font-bold text-[#104c80]">
-    {t("visitorForm.title")}
-  </h2>
-  <p className="text-sm text-slate-500">{t("visitorForm.subtitle")}</p>
-
- 
-</div>
+      <div className="mb-6 text-center">
+        <h2 className="text-2xl font-bold text-[#104c80]">
+          {t("visitorForm.title")}
+        </h2>
+        <p className="text-sm text-slate-500">{t("visitorForm.subtitle")}</p>
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* First Row - Name & ID */}
@@ -100,7 +100,7 @@ const VisitorForm = ({ onClose }) => {
           </div>
         </div>
 
-        {/* Second Row - Phone & Visitor Type */}
+        {/* Second Row - Phone & Email */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Phone */}
           <div>
@@ -117,6 +117,28 @@ const VisitorForm = ({ onClose }) => {
             />
           </div>
 
+          {/* Email */}
+          <div>
+            <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
+              <Mail size={16} className="text-[#104c80]" />
+              {t("visitorForm.fields.email.label", "Email")}
+            </label>
+            <input
+              type="email"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              placeholder={t(
+                "visitorForm.fields.email.placeholder",
+                "Enter your email"
+              )}
+              required
+              className="mt-2 w-full border rounded-lg px-3 py-2"
+            />
+          </div>
+        </div>
+
+        {/* Third Row - Visitor Type & Reason */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Visitor Type */}
           <div>
             <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
@@ -144,10 +166,7 @@ const VisitorForm = ({ onClose }) => {
               </option>
             </select>
           </div>
-        </div>
 
-        {/* Third Row - Reason & Host Department */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Reason */}
           <div>
             <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
@@ -179,26 +198,25 @@ const VisitorForm = ({ onClose }) => {
               </option>
             </select>
           </div>
-
-          {/* Host Department */}
-          <div>
-            <label className="text-sm font-medium text-slate-700 flex items-center gap-1">
-              <Building2 size={16} className="text-[#104c80]" />
-              {t("visitorForm.fields.hostDepartment.label")}
-            </label>
-            <input
-              value={form.hostDepartment}
-              onChange={(e) =>
-                setForm({ ...form, hostDepartment: e.target.value })
-              }
-              placeholder={t("visitorForm.fields.hostDepartment.placeholder")}
-              className="mt-2 w-full border rounded-lg px-3 py-2"
-            />
-          </div>
         </div>
 
+        {/* Fourth Row - Host Department */}
+        <div>
+          <label className="text-sm font-medium text-slate-700 flex items-center gap-1">
+            <Building2 size={16} className="text-[#104c80]" />
+            {t("visitorForm.fields.hostDepartment.label")}
+          </label>
+          <input
+            value={form.hostDepartment}
+            onChange={(e) =>
+              setForm({ ...form, hostDepartment: e.target.value })
+            }
+            placeholder={t("visitorForm.fields.hostDepartment.placeholder")}
+            className="mt-2 w-full border rounded-lg px-3 py-2"
+          />
+        </div>
 
-          {/* Signature Row */}
+        {/* Signature */}
         <div className="mt-4">
           <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
             <FileSignature size={16} className="text-[#104c80]" />
@@ -212,36 +230,35 @@ const VisitorForm = ({ onClose }) => {
           />
         </div>
 
-     {/* Agreement Row */}
-<div className="mt-4 flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
-  <input
-    type="checkbox"
-    checked={form.agreeRules}
-    onChange={(e) => setForm({ ...form, agreeRules: e.target.checked })}
-    className="w-4 h-4 accent-[#104c80]"
-  />
-  <label className="text-sm text-slate-700">
-    {t("visitorForm.fields.agreeRules.label")}
-  </label>
-</div>
+        {/* Agreement */}
+        <div className="mt-4 flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
+          <input
+            type="checkbox"
+            checked={form.agreeRules}
+            onChange={(e) => setForm({ ...form, agreeRules: e.target.checked })}
+            className="w-4 h-4 accent-[#104c80]"
+          />
+          <label className="text-sm text-slate-700">
+            {t("visitorForm.fields.agreeRules.label")}
+          </label>
+        </div>
 
-{/* ✅ Thank-you Note (placed before Submit Button) */}
- {/* ✅ New line below subtitle */}
-  <p className="text-sm md:text-[15px] text-green-600 mt-2 text-center">
-    {t("visitorForm.note")}
-  </p>
+        {/* Thank You Note */}
+        <p className="text-sm md:text-[15px] text-green-600 mt-2 text-center">
+          {t("visitorForm.note")}
+        </p>
 
-{/* Submit Button */}
-<button
-  type="submit"
-  disabled={isLoading}
-  className="w-full py-3 mt-6 flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#104c80] to-[#0d3a62] text-white font-semibold shadow-md hover:shadow-lg transition disabled:opacity-50"
->
-  <CheckCircle2 size={20} />
-  {isLoading
-    ? t("visitorForm.button.submitting")
-    : t("visitorForm.button.submit")}
-</button>
+        {/* Submit Button */}
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="w-full py-3 mt-6 flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#104c80] to-[#0d3a62] text-white font-semibold shadow-md hover:shadow-lg transition disabled:opacity-50"
+        >
+          <CheckCircle2 size={20} />
+          {isLoading
+            ? t("visitorForm.button.submitting")
+            : t("visitorForm.button.submit")}
+        </button>
       </form>
     </div>
   );

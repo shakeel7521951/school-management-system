@@ -9,6 +9,10 @@ const visitorSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    email: {
+        type: String,
+        required: true
+    },
     phone: {
         type: String,
         required: true
@@ -34,7 +38,11 @@ const visitorSchema = new mongoose.Schema({
         type: String,
         enum: ["pending", "approved", "rejected"],
         default: "pending"
-    }
+    },
+    submittedAt: {
+        type: Date,
+        default: Date.now,
+    },
 }, { timestamps: true });
 
 const Visitor = mongoose.model("Visitor", visitorSchema);

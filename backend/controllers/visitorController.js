@@ -1,13 +1,18 @@
 import Visitor from "../models/Visitor.js";
+import { visitorRequestSubmittedTemplate, visitorStatusUpdateTemplate } from "../utils/emailTemplates.js";
+import SendMail from "../utils/SendMail.js";
 
 export const addVisitor = async (req, res) => {
     try {
-        const { name, governmentId, reason, visitorType, phone, signature, hostDepartment } = req.body;
-        console.log(req.body);
+        const { name, governmentId, reason, visitorType, phone, signature, hostDepartment, email } = req.body;
+
         if (!name || !governmentId || !reason) {
             return res.status(400).json({ message: "All fields are required" });
         }
+
+        // ✅ Auto-approve if visitorType is "parent"
         const status = visitorType?.toLowerCase() === "parent" ? "approved" : "pending";
+
         const newVisitor = await Visitor.create({
             name,
             governmentId,
@@ -16,14 +21,23 @@ export const addVisitor = async (req, res) => {
             status,
             phone,
             signature,
-            hostDepartment
+            hostDepartment,
+            email,
         });
+
+        if (status === "approved") {
+            const emailContent = visitorStatusUpdateTemplate(name, "accepted");
+            await SendMail(email, emailContent.subject, emailContent.html);
+        } else {
+            const emailContent = visitorRequestSubmittedTemplate(name);
+            await SendMail(email, emailContent.subject, emailContent.html);
+        }
 
         return res.status(201).json({
             message:
                 status === "approved"
-                    ? "Parent visitor automatically approved"
-                    : "Visitor request submitted successfully",
+                    ? "Parent visitor automatically approved and email sent."
+                    : "Visitor request submitted successfully. Confirmation email sent.",
             visitor: newVisitor,
         });
     } catch (error) {
@@ -31,7 +45,6 @@ export const addVisitor = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 };
-
 
 export const getVisitors = async (req, res) => {
     try {
@@ -74,8 +87,17 @@ export const updateVisitorStatus = async (req, res) => {
             return res.status(404).json({ message: "Visitor not found" });
         }
 
-        return res.status(200).json({ message: "Visitor status updated", visitor });
+        if (visitor.email) {
+            const emailContent = visitorStatusUpdateTemplate(visitor.name, status);
+            await SendMail(visitor.email, emailContent.subject, emailContent.html);
+        }
+
+        return res.status(200).json({
+            message: "Visitor status updated successfully and email sent.",
+            visitor,
+        });
     } catch (error) {
+        console.error("Error updating visitor status:", error);
         return res.status(500).json({ message: "Internal server error" });
     }
 };

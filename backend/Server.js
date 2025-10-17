@@ -25,6 +25,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
+      "https://tamakon.in",
       "https://school-management-system-lime-six.vercel.app",
     ],
     credentials: true,

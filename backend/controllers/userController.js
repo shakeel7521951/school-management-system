@@ -20,7 +20,7 @@ export const register = async (req, res) => {
       <h3 style="font-size: 32px; font-weight: bold; color: #4CAF50;">${otp}</h3>
       <p>If you did not request this, please ignore this email.</p>
       <p>Best regards,</p>
-      <p>The Car Rental Service Team</p>
+      <p>Al Tamakon Team</p>
     `;
 
     await sendMail(email, subject, text);
@@ -103,7 +103,7 @@ export const forgotPasswordOTP = async (req, res) => {
       <h3 style="font-size: 32px; font-weight: bold; color: #4CAF50;">${otp}</h3>
       <p>This OTP is valid for a limited time. If you did not request a password reset, please ignore this email or contact our support team immediately.</p>
       <p>Best regards,</p>
-      <p>The Car Rental Service Team</p>
+      <p>Al Tamakon Team</p>
     `;
 
     await sendMail(email, subject, text);
@@ -179,7 +179,6 @@ export const resetPassword = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error." });
   }
 };
-
 
 export const login = async (req, res) => {
   try {
@@ -349,5 +348,22 @@ export const updateUserRole = async (req, res) => {
       message: "Internal server error",
       error: error.message,
     });
+  }
+};
+
+export const deleteOneUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "User ID is required." });
+    }
+    const deletedUser = await User.findByIdAndDelete(id);
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found." });
+    }
+    res.status(200).json({ message: "User deleted successfully." });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ message: "Internal server error." });
   }
 };

@@ -10,34 +10,38 @@ import {
   FaExclamationTriangle,
 } from "react-icons/fa";
 
-// ✅ Helper function to display "time ago" using i18n translations
-const timeAgo = (date, t) => {
+// ✅ Helper for exact date/time
+const formatDateTime = (date) => {
   if (!date) return "-";
-  const now = new Date();
-  const past = new Date(date);
-  const seconds = Math.floor((now - past) / 1000);
+  return new Date(date).toLocaleString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  });
+};
 
-  const intervals = [
-    { label: "year", seconds: 31536000 },
-    { label: "month", seconds: 2592000 },
-    { label: "day", seconds: 86400 },
-    { label: "hour", seconds: 3600 },
-    { label: "minute", seconds: 60 },
-    { label: "second", seconds: 1 },
-  ];
+// ✅ Helper for “time ago”
+const timeAgo = (date) => {
+  if (!date) return "-";
+  const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+  const intervals = {
+    year: 31536000,
+    month: 2592000,
+    week: 604800,
+    day: 86400,
+    hour: 3600,
+    minute: 60,
+  };
 
-  for (let i = 0; i < intervals.length; i++) {
-    const interval = Math.floor(seconds / intervals[i].seconds);
-    if (interval >= 1) {
-      const key =
-        interval === 1
-          ? `parentComplaintsTable.timeAgo.${intervals[i].label}`
-          : `parentComplaintsTable.timeAgo.${intervals[i].label}_plural`;
-
-      return t(key, { count: interval });
-    }
+  for (const [unit, value] of Object.entries(intervals)) {
+    const amount = Math.floor(seconds / value);
+    if (amount >= 1) return `${amount} ${unit}${amount > 1 ? "s" : ""} ago`;
   }
-  return t("parentComplaintsTable.timeAgo.justNow");
+  return "just now";
 };
 
 const ParentComplaintsTable = ({
@@ -106,25 +110,23 @@ const ParentComplaintsTable = ({
                   key={c._id || i}
                   className={`${
                     i % 2 === 0 ? "bg-white" : "bg-gray-50"
-                  } hover:bg-indigo-50 transition-all duration-200 text-center align-middle`}
+                  } hover:bg-indigo-50 transition-all duration-200 text-center align-middle whitespace-nowrap`}
                 >
                   <td className="px-4 py-3">{c.parentName}</td>
                   <td className="px-4 py-3">{c.relationToStudent}</td>
                   <td className="px-4 py-3">{c.studentName}</td>
                   <td className="px-4 py-3">{c.class}</td>
 
-                  {/* ✅ Date + Time Ago */}
-                  <td className="px-4 py-3">
-                    {c.date ? (
-                      <>
-                        <div>{new Date(c.date).toLocaleDateString()}</div>
-                        <div className="text-xs text-gray-500">
-                          {timeAgo(c.date, t)}
-                        </div>
-                      </>
-                    ) : (
-                      "-"
-                    )}
+                  {/* ✅ Date + Time + "Ago" */}
+                  <td className="px-4 py-3 whitespace-nowrap">
+                    <div className="flex flex-col items-center">
+                      <span className="font-medium text-gray-800">
+                        {c.createdAt ? formatDateTime(c.createdAt) : "-"}
+                      </span>
+                      <span className="text-xs text-gray-500">
+                        {c.createdAt ? timeAgo(c.createdAt) : ""}
+                      </span>
+                    </div>
                   </td>
 
                   <td className="px-4 py-3">{c.complaintType}</td>
@@ -132,35 +134,36 @@ const ParentComplaintsTable = ({
                   <td className="px-4 py-3">{c.impact}</td>
                   <td className="px-4 py-3">{c.expectedAction}</td>
                   <td className="px-4 py-3">
-                    {c.assignedTo?.name || t("parentComplaintsTable.messages.unassigned")}
+                    {c.assignedTo?.name ||
+                      t("parentComplaintsTable.messages.unassigned")}
                   </td>
                   <td className="px-4 py-3">
-                    <span className={`${statusClasses[c.status] || "text-gray-500"} font-medium`}>
+                    <span
+                      className={`${
+                        statusClasses[c.status] || "text-gray-500"
+                      } font-medium`}
+                    >
                       {c.status}
                     </span>
                   </td>
 
-                  {/* ✅ Action Buttons */}
                   <td className="px-4 py-3">
                     <div className="flex justify-center items-center gap-2">
                       <button
                         onClick={() => setViewModal(c)}
                         className="text-indigo-600 hover:bg-indigo-50 p-2 rounded-full"
-                        title={t("parentComplaintsTable.actions.view")}
                       >
                         <FaEye />
                       </button>
                       <button
                         onClick={() => setEditModal(c)}
                         className="text-green-600 hover:bg-green-50 p-2 rounded-full"
-                        title={t("parentComplaintsTable.actions.edit")}
                       >
                         <FaEdit />
                       </button>
                       <button
                         onClick={() => setDeleteModal(c)}
                         className="text-red-600 hover:bg-red-50 p-2 rounded-full"
-                        title={t("parentComplaintsTable.actions.delete")}
                       >
                         <FaTrash />
                       </button>
@@ -170,7 +173,10 @@ const ParentComplaintsTable = ({
               ))
             ) : (
               <tr>
-                <td colSpan="12" className="px-4 py-6 text-center text-gray-400 text-sm">
+                <td
+                  colSpan="12"
+                  className="px-4 py-6 text-center text-gray-400 text-sm"
+                >
                   <FaExclamationTriangle className="mx-auto text-2xl mb-2" />
                   {t("parentComplaintsTable.messages.noComplaints")}
                 </td>
@@ -190,22 +196,30 @@ const ParentComplaintsTable = ({
             >
               <div className="flex justify-between items-center mb-2">
                 <h4 className="font-bold text-[#104c80]">{c.parentName}</h4>
-                <span className={statusClasses[c.status] || "text-gray-500"}>{c.status}</span>
+                <span className={statusClasses[c.status] || "text-gray-500"}>
+                  {c.status}
+                </span>
               </div>
 
               <p className="text-sm text-gray-600">
-                <b>{t("parentComplaintsTable.messages.student")}:</b> {c.studentName} ({c.class})
+                <b>{t("parentComplaintsTable.messages.student")}:</b>{" "}
+                {c.studentName} ({c.class})
               </p>
               <p className="text-sm text-gray-600">
-                <b>{t("parentComplaintsTable.messages.type")}:</b> {c.complaintType} |{" "}
-                <b>{t("parentComplaintsTable.messages.severity")}:</b> {c.severity}
+                <b>{t("parentComplaintsTable.messages.type")}:</b>{" "}
+                {c.complaintType} |{" "}
+                <b>{t("parentComplaintsTable.messages.severity")}:</b>{" "}
+                {c.severity}
               </p>
+
               <p className="text-sm text-gray-600">
-                <b>{t("parentComplaintsTable.messages.date")}:</b>{" "}
-                {c.date ? (
+                Created:{" "}
+                {c.createdAt ? (
                   <>
-                    {new Date(c.date).toLocaleDateString()}{" "}
-                    <span className="text-gray-500 text-xs">({timeAgo(c.date, t)})</span>
+                    {formatDateTime(c.createdAt)}{" "}
+                    <span className="text-gray-400 text-xs">
+                      ({timeAgo(c.createdAt)})
+                    </span>
                   </>
                 ) : (
                   "-"
@@ -216,21 +230,18 @@ const ParentComplaintsTable = ({
                 <button
                   onClick={() => setViewModal(c)}
                   className="text-indigo-600 hover:bg-indigo-50 p-2 rounded-full"
-                  title={t("parentComplaintsTable.actions.view")}
                 >
                   <FaEye />
                 </button>
                 <button
                   onClick={() => setEditModal(c)}
                   className="text-green-600 hover:bg-green-50 p-2 rounded-full"
-                  title={t("parentComplaintsTable.actions.edit")}
                 >
                   <FaEdit />
                 </button>
                 <button
                   onClick={() => setDeleteModal(c)}
                   className="text-red-600 hover:bg-red-50 p-2 rounded-full"
-                  title={t("parentComplaintsTable.actions.delete")}
                 >
                   <FaTrash />
                 </button>

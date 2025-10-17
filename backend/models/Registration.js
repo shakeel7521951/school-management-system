@@ -90,6 +90,10 @@ const registrationSchema = new mongoose.Schema(
       enum: ["pending", "approved", "rejected"],
       default: "pending",
     },
+    submittedAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
   { timestamps: true }
 );

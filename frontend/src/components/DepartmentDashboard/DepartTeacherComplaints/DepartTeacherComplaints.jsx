@@ -20,6 +20,11 @@ const DepartTeacherComplaints = () => {
     skip: !shouldFetch,
   });
 
+  console.log("Should Fetch?", shouldFetch);
+
+  
+console.log("Department Teacher Complaints API Response:", data);
+
   // ✅ Fallback to empty array if no data
   const complaints = data?.complaints || [];
 

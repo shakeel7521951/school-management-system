@@ -17,6 +17,8 @@ const DepartStudentComplaints = () => {
   const { data, error, isLoading } = useGetDepartmentComplaintsQuery();
   const [changeStComplaintStatus] = useChangeStComplaintStatusMutation();
   const [deleteStComplaint] = useDeleteStComplaintMutation();
+  console.log(data);
+  
 
   // ✅ Local state
   const [complaints, setComplaints] = useState([]);

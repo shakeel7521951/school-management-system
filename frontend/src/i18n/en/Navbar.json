@@ -55,6 +55,7 @@
       "visitorDashboard": "Visitor Dashboard",
       "securityDashboard": "Security Dashboard",
       "departmentDashboard": "Department Dashboard",
+      "receptionDashboard": "Reception Dashboard",
       "logout": "Logout",
       "loggingOut": "Logging out..."
     },

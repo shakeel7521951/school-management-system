@@ -2,11 +2,14 @@ import { useState } from "react";
 import { useVerifyUserMutation } from "../redux/slices/UserApi";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setProfile } from "../redux/slices/UserSlice";
 
 export default function OtpVerify() {
     const [otp, setOtp] = useState(["", "", "", ""]);
     const [verifyUser, { isLoading }] = useVerifyUserMutation();
     const location = useLocation();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const email = location?.state?.email;
     const handleChange = (value, index) => {
@@ -32,6 +35,7 @@ export default function OtpVerify() {
 
         try {
             const res = await verifyUser({ email, otp: code }).unwrap();
+            dispatch(setProfile(res.user));
             navigate("/")
             toast(res?.message);
         } catch (err) {

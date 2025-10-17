@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useCreateRegistrationMutation } from "../redux/slices/RegistrationApi";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const RegistrationForm = () => {
   const { t, i18n } = useTranslation("registrationForm");
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     child_name: "",
     dob: "",
@@ -45,6 +46,7 @@ const RegistrationForm = () => {
 
     try {
       await createRegistration(formData).unwrap();
+      navigate("/");
       toast.success(t("fields.submit") + " " + t("successfully"));
 
       setFormData({

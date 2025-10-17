@@ -16,6 +16,10 @@
         "label": "رقم الهاتف",
         "placeholder": "أدخل رقم هاتفك"
       },
+      "email": {
+        "label": "البريد الإلكتروني",
+        "placeholder": "أدخل بريدك الإلكتروني"
+      },
       "visitorType": {
         "label": "نوع الزائر",
         "options": {

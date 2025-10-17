@@ -57,6 +57,10 @@ const complaintSchema = new mongoose.Schema(
             ref: "Department",
             default: null,
         },
+        submittedAt: {
+            type: Date,
+            default: Date.now,
+        },
     },
     { timestamps: true }
 );

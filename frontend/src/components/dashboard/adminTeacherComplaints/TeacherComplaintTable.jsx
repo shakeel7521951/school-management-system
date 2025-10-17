@@ -11,29 +11,46 @@ import {
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 
-// ✅ Helper function to display "time ago"
-const timeAgo = (date) => {
-  if (!date) return "-";
+// ✅ Format full date & time (with seconds)
+const formatDateTime = (dateString) => {
+  if (!dateString) return "-";
+  const date = new Date(dateString);
+  return date.toLocaleString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  });
+};
+
+// ✅ Convert timestamp into "time ago"
+const timeAgo = (dateString) => {
+  if (!dateString) return "-";
   const now = new Date();
-  const past = new Date(date);
-  const seconds = Math.floor((now - past) / 1000);
+  const past = new Date(dateString);
+  const diffInSeconds = Math.floor((now - past) / 1000);
 
   const intervals = [
     { label: "year", seconds: 31536000 },
     { label: "month", seconds: 2592000 },
+    { label: "week", seconds: 604800 },
     { label: "day", seconds: 86400 },
     { label: "hour", seconds: 3600 },
     { label: "minute", seconds: 60 },
     { label: "second", seconds: 1 },
   ];
 
-  for (let i = 0; i < intervals.length; i++) {
-    const interval = Math.floor(seconds / intervals[i].seconds);
-    if (interval >= 1) {
-      return `${interval} ${interval === 1 ? intervals[i].label : intervals[i].label + "s"} ago`;
+  for (const { label, seconds } of intervals) {
+    const count = Math.floor(diffInSeconds / seconds);
+    if (count > 0) {
+      return `${count} ${label}${count > 1 ? "s" : ""} ago`;
     }
   }
-  return "Just now";
+
+  return "just now";
 };
 
 const TeacherComplaintTable = ({
@@ -49,7 +66,7 @@ const TeacherComplaintTable = ({
 
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-      {/* --- TABLE VIEW (Desktop) --- */}
+      {/* ===== Desktop Table ===== */}
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full border-collapse rounded-lg overflow-hidden shadow-sm">
           <thead>
@@ -62,7 +79,7 @@ const TeacherComplaintTable = ({
                       !["expectedAction", "action"].includes(key) &&
                       handleSort(key)
                     }
-                    className={`py-4 px-2 text-center text-[12px] font-semibold uppercase tracking-wide cursor-pointer whitespace-nowrap`}
+                    className="py-4 px-2 text-center text-[12px] font-semibold uppercase tracking-wide cursor-pointer whitespace-nowrap"
                   >
                     <div className="flex items-center justify-center gap-1 whitespace-nowrap">
                       {label}
@@ -94,8 +111,7 @@ const TeacherComplaintTable = ({
                   i % 2 === 0 ? "bg-white" : "bg-gray-50"
                 } hover:bg-gray-100 transition text-sm whitespace-nowrap`}
               >
-                {/* Employee Name */}
-                <td className="px-3 py-2 flex items-center gap-3 whitespace-nowrap">
+                <td className="px-3 py-2 flex items-center gap-3">
                   <div className="bg-indigo-100 p-2 rounded-full">
                     <FaUser className="text-indigo-600 text-sm" />
                   </div>
@@ -105,64 +121,30 @@ const TeacherComplaintTable = ({
                 <td className="px-3 py-2 text-center">{c.jobTitle}</td>
                 <td className="px-3 py-2 text-center">{c.department}</td>
 
-                {/* Date + Time Ago */}
+                {/* ✅ CreatedAt (Exact Date + Time + Time Ago) */}
                 <td className="px-3 py-2 text-center text-nowrap">
-                  {c.date ? (
-                    <>
-                      <div>{new Date(c.date).toLocaleDateString()}</div>
-                      <div className="text-xs text-gray-500">
-                        {timeAgo(c.date)}
-                      </div>
-                    </>
-                  ) : (
-                    "-"
-                  )}
+                  <div className="flex flex-col items-center">
+                    <span className="font-medium text-gray-800">
+                      {c.createdAt ? formatDateTime(c.createdAt) : "-"}
+                    </span>
+                    <span className="text-xs text-gray-500">
+                      {timeAgo(c.createdAt)}
+                    </span>
+                  </div>
                 </td>
 
-                {/* Type */}
-                <td className="px-3 py-2 text-center">
-                  <span
-                    className={`px-2 py-1 text-xs rounded-full ${
-                      t(`colors.type.${c.type}`, {
-                        defaultValue: t("colors.type.default"),
-                      })
-                    }`}
-                  >
-                    {c.type}
-                  </span>
-                </td>
-
-                {/* Severity */}
-                <td className="px-3 py-2 text-center">
-                  <span
-                    className={`px-2 py-1 text-xs rounded-full ${
-                      t(`colors.severity.${c.severity}`, {
-                        defaultValue: t("colors.severity.default"),
-                      })
-                    }`}
-                  >
-                    {c.severity}
-                  </span>
-                </td>
-
+                <td className="px-3 py-2 text-center">{c.type}</td>
+                <td className="px-3 py-2 text-center">{c.severity}</td>
                 <td className="px-3 py-2 text-center">{c.impact}</td>
                 <td className="px-3 py-2 text-center">{c.expectedAction}</td>
                 <td className="px-3 py-2 text-center">{c.assignedTo?.name}</td>
 
-                {/* Status */}
                 <td className="px-3 py-2 text-center">
-                  <span
-                    className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                      t(`colors.status.${c.status}`, {
-                        defaultValue: t("colors.status.default"),
-                      })
-                    }`}
-                  >
+                  <span className="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
                     {c.status}
                   </span>
                 </td>
 
-                {/* Actions */}
                 <td className="px-3 py-2 text-center">
                   <div className="flex justify-center gap-2">
                     <button
@@ -188,7 +170,6 @@ const TeacherComplaintTable = ({
               </tr>
             ))}
 
-            {/* No Data */}
             {filteredComplaints.length === 0 && (
               <tr>
                 <td
@@ -204,7 +185,7 @@ const TeacherComplaintTable = ({
         </table>
       </div>
 
-      {/* --- CARD VIEW (Mobile) --- */}
+      {/* ===== Mobile Card View ===== */}
       <div className="block md:hidden p-4 space-y-4">
         {paginatedComplaints.length > 0 ? (
           paginatedComplaints.map((c) => (
@@ -212,7 +193,6 @@ const TeacherComplaintTable = ({
               key={c._id}
               className="bg-white rounded-xl shadow-md border border-gray-200 p-4 space-y-2"
             >
-              {/* Header */}
               <div className="flex items-center gap-3 border-b pb-2">
                 <div className="bg-indigo-100 p-2 rounded-full">
                   <FaUser className="text-indigo-600 text-sm" />
@@ -222,39 +202,30 @@ const TeacherComplaintTable = ({
                 </h3>
               </div>
 
-              {/* Info Grid */}
               <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm mt-2">
-                {Object.entries(t("card.labels", { returnObjects: true })).map(
-                  ([key, label]) =>
-                    c[key] && (
-                      <p key={key} className="col-span-2">
-                        <b>{label}:</b>{" "}
-                        {key === "date" ? (
-                          <>
-                            {new Date(c.date).toLocaleDateString()}{" "}
-                            <span className="text-gray-500 text-xs">
-                              ({timeAgo(c.date)})
-                            </span>
-                          </>
-                        ) : ["type", "severity", "status"].includes(key) ? (
-                          <span
-                            className={`px-2 py-1 text-xs rounded-full ${
-                              t(`colors.${key}.${c[key]}`, {
-                                defaultValue: t(`colors.${key}.default`),
-                              })
-                            }`}
-                          >
-                            {c[key]}
-                          </span>
-                        ) : (
-                          c[key]
-                        )}
-                      </p>
-                    )
-                )}
+                <p className="col-span-2">
+                  <b>Created:</b> {formatDateTime(c.createdAt)}
+                </p>
+                <p className="col-span-2 text-xs text-gray-500">
+                  ({timeAgo(c.createdAt)})
+                </p>
+                <p>
+                  <b>Job Title:</b> {c.jobTitle}
+                </p>
+                <p>
+                  <b>Department:</b> {c.department}
+                </p>
+                <p>
+                  <b>Type:</b> {c.type}
+                </p>
+                <p>
+                  <b>Severity:</b> {c.severity}
+                </p>
+                <p>
+                  <b>Status:</b> {c.status}
+                </p>
               </div>
 
-              {/* Actions */}
               <div className="flex justify-end gap-4 pt-3 border-t mt-2">
                 <button
                   onClick={() => setViewModal({ ...c })}
