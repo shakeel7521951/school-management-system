@@ -12,6 +12,12 @@
           "teachers": "Teachers Complaints",
           "parents": "Parents Complaints"
         }
+      },
+      "submit": {
+        "label": "Submit Complaint"
+      },
+      "documents": {
+        "label": "Documents"
       }
     },
     "aria": {

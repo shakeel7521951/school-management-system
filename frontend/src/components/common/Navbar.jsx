@@ -406,7 +406,7 @@ export default function Navbar() {
                       )}
                        {profile?.role?.toLowerCase() === 'manager' && (
                         <NavLink
-                          to='/student-complaint'
+                          to='/submit-complaint'
                           className='block px-4 py-2 hover:text-indigo-700'
                         >
                           {t('navbar.profile.departmentDashboard')}
@@ -831,7 +831,7 @@ export default function Navbar() {
                   )}
                    {profile?.role?.toLowerCase() === 'manager' && (
                         <NavLink
-                          to='/student-complaint'
+                          to='/submit-complaint'
                           className='block px-4 py-2 hover:text-indigo-700'
                         >
                           {t('navbar.profile.departmentDashboard')}

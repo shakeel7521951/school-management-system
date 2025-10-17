@@ -2,7 +2,7 @@
   "complaintsSidebar": {
     "brand": {
       "title": "التمكُّن",
-      "subtitle": "لوحة القسم"
+      "subtitle": "لوحة الإدارة"
     },
     "menu": {
       "complaints": {
@@ -12,6 +12,12 @@
           "teachers": "شكاوى المعلمين",
           "parents": "شكاوى أولياء الأمور"
         }
+      },
+      "submit": {
+        "label": "تقديم شكوى"
+      },
+      "documents": {
+        "label": "الوثائق"
       }
     },
     "aria": {

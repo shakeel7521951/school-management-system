@@ -93,6 +93,7 @@ import DepartParentsComplaint from './pages/departmentDashboard/DepartParentsCom
 import ReceptionistDashboard from './pages/ReceptionistDashboard'
 import ReceptionistNavbar from './components/ReceptionistDashboard/common/ReceptionistNavbar'
 import ReceptionistSidebar from './components/ReceptionistDashboard/common/ReceptionistSidebar'
+import DepartmentSubmitComplaints from './pages/departmentDashboard/DepartmentSubmitComplaints'
 
 const MainFunction = () => {
   return (
@@ -282,6 +283,8 @@ const router = createBrowserRouter([
       { path: '/student-complaint', element: <DepartStudentComplaint /> },
       { path: '/teacher-complaint', element: <DepartTeacherComplaint /> },
       { path: '/parent-complaint', element: <DepartParentsComplaint /> },
+      { path: '/submit-complaint', element: <DepartmentSubmitComplaints /> },
+
 
     ]
   },

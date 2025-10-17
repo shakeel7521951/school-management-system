@@ -23,17 +23,32 @@ const ComplaintsSidebar = () => {
     setIsOpen(isDesktop);
   }, [isDesktop]);
 
-  // ✅ Complaints Menu (using translation)
-  const complaintsItem = {
-    id: "/student-complaint",
-    label: t("complaintsSidebar.menu.complaints.label"),
-    icon: "MessageSquare",
-    dropdown: [
-      { id: "/student-complaint", label: t("complaintsSidebar.menu.complaints.dropdown.students") },
-      { id: "/teacher-complaint", label: t("complaintsSidebar.menu.complaints.dropdown.teachers") },
-      { id: "/parent-complaint", label: t("complaintsSidebar.menu.complaints.dropdown.parents") },
-    ],
-  };
+// ✅ Complaints Menu (with dropdown)
+const complaintsItem = {
+  id: "/student-complaint",
+  label: t("complaintsSidebar.menu.complaints.label"),
+  icon: "MessageSquare",
+  dropdown: [
+    { id: "/student-complaint", label: t("complaintsSidebar.menu.complaints.dropdown.students") },
+    { id: "/teacher-complaint", label: t("complaintsSidebar.menu.complaints.dropdown.teachers") },
+    { id: "/parent-complaint", label: t("complaintsSidebar.menu.complaints.dropdown.parents") },
+  ],
+};
+
+// ✅ Additional links (localized)
+const extraLinks = [
+  {
+    id: "/submit-complaint",
+    label: t("complaintsSidebar.menu.submit.label"),
+    icon: "Send",
+  },
+  {
+    id: "/depart-documents",
+    label: t("complaintsSidebar.menu.documents.label"),
+    icon: "FileText",
+  },
+];
+
 
   return (
     <>
@@ -62,13 +77,45 @@ const ComplaintsSidebar = () => {
               <h2 className="mt-3 text-3xl font-bold text-[#1a4480] tracking-wide">
                 {t("complaintsSidebar.brand.title")}
               </h2>
-              <p className="text-[15px] text-gray-500">{t("complaintsSidebar.brand.subtitle")}</p>
+              <p className="text-[15px] text-gray-500">
+                {t("complaintsSidebar.brand.subtitle")}
+              </p>
             </>
           )}
         </div>
 
         {/* Navigation */}
         <nav className="flex-grow mt-6 space-y-2 px-3">
+          {/* 🆕 Static Links (Submit Complaint + Documents) */}
+          {extraLinks.map((link) => {
+            const Icon = Icons[link.icon];
+            return (
+              <Link
+                key={link.id}
+                to={link.id}
+                onClick={() => {
+                  setActiveItem(link.id);
+                  if (!isDesktop) setIsOpen(false);
+                }}
+                className={`flex items-center gap-4 px-4 py-3 rounded-lg transition-all ${
+                  activeItem === link.id
+                    ? "bg-blue-100 text-blue-700 shadow-inner"
+                    : "text-gray-700 hover:bg-gray-100"
+                }`}
+              >
+                <Icon
+                  size={20}
+                  className={`${
+                    activeItem === link.id ? "text-blue-700" : "text-blue-600"
+                  }`}
+                />
+                {isOpen && (
+                  <span className="text-sm font-medium">{link.label}</span>
+                )}
+              </Link>
+            );
+          })}
+
           {/* Complaints Dropdown */}
           <div>
             <button

@@ -53,10 +53,10 @@ const StudentComplain = () => {
   const confirmDelete = async (id) => {
     try {
       await deleteComplaint(id).unwrap();
-      showToast(t("modals.delete_success"), "success");
+      showToast(t("toast.delete_success"), "success");
       setDeleteModal(null);
     } catch (err) {
-      showToast(t("modals.delete_error"), "error");
+      showToast(t("toast.delete_error"), "error");
     }
   };
 
