@@ -96,6 +96,8 @@ import ReceptionistSidebar from './components/ReceptionistDashboard/common/Recep
 import DepartmentDocuments from './pages/departmentDashboard/DepartmentDocuments'
 import DepartmentSubmitComplaints from './pages/departmentDashboard/DepartmentSubmitComplaints'
 import PlanningTeacherDocuments from './pages/PlanningDepartDashboard/PlanningTeacherDocuments'
+import PlanningNavbar from './components/PlanningDepartDashboard/common/PlanningNavbar'
+import PlanningSidebar from './components/PlanningDepartDashboard/common/PlanningSidebar'
 
 const MainFunction = () => {
   return (
