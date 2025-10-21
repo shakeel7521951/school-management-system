@@ -95,6 +95,7 @@ import ReceptionistNavbar from './components/ReceptionistDashboard/common/Recept
 import ReceptionistSidebar from './components/ReceptionistDashboard/common/ReceptionistSidebar'
 import DepartmentDocuments from './pages/departmentDashboard/DepartmentDocuments'
 import DepartmentSubmitComplaints from './pages/departmentDashboard/DepartmentSubmitComplaints'
+import PlanningTeacherDocuments from './pages/PlanningDepartDashboard/PlanningTeacherDocuments'
 
 const MainFunction = () => {
   return (
@@ -178,10 +179,21 @@ const DepartmentRoute = () => {
 const ReceptionistRoute = () => {
   return (
     <div>
-        <ReceptionistNavbar/>
-        <ReceptionistSidebar/>
-        <Outlet />
-        <ScrollToTop />
+      <ReceptionistNavbar />
+      <ReceptionistSidebar />
+      <Outlet />
+      <ScrollToTop />
+    </div>
+  )
+}
+
+const PlanningRoute = () => {
+  return (
+    <div>
+      <PlanningNavbar />
+      <PlanningSidebar />
+      <Outlet />
+      <ScrollToTop />
     </div>
   )
 }
@@ -284,19 +296,27 @@ const router = createBrowserRouter([
       { path: '/student-complaint', element: <DepartStudentComplaint /> },
       { path: '/teacher-complaint', element: <DepartTeacherComplaint /> },
       { path: '/parent-complaint', element: <DepartParentsComplaint /> },
-      {path: "/depart-documents", element: <DepartmentDocuments />},
+      { path: "/depart-documents", element: <DepartmentDocuments /> },
       { path: '/submit-complaint', element: <DepartmentSubmitComplaints /> },
 
 
     ]
   },
-   {
+  {
     element: <ReceptionistRoute />,
     children: [
       { path: '/visitors', element: <ReceptionistDashboard /> },
-      
+
     ]
   },
+
+
+  {
+    element: <PlanningRoute />,
+    children: [
+      {path: "/planning", element: <PlanningTeacherDocuments />}
+    ]
+  }
 ])
 
 function App() {
