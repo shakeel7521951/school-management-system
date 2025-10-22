@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FileText, ChevronRight, ChevronDown, LogOut, Menu, X } from "lucide-react";
+import {
+  FileText,
+  ChevronRight,
+  ChevronDown,
+  LogOut,
+  Menu,
+  X,
+  MessageSquareWarning,
+} from "lucide-react";
 
 const PlanningSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,7 +57,7 @@ const PlanningSidebar = () => {
               <h2 className="text-lg font-bold text-[#0B055A]">
                 Planning Department
               </h2>
-              <p className="text-xs text-gray-500">Dashboard</p>
+              <p className="text-md text-gray-700">Dashboard</p>
             </>
           )}
         </div>
@@ -90,6 +98,51 @@ const PlanningSidebar = () => {
                   className="block px-3 py-1.5 text-sm text-gray-700 rounded-md hover:bg-gray-100"
                 >
                   Uploaded Documents
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Complaints Dropdown */}
+          <div>
+            <button
+              onClick={() =>
+                setOpenDropdown(openDropdown === "complaints" ? null : "complaints")
+              }
+              className="w-full flex items-center justify-between px-3 py-2.5 text-gray-700 
+              hover:bg-indigo-50 rounded-lg transition-all"
+            >
+              <div className="flex items-center gap-3">
+                <MessageSquareWarning className="w-5 h-5 text-[#0B055A]" />
+                {isOpen && <span className="font-medium text-sm">Complaints</span>}
+              </div>
+              {isOpen &&
+                (openDropdown === "complaints" ? (
+                  <ChevronDown size={16} className="text-gray-500" />
+                ) : (
+                  <ChevronRight size={16} className="text-gray-500" />
+                ))}
+            </button>
+
+            {isOpen && openDropdown === "complaints" && (
+              <div className="ml-9 mt-1 space-y-1">
+                <Link
+                  to="/planning-teacher-complaints"
+                  className="block px-3 py-1.5 text-sm text-gray-700 rounded-md hover:bg-gray-100"
+                >
+                  Teacher Complaints
+                </Link>
+                <Link
+                  to="/planning-students-complaints"
+                  className="block px-3 py-1.5 text-sm text-gray-700 rounded-md hover:bg-gray-100"
+                >
+                  Student Complaints
+                </Link>
+                <Link
+                  to="/planning-parents-complaints"
+                  className="block px-3 py-1.5 text-sm text-gray-700 rounded-md hover:bg-gray-100"
+                >
+                  Parent Complaints
                 </Link>
               </div>
             )}

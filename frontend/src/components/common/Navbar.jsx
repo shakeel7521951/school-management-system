@@ -22,7 +22,7 @@ export default function Navbar() {
   const [openSubmenu, setOpenSubmenu] = useState(null) // for nested submenus inside services
 
   const profile = useSelector(selectUserProfile)
-
+console.log(profile)
   const [logout, { isLoading }] = useLogoutMutation()
 
   const navLinks = [
@@ -420,7 +420,7 @@ export default function Navbar() {
                           {t('navbar.profile.receptionDashboard')}
                         </NavLink>
                       )}
-                       {profile?.role?.toLowerCase() === 'planningDepartment' && (
+                       {profile?.role === 'planningDepartment' && (
                         <NavLink
                           to='/planning-uploaded'
                           className='block px-4 py-2 hover:text-indigo-700'
@@ -845,7 +845,7 @@ export default function Navbar() {
                           {t('navbar.profile.departmentDashboard')}
                         </NavLink>
                       )}
-                       {profile?.role?.toLowerCase() === 'planningDepartment' && (
+                        {profile?.role === 'planningDepartment' && (
                         <NavLink
                           to='/planning-uploaded'
                           className='block px-4 py-2 hover:text-indigo-700'

@@ -13,8 +13,17 @@ const Navbar = ({ onMenuClick }) => {
   // Redux user profile
   const userProfile = useSelector(selectUserProfile);
 
+  // 🧠 Helper function: format camelCase or PascalCase to readable format
+  const formatRole = (role) => {
+    if (!role) return "Employee";
+    return role
+      .replace(/([A-Z])/g, " $1") // add space before uppercase letters
+      .replace(/^./, (str) => str.toUpperCase()) // capitalize first letter
+      .trim();
+  };
+
   const userName = userProfile?.name || "User";
-  const userRole = userProfile?.role || "Employee";
+  const userRole = formatRole(userProfile?.role);
   const initial = userName ? userName.charAt(0).toUpperCase() : "?";
 
   // RTK Query logout mutation

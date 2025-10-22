@@ -56,7 +56,7 @@
       "securityDashboard": "Security Dashboard",
       "departmentDashboard": "Department Dashboard",
       "receptionDashboard": "Reception Dashboard",
-      "planningDepartmentDashboard":"Planning Department Dashboard",
+      "planningDepartmentDashboard":"Planning Department",
       "logout": "Logout",
       "loggingOut": "Logging out..."
     },
