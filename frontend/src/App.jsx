@@ -318,9 +318,9 @@ const router = createBrowserRouter([
     children: [
       {path: "/planning-uploaded", element: <PlanningUploadedDocument />},
       {path: "/planning-requested", element: <PlanningRequestedDocument />},
-      {path: "/planning-teacher-complaints", element: <PlanningTeacherComplain />},
-      {path: "/planning-students-complaints", element: <PlanningStudentComplain />},
-      {path: "/planning-parents-complaints", element: <PlanningParentComplaints/>}
+      // {path: "/planning-teacher-complaints", element: <PlanningTeacherComplain />},
+      // {path: "/planning-students-complaints", element: <PlanningStudentComplain />},
+      // {path: "/planning-parents-complaints", element: <PlanningParentComplaints/>}
 
 
 

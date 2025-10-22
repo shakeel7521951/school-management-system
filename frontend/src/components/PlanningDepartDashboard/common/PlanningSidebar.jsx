@@ -104,7 +104,7 @@ const PlanningSidebar = () => {
           </div>
 
           {/* Complaints Dropdown */}
-          <div>
+          {/* <div>
             <button
               onClick={() =>
                 setOpenDropdown(openDropdown === "complaints" ? null : "complaints")
@@ -146,7 +146,7 @@ const PlanningSidebar = () => {
                 </Link>
               </div>
             )}
-          </div>
+          </div> */}
         </nav>
 
         {/* Logout */}
