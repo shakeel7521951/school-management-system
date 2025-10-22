@@ -867,42 +867,42 @@ export default function EditorPage() {
       <div className="w-[700px] py-2 m-auto bg-white text-start">
 
 
-      <div className=" w-[700px] py-2 m-auto bg-white text-start">
-        <div className="w-auto bg-pink-200 h-[100px]">
-          <img src="/images/img-7.jpeg" alt="" className="w-[100%] h-[100%] object-cover" />
-        </div>
-        {/* Editor content */}
-        <div className="flex-1 overflow-auto py-4">
-          <div ref={editorRef} className="bg-white p-8 max-w-6xl mx-auto min-h-[500px]">
-
-            {/* Image moved inside the form */}
-            <div className="w-full mb-4">
-              <img
-                src="/images/img-7.jpeg"
-                alt="Form header"
-                className="w-full h-[200px] object-cover rounded"
-              />
-            </div>
-
-            {/* Editable form content */}
-            <EditorContent editor={editor} />
+        <div className=" w-[700px] py-2 m-auto bg-white text-start">
+          <div className="w-auto bg-pink-200 h-[100px]">
+            <img src="/images/img-7.jpeg" alt="" className="w-[100%] h-[100%] object-cover" />
           </div>
-        </div>
+          {/* Editor content */}
+          <div className="flex-1 overflow-auto py-4">
+            <div ref={editorRef} className="bg-white p-8 max-w-6xl mx-auto min-h-[500px]">
 
-        {savedId && (
-          <div className="p-4 bg-blue-50 border-t">
-            <div className="max-w-4xl mx-auto text-sm">
-              <span className="font-medium">Form saved successfully!</span> ID:{" "}
-              <code className="bg-blue-100 p-1 rounded">{savedId}</code>
-              <span className="ml-4">
-                View at:{" "}
-                <code className="bg-blue-100 p-1 rounded">/view/{savedId}</code>
-              </span>
+              {/* Image moved inside the form */}
+              <div className="w-full mb-4">
+                <img
+                  src="/images/img-7.jpeg"
+                  alt="Form header"
+                  className="w-full h-[200px] object-cover rounded"
+                />
+              </div>
+
+              {/* Editable form content */}
+              <EditorContent editor={editor} />
             </div>
           </div>
-        )}
+
+          {savedId && (
+            <div className="p-4 bg-blue-50 border-t">
+              <div className="max-w-4xl mx-auto text-sm">
+                <span className="font-medium">Form saved successfully!</span> ID:{" "}
+                <code className="bg-blue-100 p-1 rounded">{savedId}</code>
+                <span className="ml-4">
+                  View at:{" "}
+                  <code className="bg-blue-100 p-1 rounded">/view/{savedId}</code>
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-
     </div>
   );
 }
