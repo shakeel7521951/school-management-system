@@ -24,7 +24,9 @@ const FormSubmissionSchema = new mongoose.Schema({
   },
   approvedByAdmin:{
     type:String,
-    required:true
+    required:true,
+    default:"pending",
+    enum:['pending','approved','rejected']
   },
   status: {
     type: String,
