@@ -3,12 +3,9 @@
     "columns": [
       { "key": "index", "label": "#", "align": "left" },
       { "key": "title", "label": "العنوان", "align": "left" },
-      { "key": "uploader", "label": "المرسل", "align": "left" },
-      { "key": "role", "label": "الدور", "align": "left" },
       { "key": "type", "label": "النوع", "align": "left" },
       { "key": "date", "label": "التاريخ", "align": "left" },
       { "key": "status", "label": "الحالة", "align": "left" },
-      { "key": "note", "label": "ملاحظة", "align": "left" },
       { "key": "actions", "label": "الإجراءات", "align": "center" }
     ],
     "headerStyles": {
@@ -21,8 +18,6 @@
   "mobileCard": {
     "fields": [
       { "key": "title", "label": "", "fontWeight": "semibold", "fontSize": "sm" },
-      { "key": "uploader", "label": "المرسل" },
-      { "key": "role", "label": "الدور" },
       { "key": "type", "label": "النوع" },
       { "key": "date", "label": "التاريخ" },
       { "key": "status", "label": "الحالة", "badge": true }
