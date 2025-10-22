@@ -336,7 +336,7 @@ const FormViewer = () => {
       <div className="flex justify-center flex-1 py-6">
         <div className="w-full max-w-[700px] bg-white shadow-md text-start">
           {/* Banner */}
-          <div className="h-[100px]">
+          <div className="h-[175px]">
             <img
               src="/images/img-7.jpeg"
               alt="Form Banner"
