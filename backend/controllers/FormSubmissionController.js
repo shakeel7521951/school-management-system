@@ -55,6 +55,18 @@ export const submitForm = async (req, res) => {
   }
 };
 
+export const submissionsApprovedByDepartment = async(req,res)=>{
+  try {
+    const submissions = await FormSubmission.find({approvedByDepartment:'approved'});
+    if(submissions.length===0){
+      return res.status(404).json({message:"No submissions approved by department found"});
+    }
+    return res.status(200).json(submissions);
+  } catch (error) {
+    return res.status(500).json({message:"Internal server error"});
+  }
+}
+
 // ✅ Get all submissions (optionally filter by formId)
 export const getAllSubmissions = async (req, res) => {
   try {
@@ -70,24 +82,32 @@ export const getAllSubmissions = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 // ✅ Update submission status
 export const updateSubmissionStatus = async (req, res) => {
   try {
     const { id } = req.params;
-    const { status } = req.body;
+    const { status, note } = req.body;
+    const updateData = { status };
+    const user = req.user;
+    if (status === "Rejected" && note) {
+      updateData.rejectNote = note;
+    }
+    if(user.role !== "admin"){
+      updateData.approvedByDepartment = status.toLowerCase();
+    }
 
+    if (user.role === "admin") {
+      updateData.approvedByAdmin = status.toLowerCase();
+    }
     const updatedSubmission = await FormSubmission.findByIdAndUpdate(
       id,
-      { status },
+      updateData,
       { new: true }
     );
-
     if (!updatedSubmission) {
       return res.status(404).json({ message: "Submission not found" });
     }
-
-    res.json(updatedSubmission);
+    return res.status(200).json("Status update successfully",updatedSubmission);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -16,6 +16,16 @@ const FormSubmissionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.Mixed,
     required: true,
   },
+  approvedByDepartment:{
+    type:String,
+    required:true,
+    default:"pending",
+    enum:['pending','approved','rejected']
+  },
+  approvedByAdmin:{
+    type:String,
+    required:true
+  },
   status: {
     type: String,
     enum: ['pending', 'reviewed', 'approved', 'rejected'],
@@ -24,6 +34,10 @@ const FormSubmissionSchema = new mongoose.Schema({
   submittedAt: {
     type: Date,
     default: Date.now,
+  },
+  rejectNote: {
+    type: String,
+    default: '',
   },
   ipAddress: String,
   userAgent: String,

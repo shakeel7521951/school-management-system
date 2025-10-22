@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { submissionsApprovedByDepartment } from "../../../../backend/controllers/FormSubmissionController";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -46,6 +47,15 @@ export const submittedFormApi = createApi({
       }),
       invalidatesTags: ["Submissions"],
     }),
+
+    submissionsApprovedByDepartment: builder.query({
+      query: () => ({
+        url: `/submissions/approvedByDepartment`,
+        method: "GET",
+      }),
+      providesTags: ["Submissions"],
+    }),
+
   }),
 });
 
@@ -54,4 +64,5 @@ export const {
   useAllSubmittedFormsQuery,
   useSubmitFormMutation,
   useUpdateSubmissionStatusMutation,
+  useSubmissionsApprovedByDepartmentQuery,
 } = submittedFormApi;

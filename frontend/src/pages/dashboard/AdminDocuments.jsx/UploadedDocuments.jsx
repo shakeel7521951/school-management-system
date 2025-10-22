@@ -4,7 +4,7 @@ import AdminDocumentsTable from "../../../components/dashboard/UploadedDocuments
 import RejectDocumentModal from "../../../components/dashboard/UploadedDocuments/RejectDocumentModal";
 import ViewDocumentModal from "../../../components/dashboard/UploadedDocuments/ViewDocumentModal";
 import {
-  useAllSubmittedFormsQuery,
+  useSubmissionsApprovedByDepartmentQuery,
   useUpdateSubmissionStatusMutation,
 } from "../../../redux/slices/SubmittedFormsApi";
 import { useTranslation } from "react-i18next";
@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 const UploadedDocuments = () => {
   const { t } = useTranslation("uploadedDocuments");
 
-  const { data: submissions = [], isLoading, refetch } = useAllSubmittedFormsQuery();
+  const { data: submissions = [], isLoading, refetch } = useSubmissionsApprovedByDepartmentQuery();
   const [updateStatus] = useUpdateSubmissionStatusMutation();
 
   const [selectedDoc, setSelectedDoc] = useState(null);
