@@ -82,8 +82,84 @@ const FormViewer = () => {
     }
   };
 
+  // ✅ Updated Download Function with Elegant Design
   const handleDownload = () => {
-    const blob = new Blob([htmlContent], { type: "text/html" });
+    const fullHTML = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="UTF-8" />
+        <title>Downloaded Form</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+          body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f8fa;
+            padding: 40px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .form-container {
+            width: 80%;
+            max-width: 800px;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 40px;
+          }
+          .banner {
+            display: block;
+            width: 90%;
+            margin: 0 auto 30px auto;
+            border-radius: 8px;
+          }
+          h1, h2, h3 {
+            color: #104C80;
+            text-align: center;
+            margin-bottom: 20px;
+          }
+          input, select, textarea {
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 8px;
+            margin-top: 4px;
+            margin-bottom: 12px;
+            font-size: 15px;
+          }
+          button {
+            background-color: #104C80;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+          }
+          @media print {
+            body { background: white; }
+            .form-container {
+              box-shadow: none;
+              border: none;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="form-container">
+          <img 
+            src="${window.location.origin}/images/img-7.jpeg" 
+            alt="Banner" 
+            class="banner"
+          />
+          ${htmlContent}
+        </div>
+      </body>
+    </html>
+  `;
+
+    const blob = new Blob([fullHTML], { type: "text/html" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -94,19 +170,70 @@ const FormViewer = () => {
     URL.revokeObjectURL(url);
   };
 
+  // ✅ Updated Print Function with Same Design
   const handlePrint = () => {
     const printWindow = window.open("", "_blank");
     printWindow.document.write(`
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>Print Form</title>
-          <script src="https://cdn.tailwindcss.com"></script>
-          <style>body { font-family: Arial, sans-serif; padding: 20px; }</style>
-        </head>
-        <body>${htmlContent}</body>
-      </html>
-    `);
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Print Form</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+          body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f8fa;
+            padding: 40px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .form-container {
+            width: 80%;
+            max-width: 800px;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 40px;
+          }
+          .banner {
+            display: block;
+            width: 90%;
+            margin: 0 auto 30px auto;
+            border-radius: 8px;
+          }
+          h1, h2, h3 {
+            color: #104C80;
+            text-align: center;
+            margin-bottom: 20px;
+          }
+          input, select, textarea {
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 8px;
+            margin-top: 4px;
+            margin-bottom: 12px;
+            font-size: 15px;
+          }
+          @media print {
+            body { background: white; }
+            .form-container {
+              box-shadow: none;
+              border: none;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="form-container">
+          <img src="${window.location.origin}/images/img-7.jpeg" alt="Banner" class="banner" />
+          ${htmlContent}
+        </div>
+      </body>
+    </html>
+  `);
     printWindow.document.close();
     printWindow.onload = () => printWindow.print();
   };
