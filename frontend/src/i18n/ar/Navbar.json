@@ -55,6 +55,7 @@
       "securityDashboard": "لوحة تحكم الأمن",
       "departmentDashboard": "لوحة قسم الإدارة",
       "receptionDashboard": "لوحة تحكم الاستقبال",
+      "planningDepartmentDashboard": "لوحة تحكم قسم التخطيط",
       "logout": "تسجيل الخروج",
       "loggingOut": "جاري تسجيل الخروج..."
     },

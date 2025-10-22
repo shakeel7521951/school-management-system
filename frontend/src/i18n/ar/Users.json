@@ -39,7 +39,9 @@
         "guard": "حارس",
         "student": "طالب",
         "manager": "مدير",
-        "reception": "استقبال"
+        "reception": "استقبال",
+        "planningDepartment": "قسم التخطيط"
+
       },
       "toast": {
         "updateSuccess": "تم تحديث الدور إلى {{role}}",

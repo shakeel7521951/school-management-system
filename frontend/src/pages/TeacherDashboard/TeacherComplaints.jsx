@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next'
 
 const TeacherComplaints = () => {
   const { t } = useTranslation("teacherComplaints")
+
   const [showModal, setShowModal] = useState(false)
   const [selectedComplaint, setSelectedComplaint] = useState(null)
 
