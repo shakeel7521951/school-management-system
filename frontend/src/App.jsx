@@ -99,6 +99,9 @@ import PlanningNavbar from './components/PlanningDepartDashboard/common/Planning
 import PlanningSidebar from './components/PlanningDepartDashboard/common/PlanningSidebar'
 import PlanningUploadedDocument from './pages/PlanningDepartDashboard/PlanningUploadedDocument'
 import PlanningRequestedDocument from './pages/PlanningDepartDashboard/PlanningRequestedDocument'
+import PlanningTeacherComplain from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningTeacherComplain'
+import PlanningStudentComplain from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningStudentComplain'
+import PlanningParentComplaints from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningParentsComplaints'
 
 const MainFunction = () => {
   return (
@@ -314,7 +317,13 @@ const router = createBrowserRouter([
     element: <PlanningRoute />,
     children: [
       {path: "/planning-uploaded", element: <PlanningUploadedDocument />},
-      {path: "/planning-requested", element: <PlanningRequestedDocument />}
+      {path: "/planning-requested", element: <PlanningRequestedDocument />},
+      // {path: "/planning-teacher-complaints", element: <PlanningTeacherComplain />},
+      // {path: "/planning-students-complaints", element: <PlanningStudentComplain />},
+      // {path: "/planning-parents-complaints", element: <PlanningParentComplaints/>}
+
+
+
     ]
   }
 ])
