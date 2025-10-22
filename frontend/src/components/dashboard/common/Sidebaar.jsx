@@ -3,18 +3,21 @@ import * as Icons from "lucide-react";
 import { FaChartLine } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUserProfile } from "../../../redux/slices/UserSlice";
+import { useLogoutMutation } from "../../../redux/slices/UserApi";
+import { clearProfile } from "../../../redux/slices/UserSlice";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
   const { t } = useTranslation("adminSidebar");
   const [isOpen, setIsOpen] = useState(false);
   const [activeItem, setActiveItem] = useState("admincomplain");
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
   const profile = useSelector(selectUserProfile);
+  const [logout] = useLogoutMutation();
   const navigate = useNavigate();
-
   // 🧩 Department Restriction Logic
   const restrictedDept =
     profile?.department?.name ===
@@ -33,12 +36,12 @@ const Sidebar = () => {
   }, [isDesktop]);
 
   const handleLogout = () => {
-    localStorage.removeItem("adminToken");
     navigate("/login");
+    logout();
+    dispatch(clearProfile());
     if (!isDesktop) setIsOpen(false);
   };
 
-  // ✅ translations
   const app = t("app", { returnObjects: true });
   const systemStatus = t("systemStatus", { returnObjects: true });
   const menuItems = t("menuItems", { returnObjects: true });
