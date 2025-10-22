@@ -15,7 +15,7 @@ const router = express.Router();
 router.post("/create-teacher-complaint",auth, createComplaint);
 router.get("/get-all-teacher-complaints",auth, getComplaints);
 router.get("/get-teacher-complaints",auth, teacherComplaints);
-router.get("/get-teacher-complaint/:id", getComplaintById);
+router.get("/get-teacher-complaint/:id",auth, getComplaintById);
 router.put("/update-teacher-complaint/:id",auth, updateComplaint);
 router.patch("/update-teacher-complaint-status/:id",auth, updateComplaintStatus);
 router.delete("/delete-teacher-complaint/:id",auth, deleteComplaint);
