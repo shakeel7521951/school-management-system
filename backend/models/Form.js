@@ -18,6 +18,11 @@ const FormSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  submissionType: {
+    type: String,
+    enum: ['single', 'multiple'],
+    default: 'single'
+  },
   createdAt: {
     type: Date,
     default: Date.now

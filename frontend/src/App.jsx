@@ -308,7 +308,6 @@ const router = createBrowserRouter([
     element: <ReceptionistRoute />,
     children: [
       { path: '/visitors', element: <ReceptionistDashboard /> },
-
     ]
   },
 

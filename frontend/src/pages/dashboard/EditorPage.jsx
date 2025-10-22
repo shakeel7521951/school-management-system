@@ -261,6 +261,7 @@ export default function EditorPage() {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const editorRef = useRef(null);
   const [fillDuration, setFillDuration] = useState('');
+  const [submissionType, setSubmissionType] = useState('single');
 
   const editor = useEditor({
     extensions: [
@@ -508,7 +509,8 @@ export default function EditorPage() {
           content: json,
           html: html,
           title: formTitle,
-          fillDuration: fillDuration
+          fillDuration: fillDuration,
+          submissionType: submissionType
         })
       });
 
@@ -609,16 +611,30 @@ export default function EditorPage() {
         </div>
 
         {/* Right side: Fill duration */}
-        <div className="flex items-center gap-2">
-          <label>Time to fill:</label>
-          <input
-            type="number"
-            min={1}
-            value={fillDuration}
-            onChange={(e) => setFillDuration(Number(e.target.value))}
-            className="w-20 border rounded px-2 py-1"
-          />
-          <span>day(s)</span>
+        <div className="flex flex-row items-center gap-6">
+          <div className="flex items-center gap-2">
+            <label>Time to fill(day's) :</label>
+            <input
+              type="number"
+              min={1}
+              value={fillDuration}
+              onChange={(e) => setFillDuration(Number(e.target.value))}
+              className="w-20 border rounded px-2 py-1"
+            />
+          </div>
+          {/* Submission type: single or multiple */}
+          <div className="flex items-center gap-2">
+            <label>Submission type:</label>
+            <select
+              value={submissionType}
+              onChange={(e) => setSubmissionType(e.target.value)}
+              className="border rounded px-2 py-1"
+            >
+              <option value="single">Only once</option>
+              <option value="multiple">Multiple times</option>
+            </select>
+          </div>
+
         </div>
       </div>
 
@@ -842,10 +858,10 @@ export default function EditorPage() {
       </div>
 
 
-      
+
       <div className=" w-[700px] py-2 m-auto bg-white text-start">
         <div className="w-auto bg-pink-200 h-[100px]">
-          <img src="/images/img-7.jpeg" alt="" className="w-[100%] h-[100%] object-cover"/>
+          <img src="/images/img-7.jpeg" alt="" className="w-[100%] h-[100%] object-cover" />
         </div>
         {/* Editor content */}
         <div className="flex-1 overflow-auto py-4">

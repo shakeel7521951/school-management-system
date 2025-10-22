@@ -6,12 +6,15 @@ import FormSubmission from "../models/FormSubmission.js";
 export const submitForm = async (req, res) => {
   try {
     const { formId, formData } = req.body;
-
+    const { id } = req.user;
+    if (!id) {
+      return res.status(401).json({ message: "Unauthorized" })
+    }
     const form = await Form.findById(formId);
     if (!form) {
       return res.status(404).json({ message: "Form not found" });
     }
-
+    
     const createdAt = new Date(form.createdAt);
     const expiryDate = new Date(createdAt.getTime() + form.fillDuration * 24 * 60 * 60 * 1000);
     const currentDate = new Date();
@@ -22,11 +25,20 @@ export const submitForm = async (req, res) => {
         expired: true,
       });
     }
-
+    if(form.submissionType === 'single'){
+      const existingSubmission = await FormSubmission.findOne({ user: id, formId });
+      if (existingSubmission) {
+        return res.status(400).json({
+          message: "You have already submitted this form.",
+          expired: false,
+        });
+      }
+    }
+    
     const submission = new FormSubmission({
+      user: id,
       formId,
       formData,
-      ipAddress: req.ip,
       userAgent: req.get("User-Agent"),
     });
 
