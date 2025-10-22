@@ -95,9 +95,10 @@ import ReceptionistNavbar from './components/ReceptionistDashboard/common/Recept
 import ReceptionistSidebar from './components/ReceptionistDashboard/common/ReceptionistSidebar'
 import DepartmentDocuments from './pages/departmentDashboard/DepartmentDocuments'
 import DepartmentSubmitComplaints from './pages/departmentDashboard/DepartmentSubmitComplaints'
-import PlanningTeacherDocuments from './pages/PlanningDepartDashboard/PlanningTeacherDocuments'
 import PlanningNavbar from './components/PlanningDepartDashboard/common/PlanningNavbar'
 import PlanningSidebar from './components/PlanningDepartDashboard/common/PlanningSidebar'
+import PlanningUploadedDocument from './pages/PlanningDepartDashboard/PlanningUploadedDocument'
+import PlanningRequestedDocument from './pages/PlanningDepartDashboard/PlanningRequestedDocument'
 
 const MainFunction = () => {
   return (
@@ -315,7 +316,8 @@ const router = createBrowserRouter([
   {
     element: <PlanningRoute />,
     children: [
-      {path: "/planning", element: <PlanningTeacherDocuments />}
+      {path: "/planning-uploaded", element: <PlanningUploadedDocument />},
+      {path: "/planning-requested", element: <PlanningRequestedDocument />}
     ]
   }
 ])

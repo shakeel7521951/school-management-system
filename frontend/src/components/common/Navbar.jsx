@@ -420,6 +420,14 @@ export default function Navbar() {
                           {t('navbar.profile.receptionDashboard')}
                         </NavLink>
                       )}
+                       {profile?.role?.toLowerCase() === 'planningDepartment' && (
+                        <NavLink
+                          to='/planning-uploaded'
+                          className='block px-4 py-2 hover:text-indigo-700'
+                        >
+                          {t('navbar.profile.planningDepartmentDashboard')}
+                        </NavLink>
+                      )}
                       <button
                         onClick={handleLogout}
                         disabled={isLoading}
@@ -835,6 +843,14 @@ export default function Navbar() {
                           className='block px-4 py-2 hover:text-indigo-700'
                         >
                           {t('navbar.profile.departmentDashboard')}
+                        </NavLink>
+                      )}
+                       {profile?.role?.toLowerCase() === 'planningDepartment' && (
+                        <NavLink
+                          to='/planning-uploaded'
+                          className='block px-4 py-2 hover:text-indigo-700'
+                        >
+                          {t('navbar.profile.planningDepartmentDashboard')}
                         </NavLink>
                       )}
                   <button
