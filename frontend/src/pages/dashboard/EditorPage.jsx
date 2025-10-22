@@ -440,7 +440,13 @@ export default function EditorPage() {
     try {
       // Create a temporary div to hold the content for PDF generation
       const content = document.createElement('div');
-      content.innerHTML = editor.getHTML();
+      content.innerHTML = `
+  <div style="text-align:center; margin-bottom:20px;">
+    <img src="/images/img-7.jpeg" alt="Form Banner" style="width:100%; max-height:180px; object-fit:cover; border-radius:8px;" />
+  </div>
+  ${editor.getHTML()}
+`;
+
       content.style.width = '794px'; // A4 width in pixels at 96dpi
       content.style.padding = '20px';
       content.style.backgroundColor = 'white';
@@ -841,15 +847,23 @@ export default function EditorPage() {
         </button>
       </div>
 
+      {/* Form container */}
+      <div className="w-[700px] py-2 m-auto bg-white text-start">
 
-      
-      <div className=" w-[700px] py-2 m-auto bg-white text-start">
-        <div className="w-auto bg-pink-200 h-[100px]">
-          <img src="/images/img-7.jpeg" alt="" className="w-[100%] h-[100%] object-cover"/>
-        </div>
         {/* Editor content */}
         <div className="flex-1 overflow-auto py-4">
           <div ref={editorRef} className="bg-white p-8 max-w-6xl mx-auto min-h-[500px]">
+
+            {/* Image moved inside the form */}
+            <div className="w-full mb-4">
+              <img
+                src="/images/img-7.jpeg"
+                alt="Form header"
+                className="w-full h-[200px] object-cover rounded"
+              />
+            </div>
+
+            {/* Editable form content */}
             <EditorContent editor={editor} />
           </div>
         </div>
@@ -857,12 +871,17 @@ export default function EditorPage() {
         {savedId && (
           <div className="p-4 bg-blue-50 border-t">
             <div className="max-w-4xl mx-auto text-sm">
-              <span className="font-medium">Form saved successfully!</span> ID: <code className="bg-blue-100 p-1 rounded">{savedId}</code>
-              <span className="ml-4">View at: <code className="bg-blue-100 p-1 rounded">/view/{savedId}</code></span>
+              <span className="font-medium">Form saved successfully!</span> ID:{" "}
+              <code className="bg-blue-100 p-1 rounded">{savedId}</code>
+              <span className="ml-4">
+                View at:{" "}
+                <code className="bg-blue-100 p-1 rounded">/view/{savedId}</code>
+              </span>
             </div>
           </div>
         )}
       </div>
+
     </div>
   );
 }
