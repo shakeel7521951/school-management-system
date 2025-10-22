@@ -39,7 +39,8 @@
         "guard": "Guard",
         "student": "Student",
         "manager": "Manager",
-        "reception": "Reception"
+        "reception": "Reception",
+        "planningDepartment":"Planning Department"
       },
       "toast": {
         "updateSuccess": "Role updated to {{role}}",

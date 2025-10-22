@@ -22,7 +22,7 @@ const UsersDetail = () => {
   const [selectedUserId, setSelectedUserId] = useState(null); // ✅ to store user to delete
   const [showModal, setShowModal] = useState(false); // ✅ modal toggle
 
-  const roles = ["user", "admin", "teacher", "guard", "student", "manager", "reception"];
+  const roles = ["user", "admin", "teacher", "guard", "student", "manager", "reception","planningDepartment"];
 
   // ✅ Update Role or Department
   const handleUserUpdate = async (userId, field, newValue) => {
