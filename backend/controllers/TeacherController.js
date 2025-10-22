@@ -25,7 +25,7 @@ export const createComplaint = async (req, res) => {
 
 export const getComplaints = async (req, res) => {
   try {
-    const complaints = await TeacherComplaint.find().populate("assignedTo","name").sort({ createdAt: -1 });
+    const complaints = await TeacherComplaint.find().populate("assignedTo", "name").sort({ createdAt: -1 });
     return res.status(200).json({ success: true, data: complaints });
   } catch (error) {
     console.error("Error fetching complaints:", error);
@@ -94,24 +94,38 @@ export const updateComplaintStatus = async (req, res) => {
   try {
     const { status, assignedTo } = req.body;
 
+    const updateData = {};
+
+    if (status) {
+      updateData.status = status;
+    }
+
+    if (assignedTo && assignedTo.trim() !== "") {
+      updateData.assignedTo = assignedTo;
+    }
+
     const complaint = await TeacherComplaint.findByIdAndUpdate(
       req.params.id,
-      { status, assignedTo },
+      updateData,
       { new: true }
     );
 
     if (!complaint) {
-      return res.status(404).json({ success: false, message: "Complaint not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Complaint not found" });
     }
 
     return res.status(200).json({
       success: true,
-      message: "Status updated successfully",
+      message: "Complaint updated successfully",
       data: complaint,
     });
   } catch (error) {
     console.error("Error updating complaint status:", error);
-    return res.status(500).json({ success: false, message: "Internal server error" });
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal server error" });
   }
 };
 
