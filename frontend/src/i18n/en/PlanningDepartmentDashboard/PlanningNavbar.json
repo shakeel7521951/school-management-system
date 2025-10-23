@@ -1,0 +1,15 @@
+{
+  "navbar": {
+    "toggleMenu": "Toggle Menu",
+    "profile": {
+      "myProfile": "My Profile"
+    },
+    "logout": {
+      "button": "Logout",
+      "loading": "Logging out..."
+    },
+    "roles": {
+      "default": "Employee"
+    }
+  }
+}
