@@ -1,0 +1,15 @@
+{
+  "navbar": {
+    "toggleMenu": "تبديل القائمة",
+    "profile": {
+      "myProfile": "ملفي الشخصي"
+    },
+    "logout": {
+      "button": "تسجيل الخروج",
+      "loading": "جاري تسجيل الخروج..."
+    },
+    "roles": {
+      "default": "الموظف"
+    }
+  }
+}
