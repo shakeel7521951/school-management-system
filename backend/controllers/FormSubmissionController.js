@@ -57,7 +57,7 @@ export const submitForm = async (req, res) => {
 
 export const submissionsApprovedByDepartment = async(req,res)=>{
   try {
-    const submissions = await FormSubmission.find({approvedByDepartment:'approved'});
+    const submissions = await FormSubmission.find({approvedByDepartment:"resolved"});
     if(submissions.length===0){
       return res.status(404).json({message:"No submissions approved by department found"});
     }
