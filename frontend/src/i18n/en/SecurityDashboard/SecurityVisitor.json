@@ -52,6 +52,7 @@
         "placeholder": "Enter your signature"
       }
     },
+     "viewTerms": "View Terms & Conditions",
     "button": {
       "submit": "Submit Form",
       "submitting": "Submitting..."

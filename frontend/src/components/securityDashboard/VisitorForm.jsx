@@ -13,6 +13,7 @@ import {
 import { useAddVisitorMutation } from "../../redux/slices/VisitorApi";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import VisitorTermsModal from "../common/VisitorTermsModal";
 
 const VisitorForm = ({ onClose }) => {
   const { t, i18n } = useTranslation("securityVisitorForm");
@@ -29,6 +30,7 @@ const VisitorForm = ({ onClose }) => {
     signature: "",
   });
 
+  const [showTerms, setShowTerms] = useState(false); // ✅ controls Terms modal visibility
   const [addVisitor, { isLoading }] = useAddVisitorMutation();
 
   async function handleSubmit(e) {
@@ -230,18 +232,36 @@ const VisitorForm = ({ onClose }) => {
           />
         </div>
 
-        {/* Agreement */}
-        <div className="mt-4 flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
-          <input
-            type="checkbox"
-            checked={form.agreeRules}
-            onChange={(e) => setForm({ ...form, agreeRules: e.target.checked })}
-            className="w-4 h-4 accent-[#104c80]"
-          />
-          <label className="text-sm text-slate-700">
-            {t("visitorForm.fields.agreeRules.label")}
-          </label>
-        </div>
+      
+{/* Agreement + Terms Link */}
+<div className="mt-4 bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 flex flex-wrap items-center justify-center sm:justify-between gap-3 text-sm">
+  {/* View Terms Button first */}
+  <button
+    type="button"
+    onClick={() => setShowTerms(true)}
+    className="text-[#104c80] font-medium underline hover:text-[#082f56] transition"
+  >
+    {t("visitorForm.viewTerms")}
+  </button>
+
+  {/* Checkbox comes after link */}
+  <div className="flex items-center gap-2">
+    <input
+      type="checkbox"
+      checked={form.agreeRules}
+      onChange={(e) => setForm({ ...form, agreeRules: e.target.checked })}
+      className="w-4 h-4 accent-[#104c80] cursor-pointer"
+      id="agreeRules"
+    />
+    <label
+      htmlFor="agreeRules"
+      className="text-gray-700 cursor-pointer select-none"
+    >
+      {t("visitorForm.fields.agreeRules.label")}
+    </label>
+  </div>
+</div>
+
 
         {/* Thank You Note */}
         <p className="text-sm md:text-[15px] text-green-600 mt-2 text-center">
@@ -260,6 +280,9 @@ const VisitorForm = ({ onClose }) => {
             : t("visitorForm.button.submit")}
         </button>
       </form>
+
+      {/* --- Terms Modal --- */}
+      <VisitorTermsModal open={showTerms} onClose={() => setShowTerms(false)} />
     </div>
   );
 };

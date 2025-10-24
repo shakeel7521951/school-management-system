@@ -130,7 +130,7 @@ console.log(profile)
 
                   {/* Dropdowns */}
                   {link.key === 'tamakon' && (
-                    <div className='absolute text-[15px] overflow-hidden left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50'>
+                    <div className='absolute text-[15px] overflow-hidden left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50 whitespace-normal'>
                       <NavLink
                         to='/about-tamakon'
                         className='block px-4 py-2 hover:text-indigo-700'
@@ -170,7 +170,7 @@ console.log(profile)
                   {link.key === 'services' && (
                     <div className='font-base text-[15px] absolute left-24 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50'>
                       {/* Academic Services with dropdown */}
-                      <div className='relative group/submenu '>
+                      <div className='relative group/submenu  whitespace-normal braek-words '>
                         <button className='w-full  text-left px-4 py-2 hover:text-indigo-700 flex justify-between items-center'>
                           {t(
                             'navbar.navLinks.services.dropdown.academicServices'
@@ -212,7 +212,7 @@ console.log(profile)
                         {t('navbar.navLinks.services.dropdown.publicRelations')}
                       </NavLink>
 
-                      <div className='relative group/submenu '>
+                      <div className='relative group/submenu whitespace-normal break-words '>
                         <button className='w-full text-left px-4 py-2 hover:text-indigo-700 flex justify-between items-center'>
                           {t('navbar.navLinks.services.dropdown.speechTherapy')}
                           <span className='ml-2'>▸</span>
