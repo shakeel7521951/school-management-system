@@ -103,6 +103,7 @@ import PlanningTeacherComplain from './pages/PlanningDepartDashboard/PlanningCom
 import PlanningStudentComplain from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningStudentComplain'
 import PlanningParentComplaints from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningParentsComplaints'
 import Blogs from './pages/Blogs'
+import AdminBlog from './pages/dashboard/AdminBlog'
 
 const MainFunction = () => {
   return (
@@ -260,6 +261,7 @@ const router = createBrowserRouter([
       { path: 'registration-data', element: <RegistrationData /> },
       { path: "/analytics", element: <AnalyticsPage /> },
       { path: "/departments", element: <AdminDepartmentPage /> },
+      { path: "/admin-blog", element: <AdminBlog /> }
       // { path: 'reports', element: <Reports /> }
     ]
   },

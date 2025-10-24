@@ -4,26 +4,24 @@ import { FaChartLine } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserProfile } from "../../../redux/slices/UserSlice";
+import { selectUserProfile, clearProfile } from "../../../redux/slices/UserSlice";
 import { useLogoutMutation } from "../../../redux/slices/UserApi";
-import { clearProfile } from "../../../redux/slices/UserSlice";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation("adminSidebar");
   const [isOpen, setIsOpen] = useState(false);
   const [activeItem, setActiveItem] = useState("admincomplain");
-  const [openDropdown, setOpenDropdown] = useState(null);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
   const profile = useSelector(selectUserProfile);
   const [logout] = useLogoutMutation();
   const navigate = useNavigate();
+
   // 🧩 Department Restriction Logic
   const restrictedDept =
     profile?.department?.name ===
     "Department of Strategic Planning for Quality and School Accreditation";
-
-  const canViewComplaints = !restrictedDept; 
+  const canViewComplaints = !restrictedDept;
 
   useEffect(() => {
     const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
@@ -46,9 +44,21 @@ const Sidebar = () => {
   const systemStatus = t("systemStatus", { returnObjects: true });
   const menuItems = t("menuItems", { returnObjects: true });
 
-  // ✅ Filter complaint routes if user is from restricted department
-  const filteredMenuItems = menuItems.filter((item) => {
-    // if complaints dropdown or route
+  // ✅ Add single Blog section (no dropdown)
+  const blogSection = {
+    
+    id: "/admin-blog",  
+    label: "Blog",
+    icon: "FileText",
+    color: "text-blue-600",
+    hover: "hover:bg-indigo-50 hover:text-indigo-700",
+  };
+
+  // Combine existing menu items + Blog
+  const allMenuItems = [...menuItems, blogSection];
+
+  // Filter restricted complaint items
+  const filteredMenuItems = allMenuItems.filter((item) => {
     if (!canViewComplaints && item.id.includes("complain")) return false;
     if (
       !canViewComplaints &&
@@ -61,6 +71,7 @@ const Sidebar = () => {
 
   return (
     <>
+      {/* Overlay for mobile */}
       {!isDesktop && isOpen && (
         <div
           className="fixed inset-0 bg-black/40 z-40 lg:hidden"
@@ -68,9 +79,10 @@ const Sidebar = () => {
         ></div>
       )}
 
+      {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full bg-white border-r border-gray-200
-                    shadow-2xl transition-all duration-500 z-50 flex flex-col justify-between
+        className={`fixed top-0 left-0 h-full bg-white border-r border-gray-200 shadow-2xl 
+                    transition-all duration-500 z-50 flex flex-col justify-between
                     ${isOpen ? "w-64" : "w-0 lg:w-64"} overflow-hidden`}
       >
         {/* Logo Section */}
@@ -95,38 +107,28 @@ const Sidebar = () => {
           )}
         </div>
 
-        {/* Menu */}
+        {/* Menu Section */}
         <nav className="flex-grow space-y-2 mt-6 px-2">
           {filteredMenuItems.map((item) => {
-            let IconComponent = null;
-            if (item.icon === "FaChartLine") {
-              IconComponent = FaChartLine;
-            } else {
-              IconComponent = Icons[item.icon];
-            }
-
+            const IconComponent =
+              item.icon === "FaChartLine" ? FaChartLine : Icons[item.icon];
             const isActive = activeItem === item.id;
-            const isDropdownOpen = openDropdown === item.id;
 
             return (
               <div key={item.id}>
                 <button
                   onClick={() => {
-                    if (item.dropdown) {
-                      setOpenDropdown(isDropdownOpen ? null : item.id);
-                    } else {
-                      setActiveItem(item.id);
-                      navigate(item.id);
-                      if (!isDesktop) setIsOpen(false);
-                    }
+                    setActiveItem(item.id);
+                    navigate(item.id);
+                    if (!isDesktop) setIsOpen(false);
                   }}
                   className={`w-full flex items-center gap-4 px-3 py-2 rounded-lg transition-all
-                             ${
-                               isActive
-                                 ? "bg-blue-50 text-blue-700 shadow-inner"
-                                 : "text-gray-700"
-                             }
-                             ${item.hover} hover:translate-x-1 hover:scale-105`}
+                    ${
+                      isActive
+                        ? "bg-blue-50 text-blue-700 shadow-inner"
+                        : "text-gray-700"
+                    }
+                    ${item.hover} hover:translate-x-1 hover:scale-105`}
                 >
                   {IconComponent && (
                     <IconComponent
@@ -135,58 +137,15 @@ const Sidebar = () => {
                     />
                   )}
                   {isOpen && (
-                    <>
-                      <span className="text-sm font-medium">{item.label}</span>
-                      {item.dropdown &&
-                        (isDropdownOpen ? (
-                          <Icons.ChevronDown
-                            size={16}
-                            className="ml-auto text-gray-500"
-                          />
-                        ) : (
-                          <Icons.ChevronRight
-                            size={16}
-                            className="ml-auto text-gray-500"
-                          />
-                        ))}
-                    </>
+                    <span className="text-sm font-medium">{item.label}</span>
                   )}
                 </button>
-
-                {/* Dropdown */}
-                {item.dropdown && isDropdownOpen && isOpen && (
-                  <div className="ml-8 mt-1 space-y-1">
-                    {item.dropdown.map((sub) => {
-                      if (!canViewComplaints && sub.id.includes("complain"))
-                        return null;
-
-                      return (
-                        <Link
-                          key={sub.id}
-                          to={sub.id}
-                          onClick={() => {
-                            setActiveItem(sub.id);
-                            if (!isDesktop) setIsOpen(false);
-                          }}
-                          className={`block px-3 py-1.5 text-sm rounded-md
-                                    ${
-                                      activeItem === sub.id
-                                        ? "bg-green-50 text-green-700"
-                                        : "text-gray-600 hover:bg-gray-100"
-                                    }`}
-                        >
-                          {sub.label}
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
               </div>
             );
           })}
         </nav>
 
-        {/* System status + Logout */}
+        {/* System Status + Logout */}
         <div className="px-3 mb-6 space-y-3">
           {isOpen && (
             <div className="mb-4 px-2">
@@ -196,6 +155,7 @@ const Sidebar = () => {
               <p className="text-xs text-gray-500">{systemStatus.status}</p>
             </div>
           )}
+
           <button
             onClick={handleLogout}
             className="w-full group flex items-center gap-4 px-3 py-2 rounded-lg
@@ -212,7 +172,7 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* Mobile toggle button */}
+      {/* Mobile Toggle Button */}
       {!isDesktop && (
         <button
           className="fixed top-4 left-4 z-50 p-2.5 bg-blue-600 text-white shadow-lg rounded-full
