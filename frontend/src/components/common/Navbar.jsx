@@ -55,7 +55,12 @@ console.log(profile)
       name: t('navbar.navLinks.form.title'),
       path: '/form',
       dropdown: true
-    }
+    },
+    // {
+    //   key: 'blog',
+    //   name: 'Blog',
+    //   path: '/blog'
+    // }
   ]
 
   const handleLogout = async () => {
