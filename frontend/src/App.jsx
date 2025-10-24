@@ -102,6 +102,7 @@ import PlanningRequestedDocument from './pages/PlanningDepartDashboard/PlanningR
 import PlanningTeacherComplain from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningTeacherComplain'
 import PlanningStudentComplain from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningStudentComplain'
 import PlanningParentComplaints from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningParentsComplaints'
+import Blogs from './pages/Blogs'
 
 const MainFunction = () => {
   return (
@@ -228,6 +229,7 @@ const router = createBrowserRouter([
       { path: "/nursing-department", element: <NursingDepartment /> },
       { path: "/gallery", element: <GallerySection /> },
       { path: "/registration-form", element: <RegistrationForm /> },
+      { path: '/blog', element: <Blogs /> },
       // { path: '/services', element: <Event /> },
       { path: '/contact-us', element: <ContactUs /> },
       { path: '/news', element: <NewsPage /> },
