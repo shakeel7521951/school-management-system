@@ -1,8 +1,6 @@
-// controllers/formSubmissionController.js
 import Form from "../models/Form.js";
 import FormSubmission from "../models/FormSubmission.js";
 
-// Store new submission
 export const submitForm = async (req, res) => {
   try {
     const { formId, formData } = req.body;
@@ -57,7 +55,7 @@ export const submitForm = async (req, res) => {
 
 export const submissionsApprovedByDepartment = async(req,res)=>{
   try {
-    const submissions = await FormSubmission.find({approvedByDepartment:'approved'});
+    const submissions = await FormSubmission.find({approvedByDepartment:"resolved"});
     if(submissions.length===0){
       return res.status(404).json({message:"No submissions approved by department found"});
     }
@@ -67,7 +65,6 @@ export const submissionsApprovedByDepartment = async(req,res)=>{
   }
 }
 
-// ✅ Get all submissions (optionally filter by formId)
 export const getAllSubmissions = async (req, res) => {
   try {
     const { formId } = req.query;
@@ -82,7 +79,7 @@ export const getAllSubmissions = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-// ✅ Update submission status
+
 export const updateSubmissionStatus = async (req, res) => {
   try {
     const { id } = req.params;

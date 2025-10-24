@@ -45,22 +45,24 @@ console.log(profile)
       path: '/media',
       dropdown: true
     },
-    {
-      key: 'contact',
-      name: t('navbar.navLinks.contactUs'),
-      path: '/contact-us'
-    },
+    
     {
       key: 'form',
       name: t('navbar.navLinks.form.title'),
       path: '/form',
       dropdown: true
     },
-    // {
-    //   key: 'blog',
-    //   name: 'Blog',
-    //   path: '/blog'
-    // }
+    {
+      key: 'contact',
+      name: t('navbar.navLinks.contactUs'),
+      path: '/contact-us'
+    },
+    {
+      key: 'blogs',
+      name: t('navbar.navLinks.blogs'),
+      path: '/blog'
+    },
+
   ]
 
   const handleLogout = async () => {
@@ -103,7 +105,8 @@ console.log(profile)
           </NavLink>
 
           {/* Desktop Navigation Links - Center */}
-          <ul className='hidden lg:flex items-center justify-center flex-1 max-w-2xl mx-8'>
+         <ul className="hidden lg:flex items-center justify-center flex-1 flex-wrap gap-x-1 whitespace-nowrap mx-8">
+
             {navLinks.map(link =>
               link.dropdown ? (
                 <li key={link.name} className='relative group mx-2'>
@@ -312,7 +315,11 @@ console.log(profile)
                     {link.name}
                   </NavLink>
                 </li>
+                
+
               )
+           
+
             )}
           </ul>
 

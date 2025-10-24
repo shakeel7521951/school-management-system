@@ -7,10 +7,13 @@ import {
   LogOut,
   Menu,
   X,
-  MessageSquareWarning,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const PlanningSidebar = () => {
+  // Load translations from the "planningSidebar" namespace
+  const { t } = useTranslation("planningSidebar");
+
   const [isOpen, setIsOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -55,9 +58,9 @@ const PlanningSidebar = () => {
           {isOpen && (
             <>
               <h2 className="text-lg font-bold text-[#0B055A]">
-                Planning Department
+                {t("sidebar.title")}
               </h2>
-              <p className="text-md text-gray-700">Dashboard</p>
+              <p className="text-md text-gray-700">{t("sidebar.subtitle")}</p>
             </>
           )}
         </div>
@@ -68,14 +71,20 @@ const PlanningSidebar = () => {
           <div>
             <button
               onClick={() =>
-                setOpenDropdown(openDropdown === "documents" ? null : "documents")
+                setOpenDropdown(
+                  openDropdown === "documents" ? null : "documents"
+                )
               }
               className="w-full flex items-center justify-between px-3 py-2.5 text-gray-700 
               hover:bg-indigo-50 rounded-lg transition-all"
             >
               <div className="flex items-center gap-3">
                 <FileText className="w-5 h-5 text-[#0B055A]" />
-                {isOpen && <span className="font-medium text-sm">Documents</span>}
+                {isOpen && (
+                  <span className="font-medium text-sm">
+                    {t("sidebar.documents.title")}
+                  </span>
+                )}
               </div>
               {isOpen &&
                 (openDropdown === "documents" ? (
@@ -91,58 +100,13 @@ const PlanningSidebar = () => {
                   to="/planning-requested"
                   className="block px-3 py-1.5 text-sm text-gray-700 rounded-md hover:bg-gray-100"
                 >
-                  Requested Documents
+                  {t("sidebar.documents.requested")}
                 </Link>
                 <Link
                   to="/planning-uploaded"
                   className="block px-3 py-1.5 text-sm text-gray-700 rounded-md hover:bg-gray-100"
                 >
-                  Uploaded Documents
-                </Link>
-              </div>
-            )}
-          </div>
-
-          {/* Complaints Dropdown */}
-          <div>
-            <button
-              onClick={() =>
-                setOpenDropdown(openDropdown === "complaints" ? null : "complaints")
-              }
-              className="w-full flex items-center justify-between px-3 py-2.5 text-gray-700 
-              hover:bg-indigo-50 rounded-lg transition-all"
-            >
-              <div className="flex items-center gap-3">
-                <MessageSquareWarning className="w-5 h-5 text-[#0B055A]" />
-                {isOpen && <span className="font-medium text-sm">Complaints</span>}
-              </div>
-              {isOpen &&
-                (openDropdown === "complaints" ? (
-                  <ChevronDown size={16} className="text-gray-500" />
-                ) : (
-                  <ChevronRight size={16} className="text-gray-500" />
-                ))}
-            </button>
-
-            {isOpen && openDropdown === "complaints" && (
-              <div className="ml-9 mt-1 space-y-1">
-                <Link
-                  to="/planning-teacher-complaints"
-                  className="block px-3 py-1.5 text-sm text-gray-700 rounded-md hover:bg-gray-100"
-                >
-                  Teacher Complaints
-                </Link>
-                <Link
-                  to="/planning-students-complaints"
-                  className="block px-3 py-1.5 text-sm text-gray-700 rounded-md hover:bg-gray-100"
-                >
-                  Student Complaints
-                </Link>
-                <Link
-                  to="/planning-parents-complaints"
-                  className="block px-3 py-1.5 text-sm text-gray-700 rounded-md hover:bg-gray-100"
-                >
-                  Parent Complaints
+                  {t("sidebar.documents.uploaded")}
                 </Link>
               </div>
             )}
@@ -157,7 +121,11 @@ const PlanningSidebar = () => {
               text-gray-700 hover:bg-red-50 hover:text-red-600 transition-all"
           >
             <LogOut className="w-5 h-5 text-red-500" />
-            {isOpen && <span className="text-sm font-medium">Logout</span>}
+            {isOpen && (
+              <span className="text-sm font-medium">
+                {t("sidebar.logout")}
+              </span>
+            )}
           </button>
         </div>
       </div>

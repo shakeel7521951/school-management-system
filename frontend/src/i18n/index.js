@@ -188,6 +188,10 @@ import receptionistEditModal_ar from "./ar/ReceptionistDashboard/ReceptionistEdi
 import receptionistViewModal_ar from "./ar/ReceptionistDashboard/ReceptionistViewModal.json"
 import receptionistDashboard_en from "./en/ReceptionistDashboard/ReceptionistDashboard.json"
 import receptionistDashboard_ar from "./ar/ReceptionistDashboard/ReceptionistDashboard.json"
+import planningSidebar_en from "./en/PlanningDepartmentDashboard/PlanningSidebar.json"
+import planningSidebar_ar from "./ar/PlanningDepartmentDashboard/PlanningSidebar.json"
+import planningNavbar_en from "./en/PlanningDepartmentDashboard/PlanningNavbar.json"
+import planningNavbar_ar from "./ar/PlanningDepartmentDashboard/PlanningNavbar.json"
 
 
 
@@ -306,7 +310,9 @@ const resources = {
     receptionistTable:receptionistTable_en,
     receptionistDeleteModal:receptionistDeleteModal_en,
     receptionistEditModal:receptionistEditModal_en,
-    receptionistViewModal:receptionistViewModal_en
+    receptionistViewModal:receptionistViewModal_en,
+    planningSidebar:planningSidebar_en,
+    planningNavbar:planningNavbar_en
   },
 
 
@@ -432,6 +438,8 @@ const resources = {
     receptionistDeleteModal:receptionistDeleteModal_ar,
     receptionistEditModal:receptionistEditModal_ar,
     receptionistViewModal:receptionistViewModal_ar,
+    planningSidebar:planningSidebar_ar,
+    planningNavbar:planningNavbar_ar
   },
 };
 

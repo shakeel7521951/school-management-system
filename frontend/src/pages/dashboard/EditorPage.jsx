@@ -532,7 +532,7 @@ export default function EditorPage() {
       }
 
       toast(`Form ${id ? 'updated' : 'saved'} successfully! ID: ${data._id || id}`);
-      navigate("/documents/requests")
+      navigate(-1);
     } catch (err) {
       console.error('Save error:', err);
     } finally {

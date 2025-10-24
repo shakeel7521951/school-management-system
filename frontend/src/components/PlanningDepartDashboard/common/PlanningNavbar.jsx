@@ -4,21 +4,23 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectUserProfile, clearProfile } from "../../../redux/slices/UserSlice";
 import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../../redux/slices/UserApi";
+import { useTranslation } from "react-i18next"; // ✅ i18n import
 
 const Navbar = ({ onMenuClick }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation("planningNavbar"); // ✅ namespace: navbar
 
   // Redux user profile
   const userProfile = useSelector(selectUserProfile);
 
   // 🧠 Helper function: format camelCase or PascalCase to readable format
   const formatRole = (role) => {
-    if (!role) return "Employee";
+    if (!role) return t("roles.default"); // ✅ default role from i18n
     return role
-      .replace(/([A-Z])/g, " $1") // add space before uppercase letters
-      .replace(/^./, (str) => str.toUpperCase()) // capitalize first letter
+      .replace(/([A-Z])/g, " $1")
+      .replace(/^./, (str) => str.toUpperCase())
       .trim();
   };
 
@@ -56,7 +58,7 @@ const Navbar = ({ onMenuClick }) => {
         <button
           className="md:hidden p-2 rounded-lg mr-3 bg-gray-100 hover:bg-gray-200 transition-all"
           onClick={onMenuClick}
-          aria-label="Toggle Menu"
+          aria-label={t("toggleMenu")} // ✅ localized text
         >
           <Menu size={20} className="text-gray-700" />
         </button>
@@ -111,7 +113,7 @@ const Navbar = ({ onMenuClick }) => {
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-600 mr-2">
                   <User size={16} />
                 </div>
-                My Profile
+                {t("profile.myProfile")} {/* ✅ localized */}
               </button>
 
               <div className="border-t border-gray-100 my-1"></div>
@@ -124,7 +126,7 @@ const Navbar = ({ onMenuClick }) => {
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 text-red-600 mr-2">
                   <LogOut size={16} />
                 </div>
-                {isLoading ? "Logging out..." : "Logout"}
+                {isLoading ? t("logout.loading") : t("logout.button")} {/* ✅ localized */}
               </button>
             </div>
           )}

@@ -1,0 +1,13 @@
+{
+  "sidebar": {
+    "title": "Planning Department",
+    "subtitle": "Dashboard",
+    "documents": {
+      "title": "Documents",
+      "requested": "Requested Documents",
+      "uploaded": "Uploaded Documents"
+    },
+    
+    "logout": "Logout"
+  }
+}
