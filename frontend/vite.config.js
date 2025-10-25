@@ -1,12 +1,12 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-// https://vite.dev/config/
+
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
     rollupOptions: {
-      external: ["fs", "path"], // add any Node modules here
+      external: ["mongoose"], // exclude mongoose from frontend bundle
     },
   },
 });
