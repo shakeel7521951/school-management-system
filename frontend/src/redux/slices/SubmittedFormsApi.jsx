@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { submissionsApprovedByDepartment } from "../../../../backend/controllers/FormSubmissionController";
+// import { submissionsApprovedByDepartment } from "../../../../backend/controllers/FormSubmissionController";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
