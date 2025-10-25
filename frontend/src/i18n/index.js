@@ -194,8 +194,6 @@ import planningNavbar_en from "./en/PlanningDepartmentDashboard/PlanningNavbar.j
 import planningNavbar_ar from "./ar/PlanningDepartmentDashboard/PlanningNavbar.json"
 import visitorTermsModal_en from "./en/VisitorTermsModal.json"
 import visitorTermsModal_ar from "./ar/VisitorTermsModal.json"
-import partnerships_en from "./en/Partnerships.json"
-import partnerships_ar from "./ar/Partnerships.json"
 
 
 
@@ -318,19 +316,6 @@ const resources = {
     planningSidebar: planningSidebar_en,
     planningNavbar: planningNavbar_en,
     visitorTermsModal: visitorTermsModal_en
-    departParentComplaintsModals:departParentComplaintsModals_en,
-    adminVisitorsApplications:adminVisitorsApplications_en,
-    receptionistDashboard:receptionistDashboard_en,
-    receptionistNavbar:receptionistNavbar_en,
-    receptionistSidebar:receptionistSidebar_en,
-    receptionistTable:receptionistTable_en,
-    receptionistDeleteModal:receptionistDeleteModal_en,
-    receptionistEditModal:receptionistEditModal_en,
-    receptionistViewModal:receptionistViewModal_en,
-    planningSidebar:planningSidebar_en,
-    planningNavbar:planningNavbar_en,
-    visitorTermsModal:visitorTermsModal_en,
-    partnerships:partnerships_en
   },
 
 
@@ -459,36 +444,6 @@ const resources = {
     planningSidebar: planningSidebar_ar,
     planningNavbar: planningNavbar_ar,
     visitorTermsModal: visitorTermsModal_ar
-    adminParentComplaints:adminParentComplaints_ar,
-    parentComplaintsModals:parentComplaintsModals_ar,
-    parentComplaintsTable:parentComplaintsTable_ar,
-    adminDepartmentPage:adminDepartmentPage_ar,
-    departmentTable:departmentTable_ar,
-    departmentModals:departmentModals_ar,
-    departmentNavbar:departmentNavbar_ar,
-    departmentSidebar:departmentSidebar_ar,
-     departTeacherComplaintFilter:departTeacherComplaintFilter_ar,
-    departTeacherComplaints:departTeacherComplaints_ar,
-    departTeacherComplaintStats:departTeacherComplaintStats_ar,
-    departTeacherComplaintTable:departTeacherComplaintTable_ar,
-    departTeacherComplaintViewModal:departTeacherComplaintViewModal_ar,
-    departTeacherComplaintModal:departTeacherComplaintModal_ar,
-        departParentsComplaint:departParentsComplaint_ar,
-    departParentComplaintTable:departParentComplaintTable_ar,
-    departParentComplaintsModals:departParentComplaintsModals_ar,
-    departParentComplaintsModals:departParentComplaintsModals_ar,
-    adminVisitorsApplications:adminVisitorsApplications_ar,
-    receptionistDashboard:receptionistDashboard_ar,
-    receptionistNavbar:receptionistNavbar_ar,
-    receptionistSidebar:receptionistSidebar_ar,
-    receptionistTable:receptionistTable_ar,
-    receptionistDeleteModal:receptionistDeleteModal_ar,
-    receptionistEditModal:receptionistEditModal_ar,
-    receptionistViewModal:receptionistViewModal_ar,
-    planningSidebar:planningSidebar_ar,
-    planningNavbar:planningNavbar_ar,
-    visitorTermsModal:visitorTermsModal_ar,
-    partnerships:partnerships_ar
   },
 };
 

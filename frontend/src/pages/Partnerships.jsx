@@ -1,18 +1,37 @@
 import React from "react";
-import { Scale, Gamepad2, Cpu, ExternalLink } from "lucide-react";
+import { Scale, Gamepad2, Cpu , ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
-import { useTranslation } from "react-i18next";
-
-const iconMap = { Scale, Gamepad2, Cpu };
 
 const Partnerships = () => {
-  const { t } = useTranslation("partnerships");
-
-  const partners = t("partnersSection.partners", { returnObjects: true });
-  const header = t("partnersSection.header");
-  const subHeader = t("partnersSection.subHeader");
-
-  const cis = t("cisMembership", { returnObjects: true });
+  const partners = [
+    {
+      icon: <Scale className="w-10 h-10 text-[#0d008e]" />,
+      title: "Al-Saidi Law Firm & Legal Consultancy",
+      description:
+        "Al-Saidi Law Firm is one of Qatar’s leading legal firms, providing comprehensive legal services with the highest standards of professionalism. Through this partnership, we promote legal awareness among students and instill values of justice and social responsibility.",
+      link: "https://alsaidilawfirm.qa/ar/about-us/",
+      linkLabel: "Visit Official Website",
+      image: "/images/al-saidi.jpg",
+    },
+    {
+      icon: <Gamepad2 className="w-10 h-10 text-[#0d008e]" />,
+      title: "LEGO® – Educational Gaming Division",
+      description:
+        "Our partnership with LEGO® brings creativity and fun into learning. By integrating LEGO’s educational tools, we help students develop critical thinking, innovation, and teamwork through interactive experiences.",
+      link: "https://www.lego.me/en-qa/c/interests/gaming",
+      linkLabel: "Explore LEGO Gaming",
+      image: "/images/lego-gaming.jpg",
+    },
+    {
+      icon: <Cpu className="w-10 h-10 text-[#0d008e]" />,
+      title: "Nerou Technology Services",
+      description:
+        "We proudly collaborate with Nerou Technology Services, a leading AI and technology solutions provider in Qatar. This partnership enables digital transformation within our learning environment, offering smart systems and modern educational technology.",
+      link: "https://www.neroutechnologyservices.net",
+      linkLabel: "Visit Official Website",
+      image: "/images/neuro-tech.jpg",
+    },
+  ];
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-[#e6f0ff] via-white to-[#cce0f5] py-20 px-6 md:px-16 lg:px-28 overflow-hidden">
@@ -35,66 +54,70 @@ const Partnerships = () => {
           animate={{ scale: [1, 1.05, 1] }}
           transition={{ duration: 3, repeat: Infinity }}
         >
-          {header}
+          Our <span className="text-[#104c80]/80">Strategic Partners</span>
         </motion.h2>
-        <p className="text-gray-700 max-w-3xl mx-auto text-lg leading-relaxed">{subHeader}</p>
+        <p className="text-gray-700 max-w-3xl mx-auto text-lg leading-relaxed">
+          At <span className="font-semibold text-[#104c80]">Altamkon School</span>, we collaborate with global leaders
+          to enrich education with innovation, creativity, and excellence —
+          preparing students to thrive in the world of tomorrow.
+        </p>
       </motion.div>
 
       {/* Partners Section */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 relative z-10">
-        {partners.map((partner, index) => {
-          const IconComponent = iconMap[partner.icon];
-          return (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: index * 0.15 }}
-              whileHover={{
-                y: -10,
-                scale: 1.02,
-                boxShadow: "0 15px 35px rgba(16,76,128,0.15)"
-              }}
-              className="group bg-white/80 backdrop-blur-lg shadow-lg rounded-3xl overflow-hidden border border-indigo-100 transition-all duration-500 flex flex-col"
-            >
-              {/* Image Section */}
-              <div className="relative h-56 overflow-hidden">
-                <img
-                  src={partner.image}
-                  alt={partner.title}
-                  className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#080156]/70 via-transparent to-transparent"></div>
-                <div className="absolute bottom-4 left-5 text-white flex items-center gap-3">
-                  <div
-                    className="bg-white/60 p-3 rounded-full backdrop-blur-md flex items-center justify-center shadow-md"
-                    style={{ color: partner.iconColor }}
-                  >
-                    <IconComponent className="w-10 h-10" />
-                  </div>
-                  <h3 className="text-lg font-semibold tracking-tight drop-shadow-md">{partner.title}</h3>
-                </div>
-              </div>
-
-              {/* Content Section */}
-              <div className="flex flex-col justify-between flex-grow p-6">
-                <p className="text-gray-700 text-justify leading-normal flex-grow">{partner.description}</p>
-                <motion.a
-                  href={partner.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ x: 4, color: "#104c80" }}
-                  className="mt-5 inline-flex items-center text-[#080156] font-semibold gap-2 hover:underline"
-                >
-                  <ExternalLink className="w-5 h-5" />
-                  {partner.linkLabel}
-                </motion.a>
-              </div>
-            </motion.div>
-          );
-        })}
+  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 relative z-10">
+  {partners.map((partner, index) => (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7, delay: index * 0.15 }}
+      whileHover={{
+        y: -10,
+        scale: 1.02,
+        boxShadow: "0 15px 35px rgba(16,76,128,0.15)",
+      }}
+      className="group bg-white/80 backdrop-blur-lg shadow-lg rounded-3xl overflow-hidden border border-indigo-100 transition-all duration-500 flex flex-col"
+    >
+      {/* Image Section */}
+      <div className="relative h-56 overflow-hidden">
+        <img
+          src={partner.image}
+          alt={partner.title}
+          className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080156]/70 via-transparent to-transparent"></div>
+        <div className="absolute bottom-4 left-5 text-white flex items-center gap-3">
+          <div className="bg-white/60 p-3 rounded-full backdrop-blur-md flex items-center justify-center shadow-md">
+            {partner.icon}
+          </div>
+          <h3 className="text-lg font-semibold tracking-tight drop-shadow-md">
+            {partner.title}
+          </h3>
+        </div>
       </div>
+
+      {/* Content Section */}
+      <div className="flex flex-col justify-between flex-grow p-6">
+        <p className="text-gray-700 text-justify leading-normal flex-grow">
+          {partner.description}
+        </p>
+
+        <motion.a
+          href={partner.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          whileHover={{ x: 4, color: "#104c80" }}
+          className="mt-5 inline-flex items-center text-[#080156] font-semibold gap-2 hover:underline"
+        >
+          <ExternalLink className="w-5 h-5" />
+          {partner.linkLabel}
+        </motion.a>
+      </div>
+    </motion.div>
+  ))}
+</div>
+
 
       {/* CIS Membership Section */}
       <motion.div
@@ -106,20 +129,39 @@ const Partnerships = () => {
       >
         <div className="grid md:grid-cols-2 gap-6 items-center">
           {/* Image */}
-          <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.6 }} className="h-full">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.6 }}
+            className="h-full"
+          >
             <img
-              src={cis.image}
-              alt={cis.title}
+              src="/images/CIS-member.jpg"
+              alt="CIS Membership"
               className="object-cover w-full h-full rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none"
             />
           </motion.div>
 
           {/* Content */}
           <div className="p-10">
-            <h3 className="text-3xl font-bold text-[#104c80] mb-4">{cis.title}</h3>
-            {cis.description.map((desc, idx) => (
-              <p key={idx} className="text-gray-700 leading-relaxed mb-3">{desc}</p>
-            ))}
+            <h3 className="text-3xl font-bold text-[#104c80] mb-4">
+              🇬🇧 Council of International Schools (CIS) Membership
+            </h3>
+            <p className="text-gray-700 leading-relaxed mb-3">
+              Altamkon School is proud to be a CIS Member School, joining a
+              global community of leading international institutions committed
+              to high-quality education, continuous improvement, and global
+              citizenship.
+            </p>
+            <p className="text-gray-700 leading-relaxed mb-3">
+              As a CIS Member, we uphold the highest international standards in
+              teaching, learning, and student well-being — ensuring our students
+              are nurtured to become global thinkers and ethical leaders.
+            </p>
+            <p className="text-gray-700 leading-relaxed">
+              This membership connects us to a worldwide network of educators
+              who share a common goal: preparing students to become compassionate,
+              responsible, and future-ready global citizens.
+            </p>
           </div>
         </div>
       </motion.div>
