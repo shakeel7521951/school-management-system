@@ -103,6 +103,7 @@ import PlanningTeacherComplain from './pages/PlanningDepartDashboard/PlanningCom
 import PlanningStudentComplain from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningStudentComplain'
 import PlanningParentComplaints from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningParentsComplaints'
 import Blogs from './pages/Blogs'
+import Partnerships from './pages/Partnerships'
 
 const MainFunction = () => {
   return (
@@ -237,7 +238,9 @@ const router = createBrowserRouter([
       // { path: '/complainform', element: <ComplaintForm /> },
       // { path: '/complainstatus', element: <ComplaintForm /> },
       { path: '/my-profile', element: <ProfilePage /> },
-      { path: "/parent-complaint-form", element: <ParentComplaintForm /> }
+      { path: "/parent-complaint-form", element: <ParentComplaintForm /> },
+      { path: "/partnerships", element: <Partnerships/> },
+
 
     ]
   },

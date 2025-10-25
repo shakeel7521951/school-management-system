@@ -1,0 +1,44 @@
+{
+  "partnersSection": {
+    "header": "Our Strategic Partners",
+    "subHeader": "At Altamkon School, we collaborate with global leaders to enrich education with innovation, creativity, and excellence — preparing students to thrive in the world of tomorrow.",
+    "partners": [
+      {
+        "title": "Al-Saidi Law Firm & Legal Consultancy",
+        "description": "Al-Saidi Law Firm is one of Qatar’s leading legal firms, providing comprehensive legal services with the highest standards of professionalism. Through this partnership, we promote legal awareness among students and instill values of justice and social responsibility.",
+        "linkLabel": "Visit Official Website",
+        "link": "https://alsaidilawfirm.qa/ar/about-us/",
+        "icon": "Scale",
+        "iconColor": "#0d008e",
+        "image": "/images/al-saidi.jpg"
+      },
+      {
+        "title": "LEGO® – Educational Gaming Division",
+        "description": "Our partnership with LEGO® brings creativity and fun into learning. By integrating LEGO’s educational tools, we help students develop critical thinking, innovation, and teamwork through interactive experiences.",
+        "linkLabel": "Explore LEGO Gaming",
+        "link": "https://www.lego.me/en-qa/c/interests/gaming",
+        "icon": "Gamepad2",
+        "iconColor": "#0d008e",
+        "image": "/images/lego-gaming.jpg"
+      },
+      {
+        "title": "Nerou Technology Services",
+        "description": "We proudly collaborate with Nerou Technology Services, a leading AI and technology solutions provider in Qatar. This partnership enables digital transformation within our learning environment, offering smart systems and modern educational technology.",
+        "linkLabel": "Visit Official Website",
+        "link": "https://www.neroutechnologyservices.net",
+        "icon": "Cpu",
+        "iconColor": "#0d008e",
+        "image": "/images/neuro-tech.jpg"
+      }
+    ]
+  },
+  "cisMembership": {
+    "title": "Council of International Schools (CIS) Membership",
+    "description": [
+      "Altamkon School is proud to be a CIS Member School, joining a global community of leading international institutions committed to high-quality education, continuous improvement, and global citizenship.",
+      "As a CIS Member, we uphold the highest international standards in teaching, learning, and student well-being — ensuring our students are nurtured to become global thinkers and ethical leaders.",
+      "This membership connects us to a worldwide network of educators who share a common goal: preparing students to become compassionate, responsible, and future-ready global citizens."
+    ],
+    "image": "/images/CIS-member.jpg"
+  }
+}

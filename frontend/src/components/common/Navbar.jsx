@@ -9,7 +9,7 @@ import { toggleLanguage } from '../../redux/slices/languageSlice'
 import VisitorFormModal from './VisitorFormModal'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
-export default function Navbar() {
+export default function Navbar () {
   const { t } = useTranslation('navbar')
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -22,7 +22,7 @@ export default function Navbar() {
   const [openSubmenu, setOpenSubmenu] = useState(null) // for nested submenus inside services
 
   const profile = useSelector(selectUserProfile)
-console.log(profile)
+  console.log(profile)
   const [logout, { isLoading }] = useLogoutMutation()
 
   const navLinks = [
@@ -45,7 +45,7 @@ console.log(profile)
       path: '/media',
       dropdown: true
     },
-    
+
     {
       key: 'form',
       name: t('navbar.navLinks.form.title'),
@@ -62,7 +62,11 @@ console.log(profile)
       name: t('navbar.navLinks.blogs'),
       path: '/blog'
     },
-
+    {
+      key: 'partners',
+      name: t('navbar.navLinks.partners'),
+      path: '/partnerships'
+    }
   ]
 
   const handleLogout = async () => {
@@ -81,17 +85,16 @@ console.log(profile)
   }
 
   const dashboardAccessDepartments = [
-    "Office of the General Director",
-    "Office of the International Educational Development Advisor",
-    "Department of Strategic Planning for Quality and School Accreditation"
-  ];
-
+    'Office of the General Director',
+    'Office of the International Educational Development Advisor',
+    'Department of Strategic Planning for Quality and School Accreditation'
+  ]
 
   return (
     <>
       {/* Top Navbar */}
       <nav className='w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-[#1A3570] via-[#1A4480] to-[#2E3A87] shadow-lg backdrop-blur'>
-        <div className='container mx-auto relative flex items-center justify-between px-3 sm:px-4 md:px-6 py-3'>
+        <div className=' mx-auto relative flex items-center justify-between px-3 sm:px-4 md:px-6 py-3'>
           {/* Logo */}
           <NavLink
             to='/'
@@ -105,8 +108,7 @@ console.log(profile)
           </NavLink>
 
           {/* Desktop Navigation Links - Center */}
-         <ul className="hidden lg:flex items-center justify-center flex-1 flex-wrap gap-x-1 whitespace-nowrap mx-8">
-
+          <ul className='hidden lg:flex items-center justify-center flex-1 flex-wrap gap-x-1 whitespace-nowrap mx-8'>
             {navLinks.map(link =>
               link.dropdown ? (
                 <li key={link.name} className='relative group mx-2'>
@@ -157,7 +159,7 @@ console.log(profile)
                           'navbar.navLinks.tamakon.dropdown.actingDirectorMessage'
                         )}
                       </NavLink>
-                     
+
                       <NavLink
                         to='/faqs'
                         className='block px-4 py-2 hover:text-indigo-700'
@@ -306,20 +308,17 @@ console.log(profile)
                   <NavLink
                     to={link.path}
                     className={({ isActive }) =>
-                      `relative pb-1 transition duration-300 px-3 py-2 ${isActive
-                        ? 'text-indigo-300 font-semibold after:w-full'
-                        : 'text-gray-200 hover:text-indigo-300  after:w-0 hover:after:w-full'
+                      `relative pb-1 transition duration-300 px-3 py-2 ${
+                        isActive
+                          ? 'text-indigo-300 font-semibold after:w-full'
+                          : 'text-gray-200 hover:text-indigo-300  after:w-0 hover:after:w-full'
                       } after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-gradient-to-r after:from-indigo-400 after:to-purple-400 after:transition-all after:duration-300`
                     }
                   >
                     {link.name}
                   </NavLink>
                 </li>
-                
-
               )
-           
-
             )}
           </ul>
 
@@ -373,17 +372,17 @@ console.log(profile)
                       >
                         {t('navbar.profile.myProfile')}{' '}
                       </NavLink>
-                      {(
-                        profile?.role?.toLowerCase() === "admin" ||
-                        dashboardAccessDepartments.includes(profile?.department?.name)
-                      ) && (
-                          <NavLink
-                            to="/analytics"
-                            className="block px-4 py-2 hover:text-indigo-700"
-                          >
-                            {t("navbar.profile.adminDashboard")}
-                          </NavLink>
-                        )}
+                      {(profile?.role?.toLowerCase() === 'admin' ||
+                        dashboardAccessDepartments.includes(
+                          profile?.department?.name
+                        )) && (
+                        <NavLink
+                          to='/analytics'
+                          className='block px-4 py-2 hover:text-indigo-700'
+                        >
+                          {t('navbar.profile.adminDashboard')}
+                        </NavLink>
+                      )}
                       {profile?.role === 'teacher' && (
                         <NavLink
                           to='/teacherdocuments'
@@ -416,7 +415,7 @@ console.log(profile)
                           {t('navbar.profile.securityDashboard')}
                         </NavLink>
                       )}
-                       {profile?.role?.toLowerCase() === 'manager' && (
+                      {profile?.role?.toLowerCase() === 'manager' && (
                         <NavLink
                           to='/submit-complaint'
                           className='block px-4 py-2 hover:text-indigo-700'
@@ -424,7 +423,7 @@ console.log(profile)
                           {t('navbar.profile.departmentDashboard')}
                         </NavLink>
                       )}
-                       {profile?.role?.toLowerCase() === 'reception' && (
+                      {profile?.role?.toLowerCase() === 'reception' && (
                         <NavLink
                           to='/visitors'
                           className='block px-4 py-2 hover:text-indigo-700'
@@ -432,7 +431,7 @@ console.log(profile)
                           {t('navbar.profile.receptionDashboard')}
                         </NavLink>
                       )}
-                       {profile?.role === 'planningDepartment' && (
+                      {profile?.role === 'planningDepartment' && (
                         <NavLink
                           to='/planning-uploaded'
                           className='block px-4 py-2 hover:text-indigo-700'
@@ -445,7 +444,9 @@ console.log(profile)
                         disabled={isLoading}
                         className='w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition'
                       >
-                        {isLoading ? 'Logging out...' : 'Logout'}
+                        {isLoading
+                          ? t('navbar.profile.loggingOut')
+                          : t('navbar.profile.logout')}
                       </button>
                     </div>
                   )}
@@ -474,8 +475,9 @@ console.log(profile)
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 max-w-full bg-gradient-to-b from-[#1A3570] to-[#2E3A87] border-l border-indigo-400 shadow-2xl transform transition-transform duration-300 z-50 p-4 sm:p-6 ${isOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
+        className={`fixed top-0 right-0 h-full w-80 max-w-full bg-gradient-to-b from-[#1A3570] to-[#2E3A87] border-l border-indigo-400 shadow-2xl transform transition-transform duration-300 z-50 p-4 sm:p-6 ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
       >
         {/* Header */}
         <div className='flex justify-between items-center mb-6'>
@@ -500,9 +502,10 @@ console.log(profile)
                   to={link.path}
                   onClick={() => setIsOpen(false)}
                   className={({ isActive }) =>
-                    `block py-3 px-4 rounded-lg transition duration-300 ${isActive
-                      ? 'bg-indigo-800 text-indigo-300 font-semibold'
-                      : 'text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30'
+                    `block py-3 px-4 rounded-lg transition duration-300 ${
+                      isActive
+                        ? 'bg-indigo-800 text-indigo-300 font-semibold'
+                        : 'text-indigo-100 hover:text-indigo-300 hover:bg-indigo-800/30'
                     }`
                   }
                 >
@@ -559,8 +562,7 @@ console.log(profile)
                       >
                         {t('navbar.navLinks.tamakon.dropdown.directorMessage')}
                       </NavLink>
-                     
-                     
+
                       <NavLink
                         to='/faqs'
                         onClick={() => setIsOpen(false)}
@@ -849,22 +851,22 @@ console.log(profile)
                       {t('navbar.profile.studentDashboard')}
                     </NavLink>
                   )}
-                   {profile?.role?.toLowerCase() === 'manager' && (
-                        <NavLink
-                          to='/submit-complaint'
-                          className='block px-4 py-2 hover:text-indigo-700'
-                        >
-                          {t('navbar.profile.departmentDashboard')}
-                        </NavLink>
-                      )}
-                        {profile?.role === 'planningDepartment' && (
-                        <NavLink
-                          to='/planning-uploaded'
-                          className='block px-4 py-2 hover:text-indigo-700'
-                        >
-                          {t('navbar.profile.planningDepartmentDashboard')}
-                        </NavLink>
-                      )}
+                  {profile?.role?.toLowerCase() === 'manager' && (
+                    <NavLink
+                      to='/submit-complaint'
+                      className='block px-4 py-2 hover:text-indigo-700'
+                    >
+                      {t('navbar.profile.departmentDashboard')}
+                    </NavLink>
+                  )}
+                  {profile?.role === 'planningDepartment' && (
+                    <NavLink
+                      to='/planning-uploaded'
+                      className='block px-4 py-2 hover:text-indigo-700'
+                    >
+                      {t('navbar.profile.planningDepartmentDashboard')}
+                    </NavLink>
+                  )}
                   <button
                     onClick={handleLogout}
                     disabled={isLoading}
