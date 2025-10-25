@@ -27,9 +27,18 @@
       "color": "text-[#3B82F6]",
       "hover": "hover:bg-pink-50",
       "dropdown": [
-        { "id": "/studentcomplain", "label": "Students Complaints" },
-        { "id": "/teachercomplain", "label": "Teachers Complaints" },
-        {"id":"/parentcomplain","label":"Parents Complaints"}
+        {
+          "id": "/studentcomplain",
+          "label": "Students Complaints"
+        },
+        {
+          "id": "/teachercomplain",
+          "label": "Teachers Complaints"
+        },
+        {
+          "id": "/parentcomplain",
+          "label": "Parents Complaints"
+        }
       ]
     },
     {
@@ -39,8 +48,14 @@
       "color": "text-[#3B82F6]",
       "hover": "hover:bg-green-50",
       "dropdown": [
-        { "id": "/documents/requests", "label": "Requested Documents" },
-        { "id": "/documents/uploaded", "label": "Uploaded Documents" }
+        {
+          "id": "/documents/requests",
+          "label": "Requested Documents"
+        },
+        {
+          "id": "/documents/uploaded",
+          "label": "Uploaded Documents"
+        }
       ]
     },
     {
@@ -65,12 +80,19 @@
       "hover": "hover:bg-amber-50"
     },
     {
-  "id": "departments",
-  "label": "Departments",
-  "icon": "Building2",
-  "color": "text-[#3B82F6]",
-  "hover": "hover:bg-amber-50"
-}
+      "id": "departments",
+      "label": "Departments",
+      "icon": "Building2",
+      "color": "text-[#3B82F6]",
+      "hover": "hover:bg-amber-50"
+    },
+    {
+      "id": "blog",
+      "label": "Blogs",
+      "icon": "FileText",
+      "color": "text-[#3B82F6]",
+      "hover": "hover:bg-amber-50"
+    }
   ],
   "logout": "Logout"
 }

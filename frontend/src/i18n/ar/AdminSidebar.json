@@ -27,9 +27,18 @@
       "color": "text-[#3B82F6]",
       "hover": "hover:bg-pink-50",
       "dropdown": [
-        { "id": "/studentcomplain", "label": "شكاوى الطلاب" },
-        { "id": "/teachercomplain", "label": "شكاوى المعلمين" },
-        {"id":"/parentcomplain","label":" شكاوى أولياء الأمور"}
+        {
+          "id": "/studentcomplain",
+          "label": "شكاوى الطلاب"
+        },
+        {
+          "id": "/teachercomplain",
+          "label": "شكاوى المعلمين"
+        },
+        {
+          "id": "/parentcomplain",
+          "label": " شكاوى أولياء الأمور"
+        }
       ]
     },
     {
@@ -39,8 +48,14 @@
       "color": "text-[#3B82F6]",
       "hover": "hover:bg-green-50",
       "dropdown": [
-        { "id": "/documents/requests", "label": "المستندات المطلوبة" },
-        { "id": "/documents/uploaded", "label": "المستندات المرفوعة" }
+        {
+          "id": "/documents/requests",
+          "label": "المستندات المطلوبة"
+        },
+        {
+          "id": "/documents/uploaded",
+          "label": "المستندات المرفوعة"
+        }
       ]
     },
     {
@@ -64,14 +79,20 @@
       "color": "text-[#3B82F6]",
       "hover": "hover:bg-amber-50"
     },
-      {
-  "id": "departments",
-  "label": "الأقسام",
-  "icon": "Building2",
-  "color": "text-[#3B82F6]",
-  "hover": "hover:bg-amber-50"
-}
-
+    {
+      "id": "departments",
+      "label": "الأقسام",
+      "icon": "Building2",
+      "color": "text-[#3B82F6]",
+      "hover": "hover:bg-amber-50"
+    },
+    {
+      "id": "blog",
+      "label": "المدونات",
+      "icon": "FileText",
+      "color": "text-[#3B82F6]",
+      "hover": "hover:bg-amber-50"
+    }
   ],
   "logout": "تسجيل الخروج"
 }
