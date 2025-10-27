@@ -66,6 +66,11 @@ export default function Navbar () {
       key: 'partners',
       name: t('navbar.navLinks.partners'),
       path: '/partnerships'
+    },
+     {
+      key: 'books',
+      name: t('navbar.navLinks.books'),
+      path: '/books'
     }
   ]
 
@@ -108,11 +113,11 @@ export default function Navbar () {
           </NavLink>
 
           {/* Desktop Navigation Links - Center */}
-          <ul className='hidden lg:flex items-center justify-center flex-1 flex-wrap gap-x-1 whitespace-nowrap mx-8'>
+          <ul className='hidden lg:flex items-center justify-center flex-1 flex-wrap gap-x-1 whitespace-nowrap mx-1'>
             {navLinks.map(link =>
               link.dropdown ? (
                 <li key={link.name} className='relative group mx-2'>
-                  <button className='relative pb-1 text-gray-200 hover:text-indigo-300 transition duration-300 flex items-center gap-1 after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-gradient-to-r after:from-indigo-400 after:to-purple-400 after:transition-all after:duration-300 px-3 py-2'>
+                  <button className='relative pb-1 text-gray-200 hover:text-indigo-300 transition duration-300 flex items-center gap-1 after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-gradient-to-r after:from-indigo-400 after:to-purple-400 after:transition-all after:duration-300 px-1 py-2'>
                     {link.name}
                     <svg
                       className='w-4 h-4 transform group-hover:rotate-180 transition'
@@ -170,7 +175,7 @@ export default function Navbar () {
                   )}
 
                   {link.key === 'services' && (
-                    <div className='font-base text-[15px] absolute left-24 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50'>
+                    <div className='font-base text-[15px] absolute left-20 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50'>
                       {/* Academic Services with dropdown */}
                       <div className='relative group/submenu  whitespace-normal braek-words '>
                         <button className='w-full  text-left px-4 py-2 hover:text-indigo-700 flex justify-between items-center'>
@@ -220,7 +225,7 @@ export default function Navbar () {
                           <span className='ml-2'>▸</span>
                         </button>
 
-                        <div className='absolute top-0 right-full mr-1 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50'>
+                        <div className='absolute top-0 right-full mr-1 w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50'>
                           <NavLink
                             to='/speech-therapy'
                             className='block px-4 py-2 hover:text-indigo-700'
@@ -239,7 +244,7 @@ export default function Navbar () {
                           </NavLink>
                         </div>
 
-                        <div className=' absolute top-8 left-[-550px] w-56 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50'>
+                        <div className=' absolute top-8 left-[-470px] w-44 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover/submenu:opacity-100 group-hover/submenu:scale-100 invisible group-hover/submenu:visible transition-all duration-300 origin-top-right z-50'>
                           <NavLink
                             to='/nursing-department'
                             className='block px-4 py-2 hover:text-indigo-700'

@@ -52,7 +52,7 @@ export default function HeaderSection() {
       {/* Background video */}
       <video
         className="absolute top-0 left-0 w-full h-full object-cover pointer-events-none z-0"
-        src="/videos/video-1.mp4"
+        src="/videos/students-video.mp4"
         autoPlay
         loop
         muted
@@ -60,7 +60,7 @@ export default function HeaderSection() {
       />
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/70 to-black/80 pointer-events-none z-0" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black/70 to-black/70 pointer-events-none z-0" />
 
       {/* Swiper */}
       <Swiper

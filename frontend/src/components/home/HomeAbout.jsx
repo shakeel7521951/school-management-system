@@ -87,25 +87,24 @@ export default function HomeAbout() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <motion.div
-            className="relative w-full max-w-md rounded-3xl overflow-hidden shadow-2xl ring-1 ring-[#1A4480]/10"
-            whileHover={{ scale: 1.05, rotate: 0.5 }}
-            transition={{ duration: 0.5 }}
-          >
-            <motion.video
-              src="./videos/video-2.mp4"
-              className="w-full h-full object-cover rounded-3xl"
-              aria-label={t("homeAbout.imageAlt")}
-              autoPlay
-              muted
-              loop
-              playsInline
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1A4480]/40 to-transparent" />
-          </motion.div>
+        <motion.div
+  className="relative w-full max-w-md rounded-[2rem] overflow-hidden shadow-2xl ring-2 ring-[#1A4480]/30 p-2 bg-gradient-to-br from-[#e5ecf9] to-[#ffffff]"
+  whileHover={{ scale: 1.05}}
+  transition={{ duration: 0.5 }}
+>
+  <motion.div className="relative rounded-[1.5rem] overflow-hidden ring-4 ring-white shadow-lg">
+    <motion.img
+      src="/images/Certificate.jpg"
+      className="w-full h-full object-cover rounded-[1.5rem]"
+      aria-label={t("homeAbout.imageAlt")}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.5, ease: "easeInOut" }}
+    />
+    <div className="absolute inset-0 bg-gradient-to-t from-[#1A4480]/40 to-transparent" />
+  </motion.div>
+</motion.div>
+
 
           {/* Floating Glow Effects */}
           <motion.div

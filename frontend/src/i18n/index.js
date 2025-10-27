@@ -194,6 +194,8 @@ import planningNavbar_en from "./en/PlanningDepartmentDashboard/PlanningNavbar.j
 import planningNavbar_ar from "./ar/PlanningDepartmentDashboard/PlanningNavbar.json"
 import visitorTermsModal_en from "./en/VisitorTermsModal.json"
 import visitorTermsModal_ar from "./ar/VisitorTermsModal.json"
+import partnerships_en from "./en/Partnerships.json"
+import partnerships_ar from "./ar/Partnerships.json"
 
 
 
@@ -315,7 +317,8 @@ const resources = {
     receptionistViewModal: receptionistViewModal_en,
     planningSidebar: planningSidebar_en,
     planningNavbar: planningNavbar_en,
-    visitorTermsModal: visitorTermsModal_en
+    visitorTermsModal: visitorTermsModal_en,
+    partnerships:partnerships_en
   },
 
 
@@ -443,7 +446,8 @@ const resources = {
     receptionistViewModal: receptionistViewModal_ar,
     planningSidebar: planningSidebar_ar,
     planningNavbar: planningNavbar_ar,
-    visitorTermsModal: visitorTermsModal_ar
+    visitorTermsModal: visitorTermsModal_ar,
+       partnerships:partnerships_ar
   },
 };
 

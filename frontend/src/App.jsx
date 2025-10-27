@@ -105,6 +105,7 @@ import PlanningParentComplaints from './pages/PlanningDepartDashboard/PlanningCo
 import Blogs from './pages/Blogs'
 import AdminBlog from './pages/dashboard/AdminBlog'
 import Partnerships from './pages/Partnerships'
+import BooksAndArticles from './pages/BooksAndArticles'
 
 const MainFunction = () => {
   return (
@@ -241,6 +242,7 @@ const router = createBrowserRouter([
       { path: '/my-profile', element: <ProfilePage /> },
       { path: "/parent-complaint-form", element: <ParentComplaintForm /> },
       { path: "/partnerships", element: <Partnerships/> },
+      { path: "/books", element: <BooksAndArticles/> },
 
 
     ]
