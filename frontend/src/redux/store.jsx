@@ -20,10 +20,11 @@ export const store = configureStore({
     [teacherComplaintApi.reducerPath]: teacherComplaintApi.reducer,
     [departmentApi.reducerPath]: departmentApi.reducer,
     [parentComplaintApi.reducerPath]: parentComplaintApi.reducer,
+    [BookApi.reducerPath]: BookApi.reducer,
     user: userReducer,
-     language: languageReducer,
+    language: languageReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(userApi.middleware, stComplaintApi.middleware, submittedFormApi.middleware, VisitorApi.middleware, RegistrationApi.middleware, teacherComplaintApi.middleware,departmentApi.middleware,parentComplaintApi.middleware),
+    getDefaultMiddleware().concat(userApi.middleware, stComplaintApi.middleware, submittedFormApi.middleware, VisitorApi.middleware, RegistrationApi.middleware, teacherComplaintApi.middleware, departmentApi.middleware, parentComplaintApi.middleware),
   devTools: process.env.NODE_ENV !== "production",
 });
