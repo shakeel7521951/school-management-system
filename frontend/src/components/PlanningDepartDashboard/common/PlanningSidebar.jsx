@@ -7,6 +7,7 @@ import {
   LogOut,
   Menu,
   X,
+  BookOpen,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -111,6 +112,20 @@ const PlanningSidebar = () => {
               </div>
             )}
           </div>
+
+          {/* ✅ Single Link for Books & Articles */}
+          <Link
+            to="/planning-books-articles"
+            className="flex items-center gap-3 px-3 py-2.5 text-gray-700 
+            hover:bg-indigo-50 rounded-lg transition-all"
+          >
+            <BookOpen className="w-5 h-5 text-[#0B055A]" />
+            {isOpen && (
+              <span className="font-medium text-sm">
+                {t("sidebar.books.title")}
+              </span>
+            )}
+          </Link>
         </nav>
 
         {/* Logout */}

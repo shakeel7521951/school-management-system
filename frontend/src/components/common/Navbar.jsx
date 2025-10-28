@@ -10,7 +10,7 @@ import VisitorFormModal from './VisitorFormModal'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
 export default function Navbar () {
-  const { t } = useTranslation('navbar')
+  const { t,i18n } = useTranslation('navbar')
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
@@ -57,21 +57,14 @@ export default function Navbar () {
       name: t('navbar.navLinks.contactUs'),
       path: '/contact-us'
     },
-    {
-      key: 'blogs',
-      name: t('navbar.navLinks.blogs'),
-      path: '/blog'
+
+       {
+      key: 'others',
+      name: t('navbar.navLinks.others.title'),
+      path: '/others',
+      dropdown: true
     },
-    {
-      key: 'partners',
-      name: t('navbar.navLinks.partners'),
-      path: '/partnerships'
-    },
-     {
-      key: 'books',
-      name: t('navbar.navLinks.books'),
-      path: '/books'
-    }
+   
   ]
 
   const handleLogout = async () => {
@@ -98,7 +91,7 @@ export default function Navbar () {
   return (
     <>
       {/* Top Navbar */}
-      <nav className='w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-[#1A3570] via-[#1A4480] to-[#2E3A87] shadow-lg backdrop-blur'>
+      <nav className='w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-[#1A3570] via-[#1A4480] to-[#2E3A87] shadow-lg backdrop-blur px-4'>
         <div className=' mx-auto relative flex items-center justify-between px-3 sm:px-4 md:px-6 py-3'>
           {/* Logo */}
           <NavLink
@@ -307,6 +300,28 @@ export default function Navbar () {
                       </NavLink>
                     </div>
                   )}
+                   {link.key === 'others' && (
+                    <div className='absolute text-[15px] overflow-hidden left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50'>
+                      <NavLink
+                        to="/blog"
+                        className='block px-4 py-2 hover:text-indigo-700'
+                      >
+                        {t('navbar.navLinks.others.dropdown.blogs')}
+                      </NavLink>
+                      <NavLink
+                        to='/partnerships'
+                        className='block px-4 py-2 hover:text-indigo-700'
+                      >
+                         {t('navbar.navLinks.others.dropdown.partners')}
+                      </NavLink>
+                      <NavLink
+                        to='/books'
+                        className='block px-4 py-2 hover:text-indigo-700'
+                      >
+                        {t('navbar.navLinks.others.dropdown.books')}
+                      </NavLink>
+                    </div>
+                  )}
                 </li>
               ) : (
                 <li key={link.name} className='mx-2 mt-1'>
@@ -350,7 +365,7 @@ export default function Navbar () {
                   {t('navbar.profile.login')}
                 </NavLink>
               ) : (
-                <div className='relative'>
+                <div className='relative '>
                   <button
                     onClick={() => setProfileOpen(!profileOpen)}
                     className='flex items-center gap-2 px-3 py-2 md:px-4 md:py-2 bg-indigo-900 rounded-full text-indigo-200 hover:bg-indigo-800 hover:text-white transition'
@@ -370,7 +385,7 @@ export default function Navbar () {
                   </button>
 
                   {profileOpen && (
-                    <div className='absolute right-0 mt-2 w-52 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-50 animate-fadeIn'>
+                    <div className={`absolute mt-2 w-52 bg-white rounded-2xl shadow-2xl overflow-hidden z-50 animate-fadeIn border border-gray-200 ${i18n.language === "ar"?"left-[-28px]" : "right-[-30px]"}`}>
                       <NavLink
                         to='/my-profile'
                         className='block px-4 py-2 hover:text-indigo-700'
@@ -447,7 +462,7 @@ export default function Navbar () {
                       <button
                         onClick={handleLogout}
                         disabled={isLoading}
-                        className='w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition'
+                        className={`w-full px-4 py-2 text-red-600 hover:bg-red-50 transition ${i18n.language === "ar" ? "text-right" :"text-left"}`}
                       >
                         {isLoading
                           ? t('navbar.profile.loggingOut')
@@ -760,6 +775,32 @@ export default function Navbar () {
                       </NavLink>
                     </div>
                   )}
+                     {link.key === 'others' && openDropdown === 'others' && (
+                    <div className='ml-4 mt-1 flex flex-col gap-1'>
+                      <NavLink
+                        to='/blog'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.others.dropdown.blogs')}
+                      </NavLink>
+                      <NavLink
+                        to='/partnerships'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.others.dropdown.partners')}
+                      </NavLink>
+                      <NavLink
+                        to='/books'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.others.dropdown.books')}
+                      </NavLink>
+                     
+                    </div>
+                  )}
                 </div>
               )}
             </li>
@@ -875,9 +916,11 @@ export default function Navbar () {
                   <button
                     onClick={handleLogout}
                     disabled={isLoading}
-                    className='w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition'
+                    className={`w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition ${i18n.language === "ar" ? "text-right" :"text-left"}`}
                   >
-                    {isLoading ? 'Logging out...' : 'Logout'}
+                    {isLoading
+                          ? t('navbar.profile.loggingOut')
+                          : t('navbar.profile.logout')}
                   </button>
                 </div>
               )}

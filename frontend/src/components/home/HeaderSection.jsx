@@ -149,7 +149,7 @@ export default function HeaderSection() {
       </Swiper>
 
       {/* Navigation Buttons */}
-    {/* Navigation Buttons */}
+  
 <div className="absolute inset-0 justify-between items-center px-4 sm:px-6 md:px-8 z-40 pointer-events-none hidden sm:flex">
   <button
     className="custom-prev p-3 bg-white/15 hover:bg-white/30 backdrop-blur-xl rounded-full border border-white/40 transition pointer-events-auto"

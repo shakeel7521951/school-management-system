@@ -36,9 +36,16 @@
         }
       },
       "contactUs": "Contact Us",
-        "blogs": "Blogs",
-        "partners": "Partners",
-        "books":"Books & Articles",
+
+      "others": {
+        "title": "Others",
+        "dropdown": {
+          "blogs": "Blogs",
+          "partners": "Partners",
+          "books":"Books & Articles"
+        }
+      },
+        
        "form": {
         "title": "Form",
         "dropdown": {
