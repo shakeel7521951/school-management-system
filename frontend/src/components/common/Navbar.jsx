@@ -57,21 +57,14 @@ export default function Navbar () {
       name: t('navbar.navLinks.contactUs'),
       path: '/contact-us'
     },
-    {
-      key: 'blogs',
-      name: t('navbar.navLinks.blogs'),
-      path: '/blog'
+
+       {
+      key: 'others',
+      name: t('navbar.navLinks.others.title'),
+      path: '/others',
+      dropdown: true
     },
-    {
-      key: 'partners',
-      name: t('navbar.navLinks.partners'),
-      path: '/partnerships'
-    },
-     {
-      key: 'books',
-      name: t('navbar.navLinks.books'),
-      path: '/books'
-    }
+   
   ]
 
   const handleLogout = async () => {
@@ -98,7 +91,7 @@ export default function Navbar () {
   return (
     <>
       {/* Top Navbar */}
-      <nav className='w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-[#1A3570] via-[#1A4480] to-[#2E3A87] shadow-lg backdrop-blur'>
+      <nav className='w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-[#1A3570] via-[#1A4480] to-[#2E3A87] shadow-lg backdrop-blur px-4'>
         <div className=' mx-auto relative flex items-center justify-between px-3 sm:px-4 md:px-6 py-3'>
           {/* Logo */}
           <NavLink
@@ -304,6 +297,28 @@ export default function Navbar () {
                         className='block px-4 py-2 hover:text-indigo-700'
                       >
                         {t('navbar.navLinks.form.dropdown.parentsForm')}
+                      </NavLink>
+                    </div>
+                  )}
+                   {link.key === 'others' && (
+                    <div className='absolute text-[15px] overflow-hidden left-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-gray-200 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 invisible group-hover:visible transition-all duration-300 origin-top z-50'>
+                      <NavLink
+                        to="/blog"
+                        className='block px-4 py-2 hover:text-indigo-700'
+                      >
+                        {t('navbar.navLinks.others.dropdown.blogs')}
+                      </NavLink>
+                      <NavLink
+                        to='/partnerships'
+                        className='block px-4 py-2 hover:text-indigo-700'
+                      >
+                         {t('navbar.navLinks.others.dropdown.partners')}
+                      </NavLink>
+                      <NavLink
+                        to='/books'
+                        className='block px-4 py-2 hover:text-indigo-700'
+                      >
+                        {t('navbar.navLinks.others.dropdown.books')}
                       </NavLink>
                     </div>
                   )}
@@ -758,6 +773,32 @@ export default function Navbar () {
                       >
                         {t('navbar.navLinks.form.dropdown.parentsForm')}
                       </NavLink>
+                    </div>
+                  )}
+                     {link.key === 'others' && openDropdown === 'others' && (
+                    <div className='ml-4 mt-1 flex flex-col gap-1'>
+                      <NavLink
+                        to='/blog'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.others.dropdown.blogs')}
+                      </NavLink>
+                      <NavLink
+                        to='/partnerships'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.others.dropdown.partners')}
+                      </NavLink>
+                      <NavLink
+                        to='/books'
+                        onClick={() => setIsOpen(false)}
+                        className='block px-4 py-2 text-indigo-100 hover:text-indigo-300 text-sm'
+                      >
+                        {t('navbar.navLinks.others.dropdown.books')}
+                      </NavLink>
+                     
                     </div>
                   )}
                 </div>

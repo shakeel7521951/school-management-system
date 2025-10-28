@@ -99,13 +99,14 @@ import PlanningNavbar from './components/PlanningDepartDashboard/common/Planning
 import PlanningSidebar from './components/PlanningDepartDashboard/common/PlanningSidebar'
 import PlanningUploadedDocument from './pages/PlanningDepartDashboard/PlanningUploadedDocument'
 import PlanningRequestedDocument from './pages/PlanningDepartDashboard/PlanningRequestedDocument'
-import PlanningTeacherComplain from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningTeacherComplain'
-import PlanningStudentComplain from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningStudentComplain'
-import PlanningParentComplaints from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningParentsComplaints'
+// import PlanningTeacherComplain from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningTeacherComplain'
+// import PlanningStudentComplain from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningStudentComplain'
+// import PlanningParentComplaints from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningParentsComplaints'
 import Blogs from './pages/Blogs'
 import AdminBlog from './pages/dashboard/AdminBlog'
 import Partnerships from './pages/Partnerships'
 import BooksAndArticles from './pages/BooksAndArticles'
+import BooksAndArticlesManagement from './pages/PlanningDepartDashboard/BooksAndArticlesManagement'
 
 const MainFunction = () => {
   return (
@@ -327,6 +328,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/planning-uploaded", element: <PlanningUploadedDocument /> },
       { path: "/planning-requested", element: <PlanningRequestedDocument /> },
+      { path: "/planning-books-articles", element:<BooksAndArticlesManagement/>},
       // {path: "/planning-teacher-complaints", element: <PlanningTeacherComplain />},
       // {path: "/planning-students-complaints", element: <PlanningStudentComplain />},
       // {path: "/planning-parents-complaints", element: <PlanningParentComplaints/>}
