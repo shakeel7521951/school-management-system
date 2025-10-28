@@ -87,7 +87,7 @@
       "hover": "hover:bg-amber-50"
     },
     {
-      "id": "blog",
+      "id": "blog-editor",
       "label": "Blogs",
       "icon": "FileText",
       "color": "text-[#3B82F6]",

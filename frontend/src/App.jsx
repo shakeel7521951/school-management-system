@@ -268,7 +268,6 @@ const router = createBrowserRouter([
       { path: 'registration-data', element: <RegistrationData /> },
       { path: "/analytics", element: <AnalyticsPage /> },
       { path: "/departments", element: <AdminDepartmentPage /> },
-      { path: "/admin-blog", element: <AdminBlog /> },
       { path: "/blog-editor", element: <BlogEditor /> }
       // { path: 'reports', element: <Reports /> }
     ]
