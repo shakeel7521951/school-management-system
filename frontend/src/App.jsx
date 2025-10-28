@@ -106,6 +106,7 @@ import Blogs from './pages/Blogs'
 // import AdminBlog from './pages/dashboard/AdminBlog'
 import Partnerships from './pages/Partnerships'
 import BooksAndArticles from './pages/BooksAndArticles'
+import BooksAndArticlesManagement from './pages/PlanningDepartDashboard/BooksAndArticlesManagement';
 
 const MainFunction = () => {
   return (
@@ -267,7 +268,7 @@ const router = createBrowserRouter([
       { path: "/analytics", element: <AnalyticsPage /> },
       { path: "/departments", element: <AdminDepartmentPage /> },
       // { path: "/admin-blog", element: <AdminBlog /> },
-      { path: "/blog-editor", element: <BlogEditor /> }
+      // { path: "/blog-editor", element: <BlogEditor /> }
       // { path: 'reports', element: <Reports /> }
     ]
   },
@@ -328,6 +329,8 @@ const router = createBrowserRouter([
     children: [
       { path: "/planning-uploaded", element: <PlanningUploadedDocument /> },
       { path: "/planning-requested", element: <PlanningRequestedDocument /> },
+      { path: "/planning-books-articles", element: <BooksAndArticlesManagement /> },
+      
       // {path: "/planning-teacher-complaints", element: <PlanningTeacherComplain />},
       // {path: "/planning-students-complaints", element: <PlanningStudentComplain />},
       // {path: "/planning-parents-complaints", element: <PlanningParentComplaints/>}
