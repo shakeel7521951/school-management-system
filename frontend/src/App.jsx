@@ -104,7 +104,6 @@ import PlanningRequestedDocument from './pages/PlanningDepartDashboard/PlanningR
 // import PlanningStudentComplain from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningStudentComplain'
 // import PlanningParentComplaints from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningParentsComplaints'
 import Blogs from './pages/Blogs'
-import AdminBlog from './pages/dashboard/AdminBlog'
 import Partnerships from './pages/Partnerships'
 import BooksAndArticles from './pages/BooksAndArticles'
 import BooksAndArticlesManagement from './pages/PlanningDepartDashboard/BooksAndArticlesManagement'
