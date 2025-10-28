@@ -2,6 +2,7 @@ import './App.css'
 import Footer from './pages/Footer'
 import Navbar from './components/common/Navbar'
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
+
 import Home from './pages/Home'
 import Event from './pages/Event'
 import ContactUs from './pages/ContactUs'
@@ -107,6 +108,7 @@ import AdminBlog from './pages/dashboard/AdminBlog'
 import Partnerships from './pages/Partnerships'
 import BooksAndArticles from './pages/BooksAndArticles'
 import BooksAndArticlesManagement from './pages/PlanningDepartDashboard/BooksAndArticlesManagement'
+import BlogEditor from './pages/dashboard/BlogEditor';
 
 const MainFunction = () => {
   return (
@@ -267,7 +269,8 @@ const router = createBrowserRouter([
       { path: 'registration-data', element: <RegistrationData /> },
       { path: "/analytics", element: <AnalyticsPage /> },
       { path: "/departments", element: <AdminDepartmentPage /> },
-      { path: "/admin-blog", element: <AdminBlog /> }
+      { path: "/admin-blog", element: <AdminBlog /> },
+      { path: "/blog-editor", element: <BlogEditor /> }
       // { path: 'reports', element: <Reports /> }
     ]
   },

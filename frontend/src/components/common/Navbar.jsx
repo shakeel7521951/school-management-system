@@ -10,7 +10,7 @@ import VisitorFormModal from './VisitorFormModal'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
 export default function Navbar () {
-  const { t } = useTranslation('navbar')
+  const { t,i18n } = useTranslation('navbar')
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
@@ -365,7 +365,7 @@ export default function Navbar () {
                   {t('navbar.profile.login')}
                 </NavLink>
               ) : (
-                <div className='relative'>
+                <div className='relative '>
                   <button
                     onClick={() => setProfileOpen(!profileOpen)}
                     className='flex items-center gap-2 px-3 py-2 md:px-4 md:py-2 bg-indigo-900 rounded-full text-indigo-200 hover:bg-indigo-800 hover:text-white transition'
@@ -385,7 +385,7 @@ export default function Navbar () {
                   </button>
 
                   {profileOpen && (
-                    <div className='absolute right-0 mt-2 w-52 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-50 animate-fadeIn'>
+                    <div className={`absolute mt-2 w-52 bg-white rounded-2xl shadow-2xl overflow-hidden z-50 animate-fadeIn border border-gray-200 ${i18n.language === "ar"?"left-[-28px]" : "right-[-30px]"}`}>
                       <NavLink
                         to='/my-profile'
                         className='block px-4 py-2 hover:text-indigo-700'
@@ -462,7 +462,7 @@ export default function Navbar () {
                       <button
                         onClick={handleLogout}
                         disabled={isLoading}
-                        className='w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition'
+                        className={`w-full px-4 py-2 text-red-600 hover:bg-red-50 transition ${i18n.language === "ar" ? "text-right" :"text-left"}`}
                       >
                         {isLoading
                           ? t('navbar.profile.loggingOut')
@@ -916,9 +916,11 @@ export default function Navbar () {
                   <button
                     onClick={handleLogout}
                     disabled={isLoading}
-                    className='w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition'
+                    className={`w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition ${i18n.language === "ar" ? "text-right" :"text-left"}`}
                   >
-                    {isLoading ? 'Logging out...' : 'Logout'}
+                    {isLoading
+                          ? t('navbar.profile.loggingOut')
+                          : t('navbar.profile.logout')}
                   </button>
                 </div>
               )}
