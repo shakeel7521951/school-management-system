@@ -58,7 +58,7 @@ const Navbar = ({ onMenuClick }) => {
         <button
           className="md:hidden p-2 rounded-lg mr-3 bg-gray-100 hover:bg-gray-200 transition-all"
           onClick={onMenuClick}
-          aria-label={t("toggleMenu")} // ✅ localized text
+          aria-label={t("navbar.toggleMenu")} // ✅ localized text
         >
           <Menu size={20} className="text-gray-700" />
         </button>
@@ -113,7 +113,7 @@ const Navbar = ({ onMenuClick }) => {
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-600 mr-2">
                   <User size={16} />
                 </div>
-                {t("profile.myProfile")} {/* ✅ localized */}
+                {t("navbar.profile.myProfile")} {/* ✅ localized */}
               </button>
 
               <div className="border-t border-gray-100 my-1"></div>
@@ -126,7 +126,7 @@ const Navbar = ({ onMenuClick }) => {
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 text-red-600 mr-2">
                   <LogOut size={16} />
                 </div>
-                {isLoading ? t("logout.loading") : t("logout.button")} {/* ✅ localized */}
+                {isLoading ? t("navbar.logout.loading") : t("navbar.logout.button")} {/* ✅ localized */}
               </button>
             </div>
           )}
