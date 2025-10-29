@@ -43,6 +43,7 @@ import {
     FaArrowRight,
     FaUpload,
     FaGlobe,
+    FaTimes,
 } from "react-icons/fa";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
@@ -116,7 +117,7 @@ const ResizableImage = Image.extend({
             container.style.display = 'block';
             container.style.margin = '10px 0';
             container.style.position = 'relative';
-            
+
             if (node.attrs.float) {
                 container.style.float = node.attrs.float;
                 container.style.margin = node.attrs.float === 'left' ? '0 15px 15px 0' : '0 0 15px 15px';
@@ -173,7 +174,7 @@ const ResizableImage = Image.extend({
                 button.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    
+
                     const pos = getPos();
                     let newAttrs = { ...node.attrs };
 
@@ -201,7 +202,7 @@ const ResizableImage = Image.extend({
             container.addEventListener('mouseenter', () => {
                 controls.style.display = 'flex';
             });
-            
+
             container.addEventListener('mouseleave', (e) => {
                 if (!container.contains(e.relatedTarget)) {
                     controls.style.display = 'none';
@@ -236,7 +237,7 @@ const ResizableImage = Image.extend({
                 const newWidth = Math.max(200, Math.min(800, startWidth + dx));
 
                 img.style.width = `${newWidth}px`;
-                
+
                 // Update container width for proper text wrapping
                 if (node.attrs.float) {
                     container.style.width = `${newWidth}px`;
@@ -273,7 +274,7 @@ const ResizableImage = Image.extend({
                     resizeHandle.style.display = 'block';
                 }
             });
-            
+
             container.addEventListener('mouseleave', (e) => {
                 if (!container.contains(e.relatedTarget) && !isResizing) {
                     resizeHandle.style.display = 'none';
@@ -284,7 +285,7 @@ const ResizableImage = Image.extend({
                 dom: container,
                 update: (updatedNode) => {
                     if (updatedNode.type.name !== 'resizableImage') return false;
-                    
+
                     img.src = updatedNode.attrs.src;
                     img.alt = updatedNode.attrs.alt;
                     img.title = updatedNode.attrs.title;
@@ -330,18 +331,25 @@ const ClickablePlaceholder = Placeholder.configure({
 export default function BlogEditorPage() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [blogTitle, setBlogTitle] = useState("Untitled Blog");
+    const [blogTitle, setBlogTitle] = useState("");
+    const [blogDescription, setBlogDescription] = useState("");
+    const [posterImageFile, setPosterImageFile] = useState(null);
+    const [posterImagePreview, setPosterImagePreview] = useState("");
     const [isEditingTitle, setIsEditingTitle] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
     const [showColorPicker, setShowColorPicker] = useState(false);
     const [currentColor, setCurrentColor] = useState("#000000");
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [sidebarContent, setSidebarContent] = useState("");
-    const [activeSidebarTab, setActiveSidebarTab] = useState("notes");
+    const [activeSidebarTab, setActiveSidebarTab] = useState("details");
     const [showImageOptions, setShowImageOptions] = useState(false);
     const [imageUrl, setImageUrl] = useState("");
+    const [showPosterImageModal, setShowPosterImageModal] = useState(false);
+    const [posterImageUrl, setPosterImageUrl] = useState("");
     const fileInputRef = useRef(null);
+    const posterFileInputRef = useRef(null);
     const editorRef = useRef(null);
+    const [contentImages, setContentImages] = useState([]);
 
     const editor = useEditor({
         extensions: [
@@ -388,7 +396,7 @@ export default function BlogEditorPage() {
             const { state } = view;
             const { selection } = state;
             const { $from } = selection;
-            
+
             // If we're in an empty paragraph, ensure we can type
             if ($from.parent.content.size === 0) {
                 editor.commands.focus();
@@ -403,23 +411,23 @@ export default function BlogEditorPage() {
                 // When clicking in empty space, create a new paragraph at click position
                 const { state } = view;
                 const { doc, schema } = state;
-                
+
                 // Get the position where user clicked
                 const coordinates = view.posAtCoords({ left: event.clientX, top: event.clientY });
-                
+
                 if (coordinates) {
                     const clickedPos = coordinates.pos;
-                    
+
                     // Check if we clicked in an empty area
                     const $pos = doc.resolve(clickedPos);
                     const node = $pos.parent;
-                    
+
                     // If we clicked in an empty paragraph or at the end, focus there
                     if (node.type.name === 'paragraph' && node.content.size === 0) {
                         view.dispatch(state.tr.setSelection(state.selection.constructor.near($pos)));
                         return true;
                     }
-                    
+
                     // If we clicked at the very end of document, add new paragraph
                     if (clickedPos >= doc.content.size - 2) {
                         const transaction = state.tr.insert(clickedPos, schema.nodes.paragraph.create());
@@ -428,7 +436,7 @@ export default function BlogEditorPage() {
                         return true;
                     }
                 }
-                
+
                 return false;
             },
         },
@@ -438,15 +446,15 @@ export default function BlogEditorPage() {
     useEffect(() => {
         const handleEditorClick = (event) => {
             if (!editor) return;
-            
+
             // If clicking on the editor container but not on specific content
-            if (event.target.classList.contains('editable-container') || 
+            if (event.target.classList.contains('editable-container') ||
                 event.target.classList.contains('ProseMirror')) {
-                
+
                 const { view } = editor;
                 const { state } = view;
                 const { doc } = state;
-                
+
                 // Set cursor to the end of document
                 const endPos = doc.content.size - 1;
                 editor.commands.focus(endPos);
@@ -508,25 +516,64 @@ export default function BlogEditorPage() {
             return;
         }
 
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const imageUrl = e.target.result;
-            editor.chain().focus().setImage({
-                src: imageUrl,
-                width: "400px",
-                height: "auto",
-                float: "left"
-            }).run();
-            toast.success("Image uploaded successfully!");
-        };
-        reader.onerror = () => {
-            toast.error("Failed to upload image");
-        };
-        reader.readAsDataURL(file);
+        // Create preview URL for the editor
+        const previewUrl = URL.createObjectURL(file);
 
-        // Reset file input
+        // Add to content images array for later upload
+        setContentImages(prev => [...prev, { file, previewUrl }]);
+
+        // Add image to editor with preview URL
+        editor.chain().focus().setImage({
+            src: previewUrl,
+            width: "400px",
+            height: "auto",
+            float: "left"
+        }).run();
+        toast.success("Image added successfully!");
+
         event.target.value = '';
         setShowImageOptions(false);
+    };
+
+    // ----- Poster Image Functions -----
+    const handlePosterImageUpload = (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        // Check if file is an image
+        if (!file.type.startsWith('image/')) {
+            toast.error("Please select a valid image file");
+            return;
+        }
+
+        // Create preview URL
+        const previewUrl = URL.createObjectURL(file);
+
+        setPosterImageFile(file);
+        setPosterImagePreview(previewUrl);
+        toast.success("Poster image added successfully!");
+
+        event.target.value = '';
+        setShowPosterImageModal(false);
+    };
+
+    const addPosterImageFromUrl = () => {
+        if (posterImageUrl.trim() === "") {
+            toast.error("Please enter an image URL");
+            return;
+        }
+        // For URL images, we'll store the URL directly
+        setPosterImageFile(posterImageUrl); // Store URL as string
+        setPosterImagePreview(posterImageUrl);
+        setPosterImageUrl("");
+        setShowPosterImageModal(false);
+        toast.success("Poster image added from URL!");
+    };
+
+    const removePosterImage = () => {
+        setPosterImageFile(null);
+        setPosterImagePreview("");
+        toast.info("Poster image removed");
     };
 
     // ----- Color -----
@@ -596,7 +643,7 @@ export default function BlogEditorPage() {
     // ----- Add Empty Paragraph at Click Position -----
     const addParagraphAtCursor = useCallback(() => {
         if (!editor) return;
-        
+
         // Add a new paragraph at current cursor position
         editor.chain().focus().insertContent('<p>Start typing here...</p>').run();
     }, [editor]);
@@ -698,17 +745,55 @@ export default function BlogEditorPage() {
 
     // ----- Save -----
     const save = async () => {
-        if (!blogTitle.trim() || blogTitle === "Untitled Blog") {
+        // Validate compulsory fields
+        if (!blogTitle.trim()) {
             toast.error("Blog title is required!");
             return;
         }
+        if (!blogDescription.trim()) {
+            toast.error("Blog description is required!");
+            return;
+        }
+        if (!posterImageFile) {
+            toast.error("Poster image is required!");
+            return;
+        }
         if (!editor) return;
+
         setIsSaving(true);
-        const json = editor.getJSON();
-        const html = editor.getHTML();
 
         try {
-            let url = `${BACKEND_URL}/createBlog`;
+            const formData = new FormData();
+
+            // Add text content
+            formData.append('title', blogTitle);
+            formData.append('description', blogDescription);
+            formData.append('content', JSON.stringify(editor.getJSON()));
+            formData.append('html', editor.getHTML());
+            formData.append('sidebarContent', sidebarContent);
+
+            // Add poster image - check if it's a file or URL
+            if (typeof posterImageFile === 'string') {
+                // If it's a URL, add as string
+                formData.append('posterImage', posterImageFile);
+            } else {
+                // If it's a file, add the file
+                formData.append('posterImage', posterImageFile);
+            }
+
+            // Add content images - only files, not URLs
+            contentImages.forEach((image, index) => {
+                if (image.file && typeof image.file !== 'string') {
+                    formData.append('images', image.file); // Use 'images' field name
+                }
+            });
+
+            console.log("FormData contents:");
+            for (let [key, value] of formData.entries()) {
+                console.log(key, value instanceof File ? `File: ${value.name}` : value);
+            }
+
+            let url = `${BACKEND_URL}/create-blog`;
             let method = "POST";
             if (id) {
                 url = `${BACKEND_URL}/update-blog/${id}`;
@@ -717,21 +802,28 @@ export default function BlogEditorPage() {
 
             const res = await fetch(url, {
                 method,
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    title: blogTitle,
-                    content: json,
-                    html,
-                    sidebarContent
-                }),
+                body: formData,
             });
 
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            if (!res.ok) {
+                let errorMessage = `HTTP ${res.status}`;
+                try {
+                    const errorData = await res.json();
+                    errorMessage = errorData.message || errorMessage;
+                } catch (e) {
+                    // If response is not JSON, get the text
+                    const text = await res.text();
+                    errorMessage = text || errorMessage;
+                }
+                throw new Error(errorMessage);
+            }
+
+            const result = await res.json();
             toast.success(`Blog ${id ? "updated" : "saved"} successfully!`);
             navigate(-1);
         } catch (err) {
-            console.error(err);
-            toast.error("Failed to save blog");
+            console.error("Save error:", err);
+            toast.error(err.message || "Failed to save blog");
         } finally {
             setIsSaving(false);
         }
@@ -745,6 +837,11 @@ export default function BlogEditorPage() {
                 const res = await axios.get(`${BACKEND_URL}/single-blog/${id}`);
                 const data = res.data;
                 if (data.title) setBlogTitle(data.title);
+                if (data.description) setBlogDescription(data.description);
+                if (data.posterImage) {
+                    setPosterImageFile(data.posterImage);
+                    setPosterImagePreview(data.posterImage);
+                }
                 if (data.content) editor.commands.setContent(data.content);
                 if (data.sidebarContent) setSidebarContent(data.sidebarContent);
             } catch {
@@ -753,6 +850,20 @@ export default function BlogEditorPage() {
         };
         loadBlog();
     }, [id, editor]);
+
+    // Clean up object URLs on unmount
+    useEffect(() => {
+        return () => {
+            if (posterImagePreview && posterImagePreview.startsWith('blob:')) {
+                URL.revokeObjectURL(posterImagePreview);
+            }
+            contentImages.forEach(image => {
+                if (image.previewUrl && image.previewUrl.startsWith('blob:')) {
+                    URL.revokeObjectURL(image.previewUrl);
+                }
+            });
+        };
+    }, [posterImagePreview, contentImages]);
 
     if (!editor)
         return <div className="h-screen flex items-center justify-center">Loading editor...</div>;
@@ -777,7 +888,7 @@ export default function BlogEditorPage() {
                             className="text-2xl font-bold cursor-pointer hover:text-blue-600"
                             onClick={() => setIsEditingTitle(true)}
                         >
-                            {blogTitle}
+                            {blogTitle || "Click to enter blog title"}
                         </h1>
                     )}
                     <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-lg">
@@ -809,13 +920,13 @@ export default function BlogEditorPage() {
                     <div className="w-80 bg-white border-r border-gray-200 flex flex-col">
                         <div className="p-4 border-b border-gray-200">
                             <div className="flex space-x-2">
-                                {["notes", "media", "layout"].map((tab) => (
+                                {["details", "notes", "media", "layout"].map((tab) => (
                                     <button
                                         key={tab}
                                         onClick={() => setActiveSidebarTab(tab)}
                                         className={`px-3 py-2 rounded-lg text-sm font-medium capitalize ${activeSidebarTab === tab
-                                                ? "bg-blue-100 text-blue-700"
-                                                : "text-gray-600 hover:text-gray-900"
+                                            ? "bg-blue-100 text-blue-700"
+                                            : "text-gray-600 hover:text-gray-900"
                                             }`}
                                     >
                                         {tab}
@@ -825,6 +936,75 @@ export default function BlogEditorPage() {
                         </div>
 
                         <div className="flex-1 p-4 overflow-y-auto">
+                            {activeSidebarTab === "details" && (
+                                <div className="space-y-4">
+                                    <h3 className="text-lg font-semibold mb-3">Blog Details</h3>
+
+                                    {/* Title */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Blog Title *
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={blogTitle}
+                                            onChange={(e) => setBlogTitle(e.target.value)}
+                                            placeholder="Enter blog title"
+                                            className="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                                        />
+                                    </div>
+
+                                    {/* Description */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Description *
+                                        </label>
+                                        <textarea
+                                            value={blogDescription}
+                                            onChange={(e) => setBlogDescription(e.target.value)}
+                                            placeholder="Enter blog description"
+                                            rows="4"
+                                            className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                                        />
+                                    </div>
+
+                                    {/* Poster Image */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Poster Image *
+                                        </label>
+                                        {posterImagePreview ? (
+                                            <div className="relative">
+                                                <img
+                                                    src={posterImagePreview}
+                                                    alt="Poster preview"
+                                                    className="w-full h-32 object-cover rounded-lg border border-gray-300"
+                                                />
+                                                <button
+                                                    onClick={removePosterImage}
+                                                    className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600"
+                                                >
+                                                    <FaTimes size={12} />
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                                                <p className="text-gray-500 mb-2">No poster image selected</p>
+                                                <button
+                                                    onClick={() => setShowPosterImageModal(true)}
+                                                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                                                >
+                                                    Add Poster Image
+                                                </button>
+                                            </div>
+                                        )}
+                                        <p className="text-xs text-gray-500 mt-1">
+                                            * Required field. This image will be used as the blog thumbnail.
+                                        </p>
+                                    </div>
+                                </div>
+                            )}
+
                             {activeSidebarTab === "notes" && (
                                 <div>
                                     <h3 className="text-lg font-semibold mb-3">Sidebar Notes</h3>
@@ -1107,7 +1287,7 @@ export default function BlogEditorPage() {
                 </div>
             </div>
 
-            {/* Hidden file input for image upload */}
+            {/* Hidden file inputs */}
             <input
                 type="file"
                 ref={fileInputRef}
@@ -1115,6 +1295,76 @@ export default function BlogEditorPage() {
                 accept="image/*"
                 className="hidden"
             />
+            <input
+                type="file"
+                ref={posterFileInputRef}
+                onChange={handlePosterImageUpload}
+                accept="image/*"
+                className="hidden"
+            />
+
+            {/* Poster Image Modal */}
+            {showPosterImageModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg p-6 w-96">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-lg font-semibold">Add Poster Image</h3>
+                            <button
+                                onClick={() => setShowPosterImageModal(false)}
+                                className="text-gray-500 hover:text-gray-700"
+                            >
+                                <FaTimes />
+                            </button>
+                        </div>
+
+                        <div className="space-y-4">
+                            {/* URL Option */}
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Add from URL
+                                </label>
+                                <div className="flex gap-2">
+                                    <input
+                                        type="text"
+                                        value={posterImageUrl}
+                                        onChange={(e) => setPosterImageUrl(e.target.value)}
+                                        placeholder="Paste image URL here"
+                                        className="flex-1 p-2 border border-gray-300 rounded text-sm"
+                                    />
+                                    <button
+                                        onClick={addPosterImageFromUrl}
+                                        className="bg-green-600 text-white p-2 rounded hover:bg-green-700"
+                                    >
+                                        <FaGlobe />
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* File Upload Option */}
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Upload from Computer
+                                </label>
+                                <button
+                                    onClick={() => posterFileInputRef.current?.click()}
+                                    className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 flex items-center justify-center gap-2"
+                                >
+                                    <FaUpload /> Choose File
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="mt-4 flex justify-end">
+                            <button
+                                onClick={() => setShowPosterImageModal(false)}
+                                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <style jsx>{`
                 .ProseMirror {
