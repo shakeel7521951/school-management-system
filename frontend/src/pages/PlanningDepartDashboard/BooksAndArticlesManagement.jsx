@@ -8,13 +8,28 @@ import {
   Plus,
   X,
 } from "lucide-react";
+import {
+  useGetBooksQuery,
+  useCreateBookMutation,
+  useDeleteBookMutation,
+} from "../../redux/slices/BookApi";
 
 const BooksAndArticlesManagement = () => {
-  const [books, setBooks] = useState([]);
-  const [formData, setFormData] = useState({ title: "", description: "", file: null });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    file: null,
+    coverPhoto: null,
+  });
   const fileInputRef = useRef(null);
 
+  // ✅ RTK Query hooks
+  const { data: books = [], isLoading, refetch } = useGetBooksQuery();
+  const [createBook, { isLoading: isCreating }] = useCreateBookMutation();
+  const [deleteBook, { isLoading: isDeleting }] = useDeleteBookMutation();
+
+  // ✅ Handle input changes
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (files) {
@@ -24,31 +39,52 @@ const BooksAndArticlesManagement = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.title || !formData.description || !formData.file) {
-      alert("Please fill all fields and upload a file!");
-      return;
+
+    // 🧠 Build FormData
+    const form = new FormData();
+    form.append("title", formData.title);
+    form.append("description", formData.description);
+    form.append("pdf", formData.file);
+    form.append("coverPhoto", formData.coverPhoto);
+
+    // ✅ Log actual FormData content
+    for (let [key, value] of form.entries()) {
+      console.log(`${key}:`, value);
     }
 
-    const newBook = {
-      id: Date.now(),
-      title: formData.title,
-      description: formData.description,
-      file: URL.createObjectURL(formData.file),
-      fileName: formData.file.name,
-      type: formData.file.name.split(".").pop().toUpperCase(),
-    };
-
-    setBooks([...books, newBook]);
-    setFormData({ title: "", description: "", file: null });
-    if (fileInputRef.current) fileInputRef.current.value = "";
-    setIsModalOpen(false);
+    try {
+      const result = await createBook(form).unwrap(); // ✅ send FormData instead
+      console.log("Book created:", result);
+      alert("Book uploaded successfully!");
+      setIsModalOpen(false);
+      setFormData({ title: "", description: "", file: null, coverPhoto: null });
+      refetch();
+    } catch (err) {
+      console.error("Error creating book:", err);
+      alert("Failed to create book");
+    }
   };
 
-  const handleDelete = (id) => {
-    setBooks(books.filter((book) => book.id !== id));
+  // ✅ Handle delete
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this book?")) return;
+    try {
+      await deleteBook(id).unwrap();
+      refetch();
+    } catch (error) {
+      console.error("Error deleting book:", error);
+      alert("Failed to delete the book.");
+    }
   };
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center min-h-screen text-[#104C80] text-lg font-medium">
+        Loading books...
+      </div>
+    );
 
   return (
     <div className="p-4 sm:p-6 lg:ml-64 bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen flex flex-col items-center transition-all duration-300">
@@ -82,10 +118,20 @@ const BooksAndArticlesManagement = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {books.map((book) => (
               <div
-                key={book.id}
+                key={book._id}
                 className="border border-gray-200 rounded-2xl p-4 sm:p-5 bg-white hover:bg-[#f0f6fc] hover:-translate-y-2 hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
               >
                 <div className="absolute top-0 left-0 w-full h-1.5 bg-[#104C80]" />
+
+                {/* ✅ Cover Photo */}
+                {book.coverImageUrl && (
+                  <img
+                    src={book.coverImageUrl}
+                    alt={book.title}
+                    className="w-full h-40 object-cover rounded-lg mb-3"
+                  />
+                )}
+
                 <div>
                   <h4 className="text-base sm:text-lg font-semibold text-[#104C80] mb-1 break-words mt-2">
                     {book.title}
@@ -98,17 +144,17 @@ const BooksAndArticlesManagement = () => {
                     <div className="flex items-center gap-2 text-gray-700">
                       <FileText size={18} className="text-[#104C80]" />
                       <span className="text-xs sm:text-sm truncate">
-                        {book.fileName}
+                        {book.fileName || "File"}
                       </span>
                     </div>
                     <span className="px-2 py-0.5 text-xs bg-[#e6eff8] text-[#104C80] font-semibold rounded-md">
-                      {book.type}
+                      {book.type || "PDF"}
                     </span>
                   </div>
 
-                  {book.file.endsWith(".pdf") && (
+                  {book.pdfUrl && book.pdfUrl.endsWith(".pdf") && (
                     <iframe
-                      src={book.file}
+                      src={book.pdfUrl}
                       className="w-full h-40 sm:h-44 border border-gray-200 rounded-lg mb-3"
                       title="PDF Preview"
                     ></iframe>
@@ -116,16 +162,19 @@ const BooksAndArticlesManagement = () => {
                 </div>
 
                 <div className="flex items-center justify-between mt-auto">
-                  <a
-                    href={book.file}
-                    download={book.fileName}
-                    className="flex items-center gap-1 sm:gap-2 text-[#104C80] hover:text-[#0d3a60] font-medium text-sm sm:text-base transition-all"
-                  >
-                    <Download size={16} /> Download
-                  </a>
+                  {book.pdfUrl && (
+                    <a
+                      href={book.pdfUrl}
+                      download={book.fileName}
+                      className="flex items-center gap-1 sm:gap-2 text-[#104C80] hover:text-[#0d3a60] font-medium text-sm sm:text-base transition-all"
+                    >
+                      <Download size={16} /> Download
+                    </a>
+                  )}
                   <button
-                    onClick={() => handleDelete(book.id)}
-                    className="flex items-center gap-1 text-red-600 hover:text-red-700 transition-all font-medium text-sm sm:text-base"
+                    onClick={() => handleDelete(book._id)}
+                    disabled={isDeleting}
+                    className="flex items-center gap-1 text-red-600 hover:text-red-700 transition-all font-medium text-sm sm:text-base disabled:opacity-50"
                   >
                     <Trash2 size={16} /> Delete
                   </button>
@@ -193,11 +242,27 @@ const BooksAndArticlesManagement = () => {
                 />
               </div>
 
+              {/* ✅ Cover Photo Upload */}
+              <div className="mb-5">
+                <label className="block text-gray-700 font-medium mb-2 text-sm sm:text-base">
+                  Upload Cover Photo
+                </label>
+                <input
+                  type="file"
+                  name="coverPhoto"
+                  accept="image/*"
+                  onChange={handleChange}
+                  className="w-full text-gray-600 text-sm sm:text-base"
+                />
+              </div>
+
               <button
                 type="submit"
-                className="flex items-center justify-center gap-2 w-full bg-[#104C80] text-white px-5 py-2.5 rounded-lg hover:bg-[#0d3a60] transition-all duration-300 font-medium shadow-md text-sm sm:text-base"
+                disabled={isCreating}
+                className="flex items-center justify-center gap-2 w-full bg-[#104C80] text-white px-5 py-2.5 rounded-lg hover:bg-[#0d3a60] transition-all duration-300 font-medium shadow-md text-sm sm:text-base disabled:opacity-60"
               >
-                <Upload size={18} /> Upload Book
+                {isCreating ? "Uploading..." : <Upload size={18} />}
+                {isCreating ? "" : "Upload Book"}
               </button>
             </form>
           </div>

@@ -7,16 +7,16 @@ export const bookApi = createApi({
         baseUrl: `${BACKEND_URL}`,
         prepareHeaders: (headers, { getState }) => {
             const token = getState()?.user?.profile?.token;
-            if (token) headers.set('Authorization', `Bearer ${token}`);
-            headers.set('Content-Type', 'application/json');
+            if (token) headers.set("Authorization", `Bearer ${token}`);
             return headers;
         },
-        credentials: 'include',
+        credentials: "include",
     }),
+
     endpoints: (builder) => ({
         // GET ALL
         getBooks: builder.query({
-            query: () => `/all-books`,
+            query: () => `/get-all-books`,
             providesTags: ['Books'],
         }),
 
