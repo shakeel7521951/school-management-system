@@ -15,7 +15,7 @@ const PlanningDocumentsTable = ({
   handleApprove,
   getStatusClass,
 }) => {
-  const { t } = useTranslation("adminDocumentsTable"); // JSON namespace
+  const { t,i18n } = useTranslation("adminDocumentsTable"); // JSON namespace
 
   const tableColumns = t("table.columns", { returnObjects: true });
   const headerStyles = t("table.headerStyles", { returnObjects: true });
@@ -51,7 +51,7 @@ const PlanningDocumentsTable = ({
               }}
             >
               {tableColumns.map((col) => (
-                <th key={col.key} className={`px-4 py-3 text-${col.align}`}>
+                <th key={col.key} className={`px-4 py-3 ${i18n.language === "ar" ? "text-right" :" text-left"} `}>
                   {col.label}
                 </th>
               ))}
@@ -88,8 +88,8 @@ const PlanningDocumentsTable = ({
                       );
                     case "actions":
                       return (
-                        <td key={col.key} className="px-4 py-3">
-                          <div className="flex justify-center gap-2">
+                        <td key={col.key} className="px-1 py-3 ">
+                          <div className="flex justify-start gap-2">
                             {mobileActions.map((action) => {
                               const Icon = iconMap[action.icon];
                               return (

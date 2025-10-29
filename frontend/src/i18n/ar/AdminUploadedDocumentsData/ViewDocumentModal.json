@@ -1,21 +1,17 @@
 {
   "modal": {
-    "title": "تفاصيل الإرسال",
+    "title": "عرض الإرسال",
     "sections": {
+      "summary": {
+        "formId": "معرّف النموذج",
+        "title": "العنوان",
+        "status": "الحالة",
+        "untitled": "بدون عنوان",
+        "pending": "قيد المراجعة"
+      },
       "formData": {
         "title": "بيانات النموذج",
         "noData": "لا توجد بيانات متاحة"
-      },
-      "metaInfo": {
-        "formId": "معرف النموذج",
-        "submittedAt": "تاريخ الإرسال",
-        "ipAddress": "عنوان الـ IP",
-        "userAgent": "وكيل المستخدم",
-        "status": "الحالة"
-      },
-      "rejectionNote": {
-        "title": "ملاحظة الرفض",
-        "noNote": "لم يتم تقديم أي ملاحظة"
       }
     },
     "actions": {

@@ -257,8 +257,7 @@ const router = createBrowserRouter([
       { path: "/parent-complaint-form", element: <ParentComplaintForm /> },
       { path: "/partnerships", element: <Partnerships /> },
       { path: "/books", element: <BooksAndArticles /> },
-
-
+      
     ]
   },
   { path: '/login', element: <Login /> },

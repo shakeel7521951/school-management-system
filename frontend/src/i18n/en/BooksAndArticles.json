@@ -1,0 +1,10 @@
+{
+  "booksAndArticles": {
+    "title": "Books & Articles",
+    "subtitle": "Explore insightful books and downloadable articles focused on discipline, learning, and leadership. Download PDFs and enhance your knowledge anytime.",
+    "loading": "Loading books...",
+    "error": "Failed to load books. Please try again later.",
+    "noBooks": "No books available.",
+    "downloadBtn": "Download PDF"
+  }
+}

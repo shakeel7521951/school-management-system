@@ -1,0 +1,52 @@
+{
+  "page": {
+    "title": "Form Management",
+    "createNew": "Create New Form",
+    "loading": {
+      "text": "Loading forms..."
+    },
+    "error": {
+      "title": "Error",
+      "tryAgain": "Try Again"
+    },
+    "emptyState": {
+      "title": "No forms found",
+      "description": "Create your first form to get started.",
+      "button": "Create New Form"
+    },
+    "table": {
+      "columns": {
+        "title": "Title",
+        "created": "Created",
+        "timeLeft": "Time Left",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "published": "Published",
+        "draft": "Draft"
+      }
+    },
+    "card": {
+      "created": "Created",
+      "updated": "Updated",
+      "timeLeft": "Time Left"
+    },
+    "actions": {
+      "view": "View",
+      "edit": "Edit",
+      "download": "Download",
+      "print": "Print",
+      "delete": "Delete"
+    },
+    "deleteModal": {
+      "title": "Delete Confirmation",
+      "message": "Are you sure you want to delete this form?",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    },
+    "labels": {
+      "expired": "Expired"
+    }
+  }
+}

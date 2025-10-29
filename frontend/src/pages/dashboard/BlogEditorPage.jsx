@@ -17,6 +17,7 @@ import { Table } from "@tiptap/extension-table";
 import { TableRow } from "@tiptap/extension-table-row";
 import { TableCell } from "@tiptap/extension-table-cell";
 import { TableHeader } from "@tiptap/extension-table-header";
+import { Placeholder } from '@tiptap/extension-placeholder';
 
 import {
     FaBold,
@@ -42,6 +43,7 @@ import {
     FaArrowRight,
     FaUpload,
     FaGlobe,
+    FaTimes,
 } from "react-icons/fa";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
@@ -51,7 +53,7 @@ import { toast } from "react-toastify";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-// Custom Image extension with resize handles
+// Enhanced Image extension with better text wrapping
 const ResizableImage = Image.extend({
     name: 'resizableImage',
 
@@ -59,12 +61,12 @@ const ResizableImage = Image.extend({
         return {
             ...this.parent?.(),
             width: {
-                default: '100%',
-                parseHTML: element => element.getAttribute('data-width') || '100%',
+                default: '400px',
+                parseHTML: element => element.getAttribute('data-width') || '400px',
                 renderHTML: attributes => {
                     return {
                         'data-width': attributes.width,
-                        style: `width: ${attributes.width}; max-width: 100%; cursor: move; position: relative; display: block;`,
+                        style: `width: ${attributes.width}; max-width: 100%;`,
                     }
                 },
             },
@@ -74,7 +76,7 @@ const ResizableImage = Image.extend({
                 renderHTML: attributes => {
                     return {
                         'data-height': attributes.height,
-                        style: `height: ${attributes.height}; cursor: move; position: relative; display: block;`,
+                        style: `height: ${attributes.height};`,
                     }
                 },
             },
@@ -89,14 +91,20 @@ const ResizableImage = Image.extend({
             },
             float: {
                 default: null,
-                parseHTML: element => element.style.float || null,
+                parseHTML: element => {
+                    const float = element.style.float || element.getAttribute('data-float');
+                    return float || null;
+                },
                 renderHTML: attributes => {
                     if (attributes.float) {
                         return {
-                            style: `float: ${attributes.float}; margin: 10px;`,
+                            'data-float': attributes.float,
+                            style: `float: ${attributes.float}; margin: ${attributes.float === 'left' ? '0 15px 15px 0' : '0 0 15px 15px'}; shape-outside: margin-box;`,
                         }
                     }
-                    return {};
+                    return {
+                        style: 'margin: 15px auto; display: block;'
+                    };
                 },
             },
         }
@@ -104,16 +112,16 @@ const ResizableImage = Image.extend({
 
     addNodeView() {
         return ({ node, getPos, editor }) => {
-            const dom = document.createElement('div');
-            dom.className = 'resizable-image-container';
-            dom.style.display = 'inline-block';
-            dom.style.position = 'relative';
-            dom.style.margin = '10px';
-            dom.style.verticalAlign = 'top';
+            const container = document.createElement('div');
+            container.className = 'floating-image-container';
+            container.style.display = 'block';
+            container.style.margin = '10px 0';
+            container.style.position = 'relative';
 
             if (node.attrs.float) {
-                dom.style.float = node.attrs.float;
-                dom.style.margin = `10px ${node.attrs.float === 'left' ? '10px 10px 10px 0' : '0 10px 10px 10px'}`;
+                container.style.float = node.attrs.float;
+                container.style.margin = node.attrs.float === 'left' ? '0 15px 15px 0' : '0 0 15px 15px';
+                container.style.shapeOutside = 'margin-box';
             }
 
             const img = document.createElement('img');
@@ -123,16 +131,90 @@ const ResizableImage = Image.extend({
             img.style.width = node.attrs.width;
             img.style.height = node.attrs.height;
             img.style.maxWidth = '100%';
-            img.style.cursor = 'move';
             img.style.display = 'block';
+            img.style.borderRadius = '4px';
+            img.style.cursor = 'move';
             img.draggable = false;
 
-            // Create resize handle
+            // Enhanced controls
+            const controls = document.createElement('div');
+            controls.className = 'image-controls';
+            controls.style.position = 'absolute';
+            controls.style.top = '-35px';
+            controls.style.left = '50%';
+            controls.style.transform = 'translateX(-50%)';
+            controls.style.display = 'none';
+            controls.style.background = 'white';
+            controls.style.border = '1px solid #ddd';
+            controls.style.borderRadius = '6px';
+            controls.style.padding = '5px';
+            controls.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
+            controls.style.zIndex = '1000';
+            controls.style.gap = '2px';
+            controls.style.display = 'flex';
+
+            const alignmentButtons = [
+                { icon: '⬅', value: 'left', title: 'Float Left with Text Wrap' },
+                { icon: '⏹', value: 'none', title: 'No Float - Block Display' },
+                { icon: '➡', value: 'right', title: 'Float Right with Text Wrap' },
+                { icon: '📏', value: 'center', title: 'Center - No Text Wrap' },
+            ];
+
+            alignmentButtons.forEach(btn => {
+                const button = document.createElement('button');
+                button.innerHTML = btn.icon;
+                button.title = btn.title;
+                button.style.padding = '4px 6px';
+                button.style.border = 'none';
+                button.style.background = node.attrs.float === btn.value ? '#e2e8f0' : 'transparent';
+                button.style.borderRadius = '3px';
+                button.style.cursor = 'pointer';
+                button.style.fontSize = '12px';
+
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const pos = getPos();
+                    let newAttrs = { ...node.attrs };
+
+                    if (btn.value === 'center') {
+                        newAttrs.float = null;
+                        newAttrs.width = '100%';
+                    } else if (btn.value === 'none') {
+                        newAttrs.float = null;
+                        newAttrs.width = '400px';
+                    } else {
+                        newAttrs.float = btn.value;
+                        newAttrs.width = node.attrs.width === '100%' ? '400px' : node.attrs.width;
+                    }
+
+                    editor.view.dispatch(editor.view.state.tr.setNodeMarkup(pos, null, newAttrs));
+                });
+
+                controls.appendChild(button);
+            });
+
+            container.appendChild(img);
+            container.appendChild(controls);
+
+            // Show controls on hover
+            container.addEventListener('mouseenter', () => {
+                controls.style.display = 'flex';
+            });
+
+            container.addEventListener('mouseleave', (e) => {
+                if (!container.contains(e.relatedTarget)) {
+                    controls.style.display = 'none';
+                }
+            });
+
+            // Resize functionality
             const resizeHandle = document.createElement('div');
             resizeHandle.className = 'resize-handle';
             resizeHandle.style.position = 'absolute';
-            resizeHandle.style.right = '-5px';
-            resizeHandle.style.bottom = '-5px';
+            resizeHandle.style.right = '-6px';
+            resizeHandle.style.bottom = '-6px';
             resizeHandle.style.width = '12px';
             resizeHandle.style.height = '12px';
             resizeHandle.style.background = '#4299e1';
@@ -141,122 +223,25 @@ const ResizableImage = Image.extend({
             resizeHandle.style.cursor = 'nwse-resize';
             resizeHandle.style.zIndex = '10';
             resizeHandle.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+            resizeHandle.style.display = 'none';
 
-            // Create float controls
-            const floatControls = document.createElement('div');
-            floatControls.className = 'float-controls';
-            floatControls.style.position = 'absolute';
-            floatControls.style.top = '-30px';
-            floatControls.style.left = '50%';
-            floatControls.style.transform = 'translateX(-50%)';
-            floatControls.style.display = 'none';
-            floatControls.style.background = 'white';
-            floatControls.style.border = '1px solid #ccc';
-            floatControls.style.borderRadius = '4px';
-            floatControls.style.padding = '4px';
-            floatControls.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
-            floatControls.style.zIndex = '20';
-
-            const leftBtn = document.createElement('button');
-            leftBtn.innerHTML = '⬅';
-            leftBtn.title = 'Align Left';
-            leftBtn.style.padding = '4px 8px';
-            leftBtn.style.margin = '0 2px';
-            leftBtn.style.border = 'none';
-            leftBtn.style.background = node.attrs.float === 'left' ? '#e2e8f0' : 'transparent';
-            leftBtn.style.borderRadius = '2px';
-            leftBtn.style.cursor = 'pointer';
-
-            const centerBtn = document.createElement('button');
-            centerBtn.innerHTML = '⏺';
-            centerBtn.title = 'Center';
-            centerBtn.style.padding = '4px 8px';
-            centerBtn.style.margin = '0 2px';
-            centerBtn.style.border = 'none';
-            centerBtn.style.background = !node.attrs.float ? '#e2e8f0' : 'transparent';
-            centerBtn.style.borderRadius = '2px';
-            centerBtn.style.cursor = 'pointer';
-
-            const rightBtn = document.createElement('button');
-            rightBtn.innerHTML = '➡';
-            rightBtn.title = 'Align Right';
-            rightBtn.style.padding = '4px 8px';
-            rightBtn.style.margin = '0 2px';
-            rightBtn.style.border = 'none';
-            rightBtn.style.background = node.attrs.float === 'right' ? '#e2e8f0' : 'transparent';
-            rightBtn.style.borderRadius = '2px';
-            rightBtn.style.cursor = 'pointer';
-
-            floatControls.appendChild(leftBtn);
-            floatControls.appendChild(centerBtn);
-            floatControls.appendChild(rightBtn);
-
-            dom.appendChild(img);
-            dom.appendChild(resizeHandle);
-            dom.appendChild(floatControls);
-
-            // Show/hide float controls
-            dom.addEventListener('mouseenter', () => {
-                floatControls.style.display = 'block';
-            });
-            dom.addEventListener('mouseleave', () => {
-                floatControls.style.display = 'none';
-            });
-
-            // Float control handlers
-            leftBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const pos = getPos();
-                editor.view.dispatch(editor.view.state.tr.setNodeMarkup(pos, null, {
-                    ...node.attrs,
-                    float: 'left',
-                }));
-                leftBtn.style.background = '#e2e8f0';
-                centerBtn.style.background = 'transparent';
-                rightBtn.style.background = 'transparent';
-            });
-
-            centerBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const pos = getPos();
-                editor.view.dispatch(editor.view.state.tr.setNodeMarkup(pos, null, {
-                    ...node.attrs,
-                    float: null,
-                }));
-                leftBtn.style.background = 'transparent';
-                centerBtn.style.background = '#e2e8f0';
-                rightBtn.style.background = 'transparent';
-            });
-
-            rightBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const pos = getPos();
-                editor.view.dispatch(editor.view.state.tr.setNodeMarkup(pos, null, {
-                    ...node.attrs,
-                    float: 'right',
-                }));
-                leftBtn.style.background = 'transparent';
-                centerBtn.style.background = 'transparent';
-                rightBtn.style.background = '#e2e8f0';
-            });
+            container.appendChild(resizeHandle);
 
             let isResizing = false;
-            let startX, startY, startWidth, startHeight;
+            let startX, startWidth;
 
             const onMouseMove = (e) => {
                 if (!isResizing) return;
 
                 const dx = e.clientX - startX;
-                const dy = e.clientY - startY;
-
-                const newWidth = Math.max(100, startWidth + dx);
-                const newHeight = Math.max(100, startHeight + dy);
+                const newWidth = Math.max(200, Math.min(800, startWidth + dx));
 
                 img.style.width = `${newWidth}px`;
-                img.style.height = `${newHeight}px`;
+
+                // Update container width for proper text wrapping
+                if (node.attrs.float) {
+                    container.style.width = `${newWidth}px`;
+                }
             };
 
             const onMouseUp = () => {
@@ -264,12 +249,10 @@ const ResizableImage = Image.extend({
                 document.removeEventListener('mousemove', onMouseMove);
                 document.removeEventListener('mouseup', onMouseUp);
 
-                // Update the node attributes with new dimensions
                 const pos = getPos();
                 editor.view.dispatch(editor.view.state.tr.setNodeMarkup(pos, null, {
                     ...node.attrs,
-                    width: `${img.style.width}`,
-                    height: `${img.style.height}`,
+                    width: img.style.width,
                 }));
             };
 
@@ -279,69 +262,58 @@ const ResizableImage = Image.extend({
 
                 isResizing = true;
                 startX = e.clientX;
-                startY = e.clientY;
                 startWidth = parseInt(img.style.width) || img.offsetWidth;
-                startHeight = parseInt(img.style.height) || img.offsetHeight;
 
                 document.addEventListener('mousemove', onMouseMove);
                 document.addEventListener('mouseup', onMouseUp);
             });
 
-            // Make image draggable within the editor
-            let isDragging = false;
-            let dragStartX, dragStartY, initialX, initialY;
+            // Show resize handle on hover
+            container.addEventListener('mouseenter', () => {
+                if (node.attrs.float && node.attrs.float !== 'none') {
+                    resizeHandle.style.display = 'block';
+                }
+            });
 
-            const onDragMove = (e) => {
-                if (!isDragging) return;
-
-                const dx = e.clientX - dragStartX;
-                const dy = e.clientY - dragStartY;
-
-                dom.style.marginLeft = `${initialX + dx}px`;
-                dom.style.marginTop = `${initialY + dy}px`;
-            };
-
-            const onDragEnd = () => {
-                if (!isDragging) return;
-
-                isDragging = false;
-                dom.style.zIndex = '';
-                document.body.style.userSelect = '';
-
-                document.removeEventListener('mousemove', onDragMove);
-                document.removeEventListener('mouseup', onDragEnd);
-            };
-
-            img.addEventListener('mousedown', (e) => {
-                if (e.target === resizeHandle) return;
-
-                isDragging = true;
-                dragStartX = e.clientX;
-                dragStartY = e.clientY;
-                initialX = dom.style.marginLeft ? parseInt(dom.style.marginLeft) : 0;
-                initialY = dom.style.marginTop ? parseInt(dom.style.marginTop) : 0;
-
-                dom.style.zIndex = '1000';
-                document.body.style.userSelect = 'none';
-
-                document.addEventListener('mousemove', onDragMove);
-                document.addEventListener('mouseup', onDragEnd);
+            container.addEventListener('mouseleave', (e) => {
+                if (!container.contains(e.relatedTarget) && !isResizing) {
+                    resizeHandle.style.display = 'none';
+                }
             });
 
             return {
-                dom,
+                dom: container,
                 update: (updatedNode) => {
                     if (updatedNode.type.name !== 'resizableImage') return false;
+
                     img.src = updatedNode.attrs.src;
                     img.alt = updatedNode.attrs.alt;
                     img.title = updatedNode.attrs.title;
                     img.style.width = updatedNode.attrs.width;
                     img.style.height = updatedNode.attrs.height;
 
-                    // Update float controls state
-                    leftBtn.style.background = updatedNode.attrs.float === 'left' ? '#e2e8f0' : 'transparent';
-                    centerBtn.style.background = !updatedNode.attrs.float ? '#e2e8f0' : 'transparent';
-                    rightBtn.style.background = updatedNode.attrs.float === 'right' ? '#e2e8f0' : 'transparent';
+                    // Update container styling
+                    if (updatedNode.attrs.float) {
+                        container.style.float = updatedNode.attrs.float;
+                        container.style.margin = updatedNode.attrs.float === 'left' ? '0 15px 15px 0' : '0 0 15px 15px';
+                        container.style.width = updatedNode.attrs.width;
+                        container.style.shapeOutside = 'margin-box';
+                        resizeHandle.style.display = 'none';
+                    } else {
+                        container.style.float = 'none';
+                        container.style.margin = '15px auto';
+                        container.style.width = 'auto';
+                        container.style.shapeOutside = 'none';
+                        resizeHandle.style.display = 'none';
+                    }
+
+                    // Update controls state
+                    alignmentButtons.forEach((btn, index) => {
+                        const button = controls.children[index];
+                        if (button) {
+                            button.style.background = updatedNode.attrs.float === btn.value ? '#e2e8f0' : 'transparent';
+                        }
+                    });
 
                     return true;
                 },
@@ -350,20 +322,34 @@ const ResizableImage = Image.extend({
     },
 });
 
+// Custom extension for click-to-edit functionality
+const ClickablePlaceholder = Placeholder.configure({
+    placeholder: 'Click anywhere to start writing...',
+    emptyEditorClass: 'is-editor-empty',
+});
+
 export default function BlogEditorPage() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [blogTitle, setBlogTitle] = useState("Untitled Blog");
+    const [blogTitle, setBlogTitle] = useState("");
+    const [blogDescription, setBlogDescription] = useState("");
+    const [posterImageFile, setPosterImageFile] = useState(null);
+    const [posterImagePreview, setPosterImagePreview] = useState("");
     const [isEditingTitle, setIsEditingTitle] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
     const [showColorPicker, setShowColorPicker] = useState(false);
     const [currentColor, setCurrentColor] = useState("#000000");
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [sidebarContent, setSidebarContent] = useState("");
-    const [activeSidebarTab, setActiveSidebarTab] = useState("notes");
+    const [activeSidebarTab, setActiveSidebarTab] = useState("details");
     const [showImageOptions, setShowImageOptions] = useState(false);
     const [imageUrl, setImageUrl] = useState("");
+    const [showPosterImageModal, setShowPosterImageModal] = useState(false);
+    const [posterImageUrl, setPosterImageUrl] = useState("");
     const fileInputRef = useRef(null);
+    const posterFileInputRef = useRef(null);
+    const editorRef = useRef(null);
+    const [contentImages, setContentImages] = useState([]);
 
     const editor = useEditor({
         extensions: [
@@ -394,17 +380,93 @@ export default function BlogEditorPage() {
             TableRow,
             TableHeader,
             TableCell,
+            ClickablePlaceholder,
         ],
-        content: `<p>Start writing your blog here...</p>`,
+        content: `
+            <div class="editable-section" data-placeholder="Click to start writing...">
+                <p></p>
+            </div>
+        `,
         onUpdate: ({ editor }) => {
-            // Handle click events for adding content on sides
-            const { state } = editor;
+            // Handle content updates if needed
+        },
+        onFocus: ({ editor, event }) => {
+            // Ensure we're focusing on editable content
+            const { view } = editor;
+            const { state } = view;
             const { selection } = state;
             const { $from } = selection;
 
-            // You can add custom logic here for side content addition
+            // If we're in an empty paragraph, ensure we can type
+            if ($from.parent.content.size === 0) {
+                editor.commands.focus();
+            }
+        },
+        editorProps: {
+            attributes: {
+                class: 'prose prose-lg max-w-none min-h-[500px] focus:outline-none editable-container',
+                style: 'min-height: 500px; cursor: text;',
+            },
+            handleClick: (view, pos, event) => {
+                // When clicking in empty space, create a new paragraph at click position
+                const { state } = view;
+                const { doc, schema } = state;
+
+                // Get the position where user clicked
+                const coordinates = view.posAtCoords({ left: event.clientX, top: event.clientY });
+
+                if (coordinates) {
+                    const clickedPos = coordinates.pos;
+
+                    // Check if we clicked in an empty area
+                    const $pos = doc.resolve(clickedPos);
+                    const node = $pos.parent;
+
+                    // If we clicked in an empty paragraph or at the end, focus there
+                    if (node.type.name === 'paragraph' && node.content.size === 0) {
+                        view.dispatch(state.tr.setSelection(state.selection.constructor.near($pos)));
+                        return true;
+                    }
+
+                    // If we clicked at the very end of document, add new paragraph
+                    if (clickedPos >= doc.content.size - 2) {
+                        const transaction = state.tr.insert(clickedPos, schema.nodes.paragraph.create());
+                        view.dispatch(transaction);
+                        view.dispatch(state.tr.setSelection(state.selection.constructor.near(doc.resolve(clickedPos + 1))));
+                        return true;
+                    }
+                }
+
+                return false;
+            },
         },
     });
+
+    // Handle editor container click for better focus management
+    useEffect(() => {
+        const handleEditorClick = (event) => {
+            if (!editor) return;
+
+            // If clicking on the editor container but not on specific content
+            if (event.target.classList.contains('editable-container') ||
+                event.target.classList.contains('ProseMirror')) {
+
+                const { view } = editor;
+                const { state } = view;
+                const { doc } = state;
+
+                // Set cursor to the end of document
+                const endPos = doc.content.size - 1;
+                editor.commands.focus(endPos);
+            }
+        };
+
+        const editorElement = document.querySelector('.ProseMirror');
+        if (editorElement) {
+            editorElement.addEventListener('click', handleEditorClick);
+            return () => editorElement.removeEventListener('click', handleEditorClick);
+        }
+    }, [editor]);
 
     // ----- Link -----
     const setLink = useCallback(() => {
@@ -430,7 +492,8 @@ export default function BlogEditorPage() {
         editor.chain().focus().setImage({
             src: imageUrl,
             width: "400px",
-            height: "auto"
+            height: "auto",
+            float: "left"
         }).run();
         setImageUrl("");
         setShowImageOptions(false);
@@ -453,24 +516,64 @@ export default function BlogEditorPage() {
             return;
         }
 
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const imageUrl = e.target.result;
-            editor.chain().focus().setImage({
-                src: imageUrl,
-                width: "400px",
-                height: "auto"
-            }).run();
-            toast.success("Image uploaded successfully!");
-        };
-        reader.onerror = () => {
-            toast.error("Failed to upload image");
-        };
-        reader.readAsDataURL(file);
+        // Create preview URL for the editor
+        const previewUrl = URL.createObjectURL(file);
 
-        // Reset file input
+        // Add to content images array for later upload
+        setContentImages(prev => [...prev, { file, previewUrl }]);
+
+        // Add image to editor with preview URL
+        editor.chain().focus().setImage({
+            src: previewUrl,
+            width: "400px",
+            height: "auto",
+            float: "left"
+        }).run();
+        toast.success("Image added successfully!");
+
         event.target.value = '';
         setShowImageOptions(false);
+    };
+
+    // ----- Poster Image Functions -----
+    const handlePosterImageUpload = (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        // Check if file is an image
+        if (!file.type.startsWith('image/')) {
+            toast.error("Please select a valid image file");
+            return;
+        }
+
+        // Create preview URL
+        const previewUrl = URL.createObjectURL(file);
+
+        setPosterImageFile(file);
+        setPosterImagePreview(previewUrl);
+        toast.success("Poster image added successfully!");
+
+        event.target.value = '';
+        setShowPosterImageModal(false);
+    };
+
+    const addPosterImageFromUrl = () => {
+        if (posterImageUrl.trim() === "") {
+            toast.error("Please enter an image URL");
+            return;
+        }
+        // For URL images, we'll store the URL directly
+        setPosterImageFile(posterImageUrl); // Store URL as string
+        setPosterImagePreview(posterImageUrl);
+        setPosterImageUrl("");
+        setShowPosterImageModal(false);
+        toast.success("Poster image added from URL!");
+    };
+
+    const removePosterImage = () => {
+        setPosterImageFile(null);
+        setPosterImagePreview("");
+        toast.info("Poster image removed");
     };
 
     // ----- Color -----
@@ -484,17 +587,65 @@ export default function BlogEditorPage() {
         if (!editor) return;
 
         const columnHTML = `
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
-                <div style="padding: 10px; border: 1px dashed #ccc; min-height: 100px;">
-                    <p>Left Column - Start typing here...</p>
+            <div class="grid-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; padding: 10px; border: 1px dashed #ccc; min-height: 100px;">
+                <div class="editable-column" data-placeholder="Click to write in left column..." style="padding: 10px; min-height: 50px; cursor: text;">
+                    <p>Left Column - Click here to start writing...</p>
                 </div>
-                <div style="padding: 10px; border: 1px dashed #ccc; min-height: 100px;">
-                    <p>Right Column - Start typing here...</p>
+                <div class="editable-column" data-placeholder="Click to write in right column..." style="padding: 10px; min-height: 50px; cursor: text;">
+                    <p>Right Column - Click here to start writing...</p>
                 </div>
             </div>
         `;
 
         editor.chain().focus().insertContent(columnHTML).run();
+        toast.success("Two-column layout added! Click in any column to start writing.");
+    }, [editor]);
+
+    // ----- Add Image with Layout -----
+    const addImageWithLayout = useCallback((layout) => {
+        if (!editor) return;
+
+        let imageHTML = '';
+        if (layout === 'left' || layout === 'right') {
+            imageHTML = `
+                <div class="image-text-layout" style="margin: 20px 0;">
+                    <img 
+                        src="https://via.placeholder.com/400x300/4F46E5/FFFFFF?text=Add+Your+Image" 
+                        alt="Placeholder image"
+                        data-float="${layout}"
+                        style="float: ${layout}; margin: ${layout === 'left' ? '0 15px 15px 0' : '0 0 15px 15px'}; width: 400px; max-width: 100%; border-radius: 4px;"
+                    />
+                    <p class="editable-section" data-placeholder="Click here to write text that wraps around the image...">
+                        Start typing your content here. The text will automatically wrap around the ${layout} side of the image. You can continue writing and the text will flow naturally around the image.
+                    </p>
+                </div>
+            `;
+        } else {
+            imageHTML = `
+                <div class="full-width-image" style="margin: 20px 0;">
+                    <img 
+                        src="https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=Full+Width+Image" 
+                        alt="Placeholder image"
+                        style="width: 100%; margin: 20px 0; border-radius: 4px;"
+                    />
+                    <p style="text-align: center;"><em>Full width image with centered caption</em></p>
+                    <p class="editable-section" data-placeholder="Click here to continue writing after the image...">
+                        Continue writing your content here...
+                    </p>
+                </div>
+            `;
+        }
+
+        editor.chain().focus().insertContent(imageHTML).run();
+        toast.success(`${layout === 'full' ? 'Full width image' : `Image ${layout} with text wrap`} added! Click to start writing.`);
+    }, [editor]);
+
+    // ----- Add Empty Paragraph at Click Position -----
+    const addParagraphAtCursor = useCallback(() => {
+        if (!editor) return;
+
+        // Add a new paragraph at current cursor position
+        editor.chain().focus().insertContent('<p>Start typing here...</p>').run();
     }, [editor]);
 
     // ----- Export PDF -----
@@ -541,10 +692,37 @@ export default function BlogEditorPage() {
             <head>
                 <title>${blogTitle}</title>
                 <style>
-                    body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; }
-                    img { max-width: 100%; height: auto; }
-                    .sidebar-content { margin-top: 40px; padding-top: 20px; border-top: 2px solid #ccc; }
-                    .resizable-image-container { margin: 10px 0; }
+                    body { 
+                        font-family: Arial, sans-serif; 
+                        padding: 20px; 
+                        line-height: 1.6; 
+                        max-width: 800px;
+                        margin: 0 auto;
+                    }
+                    img { 
+                        max-width: 100%; 
+                        height: auto; 
+                        border-radius: 4px;
+                    }
+                    .floating-image-container {
+                        margin: 10px 0;
+                    }
+                    .grid-layout {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 20px;
+                        margin: 20px 0;
+                    }
+                    .sidebar-content { 
+                        margin-top: 40px; 
+                        padding-top: 20px; 
+                        border-top: 2px solid #ccc; 
+                    }
+                    @media print {
+                        body { padding: 0; }
+                        .floating-image-container { break-inside: avoid; }
+                        .grid-layout { break-inside: avoid; }
+                    }
                 </style>
             </head>
             <body>
@@ -567,17 +745,55 @@ export default function BlogEditorPage() {
 
     // ----- Save -----
     const save = async () => {
-        if (!blogTitle.trim() || blogTitle === "Untitled Blog") {
+        // Validate compulsory fields
+        if (!blogTitle.trim()) {
             toast.error("Blog title is required!");
             return;
         }
+        if (!blogDescription.trim()) {
+            toast.error("Blog description is required!");
+            return;
+        }
+        if (!posterImageFile) {
+            toast.error("Poster image is required!");
+            return;
+        }
         if (!editor) return;
+
         setIsSaving(true);
-        const json = editor.getJSON();
-        const html = editor.getHTML();
 
         try {
-            let url = `${BACKEND_URL}/createBlog`;
+            const formData = new FormData();
+
+            // Add text content
+            formData.append('title', blogTitle);
+            formData.append('description', blogDescription);
+            formData.append('content', JSON.stringify(editor.getJSON()));
+            formData.append('html', editor.getHTML());
+            formData.append('sidebarContent', sidebarContent);
+
+            // Add poster image - check if it's a file or URL
+            if (typeof posterImageFile === 'string') {
+                // If it's a URL, add as string
+                formData.append('posterImage', posterImageFile);
+            } else {
+                // If it's a file, add the file
+                formData.append('posterImage', posterImageFile);
+            }
+
+            // Add content images - only files, not URLs
+            contentImages.forEach((image, index) => {
+                if (image.file && typeof image.file !== 'string') {
+                    formData.append('images', image.file); // Use 'images' field name
+                }
+            });
+
+            console.log("FormData contents:");
+            for (let [key, value] of formData.entries()) {
+                console.log(key, value instanceof File ? `File: ${value.name}` : value);
+            }
+
+            let url = `${BACKEND_URL}/create-blog`;
             let method = "POST";
             if (id) {
                 url = `${BACKEND_URL}/update-blog/${id}`;
@@ -586,21 +802,28 @@ export default function BlogEditorPage() {
 
             const res = await fetch(url, {
                 method,
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    title: blogTitle,
-                    content: json,
-                    html,
-                    sidebarContent
-                }),
+                body: formData,
             });
 
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            if (!res.ok) {
+                let errorMessage = `HTTP ${res.status}`;
+                try {
+                    const errorData = await res.json();
+                    errorMessage = errorData.message || errorMessage;
+                } catch (e) {
+                    // If response is not JSON, get the text
+                    const text = await res.text();
+                    errorMessage = text || errorMessage;
+                }
+                throw new Error(errorMessage);
+            }
+
+            const result = await res.json();
             toast.success(`Blog ${id ? "updated" : "saved"} successfully!`);
             navigate(-1);
         } catch (err) {
-            console.error(err);
-            toast.error("Failed to save blog");
+            console.error("Save error:", err);
+            toast.error(err.message || "Failed to save blog");
         } finally {
             setIsSaving(false);
         }
@@ -614,6 +837,11 @@ export default function BlogEditorPage() {
                 const res = await axios.get(`${BACKEND_URL}/single-blog/${id}`);
                 const data = res.data;
                 if (data.title) setBlogTitle(data.title);
+                if (data.description) setBlogDescription(data.description);
+                if (data.posterImage) {
+                    setPosterImageFile(data.posterImage);
+                    setPosterImagePreview(data.posterImage);
+                }
                 if (data.content) editor.commands.setContent(data.content);
                 if (data.sidebarContent) setSidebarContent(data.sidebarContent);
             } catch {
@@ -622,6 +850,20 @@ export default function BlogEditorPage() {
         };
         loadBlog();
     }, [id, editor]);
+
+    // Clean up object URLs on unmount
+    useEffect(() => {
+        return () => {
+            if (posterImagePreview && posterImagePreview.startsWith('blob:')) {
+                URL.revokeObjectURL(posterImagePreview);
+            }
+            contentImages.forEach(image => {
+                if (image.previewUrl && image.previewUrl.startsWith('blob:')) {
+                    URL.revokeObjectURL(image.previewUrl);
+                }
+            });
+        };
+    }, [posterImagePreview, contentImages]);
 
     if (!editor)
         return <div className="h-screen flex items-center justify-center">Loading editor...</div>;
@@ -646,7 +888,7 @@ export default function BlogEditorPage() {
                             className="text-2xl font-bold cursor-pointer hover:text-blue-600"
                             onClick={() => setIsEditingTitle(true)}
                         >
-                            {blogTitle}
+                            {blogTitle || "Click to enter blog title"}
                         </h1>
                     )}
                     <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-lg">
@@ -678,13 +920,13 @@ export default function BlogEditorPage() {
                     <div className="w-80 bg-white border-r border-gray-200 flex flex-col">
                         <div className="p-4 border-b border-gray-200">
                             <div className="flex space-x-2">
-                                {["notes", "media", "layout"].map((tab) => (
+                                {["details", "notes", "media", "layout"].map((tab) => (
                                     <button
                                         key={tab}
                                         onClick={() => setActiveSidebarTab(tab)}
                                         className={`px-3 py-2 rounded-lg text-sm font-medium capitalize ${activeSidebarTab === tab
-                                                ? "bg-blue-100 text-blue-700"
-                                                : "text-gray-600 hover:text-gray-900"
+                                            ? "bg-blue-100 text-blue-700"
+                                            : "text-gray-600 hover:text-gray-900"
                                             }`}
                                     >
                                         {tab}
@@ -694,6 +936,75 @@ export default function BlogEditorPage() {
                         </div>
 
                         <div className="flex-1 p-4 overflow-y-auto">
+                            {activeSidebarTab === "details" && (
+                                <div className="space-y-4">
+                                    <h3 className="text-lg font-semibold mb-3">Blog Details</h3>
+
+                                    {/* Title */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Blog Title *
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={blogTitle}
+                                            onChange={(e) => setBlogTitle(e.target.value)}
+                                            placeholder="Enter blog title"
+                                            className="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                                        />
+                                    </div>
+
+                                    {/* Description */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Description *
+                                        </label>
+                                        <textarea
+                                            value={blogDescription}
+                                            onChange={(e) => setBlogDescription(e.target.value)}
+                                            placeholder="Enter blog description"
+                                            rows="4"
+                                            className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                                        />
+                                    </div>
+
+                                    {/* Poster Image */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Poster Image *
+                                        </label>
+                                        {posterImagePreview ? (
+                                            <div className="relative">
+                                                <img
+                                                    src={posterImagePreview}
+                                                    alt="Poster preview"
+                                                    className="w-full h-32 object-cover rounded-lg border border-gray-300"
+                                                />
+                                                <button
+                                                    onClick={removePosterImage}
+                                                    className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600"
+                                                >
+                                                    <FaTimes size={12} />
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                                                <p className="text-gray-500 mb-2">No poster image selected</p>
+                                                <button
+                                                    onClick={() => setShowPosterImageModal(true)}
+                                                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                                                >
+                                                    Add Poster Image
+                                                </button>
+                                            </div>
+                                        )}
+                                        <p className="text-xs text-gray-500 mt-1">
+                                            * Required field. This image will be used as the blog thumbnail.
+                                        </p>
+                                    </div>
+                                </div>
+                            )}
+
                             {activeSidebarTab === "notes" && (
                                 <div>
                                     <h3 className="text-lg font-semibold mb-3">Sidebar Notes</h3>
@@ -769,7 +1080,7 @@ export default function BlogEditorPage() {
                                             <ul className="list-disc list-inside mt-1 space-y-1">
                                                 <li>Click and drag to move images</li>
                                                 <li>Use resize handle to change size</li>
-                                                <li>Use alignment buttons for positioning</li>
+                                                <li>Use alignment buttons for text wrapping</li>
                                                 <li>Supports both URL and file upload</li>
                                             </ul>
                                         </div>
@@ -779,7 +1090,7 @@ export default function BlogEditorPage() {
 
                             {activeSidebarTab === "layout" && (
                                 <div>
-                                    <h3 className="text-lg font-semibold mb-3">Page Layout</h3>
+                                    <h3 className="text-lg font-semibold mb-3">Content Layout</h3>
                                     <div className="space-y-3">
                                         <button
                                             onClick={addColumns}
@@ -788,15 +1099,46 @@ export default function BlogEditorPage() {
                                             <FaColumns /> Add Two Columns
                                         </button>
 
-                                        <div className="text-sm text-gray-600 bg-green-50 p-3 rounded-lg">
-                                            <p>Add a two-column layout to organize your content side by side.</p>
+                                        <div className="grid grid-cols-2 gap-2">
+                                            <button
+                                                onClick={() => addImageWithLayout('left')}
+                                                className="bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 flex flex-col items-center gap-1"
+                                            >
+                                                <FaAlignLeft className="text-lg" />
+                                                <span className="text-xs">Image Left</span>
+                                            </button>
+                                            <button
+                                                onClick={() => addImageWithLayout('right')}
+                                                className="bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 flex flex-col items-center gap-1"
+                                            >
+                                                <FaAlignRight className="text-lg" />
+                                                <span className="text-xs">Image Right</span>
+                                            </button>
                                         </div>
 
-                                        <div className="border-t pt-3">
-                                            <h4 className="font-medium mb-2">Content Positioning</h4>
-                                            <p className="text-sm text-gray-600">
-                                                Click anywhere in the editor to add content. Use the alignment tools in the toolbar for left/right positioning.
-                                            </p>
+                                        <button
+                                            onClick={() => addImageWithLayout('full')}
+                                            className="w-full bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-600 flex items-center justify-center gap-2"
+                                        >
+                                            <FaImage /> Full Width Image
+                                        </button>
+
+                                        <button
+                                            onClick={addParagraphAtCursor}
+                                            className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 flex items-center justify-center gap-2"
+                                        >
+                                            <FaPlus /> Add Empty Paragraph
+                                        </button>
+
+                                        <div className="text-sm text-gray-600 bg-green-50 p-3 rounded-lg">
+                                            <p className="font-medium mb-1">Layout Tips:</p>
+                                            <ul className="list-disc list-inside space-y-1">
+                                                <li><strong>Image Left/Right:</strong> Text automatically wraps around images</li>
+                                                <li><strong>Full Width:</strong> Images span entire content width</li>
+                                                <li><strong>Two Columns:</strong> Split content into side-by-side sections</li>
+                                                <li><strong>Click Anywhere:</strong> Start writing from any clicked position</li>
+                                                <li>Hover over images to see alignment controls</li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -937,14 +1279,15 @@ export default function BlogEditorPage() {
                         <div className="max-w-4xl mx-auto p-8 min-h-full bg-white">
                             <EditorContent
                                 editor={editor}
-                                className="prose prose-lg max-w-none min-h-[500px] focus:outline-none"
+                                className="prose prose-lg max-w-none min-h-[500px] focus:outline-none editable-container"
+                                ref={editorRef}
                             />
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Hidden file input for image upload */}
+            {/* Hidden file inputs */}
             <input
                 type="file"
                 ref={fileInputRef}
@@ -952,34 +1295,203 @@ export default function BlogEditorPage() {
                 accept="image/*"
                 className="hidden"
             />
+            <input
+                type="file"
+                ref={posterFileInputRef}
+                onChange={handlePosterImageUpload}
+                accept="image/*"
+                className="hidden"
+            />
+
+            {/* Poster Image Modal */}
+            {showPosterImageModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg p-6 w-96">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-lg font-semibold">Add Poster Image</h3>
+                            <button
+                                onClick={() => setShowPosterImageModal(false)}
+                                className="text-gray-500 hover:text-gray-700"
+                            >
+                                <FaTimes />
+                            </button>
+                        </div>
+
+                        <div className="space-y-4">
+                            {/* URL Option */}
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Add from URL
+                                </label>
+                                <div className="flex gap-2">
+                                    <input
+                                        type="text"
+                                        value={posterImageUrl}
+                                        onChange={(e) => setPosterImageUrl(e.target.value)}
+                                        placeholder="Paste image URL here"
+                                        className="flex-1 p-2 border border-gray-300 rounded text-sm"
+                                    />
+                                    <button
+                                        onClick={addPosterImageFromUrl}
+                                        className="bg-green-600 text-white p-2 rounded hover:bg-green-700"
+                                    >
+                                        <FaGlobe />
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* File Upload Option */}
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Upload from Computer
+                                </label>
+                                <button
+                                    onClick={() => posterFileInputRef.current?.click()}
+                                    className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 flex items-center justify-center gap-2"
+                                >
+                                    <FaUpload /> Choose File
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="mt-4 flex justify-end">
+                            <button
+                                onClick={() => setShowPosterImageModal(false)}
+                                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <style jsx>{`
-                .resizable-image-container:hover .resize-handle {
-                    display: block;
-                }
-                .resize-handle {
-                    display: none;
-                }
-                .resizable-image-container:hover .float-controls {
-                    display: block !important;
-                }
                 .ProseMirror {
                     min-height: 500px;
+                    overflow-wrap: break-word;
+                    cursor: text;
                 }
+
                 .ProseMirror:focus {
                     outline: none;
                 }
-                .ProseMirror img {
-                    transition: box-shadow 0.2s ease;
+
+                /* Floating images with text wrap */
+                .ProseMirror .floating-image-container {
+                    transition: all 0.3s ease;
+                    border-radius: 4px;
                 }
-                .ProseMirror img:hover {
-                    box-shadow: 0 0 0 2px #4299e1;
+
+                .ProseMirror .floating-image-container[style*="float: left"],
+                .ProseMirror .floating-image-container[style*="float: right"] {
+                    shape-margin: 1em;
                 }
-                .ProseMirror .resizable-image-container {
-                    transition: all 0.2s ease;
+
+                .ProseMirror .floating-image-container:hover {
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
                 }
-                .ProseMirror .resizable-image-container:hover {
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+                .ProseMirror .floating-image-container img {
+                    border-radius: 4px;
+                    display: block;
+                }
+
+                .ProseMirror .image-controls {
+                    opacity: 0;
+                    transition: opacity 0.2s ease;
+                }
+
+                .ProseMirror .floating-image-container:hover .image-controls {
+                    opacity: 1;
+                }
+
+                .ProseMirror .resize-handle {
+                    opacity: 0;
+                    transition: opacity 0.2s ease;
+                }
+
+                .ProseMirror .floating-image-container:hover .resize-handle {
+                    opacity: 1;
+                }
+
+                /* Ensure text wraps properly around floated images */
+                .ProseMirror p {
+                    overflow-wrap: break-word;
+                    text-align: justify;
+                }
+
+                /* Center aligned images */
+                .ProseMirror .floating-image-container:not([style*="float"]) {
+                    text-align: center;
+                    margin: 20px auto;
+                }
+
+                .ProseMirror .floating-image-container:not([style*="float"]) img {
+                    margin: 0 auto;
+                }
+
+                /* Better text wrapping */
+                .ProseMirror p:has(+ .floating-image-container[style*="float: left"]),
+                .ProseMirror p:has(+ .floating-image-container[style*="float: right"]) {
+                    overflow: hidden;
+                }
+
+                .ProseMirror .floating-image-container[style*="float: left"] + p,
+                .ProseMirror .floating-image-container[style*="float: right"] + p {
+                    margin-top: 0;
+                }
+
+                /* Grid layout styling */
+                .ProseMirror .grid-layout {
+                    border: 1px dashed #ccc;
+                    padding: 20px;
+                    margin: 20px 0;
+                    background: #f9f9f9;
+                }
+
+                .ProseMirror .editable-column {
+                    min-height: 50px;
+                    padding: 10px;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 4px;
+                    background: white;
+                    cursor: text;
+                }
+
+                .ProseMirror .editable-column p {
+                    margin: 0;
+                }
+
+                .ProseMirror .editable-column:focus {
+                    outline: 2px solid #3b82f6;
+                }
+
+                /* Placeholder styling */
+                .ProseMirror .is-editor-empty:first-child::before {
+                    content: attr(data-placeholder);
+                    float: left;
+                    color: #adb5bd;
+                    pointer-events: none;
+                    height: 0;
+                }
+
+                .ProseMirror .editable-section {
+                    cursor: text;
+                    min-height: 24px;
+                }
+
+                /* Make empty paragraphs clearly editable */
+                .ProseMirror p:empty::before {
+                    content: 'Click to start writing...';
+                    color: #6b7280;
+                    font-style: italic;
+                }
+
+                .ProseMirror .editable-column:empty::before {
+                    content: 'Click to write in this column...';
+                    color: #6b7280;
+                    font-style: italic;
                 }
             `}</style>
         </div>

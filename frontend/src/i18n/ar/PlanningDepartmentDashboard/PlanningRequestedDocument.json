@@ -1,0 +1,52 @@
+{
+  "page": {
+    "title": "إدارة النماذج",
+    "createNew": "إنشاء نموذج جديد",
+    "loading": {
+      "text": "جارٍ تحميل النماذج..."
+    },
+    "error": {
+      "title": "خطأ",
+      "tryAgain": "حاول مرة أخرى"
+    },
+    "emptyState": {
+      "title": "لا توجد نماذج",
+      "description": "قم بإنشاء نموذجك الأول للبدء.",
+      "button": "إنشاء نموذج جديد"
+    },
+    "table": {
+      "columns": {
+        "title": "العنوان",
+        "created": "تاريخ الإنشاء",
+        "timeLeft": "الوقت المتبقي",
+        "status": "الحالة",
+        "actions": "الإجراءات"
+      },
+      "status": {
+        "published": "منشور",
+        "draft": "مسودة"
+      }
+    },
+    "card": {
+      "created": "تاريخ الإنشاء",
+      "updated": "تاريخ التحديث",
+      "timeLeft": "الوقت المتبقي"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "download": "تحميل",
+      "print": "طباعة",
+      "delete": "حذف"
+    },
+    "deleteModal": {
+      "title": "تأكيد الحذف",
+      "message": "هل أنت متأكد أنك تريد حذف هذا النموذج؟",
+      "cancel": "إلغاء",
+      "confirm": "حذف"
+    },
+    "labels": {
+      "expired": "انتهى الوقت"
+    }
+  }
+}

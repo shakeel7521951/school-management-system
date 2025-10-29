@@ -176,12 +176,12 @@ const Blog = () => {
                                                     <div className="flex items-center gap-1"><Eye size={14} /> {post.views}</div>
                                                 </div>
 
-                                                <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#5A51D3] transition-colors line-clamp-2">
-                                                    {post.title}
-                                                </h3>
-                                                <p className="text-gray-600 mb-4 leading-relaxed line-clamp-2 text-sm">
-                                                    {post.summary}
-                                                </p>
+                        <h3 className='text-lg font-bold text-gray-900 mb-2 group-hover:text-[#5A51D3] transition-colors line-clamp-2'>
+                          {blog.title}
+                        </h3>
+                        <p className='text-gray-600 mb-4 leading-relaxed line-clamp-2 text-sm'>
+                          {blog.description}
+                        </p>
 
                                                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                                                     <span className="inline-flex items-center gap-1 bg-blue-50 text-[#5A51D3] px-3 py-1 rounded-full text-sm font-medium">

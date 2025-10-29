@@ -1,0 +1,27 @@
+{
+  "planningUploadedDocument": {
+    "pageTitle": "الوثائق المرفوعة",
+    "loading": "جارٍ تحميل الوثائق...",
+    "noDocuments": "لا توجد وثائق مرفوعة بعد.",
+    "rejectPlaceholder": "أدخل سبب الرفض...",
+    "rejectTitle": "رفض الوثيقة",
+    "columns": {
+      "title": "عنوان الوثيقة",
+      "type": "النوع",
+      "date": "تاريخ التقديم",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "statuses": {
+      "pending": "قيد الانتظار",
+      "resolved": "تمت الموافقة",
+      "rejected": "مرفوضة"
+    },
+    "statusColors": {
+      "pending": "text-yellow-600 bg-yellow-50",
+      "resolved": "text-green-600 bg-green-50",
+      "rejected": "text-red-600 bg-red-50",
+      "default": "text-gray-600 bg-gray-50"
+    }
+  }
+}
