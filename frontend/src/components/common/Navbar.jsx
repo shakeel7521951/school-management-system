@@ -99,7 +99,7 @@ export default function Navbar () {
             className='w-[100px] xs:w-[110px] sm:w-[130px] md:w-[150px] h-[50px] xs:h-[55px] sm:h-[65px] md:h-[75px] flex-shrink-0'
           >
             <img
-              src='./images/Tamakon-logo.png'
+              src='/images/Tamakon-logo.png'
               alt='Tamakon Logo'
               className='w-full h-full object-contain'
             />
