@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const FormManagement = () => {
-  const { t } = useTranslation("adminRequestedDocuments")
+  const { t,i18n } = useTranslation("adminRequestedDocuments")
   const navigate = useNavigate();
   const [forms, setForms] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -297,11 +297,11 @@ const FormManagement = () => {
               <table className='min-w-full border-collapse'>
                 <thead>
                   <tr className='bg-[#104c80] text-white text-sm uppercase tracking-wide shadow-sm'>
-                    <th className='px-6 py-4 text-left rounded-tl-xl'>{t("table.headers.title")}</th>
-                    <th className='px-6 py-4 text-left'>{t("table.headers.created")}</th>
-                    <th className='px-6 py-4 text-left'>Time left</th>
-                    <th className='px-6 py-4 text-left'>{t("table.headers.status")}</th>
-                    <th className='px-6 py-4 text-left rounded-tr-xl'>{t("table.headers.actions")}</th>
+                    <th className={`px-6 py-4 text-left ${i18n.language === "ar" ? "text-right" : "text-left"} `}>{t("table.headers.title")}</th>
+                    <th className={`px-6 py-4 text-left ${i18n.language === "ar" ? "text-right" : "text-left"} `}>{t("table.headers.created")}</th>
+                    <th className={`px-6 py-4 text-left ${i18n.language === "ar" ? "text-right" : "text-left"} `}>Time left</th>
+                    <th className={`px-6 py-4 text-left ${i18n.language === "ar" ? "text-right" : "text-left"} `}>{t("table.headers.status")}</th>
+                    <th className={`px-6 py-4 text-left ${i18n.language === "ar" ? "text-right" : "text-left"} `}>{t("table.headers.actions")}</th>
                   </tr>
                 </thead>
                 <tbody>

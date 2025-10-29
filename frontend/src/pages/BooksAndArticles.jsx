@@ -2,23 +2,30 @@ import React from "react";
 import { motion } from "framer-motion";
 import { BookOpen, Download } from "lucide-react";
 import { useGetBooksQuery } from "../redux/slices/BookApi";
+import { useTranslation } from "react-i18next";
 
 const BooksAndArticles = () => {
-  // Fetch books from backend
-  const { data: books = [], isLoading, isError } = useGetBooksQuery();
+  // ✅ load the translation namespace (must match your i18n file name or key)
+  const { t } = useTranslation("booksAndarticles");
 
+  // ✅ fetch books from backend
+  const { data: books = [], isLoading, isError } = useGetBooksQuery();
+  console.log("Books data:", books);
+
+  // ✅ show loading state
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center text-[#104c80] text-lg font-semibold">
-        Loading books...
+        {t("booksAndArticles.loading")}
       </div>
     );
   }
 
+  // ✅ show error state
   if (isError) {
     return (
       <div className="min-h-screen flex items-center justify-center text-red-600 text-lg font-semibold">
-        Failed to load books. Please try again later.
+        {t("booksAndArticles.error")}
       </div>
     );
   }
@@ -33,12 +40,10 @@ const BooksAndArticles = () => {
         className="max-w-4xl mx-auto text-center mb-20"
       >
         <h1 className="text-5xl font-extrabold text-[#104c80] mb-5">
-          Books & Articles
+          {t("booksAndArticles.title")}
         </h1>
         <p className="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto">
-          Explore insightful books and downloadable articles focused on
-          discipline, learning, and leadership. Download PDFs and enhance your
-          knowledge anytime.
+          {t("booksAndArticles.subtitle")}
         </p>
       </motion.div>
 
@@ -46,7 +51,7 @@ const BooksAndArticles = () => {
       <div className="max-w-5xl mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
         {books.length === 0 ? (
           <p className="text-center text-gray-500 col-span-full">
-            No books available.
+            {t("booksAndArticles.noBooks")}
           </p>
         ) : (
           books.map((book) => (
@@ -81,7 +86,7 @@ const BooksAndArticles = () => {
                     className="flex items-center gap-2 bg-[#104c80] text-white px-6 py-2.5 rounded-full shadow-md hover:bg-[#0d3a66] transition-all duration-300"
                   >
                     <Download className="w-5 h-5" />
-                    Download PDF
+                    {t("booksAndArticles.downloadBtn")}
                   </a>
                 </div>
               )}

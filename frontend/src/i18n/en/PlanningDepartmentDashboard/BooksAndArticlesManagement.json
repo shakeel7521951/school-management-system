@@ -1,0 +1,32 @@
+{
+  "booksAndArticlesManagement": {
+    "title": "Books & Articles",
+    "uploadNewBook": "Upload New Book",
+    "uploadedSectionTitle": "Uploaded Books & Articles",
+    "noBooks": "No books or articles uploaded yet.",
+    "loading": "Loading books...",
+    "deleteConfirm": "Are you sure you want to delete this book?",
+    "deleteFailed": "Failed to delete the book.",
+    "uploadSuccess": "Book uploaded successfully!",
+    "uploadFailed": "Failed to create book.",
+    "modalTitle": "Upload a New Book or Article",
+    "form": {
+      "bookTitleLabel": "Book Title",
+      "bookTitlePlaceholder": "Enter book title",
+      "descriptionLabel": "Short Description",
+      "descriptionPlaceholder": "Enter short description",
+      "fileLabel": "Upload PDF / File",
+      "coverPhotoLabel": "Upload Cover Photo"
+    },
+    "buttons": {
+      "uploadBook": "Upload Book",
+      "uploading": "Uploading...",
+      "download": "Download",
+      "delete": "Delete"
+    },
+    "file": {
+      "defaultFileName": "File",
+      "defaultType": "PDF"
+    }
+  }
+}

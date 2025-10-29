@@ -1,21 +1,17 @@
 {
   "modal": {
-    "title": "Submission Details",
+    "title": "View Submission",
     "sections": {
+      "summary": {
+        "formId": "Form ID",
+        "title": "Title",
+        "status": "Status",
+        "untitled": "Untitled",
+        "pending": "Pending"
+      },
       "formData": {
         "title": "Form Data",
         "noData": "No data available"
-      },
-      "metaInfo": {
-        "formId": "Form ID",
-        "submittedAt": "Submitted At",
-        "ipAddress": "IP Address",
-        "userAgent": "User Agent",
-        "status": "Status"
-      },
-      "rejectionNote": {
-        "title": "Rejection Note",
-        "noNote": "No note provided"
       }
     },
     "actions": {

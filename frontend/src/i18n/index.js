@@ -196,6 +196,14 @@ import visitorTermsModal_en from "./en/VisitorTermsModal.json"
 import visitorTermsModal_ar from "./ar/VisitorTermsModal.json"
 import partnerships_en from "./en/Partnerships.json"
 import partnerships_ar from "./ar/Partnerships.json"
+import booksAndarticles_en from "./en/BooksAndArticles.json"
+import booksAndarticles_ar from "./ar/BooksAndArticles.json"
+import booksManagement_en from "./en/PlanningDepartmentDashboard/BooksAndArticlesManagement.json"
+import booksManagement_ar from "./ar/PlanningDepartmentDashboard/BooksAndArticlesManagement.json"
+import planningUploadedDocuments_ar from "./ar/PlanningDepartmentDashboard/PlanningUploadedDocuments/UploadedDocuments.json"
+import planningUploadedDocuments_en from "./en/PlanningDepartmentDashboard/PlanningUploadedDocuments/UploadedDocuments.json"
+import planningRequestedDocument_en from "./en/PlanningDepartmentDashboard/PlanningRequestedDocument.json"
+import planningRequestedDocument_ar from "./ar/PlanningDepartmentDashboard/PlanningRequestedDocument.json"
 
 
 
@@ -318,7 +326,11 @@ const resources = {
     planningSidebar: planningSidebar_en,
     planningNavbar: planningNavbar_en,
     visitorTermsModal: visitorTermsModal_en,
-    partnerships:partnerships_en
+    partnerships:partnerships_en,
+    booksAndarticles:booksAndarticles_en,
+    booksManagement:booksManagement_en,
+    planningUploadedDocuments:planningUploadedDocuments_en,
+    planningRequestedDocument:planningRequestedDocument_en
   },
 
 
@@ -447,7 +459,11 @@ const resources = {
     planningSidebar: planningSidebar_ar,
     planningNavbar: planningNavbar_ar,
     visitorTermsModal: visitorTermsModal_ar,
-       partnerships:partnerships_ar
+       partnerships:partnerships_ar,
+       booksAndarticles:booksAndarticles_ar,
+       booksManagement:booksManagement_ar,
+       planningUploadedDocuments:planningUploadedDocuments_ar,
+       planningRequestedDocument:planningRequestedDocument_ar
   },
 };
 

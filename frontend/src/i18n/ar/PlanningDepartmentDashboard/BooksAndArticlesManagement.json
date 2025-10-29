@@ -1,0 +1,32 @@
+{
+  "booksAndArticlesManagement": {
+    "title": "الكتب والمقالات",
+    "uploadNewBook": "تحميل كتاب جديد",
+    "uploadedSectionTitle": "الكتب والمقالات المرفوعة",
+    "noBooks": "لا توجد كتب أو مقالات مرفوعة بعد.",
+    "loading": "جاري تحميل الكتب...",
+    "deleteConfirm": "هل أنت متأكد أنك تريد حذف هذا الكتاب؟",
+    "deleteFailed": "فشل في حذف الكتاب.",
+    "uploadSuccess": "تم تحميل الكتاب بنجاح!",
+    "uploadFailed": "فشل في إنشاء الكتاب.",
+    "modalTitle": "تحميل كتاب أو مقالة جديدة",
+    "form": {
+      "bookTitleLabel": "عنوان الكتاب",
+      "bookTitlePlaceholder": "أدخل عنوان الكتاب",
+      "descriptionLabel": "وصف قصير",
+      "descriptionPlaceholder": "أدخل وصفًا قصيرًا",
+      "fileLabel": "تحميل ملف PDF / ملف آخر",
+      "coverPhotoLabel": "تحميل صورة الغلاف"
+    },
+    "buttons": {
+      "uploadBook": "تحميل الكتاب",
+      "uploading": "جاري التحميل...",
+      "download": "تحميل",
+      "delete": "حذف"
+    },
+    "file": {
+      "defaultFileName": "ملف",
+      "defaultType": "PDF"
+    }
+  }
+}
