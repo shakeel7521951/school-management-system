@@ -1,30 +1,17 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Plus, Trash2, Eye, X } from "lucide-react";
-import ReactQuill from "react-quill-new";
-import "react-quill-new/dist/quill.snow.css";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const BlogEditor = () => {
   const [blogs, setBlogs] = useState([]);
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    content: "",
-    image: "",
-  });
-  const [showModal, setShowModal] = useState(false);
   const [selectedBlog, setSelectedBlog] = useState(null);
+  const navigate = useNavigate();
 
+  // Navigate to TipTap Blog Editor Page
   const handleAddBlog = () => {
-    if (!formData.title || !formData.content) return;
-    const newBlog = {
-      id: Date.now(),
-      ...formData,
-      createdAt: new Date().toLocaleString(),
-    };
-    setBlogs([...blogs, newBlog]); 
-    setFormData({ title: "", description: "", content: "", image: "" });
-    setShowModal(false);
+    navigate("/blog-editor/create");
   };
 
   const handleDeleteBlog = (id) => {
@@ -40,12 +27,12 @@ const BlogEditor = () => {
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-[#104C80]">Blog Management</h1>
-        <button
-          onClick={() => setShowModal(true)}
+        <Link
+          to="/blog-editor/create"
           className="flex items-center gap-2 bg-[#104C80] text-white px-5 py-2 rounded-lg hover:bg-[#0d3d66] transition"
         >
           <Plus size={20} /> Add Blog
-        </button>
+        </Link>
       </div>
 
       {/* Blog List */}
@@ -113,100 +100,6 @@ const BlogEditor = () => {
           </p>
         )}
       </div>
-
-      {/* Add Blog Modal */}
-      {showModal && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-40 z-50 p-4">
-          <div className="bg-white w-full max-w-3xl rounded-2xl shadow-xl relative overflow-hidden flex flex-col max-h-[90vh]">
-            {/* Header */}
-            <div className="flex justify-between items-center bg-[#104C80] text-white px-6 py-3">
-              <h2 className="text-xl font-semibold">Add New Blog</h2>
-              <button onClick={() => setShowModal(false)}>
-                <X size={22} />
-              </button>
-            </div>
-
-            {/* Scrollable Content */}
-            <div className="p-6 overflow-y-auto">
-              <div className="space-y-5">
-                {/* Title */}
-                <div>
-                  <label className="block text-gray-700 mb-2 font-medium">
-                    Title
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter blog title"
-                    value={formData.title}
-                    onChange={(e) =>
-                      setFormData({ ...formData, title: e.target.value })
-                    }
-                    className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-[#104C80] outline-none"
-                  />
-                </div>
-
-                {/* Description */}
-                <div>
-                  <label className="block text-gray-700 mb-2 font-medium">
-                    Description
-                  </label>
-                  <textarea
-                    placeholder="Short description..."
-                    value={formData.description}
-                    onChange={(e) =>
-                      setFormData({ ...formData, description: e.target.value })
-                    }
-                    className="w-full border border-gray-300 rounded-lg p-2 h-24 focus:ring-2 focus:ring-[#104C80] outline-none"
-                  />
-                </div>
-
-                {/* Image URL */}
-                <div>
-                  <label className="block text-gray-700 mb-2 font-medium">
-                    Image URL
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter image URL"
-                    value={formData.image}
-                    onChange={(e) =>
-                      setFormData({ ...formData, image: e.target.value })
-                    }
-                    className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-[#104C80] outline-none"
-                  />
-                </div>
-
-                {/* Content */}
-                <div>
-                  <label className="block text-gray-700 mb-2 font-medium">
-                    Content
-                  </label>
-                  <div className="border border-gray-300 rounded-lg overflow-hidden">
-                    <ReactQuill
-                      theme="snow"
-                      value={formData.content}
-                      onChange={(value) =>
-                        setFormData({ ...formData, content: value })
-                      }
-                      className="bg-white min-h-[150px]"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Footer Button */}
-            <div className="p-4 border-t bg-gray-50 text-right">
-              <button
-                onClick={handleAddBlog}
-                className="bg-[#104C80] text-white px-6 py-2 rounded-lg hover:bg-[#0d3d66] transition"
-              >
-                Add Blog
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* View Blog Modal */}
       {selectedBlog && (
