@@ -43,42 +43,7 @@ const Blog = () => {
             views: "1.5k",
             featured: false
         },
-        // {
-        //     id: 4,
-        //     title: "Introduction to Data Science for Beginners",
-        //     author: "Data Team",
-        //     date: "September 15, 2025",
-        //     category: "Data Science",
-        //     summary: "A comprehensive introduction to data science concepts, tools, and methodologies for those just starting their journey in this exciting field.",
-        //     image: "/images/blog-4.jpg",
-        //     readTime: "12 min read",
-        //     views: "2.1k",
-        //     featured: false
-        // },
-        // {
-        //     id: 5,
-        //     title: "Building Scalable APIs with Node.js",
-        //     author: "Backend Team",
-        //     date: "August 30, 2025",
-        //     category: "Backend Development",
-        //     summary: "Learn the best practices for building robust, scalable APIs using Node.js and Express framework with real-world examples.",
-        //     image: "/images/blog-5.jpg",
-        //     readTime: "9 min read",
-        //     views: "1.8k",
-        //     featured: true
-        // },
-        // {
-        //     id: 6,
-        //     title: "CSS Grid vs Flexbox: When to Use What",
-        //     author: "Frontend Team",
-        //     date: "August 20, 2025",
-        //     category: "Web Development",
-        //     summary: "Understanding the differences between CSS Grid and Flexbox, and learning when to use each layout system for optimal results.",
-        //     image: "/images/blog-6.jpg",
-        //     readTime: "7 min read",
-        //     views: "2.3k",
-        //     featured: false
-        // },
+       
     ];
 
     const existingCategories = ["All", ...new Set(blogPosts.map(post => post.category))];
