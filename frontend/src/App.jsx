@@ -110,6 +110,7 @@ import BooksAndArticles from './pages/BooksAndArticles'
 import BooksAndArticlesManagement from './pages/PlanningDepartDashboard/BooksAndArticlesManagement'
 import BlogEditor from './pages/dashboard/BlogEditor';
 import BlogEditorPage from './pages/dashboard/BlogEditorPage'
+import BlogDetails from './pages/BlogDetails'
 
 const MainFunction = () => {
   return (
@@ -245,6 +246,7 @@ const router = createBrowserRouter([
       { path: "/gallery", element: <GallerySection /> },
       { path: "/registration-form", element: <RegistrationForm /> },
       { path: '/blog', element: <Blogs /> },
+      { path: "/blog-detail/:id", element: <BlogDetails /> },
       // { path: '/services', element: <Event /> },
       { path: '/contact-us', element: <ContactUs /> },
       { path: '/news', element: <NewsPage /> },
@@ -279,7 +281,7 @@ const router = createBrowserRouter([
       { path: "/analytics", element: <AnalyticsPage /> },
       { path: "/departments", element: <AdminDepartmentPage /> },
       { path: "/blog-editor", element: <BlogEditor /> },
-      { path: "/blog-editor/create", element: <BlogEditorPage /> }
+      { path: "/blog-editor/create", element: <BlogEditorPage /> },
 
       // { path: 'reports', element: <Reports /> }
     ]
