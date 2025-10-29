@@ -11,85 +11,65 @@ import {
   Bookmark,
   Eye
 } from 'lucide-react'
+import { useGetAllBlogsQuery } from '../redux/slices/BlogApi'
 
 const Blog = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
 
-  const blogPosts = [
-    {
-      id: 1,
-      title: 'Understanding Neural Networks: A Comprehensive Guide',
-      author: 'Isha Naveed',
-      date: 'October 20, 2025',
-      category: 'Artificial Intelligence',
-      summary:
-        'Dive into the basics of neural networks, their architecture, and how they form the foundation of modern AI systems. Learn about different types of neural networks and their practical applications.',
-      image: '/images/blog-1.jpg',
-      readTime: '8 min read',
-      views: '1.2k',
-      featured: true
-    },
-    {
-      id: 2,
-      title: 'The Future of Machine Learning: Trends to Watch in 2025',
-      author: 'Admin',
-      date: 'October 10, 2025',
-      category: 'Machine Learning',
-      summary:
-        "Machine Learning is evolving rapidly. Discover the latest trends, tools, and research areas shaping the future of AI and how they're transforming industries worldwide.",
-      image: '/images/blog-2.jpg',
-      readTime: '6 min read',
-      views: '894',
-      featured: true
-    },
-    {
-      id: 3,
-      title: 'Optimizing Web Apps with React: Best Practices',
-      author: 'Developer Team',
-      date: 'September 25, 2025',
-      category: 'Web Development',
-      summary:
-        'Learn how to improve performance, reusability, and scalability in your React-based web applications with these proven techniques and modern approaches.',
-      image: '/images/blog-3.png',
-      readTime: '10 min read',
-      views: '1.5k',
-      featured: false
-    },
-  ]
+  // ✅ Fetch all blogs from backend
+  const { data: blogs = [], isLoading, isError } = useGetAllBlogsQuery()
 
-  // Get actual categories from existing posts
+  if (isLoading) {
+    return (
+      <div className='min-h-screen flex justify-center items-center text-gray-500 text-lg'>
+        Loading blogs...
+      </div>
+    )
+  }
+
+  if (isError) {
+    return (
+      <div className='min-h-screen flex justify-center items-center text-red-500 text-lg'>
+        Failed to load blogs 😢
+      </div>
+    )
+  }
+
+  // ✅ Generate dynamic categories from blogs
   const existingCategories = [
     'All',
-    ...new Set(blogPosts.map(post => post.category))
+    ...new Set(blogs.map(blog => blog.category || 'Uncategorized'))
   ]
 
-  const featuredPosts = blogPosts.filter(post => post.featured)
-  const recentPosts = [...blogPosts]
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
+  // ✅ Apply search and category filters
+  const filteredPosts = blogs.filter(blog => {
+    const matchesSearch =
+      blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (blog.description &&
+        blog.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (blog.author &&
+        blog.author.toLowerCase().includes(searchTerm.toLowerCase()))
+    const matchesCategory =
+      selectedCategory === 'All' ||
+      blog.category?.toLowerCase() === selectedCategory.toLowerCase()
+    return matchesSearch && matchesCategory
+  })
+
+  // ✅ Sort recent posts
+  const recentPosts = [...blogs]
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .slice(0, 3)
 
-  // Generate tags from post content
+  // ✅ Generate popular tags if you have tags array in schema
   const popularTags = [
     'AI',
     'React',
-    'JavaScript',
-    'Python',
-    'Neural Networks',
     'Machine Learning',
     'Web Development',
-    'Best Practices'
+    'Data Science',
+    'Programming'
   ]
-
-  const filteredPosts = blogPosts.filter(post => {
-    const matchesSearch =
-      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.summary.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.author.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesCategory =
-      selectedCategory === 'All' || post.category === selectedCategory
-    return matchesSearch && matchesCategory
-  })
 
   return (
     <div className='min-h-screen bg-gray-50 text-gray-800'>
@@ -102,7 +82,7 @@ const Blog = () => {
           </h1>
           <p className='text-xl text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed'>
             Explore insights, tutorials, and updates from the world of
-            technology and AI. Stay ahead with cutting-edge knowledge.
+            technology and innovation. Stay ahead with cutting-edge knowledge.
           </p>
           <div className='max-w-2xl mx-auto'>
             <div className='relative'>
@@ -125,7 +105,7 @@ const Blog = () => {
       {/* ===== Main Content ===== */}
       <section className='py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto'>
         <div className='grid lg:grid-cols-4 gap-8'>
-          {/* Main Content */}
+          {/* ===== Blog List ===== */}
           <div className='lg:col-span-3'>
             <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4 sm:mb-0'>
@@ -137,7 +117,7 @@ const Blog = () => {
               </div>
             </div>
 
-            {/* Category Filters - Only show existing categories */}
+            {/* ===== Category Buttons ===== */}
             <div className='flex flex-wrap gap-2 mb-8'>
               {existingCategories.map(category => (
                 <button
@@ -154,48 +134,49 @@ const Blog = () => {
               ))}
             </div>
 
-            {/* Blog Posts Grid */}
+            {/* ===== Blog Cards ===== */}
             {filteredPosts.length > 0 ? (
               <div className='grid gap-6'>
-                {filteredPosts.map(post => (
+                {filteredPosts.map(blog => (
                   <article
-                    key={post.id}
+                    key={blog._id}
                     className='bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100'
                   >
                     <div className='md:flex'>
                       <div className='md:w-48 flex-shrink-0'>
-                        <img
-                          src={post.image}
-                          alt={post.title}
-                          className='w-full h-48 md:h-full object-cover group-hover:scale-105 transition duration-500'
-                        />
+                        {blog.posterImage ? (
+                          <img
+                            src={blog.posterImage}
+                            alt={blog.title}
+                            className='w-full h-48 md:h-full object-cover group-hover:scale-105 transition duration-500'
+                          />
+                        ) : (
+                          <div className='w-full h-48 bg-gray-100 flex items-center justify-center text-gray-400 italic'>
+                            No Image
+                          </div>
+                        )}
                       </div>
                       <div className='flex-1 p-6'>
                         <div className='flex items-center gap-4 text-sm text-gray-500 mb-3 flex-wrap'>
                           <div className='flex items-center gap-1'>
-                            <User size={14} /> {post.author}
+                            <User size={14} /> {blog.author || 'Admin'}
                           </div>
                           <div className='flex items-center gap-1'>
-                            <Calendar size={14} /> {post.date}
-                          </div>
-                          <div className='flex items-center gap-1'>
-                            <Clock size={14} /> {post.readTime}
-                          </div>
-                          <div className='flex items-center gap-1'>
-                            <Eye size={14} /> {post.views}
+                            <Calendar size={14} />{' '}
+                            {new Date(blog.createdAt).toLocaleDateString()}
                           </div>
                         </div>
 
                         <h3 className='text-lg font-bold text-gray-900 mb-2 group-hover:text-[#5A51D3] transition-colors line-clamp-2'>
-                          {post.title}
+                          {blog.title}
                         </h3>
                         <p className='text-gray-600 mb-4 leading-relaxed line-clamp-2 text-sm'>
-                          {post.summary}
+                          {blog.description}
                         </p>
 
                         <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3'>
                           <span className='inline-flex items-center gap-1 bg-blue-50 text-[#5A51D3] px-3 py-1 rounded-full text-sm font-medium'>
-                            <Tag size={14} /> {post.category}
+                            <Tag size={14} /> {blog.category || 'General'}
                           </span>
                           <div className='flex items-center gap-4'>
                             <button className='p-2 text-gray-400 hover:text-[#5A51D3] transition-colors'>
@@ -231,8 +212,8 @@ const Blog = () => {
             )}
           </div>
 
-          {/* Sidebar */}
-          <aside className='space-y-6 sticky'>
+          {/* ===== Sidebar ===== */}
+          <aside className='space-y-6 sticky top-20'>
             {/* Recent Posts */}
             <div className='bg-white rounded-xl shadow-sm border border-gray-200 p-6'>
               <h3 className='text-lg font-bold text-gray-900 mb-4 pb-3 border-b border-gray-100'>
@@ -241,19 +222,27 @@ const Blog = () => {
               <div className='space-y-4'>
                 {recentPosts.map(post => (
                   <div
-                    key={post.id}
+                    key={post._id}
                     className='flex gap-3 group cursor-pointer'
                   >
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className='w-12 h-12 object-cover rounded-lg group-hover:scale-110 transition duration-300 flex-shrink-0'
-                    />
+                    {post.posterImage ? (
+                      <img
+                        src={post.posterImage}
+                        alt={post.title}
+                        className='w-12 h-12 object-cover rounded-lg group-hover:scale-110 transition duration-300 flex-shrink-0'
+                      />
+                    ) : (
+                      <div className='w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-xs'>
+                        No Img
+                      </div>
+                    )}
                     <div className='flex-1 min-w-0'>
                       <h4 className='font-medium text-gray-800 group-hover:text-[#5A51D3] transition-colors line-clamp-2 text-sm leading-tight'>
                         {post.title}
                       </h4>
-                      <p className='text-xs text-gray-500 mt-1'>{post.date}</p>
+                      <p className='text-xs text-gray-500 mt-1'>
+                        {new Date(post.createdAt).toLocaleDateString()}
+                      </p>
                     </div>
                   </div>
                 ))}

@@ -10,6 +10,7 @@ import languageReducer from "./slices/languageSlice";
 import { departmentApi } from "./slices/DepartmentApi";
 import { parentComplaintApi } from "./slices/ParentComplaintApi";
 import { bookApi } from "./slices/BookApi";
+import { blogApi } from "./slices/BlogApi";
 
 export const store = configureStore({
   reducer: {
@@ -22,10 +23,11 @@ export const store = configureStore({
     [departmentApi.reducerPath]: departmentApi.reducer,
     [parentComplaintApi.reducerPath]: parentComplaintApi.reducer,
     [bookApi.reducerPath]: bookApi.reducer,
+    [blogApi.reducerPath]: blogApi.reducer,
     user: userReducer,
     language: languageReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(userApi.middleware, stComplaintApi.middleware, submittedFormApi.middleware, VisitorApi.middleware, RegistrationApi.middleware, teacherComplaintApi.middleware, departmentApi.middleware, parentComplaintApi.middleware,bookApi.middleware),
+    getDefaultMiddleware().concat(userApi.middleware, stComplaintApi.middleware, submittedFormApi.middleware, VisitorApi.middleware, RegistrationApi.middleware, teacherComplaintApi.middleware, departmentApi.middleware, parentComplaintApi.middleware,bookApi.middleware,blogApi.middleware),
   devTools: process.env.NODE_ENV !== "production",
 });
