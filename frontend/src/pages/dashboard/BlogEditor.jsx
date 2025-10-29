@@ -22,7 +22,7 @@ const BlogEditor = () => {
       ...formData,
       createdAt: new Date().toLocaleString(),
     };
-    setBlogs([...blogs, newBlog]);
+    setBlogs([...blogs, newBlog]); 
     setFormData({ title: "", description: "", content: "", image: "" });
     setShowModal(false);
   };

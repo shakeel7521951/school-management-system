@@ -107,6 +107,7 @@ import Blogs from './pages/Blogs'
 import Partnerships from './pages/Partnerships'
 import BooksAndArticles from './pages/BooksAndArticles'
 import BooksAndArticlesManagement from './pages/PlanningDepartDashboard/BooksAndArticlesManagement';
+import BlogEditor from './pages/dashboard/BlogEditor'
 
 const MainFunction = () => {
   return (
@@ -268,7 +269,7 @@ const router = createBrowserRouter([
       { path: "/analytics", element: <AnalyticsPage /> },
       { path: "/departments", element: <AdminDepartmentPage /> },
       // { path: "/admin-blog", element: <AdminBlog /> },
-      // { path: "/blog-editor", element: <BlogEditor /> }
+      { path: "/blog-editor", element: <BlogEditor /> }
       // { path: 'reports', element: <Reports /> }
     ]
   },
