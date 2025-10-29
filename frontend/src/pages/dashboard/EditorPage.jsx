@@ -769,7 +769,7 @@ export default function EditorPage() {
           </button>
         </div>
 
-        <div className="flex items-center gap-1 border-r pr-4 mr-4">
+        {/* <div className="flex items-center gap-1 border-r pr-4 mr-4">
           <button
             onClick={() => editor.chain().focus().toggleBulletList().run()}
             className={`p-2 rounded hover:bg-gray-200 ${editor.isActive('bulletList') ? 'bg-gray-200' : ''}`}
@@ -784,9 +784,9 @@ export default function EditorPage() {
           >
             <FaListOl />
           </button>
-        </div>
+        </div> */}
 
-        <div className="flex items-center gap-1 border-r pr-4 mr-4">
+        {/* <div className="flex items-center gap-1 border-r pr-4 mr-4">
           <button
             onClick={setLink}
             className={`p-2 rounded hover:bg-gray-200 ${editor.isActive('link') ? 'bg-gray-200' : ''}`}
@@ -808,7 +808,7 @@ export default function EditorPage() {
           >
             <FaTable />
           </button>
-        </div>
+        </div> */}
 
         <div className="flex items-center gap-1 ml-auto">
           <button
@@ -868,9 +868,9 @@ export default function EditorPage() {
 
 
         <div className=" w-[700px] py-2 m-auto bg-white text-start">
-          <div className="w-auto bg-pink-200 h-[100px]">
+          {/* <div className="w-auto border-2 bg-pink-200 h-[100px]">
             <img src="/images/img-7.jpeg" alt="" className="w-[100%] h-[100%] object-cover" />
-          </div>
+          </div> */}
           {/* Editor content */}
           <div className="flex-1 overflow-auto py-4">
             <div ref={editorRef} className="bg-white p-8 max-w-6xl mx-auto min-h-[500px]">

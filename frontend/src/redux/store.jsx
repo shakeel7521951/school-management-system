@@ -9,6 +9,7 @@ import { teacherComplaintApi } from "./slices/TeacherComplaints";
 import languageReducer from "./slices/languageSlice";
 import { departmentApi } from "./slices/DepartmentApi";
 import { parentComplaintApi } from "./slices/ParentComplaintApi";
+import {bookApi} from "./slices/BookApi"
 
 export const store = configureStore({
   reducer: {
@@ -20,7 +21,7 @@ export const store = configureStore({
     [teacherComplaintApi.reducerPath]: teacherComplaintApi.reducer,
     [departmentApi.reducerPath]: departmentApi.reducer,
     [parentComplaintApi.reducerPath]: parentComplaintApi.reducer,
-    [BookApi.reducerPath]: BookApi.reducer,
+    [bookApi.reducerPath]: bookApi.reducer,
     user: userReducer,
     language: languageReducer,
   },
