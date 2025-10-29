@@ -100,10 +100,11 @@ import PlanningNavbar from './components/PlanningDepartDashboard/common/Planning
 import PlanningSidebar from './components/PlanningDepartDashboard/common/PlanningSidebar'
 import PlanningUploadedDocument from './pages/PlanningDepartDashboard/PlanningUploadedDocument'
 import PlanningRequestedDocument from './pages/PlanningDepartDashboard/PlanningRequestedDocument'
-// import PlanningTeacherComplain from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningTeacherComplain'
-// import PlanningStudentComplain from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningStudentComplain'
-// import PlanningParentComplaints from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningParentsComplaints'
+import PlanningTeacherComplain from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningTeacherComplain'
+import PlanningStudentComplain from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningStudentComplain'
+import PlanningParentComplaints from './pages/PlanningDepartDashboard/PlanningComplaints/PlanningParentsComplaints'
 import Blogs from './pages/Blogs'
+// import AdminBlog from './pages/dashboard/AdminBlog'
 import Partnerships from './pages/Partnerships'
 import BooksAndArticles from './pages/BooksAndArticles'
 import BooksAndArticlesManagement from './pages/PlanningDepartDashboard/BooksAndArticlesManagement'
@@ -219,7 +220,7 @@ const PlanningRoute = () => {
   )
 }
 
-// comment
+
 const router = createBrowserRouter([
   {
     element: <MainFunction />,
