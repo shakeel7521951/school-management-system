@@ -1,7 +1,8 @@
 import './App.css'
 import Footer from './pages/Footer'
 import Navbar from './components/common/Navbar'
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Outlet, RouterProvider, useLocation } from 'react-router-dom'
+
 import Home from './pages/Home'
 import Event from './pages/Event'
 import ContactUs from './pages/ContactUs'
@@ -106,7 +107,9 @@ import Blogs from './pages/Blogs'
 // import AdminBlog from './pages/dashboard/AdminBlog'
 import Partnerships from './pages/Partnerships'
 import BooksAndArticles from './pages/BooksAndArticles'
-import BooksAndArticlesManagement from './pages/PlanningDepartDashboard/BooksAndArticlesManagement';
+import BooksAndArticlesManagement from './pages/PlanningDepartDashboard/BooksAndArticlesManagement'
+import BlogEditor from './pages/dashboard/BlogEditor';
+import BlogEditorPage from './pages/dashboard/BlogEditorPage'
 
 const MainFunction = () => {
   return (
@@ -124,17 +127,25 @@ const MainFunction = () => {
 }
 
 const AdminRoute = () => {
+  const location = useLocation();
+
+  // ✅ Check current path
+  const isBlogEditorPage = location.pathname === "/blog-editor/create";
+
   return (
     <div>
       <RoleRoute allowedRoles={["admin"]}>
-        <Navbarr />
-        <Sidebaar />
+        {/* ✅ Show Navbar & Sidebar on all pages except Blog Editor Page */}
+        {!isBlogEditorPage && <Navbarr />}
+        {!isBlogEditorPage && <Sidebaar />}
+
         <Outlet />
         <ScrollToTop />
       </RoleRoute>
     </div>
-  )
-}
+  );
+};
+
 
 const StudentRoute = () => {
   return (
@@ -242,8 +253,8 @@ const router = createBrowserRouter([
       // { path: '/complainstatus', element: <ComplaintForm /> },
       { path: '/my-profile', element: <ProfilePage /> },
       { path: "/parent-complaint-form", element: <ParentComplaintForm /> },
-      { path: "/partnerships", element: <Partnerships/> },
-      { path: "/books", element: <BooksAndArticles/> },
+      { path: "/partnerships", element: <Partnerships /> },
+      { path: "/books", element: <BooksAndArticles /> },
 
 
     ]
@@ -267,8 +278,9 @@ const router = createBrowserRouter([
       { path: 'registration-data', element: <RegistrationData /> },
       { path: "/analytics", element: <AnalyticsPage /> },
       { path: "/departments", element: <AdminDepartmentPage /> },
-      // { path: "/admin-blog", element: <AdminBlog /> },
-      // { path: "/blog-editor", element: <BlogEditor /> }
+      { path: "/blog-editor", element: <BlogEditor /> },
+      { path: "/blog-editor/create", element: <BlogEditorPage /> }
+
       // { path: 'reports', element: <Reports /> }
     ]
   },
@@ -330,7 +342,6 @@ const router = createBrowserRouter([
       { path: "/planning-uploaded", element: <PlanningUploadedDocument /> },
       { path: "/planning-requested", element: <PlanningRequestedDocument /> },
       { path: "/planning-books-articles", element: <BooksAndArticlesManagement /> },
-      
       // {path: "/planning-teacher-complaints", element: <PlanningTeacherComplain />},
       // {path: "/planning-students-complaints", element: <PlanningStudentComplain />},
       // {path: "/planning-parents-complaints", element: <PlanningParentComplaints/>}
