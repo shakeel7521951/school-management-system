@@ -9,12 +9,14 @@ import {
   Share2,
   Bookmark,
 } from 'lucide-react'
-import { useGetAllBlogsQuery } from '../redux/slices/BlogApi';
-import { Link } from 'react-router-dom';
+import { useGetAllBlogsQuery } from '../redux/slices/BlogApi'
+import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const Blog = () => {
+  const { t } = useTranslation('blogs')
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('All')
+  const [selectedCategory, setSelectedCategory] = useState(t('categories.all'))
 
   // ✅ Fetch all blogs from backend
   const { data: blogs = [], isLoading, isError } = useGetAllBlogsQuery()
@@ -22,7 +24,7 @@ const Blog = () => {
   if (isLoading) {
     return (
       <div className='min-h-screen flex justify-center items-center text-gray-500 text-lg'>
-        Loading blogs...
+        {t('loading')}
       </div>
     )
   }
@@ -30,15 +32,15 @@ const Blog = () => {
   if (isError) {
     return (
       <div className='min-h-screen flex justify-center items-center text-red-500 text-lg'>
-        Failed to load blogs 😢
+        {t('error')}
       </div>
     )
   }
 
   // ✅ Generate dynamic categories from blogs
   const existingCategories = [
-    'All',
-    ...new Set(blogs.map(blog => blog.category || 'Uncategorized'))
+    t('categories.all'),
+    ...new Set(blogs.map(blog => blog.category || t('categories.uncategorized')))
   ]
 
   // ✅ Apply search and category filters
@@ -50,7 +52,7 @@ const Blog = () => {
       (blog.author &&
         blog.author.toLowerCase().includes(searchTerm.toLowerCase()))
     const matchesCategory =
-      selectedCategory === 'All' ||
+      selectedCategory === t('categories.all') ||
       blog.category?.toLowerCase() === selectedCategory.toLowerCase()
     return matchesSearch && matchesCategory
   })
@@ -60,14 +62,14 @@ const Blog = () => {
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .slice(0, 3)
 
-  // ✅ Generate popular tags if you have tags array in schema
+  // ✅ Popular tags
   const popularTags = [
-    'AI',
-    'React',
-    'Machine Learning',
-    'Web Development',
-    'Data Science',
-    'Programming'
+    t('tags.AI'),
+    t('tags.React'),
+    t('tags.MachineLearning'),
+    t('tags.WebDevelopment'),
+    t('tags.DataScience'),
+    t('tags.Programming'),
   ]
 
   return (
@@ -77,11 +79,10 @@ const Blog = () => {
         <div className='absolute inset-0 bg-black/10'></div>
         <div className='relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
           <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight'>
-            Welcome to Our Blog
+            {t('hero.title')}
           </h1>
           <p className='text-xl text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed'>
-            Explore insights, tutorials, and updates from the world of
-            technology and innovation. Stay ahead with cutting-edge knowledge.
+            {t('hero.subtitle')}
           </p>
           <div className='max-w-2xl mx-auto'>
             <div className='relative'>
@@ -91,7 +92,7 @@ const Blog = () => {
               />
               <input
                 type='text'
-                placeholder='Search articles, topics, or authors...'
+                placeholder={t('hero.searchPlaceholder')}
                 className='w-full pl-12 pr-4 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50'
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
@@ -108,12 +109,16 @@ const Blog = () => {
           <div className='lg:col-span-3'>
             <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4 sm:mb-0'>
-                {selectedCategory === 'All' ? 'All Articles' : selectedCategory}
+                {selectedCategory === t('categories.all')
+                  ? t('allArticles')
+                  : selectedCategory}
               </h2>
-              <div className='text-gray-500 text-sm'>
-                {filteredPosts.length}{' '}
-                {filteredPosts.length === 1 ? 'article' : 'articles'} found
-              </div>
+             <div className="text-gray-500 text-sm">
+  {t(filteredPosts.length === 1 ? "articleFound" : "articlesFound", {
+    count: filteredPosts.length,
+  })}
+</div>
+
             </div>
 
             {/* ===== Category Buttons ===== */}
@@ -151,14 +156,14 @@ const Blog = () => {
                           />
                         ) : (
                           <div className='w-full h-48 bg-gray-100 flex items-center justify-center text-gray-400 italic'>
-                            No Image
+                            {t('card.noImage')}
                           </div>
                         )}
                       </div>
                       <div className='flex-1 p-6'>
                         <div className='flex items-center gap-4 text-sm text-gray-500 mb-3 flex-wrap'>
                           <div className='flex items-center gap-1'>
-                            <User size={14} /> {blog.author || 'Admin'}
+                            <User size={14} /> {blog.author || t('card.authorFallback')}
                           </div>
                           <div className='flex items-center gap-1'>
                             <Calendar size={14} />{' '}
@@ -175,23 +180,18 @@ const Blog = () => {
 
                         <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3'>
                           <span className='inline-flex items-center gap-1 bg-blue-50 text-[#5A51D3] px-3 py-1 rounded-full text-sm font-medium'>
-                            <Tag size={14} /> {blog.category || 'General'}
+                            <Tag size={14} /> {blog.category || t('card.categoryFallback')}
                           </span>
                           <div className='flex items-center gap-4'>
-                            <button className='p-2 text-gray-400 hover:text-[#5A51D3] transition-colors'>
-                              <Bookmark size={18} />
-                            </button>
-                            <button className='p-2 text-gray-400 hover:text-[#5A51D3] transition-colors'>
-                              <Share2 size={18} />
-                            </button>
+                           
                             <Link to={`/blog-detail/${blog._id}`}>
-                            <button className='flex items-center gap-2 text-[#0B055A] font-semibold hover:text-[#5A51D3] transition-colors group'>
-                              Read More{' '}
-                              <ArrowRight
-                                size={16}
-                                className='group-hover:translate-x-1 transition-transform'
-                              />
-                            </button>
+                              <button className='flex items-center gap-2 text-[#0B055A] font-semibold hover:text-[#5A51D3] transition-colors group'>
+                                {t('card.readMore')}{' '}
+                                <ArrowRight
+                                  size={16}
+                                  className='group-hover:translate-x-1 transition-transform'
+                                />
+                              </button>
                             </Link>
                           </div>
                         </div>
@@ -204,11 +204,9 @@ const Blog = () => {
               <div className='text-center py-16 bg-white rounded-xl border border-gray-200'>
                 <div className='text-6xl mb-4'>🔍</div>
                 <h3 className='text-xl font-bold text-gray-600 mb-2'>
-                  No articles found
+                  {t('noArticles.title')}
                 </h3>
-                <p className='text-gray-500'>
-                  Try adjusting your search or filter criteria
-                </p>
+                <p className='text-gray-500'>{t('noArticles.subtitle')}</p>
               </div>
             )}
           </div>
@@ -218,7 +216,7 @@ const Blog = () => {
             {/* Recent Posts */}
             <div className='bg-white rounded-xl shadow-sm border border-gray-200 p-6'>
               <h3 className='text-lg font-bold text-gray-900 mb-4 pb-3 border-b border-gray-100'>
-                Recent Posts
+                {t('sidebar.recentPosts')}
               </h3>
               <div className='space-y-4'>
                 {recentPosts.map(post => (
@@ -234,7 +232,7 @@ const Blog = () => {
                       />
                     ) : (
                       <div className='w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-xs'>
-                        No Img
+                        {t('card.noImage')}
                       </div>
                     )}
                     <div className='flex-1 min-w-0'>
@@ -253,7 +251,7 @@ const Blog = () => {
             {/* Popular Tags */}
             <div className='bg-white rounded-xl shadow-sm border border-gray-200 p-6'>
               <h3 className='text-lg font-bold text-gray-900 mb-4'>
-                Popular Tags
+                {t('sidebar.popularTags')}
               </h3>
               <div className='flex flex-wrap gap-2'>
                 {popularTags.map(tag => (
@@ -269,18 +267,20 @@ const Blog = () => {
 
             {/* Newsletter */}
             <div className='bg-gradient-to-br from-[#0B055A] to-[#3127b8] text-white rounded-xl p-6'>
-              <h3 className='text-lg font-bold mb-3'>Stay Updated</h3>
+              <h3 className='text-lg font-bold mb-3'>
+                {t('sidebar.newsletter.title')}
+              </h3>
               <p className='text-blue-100 text-sm mb-4 leading-relaxed'>
-                Get the latest articles and news delivered to your inbox.
+                {t('sidebar.newsletter.subtitle')}
               </p>
               <div className='space-y-3'>
                 <input
                   type='email'
-                  placeholder='Enter your email'
+                  placeholder={t('sidebar.newsletter.placeholder')}
                   className='w-full px-3 py-2 rounded-lg bg-white/90 text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white/50'
                 />
                 <button className='w-full bg-white text-[#0B055A] py-2 rounded-lg font-semibold text-sm hover:bg-blue-50 transition-colors'>
-                  Subscribe
+                  {t('sidebar.newsletter.button')}
                 </button>
               </div>
             </div>

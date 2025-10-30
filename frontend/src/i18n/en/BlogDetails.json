@@ -1,0 +1,30 @@
+{
+  "loading": {
+    "message": "Loading article..."
+  },
+  "error": {
+    "title": "Article Not Found",
+    "description": "The article you’re looking for doesn’t exist or may have been moved.",
+    "button": "Back to Blog"
+  },
+  "backButton": "Back to Articles",
+  "meta": {
+    "authorFallback": "Admin",
+    "readTime": "5 min read",
+    "views": "1.2k views"
+  },
+  "content": {
+    "publishedOn": "Published on",
+    "tagsTitle": "Tags",
+    "saveButton": "Save",
+    "shareButton": "Share"
+  },
+  "dateFormats": {
+    "short": "en-GB",
+    "long": {
+      "year": "numeric",
+      "month": "long",
+      "day": "numeric"
+    }
+  }
+}

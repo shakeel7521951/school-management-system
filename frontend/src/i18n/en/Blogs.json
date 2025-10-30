@@ -1,0 +1,45 @@
+{
+  "hero": {
+    "title": "Welcome to Our Blog",
+    "subtitle": "Explore insights, tutorials, and updates from the world of technology and innovation. Stay ahead with cutting-edge knowledge.",
+    "searchPlaceholder": "Search articles, topics, or authors..."
+  },
+  "loading": "Loading blogs...",
+  "error": "Failed to load blogs ",
+  "allArticles": "All Articles",
+   "articleFound": "{{count}} article found",
+  "articlesFound": "{{count}} articles found",
+ 
+  "noArticles": {
+    "title": "No articles found",
+    "subtitle": "Try adjusting your search or filter criteria"
+  },
+  "categories": {
+    "all": "All",
+    "uncategorized": "Uncategorized"
+  },
+  "card": {
+    "noImage": "No Image",
+    "authorFallback": "Admin",
+    "categoryFallback": "General",
+    "readMore": "Read More"
+  },
+  "sidebar": {
+    "recentPosts": "Recent Posts",
+    "popularTags": "Popular Tags",
+    "newsletter": {
+      "title": "Stay Updated",
+      "subtitle": "Get the latest articles and news delivered to your inbox.",
+      "placeholder": "Enter your email",
+      "button": "Subscribe"
+    }
+  },
+  "tags": {
+    "AI": "AI",
+    "React": "React",
+    "MachineLearning": "Machine Learning",
+    "WebDevelopment": "Web Development",
+    "DataScience": "Data Science",
+    "Programming": "Programming"
+  }
+}

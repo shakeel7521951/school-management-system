@@ -204,6 +204,12 @@ import planningUploadedDocuments_ar from "./ar/PlanningDepartmentDashboard/Plann
 import planningUploadedDocuments_en from "./en/PlanningDepartmentDashboard/PlanningUploadedDocuments/UploadedDocuments.json"
 import planningRequestedDocument_en from "./en/PlanningDepartmentDashboard/PlanningRequestedDocument.json"
 import planningRequestedDocument_ar from "./ar/PlanningDepartmentDashboard/PlanningRequestedDocument.json"
+import blogs_en from "./en/Blogs.json"
+import blogs_ar from "./ar/Blogs.json"
+import blogDetails_en from "./en/BlogDetails.json"
+import blogDetails_ar from "./ar/BlogDetails.json"
+import blogEditor_en from "./en/BlogEditor.json"
+import blogEditor_ar from "./ar/BlogEditor.json"
 
 
 
@@ -330,7 +336,10 @@ const resources = {
     booksAndarticles:booksAndarticles_en,
     booksManagement:booksManagement_en,
     planningUploadedDocuments:planningUploadedDocuments_en,
-    planningRequestedDocument:planningRequestedDocument_en
+    planningRequestedDocument:planningRequestedDocument_en,
+    blogs:blogs_en,
+    blogDetails:blogDetails_en,
+    blogEditor:blogEditor_en
   },
 
 
@@ -463,7 +472,10 @@ const resources = {
        booksAndarticles:booksAndarticles_ar,
        booksManagement:booksManagement_ar,
        planningUploadedDocuments:planningUploadedDocuments_ar,
-       planningRequestedDocument:planningRequestedDocument_ar
+       planningRequestedDocument:planningRequestedDocument_ar,
+       blogs:blogs_ar,
+       blogDetails:blogDetails_ar,
+       blogEditor:blogEditor_ar
   },
 };
 

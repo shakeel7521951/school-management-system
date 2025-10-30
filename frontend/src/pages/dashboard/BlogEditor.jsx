@@ -6,14 +6,15 @@ import {
   useGetAllBlogsQuery,
   useDeleteBlogMutation,
 } from "../../redux/slices/BlogApi";
+import { useTranslation } from "react-i18next";
 
 const BlogEditor = () => {
+  const { t } = useTranslation("blogEditor");
   const navigate = useNavigate();
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [showConfirm, setShowConfirm] = useState(false);
   const [blogToDelete, setBlogToDelete] = useState(null);
 
-  // ✅ Fetch all blogs
   const {
     data: blogs = [],
     isLoading,
@@ -21,17 +22,10 @@ const BlogEditor = () => {
     refetch,
   } = useGetAllBlogsQuery();
 
-  // ✅ RTK mutation for delete
   const [deleteBlog, { isLoading: isDeleting }] = useDeleteBlogMutation();
 
-  const handleAddBlog = () => {
-    navigate("/blog-editor/create");
-  };
-
-  const handleViewBlog = (blog) => {
-    setSelectedBlog(blog);
-  };
-
+  const handleAddBlog = () => navigate("/blog-editor/create");
+  const handleViewBlog = (blog) => setSelectedBlog(blog);
   const handleDeleteBlog = (id) => {
     setBlogToDelete(id);
     setShowConfirm(true);
@@ -42,7 +36,7 @@ const BlogEditor = () => {
       await deleteBlog(blogToDelete).unwrap();
       setShowConfirm(false);
       setBlogToDelete(null);
-      refetch(); // refresh list
+      refetch();
     } catch (error) {
       console.error("Error deleting blog:", error);
     }
@@ -51,7 +45,7 @@ const BlogEditor = () => {
   if (isLoading) {
     return (
       <div className="p-6 lg:ml-64 bg-gray-50 min-h-screen flex justify-center items-center">
-        <p className="text-gray-500 text-lg">Loading blogs...</p>
+        <p className="text-gray-500 text-lg">{t("page.loading")}</p>
       </div>
     );
   }
@@ -59,7 +53,7 @@ const BlogEditor = () => {
   if (isError) {
     return (
       <div className="p-6 lg:ml-64 bg-gray-50 min-h-screen flex justify-center items-center">
-        <p className="text-red-500 text-lg">Failed to load blogs 😢</p>
+        <p className="text-red-500 text-lg">{t("page.error")}</p>
       </div>
     );
   }
@@ -68,12 +62,14 @@ const BlogEditor = () => {
     <div className="p-6 lg:ml-64 bg-gray-50 min-h-screen">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-[#104C80]">Blog Management</h1>
+        <h1 className="text-3xl font-bold text-[#104C80]">
+          {t("page.title")}
+        </h1>
         <Link
           to="/blog-editor/create"
           className="flex items-center gap-2 bg-[#104C80] text-white px-5 py-2 rounded-lg hover:bg-[#0d3d66] transition"
         >
-          <Plus size={20} /> Add Blog
+          <Plus size={20} /> {t("page.addBlog")}
         </Link>
       </div>
 
@@ -97,7 +93,7 @@ const BlogEditor = () => {
                   />
                 ) : (
                   <div className="md:w-1/3 w-full h-52 flex items-center justify-center bg-gray-100 text-gray-400 italic">
-                    No Image
+                    {t("blog.noImage")}
                   </div>
                 )}
 
@@ -108,26 +104,28 @@ const BlogEditor = () => {
                       {blog.title}
                     </h2>
                     <p className="text-gray-600 mb-3 line-clamp-3">
-                      {blog.description || "No description available"}
+                      {blog.description || t("blog.noDescription")}
                     </p>
                   </div>
 
                   <div className="flex justify-between items-center mt-4">
                     <span className="text-sm text-gray-500">
-                      {new Date(blog.createdAt).toLocaleDateString()}
+                      {new Date(blog.createdAt).toLocaleDateString(
+                        t("blog.dateFormat")
+                      )}
                     </span>
                     <div className="flex gap-3">
                       <button
                         onClick={() => handleViewBlog(blog)}
                         className="flex items-center gap-1 text-[#104C80] hover:underline"
                       >
-                        <Eye size={18} /> View
+                        <Eye size={18} /> {t("blog.view")}
                       </button>
                       <button
                         onClick={() => handleDeleteBlog(blog._id)}
                         className="flex items-center gap-1 text-red-600 hover:underline"
                       >
-                        <Trash2 size={18} /> Delete
+                        <Trash2 size={18} /> {t("blog.delete")}
                       </button>
                     </div>
                   </div>
@@ -136,46 +134,49 @@ const BlogEditor = () => {
             </motion.div>
           ))
         ) : (
-          <p className="text-gray-500 text-center mt-10">
-            No blogs added yet. Click <b>Add Blog</b> to create one!
-          </p>
+          <p
+            className="text-gray-500 text-center mt-10"
+            dangerouslySetInnerHTML={{ __html: t("blog.noBlogs") }}
+          />
         )}
       </div>
 
-      {/* ✅ Confirm Delete Modal */}
+      {/* ✅ Glassmorphism Confirm Delete Modal */}
       <AnimatePresence>
         {showConfirm && (
           <motion.div
-            className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50"
+            className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md bg-black/80"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-white rounded-xl p-6 shadow-lg text-center w-80"
+              className="bg-white/30 backdrop-blur-xl border border-white/30 text-center shadow-2xl rounded-2xl p-8 w-80 text-white relative"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
             >
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">
-                Delete this blog?
+              <h3 className="text-lg font-semibold mb-3 text-white">
+                {t("confirmModal.title")}
               </h3>
-              <p className="text-gray-500 text-sm mb-5">
-                This action cannot be undone.
+              <p className="text-sm mb-5 text-gray-200">
+                {t("confirmModal.message")}
               </p>
               <div className="flex justify-center gap-4">
                 <button
                   onClick={() => setShowConfirm(false)}
-                  className="px-4 py-2 bg-gray-200 rounded-lg text-gray-700 hover:bg-gray-300"
+                  className="px-4 py-2 rounded-lg bg-white/30 hover:bg-white/40 text-gray-800 font-medium transition"
                 >
-                  Cancel
+                  {t("confirmModal.cancel")}
                 </button>
                 <button
                   onClick={confirmDelete}
                   disabled={isDeleting}
-                  className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 disabled:opacity-50"
+                  className="px-4 py-2 rounded-lg bg-red-500/80 hover:bg-red-500 text-white font-semibold shadow-md transition disabled:opacity-50"
                 >
-                  {isDeleting ? "Deleting..." : "Delete"}
+                  {isDeleting
+                    ? t("confirmModal.deleting")
+                    : t("confirmModal.delete")}
                 </button>
               </div>
             </motion.div>
@@ -183,32 +184,42 @@ const BlogEditor = () => {
         )}
       </AnimatePresence>
 
-      {/* View Blog Modal */}
+      {/* ✅ Glassmorphism View Blog Modal */}
       {selectedBlog && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50 p-4">
-          <div className="bg-white w-full max-w-3xl p-6 rounded-2xl shadow-lg relative overflow-y-auto max-h-[90vh]">
+        <motion.div
+          className="fixed inset-0 flex justify-center items-center bg-black/80 backdrop-blur-md z-50 p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div
+            className="relative bg-white/20 backdrop-blur-xl border border-white/30 rounded-2xl shadow-2xl p-6 w-full max-w-3xl text-white overflow-y-auto max-h-[90vh]"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+          >
             <button
               onClick={() => setSelectedBlog(null)}
-              className="absolute top-3 right-3 text-gray-600 hover:text-gray-800"
+              className="absolute top-3 right-3 text-white/80 hover:text-white"
+              title={t("viewModal.close")}
             >
               <X size={22} />
             </button>
-            <h2 className="text-3xl font-semibold mb-3 text-[#104C80]">
+            <h2 className="text-3xl font-semibold mb-3">
               {selectedBlog.title}
             </h2>
             {selectedBlog.posterImage && (
               <img
                 src={selectedBlog.posterImage}
                 alt={selectedBlog.title}
-                className="rounded-lg w-full h-64 object-cover mb-4"
+                className="rounded-lg w-full h-64 object-cover mb-4 shadow-lg"
               />
             )}
             <div
-              className="prose max-w-none"
+              className="prose prose-invert max-w-none text-white leading-relaxed"
               dangerouslySetInnerHTML={{ __html: selectedBlog.html }}
             />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
     </div>
   );

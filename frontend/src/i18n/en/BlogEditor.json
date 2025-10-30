@@ -1,0 +1,26 @@
+{
+  "page": {
+    "title": "Blog Management",
+    "addBlog": "Add Blog",
+    "loading": "Loading blogs...",
+    "error": "Failed to load blogs "
+  },
+  "blog": {
+    "noImage": "No Image",
+    "noDescription": "No description available",
+    "noBlogs": "No blogs added yet. Click <b>Add Blog</b> to create one!",
+    "view": "View",
+    "delete": "Delete",
+    "dateFormat": "en-GB"
+  },
+  "confirmModal": {
+    "title": "Delete this blog?",
+    "message": "This action cannot be undone.",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "deleting": "Deleting..."
+  },
+  "viewModal": {
+    "close": "Close"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "loading": {
+    "message": "جارٍ تحميل المقال..."
+  },
+  "error": {
+    "title": "المقال غير موجود",
+    "description": "المقال الذي تبحث عنه غير موجود أو ربما تم نقله.",
+    "button": "العودة إلى المدونة"
+  },
+  "backButton": "العودة إلى المقالات",
+  "meta": {
+    "authorFallback": "المشرف",
+    "readTime": "قراءة لمدة 5 دقائق",
+    "views": "1.2 ألف مشاهدة"
+  },
+  "content": {
+    "publishedOn": "تاريخ النشر",
+    "tagsTitle": "الوسوم",
+    "saveButton": "حفظ",
+    "shareButton": "مشاركة"
+  },
+  "dateFormats": {
+    "short": "ar-EG",
+    "long": {
+      "year": "numeric",
+      "month": "long",
+      "day": "numeric"
+    }
+  }
+}
