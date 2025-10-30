@@ -157,14 +157,26 @@ const BooksAndArticlesManagement = () => {
 
                 <div className="flex items-center justify-between mt-auto">
                   {book.pdfUrl && (
-                    <a
-                      href={book.pdfUrl}
-                      download={book.fileName}
-                      className="flex items-center gap-1 sm:gap-2 text-[#104C80] hover:text-[#0d3a60] font-medium text-sm sm:text-base transition-all"
+                    <button
+                      onClick={async () => {
+                        const response = await fetch(book.pdfUrl)
+                        const blob = await response.blob()
+                        const url = window.URL.createObjectURL(blob)
+                        const a = document.createElement('a')
+                        a.href = url
+                        a.download = `${book.fileName || book.title || 'file'}.pdf`  // ✅ fallback added
+                        document.body.appendChild(a)
+                        a.click()
+                        a.remove()
+                        window.URL.revokeObjectURL(url)
+                      }}
+                      className="flex items-center cursor-pointer gap-2 bg-[#104c80] text-white px-3 py-1.5 rounded-full shadow-md hover:bg-[#0d3a66] transition-all duration-300"
                     >
-                      <Download size={16} /> {t("booksAndArticlesManagement.buttons.download")}
-                    </a>
+                      <Download className="w-4 h-4" />
+                      {t("booksAndArticlesManagement.buttons.download")}
+                    </button>
                   )}
+
                   <button
                     onClick={() => handleDelete(book._id)}
                     disabled={isDeleting}
