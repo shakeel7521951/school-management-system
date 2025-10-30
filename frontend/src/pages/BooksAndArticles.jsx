@@ -78,18 +78,27 @@ const BooksAndArticles = () => {
               {/* Download Button */}
               {book.pdfUrl && (
                 <div className="p-6 flex justify-center">
-                  <a
-                    href={`${book.pdfUrl}?dl=1`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    download={book.fileName || "file.pdf"}
+                  <button
+                    onClick={async () => {
+                      const response = await fetch(book.pdfUrl)
+                      const blob = await response.blob()
+                      const url = window.URL.createObjectURL(blob)
+                      const a = document.createElement('a')
+                      a.href = url
+                      a.download = `${book.fileName || book.title || 'file'}.pdf`  // ✅ fallback added
+                      document.body.appendChild(a)
+                      a.click()
+                      a.remove()
+                      window.URL.revokeObjectURL(url)
+                    }}
                     className="flex items-center gap-2 bg-[#104c80] text-white px-6 py-2.5 rounded-full shadow-md hover:bg-[#0d3a66] transition-all duration-300"
                   >
                     <Download className="w-5 h-5" />
                     {t("booksAndArticles.downloadBtn")}
-                  </a>
+                  </button>
                 </div>
               )}
+
             </motion.div>
           ))
         )}

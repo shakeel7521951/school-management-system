@@ -20,6 +20,12 @@ export const blogApi = createApi({
                 method: "DELETE",
             }),
         }),
+        getBlogById: builder.query({
+            query: (id) => ({
+                url: `/get-blog/${id}`,
+                method: "GET",
+            }),
+        }),
     }),
 });
-export const { useGetAllBlogsQuery , useDeleteBlogMutation} = blogApi;
+export const { useGetAllBlogsQuery , useDeleteBlogMutation,useGetBlogByIdQuery} = blogApi;

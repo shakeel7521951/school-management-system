@@ -10,6 +10,7 @@ import languageReducer from "./slices/languageSlice";
 import { departmentApi } from "./slices/DepartmentApi";
 import { parentComplaintApi } from "./slices/ParentComplaintApi";
 import { bookApi } from "./slices/BookApi"; // ✅ added missing import
+import { blogApi } from "./slices/BlogApi";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     [departmentApi.reducerPath]: departmentApi.reducer,
     [parentComplaintApi.reducerPath]: parentComplaintApi.reducer,
     [bookApi.reducerPath]: bookApi.reducer, // ✅ properly added
+    [blogApi.reducerPath]: blogApi.reducer, // ✅ added blogApi reducer
     user: userReducer,
     language: languageReducer,
   },
@@ -36,7 +38,8 @@ export const store = configureStore({
       teacherComplaintApi.middleware,
       departmentApi.middleware,
       parentComplaintApi.middleware,
-      bookApi.middleware // ✅ added here too
+      bookApi.middleware,
+      blogApi.middleware
     ),
 
   devTools: process.env.NODE_ENV !== "production",
