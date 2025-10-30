@@ -1,22 +1,21 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import {
-    Calendar,
-    User,
-    Clock,
-    Eye,
-    Tag,
-    ArrowLeft,
-    Share2,
+  Calendar,
+  User,
+  Clock,
+  Eye,
+  Tag,
+  ArrowLeft,
+  Share2,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const BlogDetails = () => {
-    const { id } = useParams();
+  const { id } = useParams();
 
-    // 💡 All blog details here (same IDs as Blog.jsx)
-    const blogPosts = [
-        {
+  const blogPosts = [
+   {
             id: 1,
             title: "Understanding Neural Networks: A Comprehensive Guide",
             author: "Isha Naveed",
@@ -123,132 +122,106 @@ Node.js has become the backbone of scalable web applications.
 Mastering Node.js API design will help you handle millions of requests efficiently.
       `,
         },
-        {
-            id: 6,
-            title: "CSS Grid vs Flexbox: When to Use What",
-            author: "Frontend Team",
-            date: "August 20, 2025",
-            category: "Web Development",
-            image: "/images/blog-6.jpg",
-            readTime: "7 min read",
-            views: "2.3k",
-            content: `
-CSS Grid and Flexbox are two modern layout systems in CSS.
+  ];
 
-### 💡 When to Use:
-- **Grid:** For 2D layouts (rows + columns)
-- **Flexbox:** For 1D layouts (either row or column)
-- **Combine Both:** Use Flexbox for alignment inside Grid cells.
+  const post = blogPosts.find((p) => p.id === parseInt(id));
 
-Understanding both allows you to craft pixel-perfect, responsive designs easily.
-      `,
-        },
-    ];
-
-    const post = blogPosts.find((p) => p.id === parseInt(id));
-
-    if (!post) {
-        return (
-            <div className="min-h-screen flex flex-col items-center justify-center bg-black text-gray-400">
-                <h1 className="text-4xl font-bold mb-4">404 - Blog Not Found</h1>
-                <Link
-                    to="/blog"
-                    className="text-indigo-400 hover:text-indigo-300 flex items-center gap-2"
-                >
-                    <ArrowLeft size={18} /> Back to Blog
-                </Link>
-            </div>
-        );
-    }
-
+  if (!post) {
     return (
-        <div className="min-h-screen bg-gradient-to-b from-[#0a0a0f] via-[#10101a] to-[#181826] text-gray-200 font-inter">
-            {/* Back Button */}
-            <div className="max-w-6xl mx-auto pt-8 px-6">
-                <Link
-                    to="/blog"
-                    className="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 transition-colors mb-8"
-                >
-                    <ArrowLeft size={18} /> Back to Blog
-                </Link>
-            </div>
-
-            {/* Main Layout */}
-            <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 px-6 pb-20 items-start">
-                {/* Left Image Side */}
-                <motion.div
-                    initial={{ opacity: 0, x: -40 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="relative rounded-3xl overflow-hidden shadow-2xl"
-                >
-                    <img
-                        src={post.image}
-                        alt={post.title}
-                        className="w-full h-[600px] object-cover rounded-3xl"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                    <div className="absolute bottom-5 left-5 bg-indigo-500/80 backdrop-blur-md text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md">
-                        {post.category}
-                    </div>
-                </motion.div>
-
-                {/* Right Content Side */}
-                <motion.article
-                    initial={{ opacity: 0, x: 40 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="flex flex-col justify-between bg-white/5 backdrop-blur-xl p-8 rounded-3xl shadow-lg border border-white/10"
-                >
-                    <div>
-                        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-6">
-                            <span className="flex items-center gap-1">
-                                <User size={14} /> {post.author}
-                            </span>
-                            <span className="flex items-center gap-1">
-                                <Calendar size={14} /> {post.date}
-                            </span>
-                            <span className="flex items-center gap-1">
-                                <Clock size={14} /> {post.readTime}
-                            </span>
-                            <span className="flex items-center gap-1">
-                                <Eye size={14} /> {post.views}
-                            </span>
-                        </div>
-
-                        <h1 className="text-4xl md:text-3xl font-extrabold text-white leading-tight mb-8 drop-shadow-lg">
-                            {post.title}
-                        </h1>
-
-                        <div className="space-y-4 text-gray-300 leading-relaxed text-lg">
-                            {post.content.split("\n").map((para, i) =>
-                                para.trim() ? (
-                                    <p
-                                        key={i}
-                                        className={`${i === 0
-                                                ? "first-letter:text-5xl first-letter:font-bold first-letter:text-indigo-400 first-letter:mr-2 first-letter:float-left"
-                                                : ""
-                                            }`}
-                                    >
-                                        {para}
-                                    </p>
-                                ) : null
-                            )}
-                        </div>
-                    </div>
-
-                    <div className="flex items-center justify-between mt-10 pt-6 border-t border-gray-700">
-                        <span className="inline-flex items-center gap-2 bg-indigo-600/20 text-indigo-300 px-5 py-2.5 rounded-full text-sm font-medium">
-                            <Tag size={14} /> {post.category}
-                        </span>
-                        <button className="text-gray-400 hover:text-indigo-400 transition-colors flex items-center gap-2">
-                            <Share2 size={16} /> Share
-                        </button>
-                    </div>
-                </motion.article>
-            </div>
-        </div>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#0a3a63] text-white">
+        <h1 className="text-4xl font-bold mb-4">404 - Blog Not Found</h1>
+        <Link
+          to="/blog"
+          className="text-white/80 hover:text-white flex items-center gap-2 transition"
+        >
+          <ArrowLeft size={18} /> Back to Blog
+        </Link>
+      </div>
     );
+  } 
+
+  return (
+    <div className="relative min-h-screen bg-gradient-to-br from-white via-[#cfe8f9]/60 to-[#104c80]/30 text-gray-100 font-inter overflow-hidden">
+      {/* Glass Layer */}
+      <div className="absolute inset-0 backdrop-blur-2xl bg-white/10"></div>
+
+      <div className="relative z-10">
+        {/* Back Button */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-6xl mx-auto pt-6 sm:pt-10 px-4 sm:px-6"
+        >
+          <Link
+            to="/blog"
+            className="inline-flex items-center gap-2 text-[#104c80]/80 hover:text-[#104c80] transition mb-6 font-medium"
+          >
+            <ArrowLeft size={18} /> Back to Blog
+          </Link>
+        </motion.div>
+
+        {/* Featured Image */}
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8"
+        >
+          <div className="relative w-full h-[250px] sm:h-[350px] md:h-[400px] overflow-hidden rounded-3xl shadow-xl border-4 border-white/30 bg-white/20 backdrop-blur-md">
+            <img
+              src={post.image}
+              alt={post.title}
+              className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#104c80]/70 via-transparent to-transparent"></div>
+          </div>
+        </motion.div>
+
+        {/* Content Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-10 sm:py-14"
+        >
+          <div className="bg-white/30 backdrop-blur-md rounded-3xl p-6 sm:p-10 shadow-lg border border-white/30">
+            {/* Category & Title */}
+            <div className="text-center mb-10">
+              <span className="inline-block bg-[#104c80]/10 text-[#104c80] px-5 py-1 rounded-full text-sm font-medium mb-4">
+                {post.category}
+              </span>
+              <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold mb-4 leading-snug text-[#0b1a2b]">
+                {post.title}
+              </h1>
+
+              {/* Author Info */}
+              <div className="flex flex-wrap justify-center gap-3 sm:gap-6 text-gray-700 text-sm">
+                <span className="flex items-center gap-1">
+                  <User size={14} /> {post.author}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Calendar size={14} /> {post.date}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Clock size={14} /> {post.readTime}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Eye size={14} /> {post.views} views
+                </span>
+              </div>
+            </div>
+
+            {/* Blog Content */}
+            <article
+              className="prose max-w-none text-gray-800 prose-headings:text-[#104c80] prose-strong:text-[#0b1a2b] prose-blockquote:border-l-[#104c80] prose-blockquote:text-[#0b1a2b] prose-li:marker:text-[#104c80] text-base sm:text-lg leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
 };
 
 export default BlogDetails;
